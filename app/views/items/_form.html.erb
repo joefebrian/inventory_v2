@@ -28,6 +28,8 @@
                   <%= unit.text_field :name, :size => 20 %>
                   <%= unit.label :conversion_rate %>
                   <%= unit.text_field :conversion_rate, :size => 5 %>
+                  <%= unit.label :value %>
+                  <%= unit.text_field :value, :size => 13 %>
                   <%= unit.hidden_field :_destroy %>
                   <a href="#" title="remove unit" class="unit_remover"><%= image_tag 'icons/silk/cross.png' %></a>
                 </li>
