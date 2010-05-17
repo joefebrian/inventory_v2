@@ -25,24 +25,26 @@ function set_autocomplete() {
 }
 
 $("a#add_unit").live('click', function() {
-  $("#units ol").append(new_unit_form(unit_length));
+  $("#units ol").append(new_unit_fields(unit_length));
+  unit_length = $('#units ol li').length;
   return false;
 });
-      
-function new_unit_form(n) {
-  var html = "<li><label for=\"item_units_attributes_"+n+"_name\">Name</label> " +
-    "<input type=\"text\" name=\"item[units_attributes]["+n+"][name]\" id=\"item_units_attributes_"+n+"_name\" size=\"20\" /> " +
-    "<label for=\"item_units_attributes_"+n+"_name\">Conversion rate</label> " +
-    "<input type=\"text\" size=\"5\" name=\"item[units_attributes]["+n+"][conversion_rate]\" id=\"item_units_attributes_"+n+"_name\" /> " +
-    "<input type=\"hidden\" name=\"_destroy\" id=\"\" />" +
-    "<a title=\"remove unit\" href=\"#\" class=\"unit_remover\"><img src=\"/images/icons/silk/cross.png?1260336846\" alt=\"Cross\"></a>" +
+
+function new_unit_fields(n) {
+  var html = "<li> "+
+    "<label for=\"item_units_attributes_"+n+"_name\">Name</label> "+
+    "<input type=\"text\" value=\"\" size=\"20\" name=\"item[units_attributes]["+n+"][name]\" id=\"item_units_attributes_"+n+"_name\"> "+
+    "<label for=\"item_units_attributes_"+n+"_conversion_rate\">Conversion rate</label> "+
+    "<input type=\"text\" value=\"\" size=\"5\" name=\"item[units_attributes]["+n+"][conversion_rate]\" id=\"item_units_attributes_"+n+"_conversion_rate\"> "+
+    "<input type=\"hidden\" name=\"item[units_attributes]["+n+"][_destroy]\" id=\"item_units_attributes_"+n+"__destroy\"> "+
+    "<a class=\"unit_remover\" title=\"remove unit\" href=\"#\"><img src=\"/images/icons/silk/cross.png\" alt=\"Cross\"></a> "+
     "</li>";
   return html;
 }
 
 $("a.unit_remover").live('click', function() {
   $(this).prev('input[type=hidden]').val(1);
-  $(this).parents('li').hide();
+  $(this).parent('li').hide();
   return false;
 });
 $("#item_form").live("submit", function() {
