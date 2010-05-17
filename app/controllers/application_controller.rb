@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   private
   def current_company
     return @current_company if defined?(@current_company)
-    @current_company = current_user.company
+    @current_company = current_user.company if current_user
   end
 
   def authenticate
