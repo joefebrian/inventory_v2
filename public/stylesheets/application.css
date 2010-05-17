@@ -387,7 +387,7 @@ input.numbers { text-align:right; }
   padding:0 20px;
 }
 #dialog_form div {
-  margin-bottom:20px;
+  /*margin-bottom:20px; */ /* this is commented for the firerift-style-checkbox to work */
   overflow:hidden;
 }
 .transaction_label {
