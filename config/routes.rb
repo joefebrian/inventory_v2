@@ -1,29 +1,21 @@
 ActionController::Routing::Routes.draw do |map|
 
   map.resources :general_transactions, :member => { :detail => :get }
-
   map.resources :item_outs
-
   map.resources :item_ins
-
   map.resources :item_transfers
-
   map.resources :transaction_types
-
   map.resources :begining_balances
-
   map.resources :placements
-
   map.resources :plus
-
   map.resources :suppliers
-
   map.resources :warehouses, :member => { :plu_available => :get, :setdefault => :get, :setasdefault => :put } do |warehouse|
     warehouse.resources :locations
   end
 
   map.namespace(:reports) do |report|
     report.resources :on_hands
+    report.resources :item_movements
   end
   map.signin "signin", :controller => :user_sessions, :action => :new
   map.signout "signout", :controller => :user_sessions, :action => :destroy

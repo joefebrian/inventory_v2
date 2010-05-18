@@ -5,7 +5,7 @@ class Reports::OnHandsController < ApplicationController
   def index
     all_items = Item.search(:company_id => current_company)
     @category = params[:category]
-    all_items = all_items.category_id_is(@category) unless @category.nil?
+    all_items = all_items.category_id_is(@category) unless @category.blank?
     @until = params[:until] unless params[:until].blank?
     @items = all_items.all(:order => 'name ASC').paginate(:page => params[:page])
 
