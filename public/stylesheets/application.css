@@ -501,3 +501,23 @@ fieldset.plain legend {
   -webkit-box-shadow:0 0 7px rgba(0,0,0,.8);
 }
 p.date_range input[type="text"] { width:86px; }
+#report {
+  height:100px;
+  overflow-x:scroll;
+  overflow-y:hidden;
+}
+#report > table {
+  width:100%;
+  border-collapse:separate;
+}
+#report > table tr th {
+  background:#c8c8c8;
+  color:#fff;
+}
+#report th, #report td { margin:3px; padding:5px; }
+#report #item_movement tr th:nth-child(1) { min-width:50px; }
+#report #item_movement tr th:nth-child(2) { min-width:200px; }
+#report #item_movement tr th:nth-child(3) { min-width:300px; }
+#report #item_movement tr th:nth-child(4) { min-width:100px; }
+#report #item_movement tr th:nth-child(7) { min-width:100px; }
+#report #item_movement tr:nth-child(2) th { min-width:200px; }

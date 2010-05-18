@@ -6,7 +6,6 @@ data = @items.map do |item|
   [ item.code, item.name, item.on_hand_stock ]
 end
 
-5.times do
   pdf.table data, 
     :headers => ['Code', 'Name', 'Quantity'],
     :column_widths => { 2 => 75},
@@ -15,6 +14,3 @@ end
     :align_headers => { 2 => :right },
     :border_style => :underline_header,
     :width => pdf.margin_box.width
-
-  pdf.move_down 20
-end

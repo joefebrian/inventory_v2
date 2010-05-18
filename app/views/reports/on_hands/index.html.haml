@@ -1,8 +1,9 @@
 - cache do
   - title "On Hands Report"
+  = hint "Select the kind of report you want to see"
   - content_for :breadcrumb do
     = breadcrumb [ link_to('Reports', reports_path), |
-      "On Hands Report" ] |
+      "On Hands" ] |
 
   %fieldset.plain
     %legend Filter

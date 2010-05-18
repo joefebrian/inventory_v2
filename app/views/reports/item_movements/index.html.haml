@@ -1,0 +1,45 @@
+- cache do
+  - title "On Hands Report"
+  = hint "Select the kind of report you want to see"
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Reports', reports_path), |
+      "Item Movements" ] |
+
+  %fieldset.plain
+    %legend Filter
+    - form_tag reports_item_movements_path, :method => :get do
+      %p.date_range
+        = label_tag 'until', 'Report per '
+        = text_field_tag 'until', @until, :class => 'datepicker'
+        - option_tags = [['All category','']]
+        - option_tags = option_tags + @categories.collect {|cat| ["#{cat.name} - #{cat.formatted_code}", cat.id] if cat.leaf? }.compact
+        = label_tag 'category', ' Category '
+        = select_tag 'category', options_for_select(option_tags, @category.to_i)
+        %button{ :type => :submit } Go
+        = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download PDF", reports_item_movements_path(:format => :pdf, :until => @until, :category => @category)
+
+  #report
+    %table#item_movement
+      %tr
+        %th{ :rowspan => 2 } Index
+        %th{ :rowspan => 2 } Code
+        %th{ :rowspan => 2 } Name
+        %th{ :rowspan => 2 } Initial Stock
+        %th{ :colspan => 7 } Stock In
+        %th{ :colspan => 7 } Stock Out
+        %th{ :rowspan => 2 } End Stock
+      %tr
+        %th Retur SJ Penjualan
+        %th Pembelian
+        %th Hasil Produksi
+        %th Mutasi Masuk
+        %th Assembly
+        %th Retur Proyek
+        %th Total Masuk
+        %th SJ Penjualan
+        %th Retur Pembelian
+        %th Pemakaian Produksi
+        %th Mutasi Keluar
+        %th Total Dis-assembly
+        %th Kirim ke Proyek
+        %th Total Keluar
