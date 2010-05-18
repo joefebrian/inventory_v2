@@ -100,7 +100,7 @@ form.formtastic fieldset ol li.inline input[type=checkbox] {
   margin:5px 10px 5px 0;
 }
 li.inline input[type=checkbox]:nth-child(2) {
-  margin-left:25.5% !important;
+  margin-left:25% !important;
 }
 form.formtastic fieldset ol li.inline input[type=checkbox] + label {
   margin:4px 20px 4px 0;
