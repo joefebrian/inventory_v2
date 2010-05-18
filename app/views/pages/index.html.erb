@@ -1,4 +1,10 @@
 <% title 'Dashboard' %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ "Dashboard" ] %>
+<% end -%>
+
+<%= sidemenu %>
+
 <% if current_user %>
   <h2>Welcome <%=h current_user.username %></h2>
 <% end -%>

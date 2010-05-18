@@ -14,32 +14,28 @@
       <%= f.input :code %>
       <%= f.input :name %>
       <%= f.input :description, :input_html => { :rows => 1 } %>
-      <%= f.input :active, :input_html => { :class => 'firerift-style-checkbox' } %>
-      <%= f.input :is_stock, :input_html => { :class => 'firerift-style-checkbox' } %>
+      <li class="inline">
+        <%= f.check_box(:active) %> <%= f.label :active %> 
+        <%= f.check_box(:is_stock) %> <%= f.label :is_stock %> 
+      </li>
     <% end -%>
-    <fieldset>
+    <fieldset id="units">
+      <legend>
+        <label for="item_units_attributes_0_name">Units</label>
+      </legend>
       <ol>
-        <li>
-          <fieldset id="units">
-            <legend class="label">
-              <label for="item_units_attributes_0_name">Units</label>
-            </legend>
-            <ol>
-              <% f.fields_for :units do |unit| %>
-                <li>
-                  <%= unit.label :name %>
-                  <%= unit.text_field :name, :size => 20 %>
-                  <%= unit.label :conversion_rate %>
-                  <%= unit.text_field :conversion_rate, :size => 5 %>
-                  <%= unit.label :value %>
-                  <%= unit.text_field :value, :size => 13 %>
-                  <%= unit.hidden_field :_destroy %>
-                  <a href="#" title="remove unit" class="unit_remover"><%= image_tag 'icons/silk/cross.png' %></a>
-                </li>
-              <% end -%>
-            </ol>
-          </fieldset>
-        </li>
+        <% f.fields_for :units do |unit| %>
+          <li>
+            <%= unit.label :name %>
+            <%= unit.text_field :name, :size => 20 %>
+            <%= unit.label :conversion_rate %>
+            <%= unit.text_field :conversion_rate, :size => 5 %>
+            <%= unit.label :value %>
+            <%= unit.text_field :value, :size => 13 %>
+            <%= unit.hidden_field :_destroy %>
+            <a href="#" title="remove unit" class="unit_remover"><%= image_tag 'icons/silk/cross.png' %></a>
+          </li>
+        <% end -%>
       </ol>
       <a href="#" id="add_unit"><%= image_tag 'icons/silk/add.png' %> add more unit</a>
     </fieldset>

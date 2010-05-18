@@ -17,7 +17,10 @@ class ItemsController < ApplicationController
   
   def new
     @item = Item.new
-    @item.units.build(:name => 'unit', :conversion_rate => 1) if @item.units.length < 1
+    @item.is_stock = true
+    @item.units.build(:name => 'unit', :conversion_rate => 1)
+    @item.units.build
+    @item.units.build
     render :layout => false if request.xhr?
   end
   

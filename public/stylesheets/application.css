@@ -293,10 +293,6 @@ form.formtastic fieldset#nested_attributes {
   margin-left:25%;
   padding:10px;
 }
-form.formtastic fieldset#units legend {
-  font-size:1.1em;
-  font-weight:bold;
-}
 #item_detail #dialog_form {
   margin:0;
 }
