@@ -97,7 +97,7 @@ form.formtastic fieldset ol li.inline {
 }
 form.formtastic fieldset ol li.inline input[type=checkbox] {
   float:left;
-  margin:5px 10px 5px 0;
+  margin:5px 0.7em 5px 0;
 }
 li.inline input[type=checkbox]:nth-child(2) {
   margin-left:25% !important;
