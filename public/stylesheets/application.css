@@ -521,3 +521,6 @@ p.date_range input[type="text"] { width:86px; }
 #report #item_movement tr th:nth-child(4) { min-width:100px; }
 #report #item_movement tr th:nth-child(7) { min-width:100px; }
 #report #item_movement tr:nth-child(2) th { min-width:200px; }
+.main_link + div {
+  margin-top:10px;
+}

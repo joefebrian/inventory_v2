@@ -11,6 +11,14 @@
     <%= link_to "#{image_tag('icons/silk/add.png')} Create new item", new_item_path, :class => "main_link new_item", :title => "Create New Item" %>
   <% end -%>
 
+  <% content_for :sidebar do %>
+    <div id="filter">
+      <p>
+        Showing: <%= link_to "active", '#' %> | <%= link_to "inactive", '#' %>
+      </p>
+    </div>
+  <% end -%>
+
   <%= sidemenu %>
 
   <table class="list" id="items">
