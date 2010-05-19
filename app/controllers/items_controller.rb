@@ -8,8 +8,8 @@ class ItemsController < ApplicationController
     else
       @items = Item.company_id_is(current_company)
     end
-    @active = params[:active]
-    @items = @items.active_is(@active) unless @active.blank?
+    @active = params[:active] || 1
+    @items = @items.active_is(@active) unless (@active.blank? || @active == 'all')
     @items.all
   end
   
