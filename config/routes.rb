@@ -27,14 +27,14 @@ ActionController::Routing::Routes.draw do |map|
     page.administrations 'administrations', :id => 'administrations'
   end
   map.dashboard 'dashboard', :controller => :pages
-  map.root :controller => :pages
 
   map.resources :user_sessions
   map.resources :items, :collection => { :lookup => :get }
   map.resources :categories, :member => {:items_for_begining_balance => :get} do |category|
-    category.resources :items
+    category.resources :items, :member => { :activate => :get, :deactivate => :get }
   end
   map.resources :companies
   map.resources :users
+  map.root :controller => :pages
   map.connect ':controller/:action.:format'
 end

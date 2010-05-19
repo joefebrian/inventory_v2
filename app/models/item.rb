@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :code, :name, :description, :category_code, :category_id, :units_attributes, :count_method
+  attr_accessible :code, :name, :description, :category_code, :category_id, :units_attributes, :count_method, :active
   belongs_to :company
   belongs_to :category
   has_many :units

@@ -4,10 +4,13 @@ class ItemsController < ApplicationController
   before_filter :categories_list, :except => [:index, :show]
   def index
     if params[:category_id]
-      @items = current_company.categories.find(params[:category_id]).items
+      @items = Category.id_is(params[:category_id]).first.items
     else
-      @items = current_company.items
+      @items = Item.company_id_is(current_company)
     end
+    @active = params[:active]
+    @items = @items.active_is(@active) unless @active.blank?
+    @items.all
   end
   
   def show
@@ -91,6 +94,18 @@ class ItemsController < ApplicationController
         end
       end
     end
+  end
+
+  def activate
+    item = Item.find(params[:id])
+    item.update_attributes(:active => true)
+    redirect_to :back
+  end
+
+  def deactivate
+    item = Item.find(params[:id])
+    item.update_attributes(:active => false)
+    redirect_to :back
   end
 
   private

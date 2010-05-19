@@ -524,3 +524,6 @@ p.date_range input[type="text"] { width:86px; }
 .main_link + div {
   margin-top:10px;
 }
+tr.inactive td {
+  background:#FFDFE0 !important;
+}
