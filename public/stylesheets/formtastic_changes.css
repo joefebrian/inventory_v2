@@ -94,6 +94,17 @@ a#add_unit {
   margin-left:25%;
   padding-top:10px;
 }
+form.formtastic fieldset ol li.inline {
+  line-height:1.7em;
+}
+form.formtastic fieldset ol li.inline > label {
+  margin-right:.4em;
+  width:auto;
+}
+form.formtastic fieldset ol li.inline > input {
+  float:left;
+  margin-right:1em;
+}
 form.formtastic fieldset ol li.inline > span.label {
   width:25%;
   float:left;

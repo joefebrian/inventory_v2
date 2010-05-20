@@ -19,10 +19,21 @@
         <%= f.check_box(:active) %> <%= f.label :active %> 
         <%= f.check_box(:is_stock) %> <%= f.label :is_stock %> 
       </li>
+      <li class="inline">
+        <span class="label">Dimension (mm, kg)</span>
+        <%= f.label :length %>
+        <%= f.text_field :length, :size => 5, :class => 'number' %>
+        <%= f.label :width %>
+        <%= f.text_field :width, :size => 5, :class => 'number' %>
+        <%= f.label :height %>
+        <%= f.text_field :height, :size => 5, :class => 'number' %>
+        <%= f.label :weight %>
+        <%= f.text_field :weight, :size => 5, :class => 'number' %>
+      </li>
     <% end -%>
     <fieldset id="units">
       <legend>
-        <label for="item_units_attributes_0_name">Units</label>
+        <label for="item_units_attributes_0_name">Units <span class="required">*</span></label>
       </legend>
       <ol>
         <% f.fields_for :units do |unit| %>
