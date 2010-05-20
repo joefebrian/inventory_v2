@@ -81,6 +81,7 @@ img.ui-datepicker-trigger {
 }
 fieldset#units legend {
   float:left;
+  margin-left:3px;
   line-height:2.2em;
   width:25%;
 }
@@ -106,3 +107,4 @@ form.formtastic fieldset ol li.inline input[type=checkbox] + label {
   margin:4px 20px 4px 0;
   width:auto;
 }
+input[type=text].number { text-align:right; }

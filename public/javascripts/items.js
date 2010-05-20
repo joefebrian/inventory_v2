@@ -52,9 +52,9 @@ function new_unit_fields(n) {
     "<label for=\"item_units_attributes_"+n+"_name\">Name</label> "+
     "<input type=\"text\" value=\"\" size=\"20\" name=\"item[units_attributes]["+n+"][name]\" id=\"item_units_attributes_"+n+"_name\"> "+
     "<label for=\"item_units_attributes_"+n+"_conversion_rate\">Conversion rate</label> "+
-    "<input type=\"text\" value=\"\" size=\"5\" name=\"item[units_attributes]["+n+"][conversion_rate]\" id=\"item_units_attributes_"+n+"_conversion_rate\"> "+
+    "<input type=\"text\" value=\"\" size=\"5\" name=\"item[units_attributes]["+n+"][conversion_rate]\" id=\"item_units_attributes_"+n+"_conversion_rate\" class=\"number\"> "+
     "<label for=\"item_units_attributes_"+n+"_value\">Value</label> "+
-    "<input type=\"text\" size=\"13\" name=\"item[units_attributes]["+n+"][value]\" id=\"item_units_attributes_"+n+"_value\"> "+
+    "<input type=\"text\" size=\"13\" name=\"item[units_attributes]["+n+"][value]\" id=\"item_units_attributes_"+n+"_value\" class=\"number\"> "+
     "<input type=\"hidden\" name=\"item[units_attributes]["+n+"][_destroy]\" id=\"item_units_attributes_"+n+"__destroy\"> "+
     "<a class=\"unit_remover\" title=\"remove unit\" href=\"#\"><img src=\"/images/icons/silk/cross.png\" alt=\"Cross\"></a> "+
     "</li>";
