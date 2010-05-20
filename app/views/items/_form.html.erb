@@ -15,6 +15,7 @@
       <%= f.input :name %>
       <%= f.input :description, :input_html => { :rows => 1 } %>
       <li class="inline">
+        <span class="label">Status</span>
         <%= f.check_box(:active) %> <%= f.label :active %> 
         <%= f.check_box(:is_stock) %> <%= f.label :is_stock %> 
       </li>

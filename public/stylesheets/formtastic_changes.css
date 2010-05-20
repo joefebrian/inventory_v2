@@ -94,14 +94,14 @@ a#add_unit {
   margin-left:25%;
   padding-top:10px;
 }
-form.formtastic fieldset ol li.inline {
+form.formtastic fieldset ol li.inline > span.label {
+  width:25%;
+  float:left;
+  line-height:2.1em;
 }
 form.formtastic fieldset ol li.inline input[type=checkbox] {
   float:left;
   margin:5px 0.7em 5px 0;
-}
-li.inline input[type=checkbox]:nth-child(2) {
-  margin-left:25% !important;
 }
 form.formtastic fieldset ol li.inline input[type=checkbox] + label {
   margin:4px 20px 4px 0;
