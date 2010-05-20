@@ -527,3 +527,6 @@ p.date_range input[type="text"] { width:86px; }
 tr.inactive td {
   background:#FFDFE0 !important;
 }
+img.top_right_photo {
+  float:right;
+}

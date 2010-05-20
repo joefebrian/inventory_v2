@@ -14,6 +14,8 @@
 
     <%= sidemenu %>
 
+    <%= image_tag @item.photo.url(:medium), :class => 'top_right_photo' %>
+
     <p>
       <span class="light">Category:</span>
       <strong><%= @item.category_tree %></strong>

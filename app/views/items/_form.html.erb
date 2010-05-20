@@ -3,7 +3,7 @@
 
 <div id="dialog_form">
   <%= javascript_tag "var categories = #{@categories_list.to_json(:only => :id, :methods => [:formatted_code, :code_for_item])};" %>
-  <% semantic_form_for @item, {}, :html => { :id => "item_form" } do |f| %>
+  <% semantic_form_for @item, {}, :html => { :multipart => true, :id => "item_form" } do |f| %>
     <ul class="form_info">
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>
@@ -50,6 +50,14 @@
         <% end -%>
       </ol>
       <a href="#" id="add_unit"><%= image_tag 'icons/silk/add.png' %> add more unit</a>
+    </fieldset>
+    <fieldset class="inputs">
+      <ol>
+        <li>
+          <%= f.label :photo %>
+          <%= f.file_field :photo %>
+        </li>
+      </ol>
     </fieldset>
     <fieldset class="buttons">
       <button type="submit"><%= image_tag 'icons/silk/disk.png' %> Save Item</button>

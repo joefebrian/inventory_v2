@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-  attr_accessible :code, :name, :description, :category_code, :category_id, :units_attributes, :count_method, :active
   belongs_to :company
   belongs_to :category
   has_many :units
@@ -10,6 +9,11 @@ class Item < ActiveRecord::Base
   validates_presence_of :count_method
   validates_uniqueness_of :code, :scope => :company_id, :message => "code has already been taken"
   accepts_nested_attributes_for :units, :allow_destroy => true, :reject_if => lambda {|a| a['name'].blank? }
+
+  has_attached_file :photo,
+    :styles => { :medium => "150x150>", :thumb => "60x60>" },
+    :url => "/system/items/:id/:style/:basename.:extension",
+    :path => ":rails_root/public/system/items/:id/:style/:basename.:extension"
   attr_accessor :on_hand_stock
 
   def available_tracker
