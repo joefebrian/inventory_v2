@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100520053223) do
+ActiveRecord::Schema.define(:version => 20100520080205) do
 
   create_table "categories", :force => true do |t|
     t.integer  "company_id"
@@ -62,13 +62,17 @@ ActiveRecord::Schema.define(:version => 20100520053223) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
-    t.string   "count_method", :default => "avg"
+    t.string   "count_method",       :default => "avg"
     t.boolean  "active"
     t.boolean  "is_stock"
     t.integer  "length"
     t.integer  "width"
     t.integer  "height"
     t.integer  "weight"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "locations", :force => true do |t|
