@@ -11,6 +11,7 @@ class Reports::ItemMovementsController < ApplicationController
 
     @items.each { |item| item.sum_on_hand_between(nil, @until) }
     @categories = current_company.categories.sorted
+    @transactions = current_company.transaction_types
 
     respond_to do |format|
       format.html

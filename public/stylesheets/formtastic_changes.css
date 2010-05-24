@@ -119,3 +119,9 @@ form.formtastic fieldset ol li.inline input[type=checkbox] + label {
   width:auto;
 }
 input[type=text].number { text-align:right; }
+ol#transaction_types {
+  list-style:inside decimal;
+}
+ol#transaction_types li {
+  margin-bottom:5px;
+}
