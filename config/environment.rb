@@ -29,7 +29,7 @@ Rails::Initializer.run do |config|
   config.gem 'chronic'
   config.gem 'prawn'
   config.gem 'haml'
-  config.gem 'googlecharts'
+  # config.gem 'googlecharts'
   # config.gem 'newrelic_rpm'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
@@ -52,5 +52,3 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 SubdomainFu.tld_sizes = { :development => 1, :test => 1, :production => 1 }
-# Prawn::Document.extensions << PrawnHelper
-#require 'prawn/flexible-table'
