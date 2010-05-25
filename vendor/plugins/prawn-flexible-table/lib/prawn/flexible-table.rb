@@ -1,5 +1,6 @@
 require "prawn/flexible-table/cell"
 require "prawn/errors"
+require "prawn"
 
 module Prawn; end
 

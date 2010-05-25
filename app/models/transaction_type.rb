@@ -30,4 +30,16 @@ class TransactionType < ActiveRecord::Base
     direction == 1 || direction == 2
   end
 
+  def inward?
+    direction == 0
+  end
+
+  def outward?
+    direction == 1
+  end
+
+  def transfer?
+    direction == 2
+  end
+
 end

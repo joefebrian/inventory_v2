@@ -47,8 +47,10 @@ class Item < ActiveRecord::Base
   end
 
   def on_hand_between(start = nil, finish = nil)
-    date_start = Chronic.parse(start || '01/01/1970').beginning_of_day
-    date_end = Chronic.parse(finish || 'today').end_of_day
+    start = '01/01/1970' if start.blank?
+    finish = 'today' if finish.blank?
+    date_start = Chronic.parse(start).beginning_of_day
+    date_end = Chronic.parse(finish).end_of_day
     ins = company.entries.item_id_is(id).transaction_inward.transaction_alter_stock_is(true).transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
     out = company.entries.item_id_is(id).transaction_outward.transaction_alter_stock_is(true).transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
     ins - out

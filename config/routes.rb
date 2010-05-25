@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace(:reports) do |report|
     report.resources :on_hands
-    report.resources :item_movements
+    report.resources :item_movements, :collection => { :generate => :post }
     report.resources :stock_cards
   end
   map.signin "signin", :controller => :user_sessions, :action => :new

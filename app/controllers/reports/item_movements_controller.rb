@@ -3,18 +3,24 @@ class Reports::ItemMovementsController < ApplicationController
   before_filter :assign_tab
 
   def index
-    all_items = Item.search(:company_id => current_company)
-    @category = params[:category]
-    all_items = all_items.category_id_is(@category) unless @category.blank?
-    @until = params[:until] unless params[:until].blank?
-    @items = all_items.all(:order => 'name ASC').paginate(:page => params[:page])
-
-    @items.each { |item| item.sum_on_hand_between(nil, @until) }
     @categories = current_company.categories.sorted
     @transactions = current_company.transaction_types
+    @warehouses = current_company.warehouses
 
     respond_to do |format|
       format.html
+      format.pdf
+    end
+  end
+
+  def generate
+    @params = params[:report]
+    all_items = Item.search(:company_id => current_company)
+    all_items = all_items.category_id_is(@params[:category]) unless @params[:category].blank?
+    @items = all_items.all(:order => 'name ASC').paginate(:page => params[:page])
+    @items.each { |item| item.sum_on_hand_between(nil, @params[:until]) }
+    respond_to do |format|
+      format.html { render :layout => 'wide' }
       format.pdf
     end
   end

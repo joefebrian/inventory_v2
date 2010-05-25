@@ -1,0 +1,17 @@
+%h1 Item Movements
+
+%table.report
+  %tr
+    %th #
+    %th Code
+    %th Name
+    %th Begining Balance
+    %th End Balance
+  - @items.each_with_index do |item, idx|
+    %tr
+      %td= (idx + 1)
+      %td= item.code
+      %td= item.name
+      %td 0
+      %td 0
+  

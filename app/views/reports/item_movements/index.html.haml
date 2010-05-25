@@ -5,23 +5,34 @@
     = breadcrumb [ link_to('Reports', reports_path), |
       "Item Movements" ] |
 
-  %fieldset.plain
+  %fieldset.plain.report
     %legend Filter
-    - form_tag reports_item_movements_path, :method => :get do
+    - form_tag generate_reports_item_movements_path, :method => :post do
       %p.date_range
-        = label_tag 'until', 'Report per '
-        = text_field_tag 'until', @until, :class => 'datepicker'
+        = label_tag 'report_until', 'Report per '
+        = text_field_tag 'report[until]', @until, :class => 'datepicker'
       %p
-        - option_tags = [['All category','']]
-        - option_tags = option_tags + @categories.collect {|cat| ["#{cat.name} - #{cat.formatted_code}", cat.id] if cat.leaf? }.compact
-        = label_tag 'category', ' Category '
-        = select_tag 'category', options_for_select(option_tags, @category.to_i)
+        - option_tags = [['All category', '']]
+        - @categories.each {|cat| option_tags << ["#{cat.name} - #{cat.formatted_code}", cat.id] if cat.leaf? }
+        = label_tag 'report_category', ' Category '
+        = select_tag 'report[category]', options_for_select(option_tags)
+      %p
+        - option_tags = [['All warehouse', '']]
+        - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
+        = label_tag 'report_warehouse', 'Warehouse'
+        = select_tag 'report[warehouse]', options_for_select(option_tags)
       %p Transaction types (select up to 3 transaction, the rest of the transaction will go into the <strong>others</strong> column)
       %ol#transaction_types
         - for trans in @transactions
           %li
-            = check_box_tag "transactions[]", trans.id, false, :id => "transaction_#{trans.id}"
+            = check_box_tag "report[transactions][]", trans.id, false, :id => "transaction_#{trans.id}"
             = trans.description
+            - if trans.inward?
+              %span.tag_green in
+            - elsif trans.outward?
+              %span.tag_pink out
+            - else
+              %span.tag_yellow transfer
       %p
         %button{ :type => :submit } Generate report
         = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} get report as PDF", reports_item_movements_path(:format => :pdf, :until => @until, :category => @category)
