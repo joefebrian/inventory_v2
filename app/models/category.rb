@@ -29,6 +29,10 @@ class Category < ActiveRecord::Base
     root? ? code : "#{ancestors.map(&:code).join('.')}.#{code}"
   end
 
+  def leaf_ids
+    descendants.collect {|d| d.id if d.leaf? }.compact
+  end
+
   private
   def assign_parent
     unless @parent_code.blank?

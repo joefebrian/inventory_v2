@@ -2,16 +2,30 @@
 
 %table.report
   %tr
-    %th #
-    %th Code
-    %th Name
-    %th Begining Balance
-    %th End Balance
-  - @items.each_with_index do |item, idx|
+    %th{ :rowspan => 2} #
+    %th{ :rowspan => 2} Code
+    %th{ :rowspan => 2} Name
+    %th{ :rowspan => 2} Start
+    %th{ :colspan => @ins.length + 1} In
+    %th{ :colspan => @outs.length + 1} Out
+    %th{ :rowspan => 2} End
+  %tr
+    - @ins.each do |i|
+      %th= i.code
+    %th Other
+    - @outs.each do |o|
+      %th= o.code
+    %th Other
+  - @rows.each_with_index do |row, idx|
     %tr
       %td= (idx + 1)
-      %td= item.code
-      %td= item.name
-      %td 0
-      %td 0
-  
+      %td= row[:item].code
+      %td= row[:item].name
+      %td= row[:start_balance]
+      - row[:user_in].each do |i|
+        %td= i
+      %td= row[:other_in]
+      - row[:user_out].each do |o|
+        %td= o
+      %td= row[:other_out]
+      %td= row[:end_balance]

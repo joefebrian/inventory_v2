@@ -47,8 +47,8 @@ class Item < ActiveRecord::Base
   end
 
   def on_hand_between(start = nil, finish = nil)
-    start = '01/01/1970' if start.blank?
-    finish = 'today' if finish.blank?
+    start = start.blank? ? '01/01/1970' : start.kind_of?(Time) ? start.to_s(:db) : start
+    finish = finish.blank? ? 'today' : finish.kind_of?(Time) ? finish.to_s(:db) : finish
     date_start = Chronic.parse(start).beginning_of_day
     date_end = Chronic.parse(finish).end_of_day
     ins = company.entries.item_id_is(id).transaction_inward.transaction_alter_stock_is(true).transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
@@ -64,6 +64,25 @@ class Item < ActiveRecord::Base
     ins = company.entries.item_id_is(id).transaction_destination_id_is(warehouse).transaction_alter_stock_is(true).sum(:quantity)
     out = company.entries.item_id_is(id).transaction_origin_id_is(warehouse).transaction_alter_stock_is(true).sum(:quantity)
     ins - out
+  end
+
+  def total_begining_balance_between(start = nil, finish = nil)
+    start = start.blank? ? '01/01/1970' : (start.kind_of?(Time) ? start.beginning_of_day : Chronic.parse(start)).beginning_of_day
+    finish = finish.blank? ? Chronic.parse('today').end_of_day : (finish.kind_of?(Time) ? finish.end_of_day : Chronic.parse(finish)).end_of_day
+    Entry.item_id_is(self.id).transaction_type_is('BeginingBalance').transaction_created_at_gte(start).transaction_created_at_lte(finish).sum(:quantity)
+  end
+
+  def total_quantity_for_transaction(type, start = nil, finish = nil)
+    start = start.blank? ? '01/01/1970' : (start.kind_of?(Time) ? start.beginning_of_day : Chronic.parse(start)).beginning_of_day
+    finish = finish.blank? ? 'today' : (finish.kind_of?(Time) ? finish.end_of_day : Chronic.parse(finish)).end_of_day
+    Entry.item_id_is(self.id).transaction_transaction_type_id_is(type).transaction_created_at_lte(finish).transaction_created_at_gte(start).sum(:quantity)
+  end
+
+  def total_quantity_for_transactions(types, start = nil, finish = nil)
+    start = start.blank? ? '01/01/1970' : (start.kind_of?(Time) ? start.beginning_of_day : Chronic.parse(start)).beginning_of_day
+    finish = finish.blank? ? 'today' : (finish.kind_of?(Time) ? finish.end_of_day : Chronic.parse(finish)).end_of_day
+    return 0 if types.blank?
+    Entry.item_id_is(self.id).transaction_transaction_type_id_in(type).transaction_created_at_lte(finish).transaction_created_at_gte(start).sum(:quantity)
   end
 
   def fifo?

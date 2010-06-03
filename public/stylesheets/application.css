@@ -549,3 +549,8 @@ fieldset.report label {
   margin-right:5px;
   width:10em;
 }
+fieldset.report label.inline {
+  float:none;
+  margin:0 0.5em;
+  width:auto;
+}

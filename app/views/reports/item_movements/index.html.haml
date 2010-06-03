@@ -9,13 +9,15 @@
     %legend Filter
     - form_tag generate_reports_item_movements_path, :method => :post do
       %p.date_range
-        = label_tag 'report_until', 'Report per '
+        = label_tag 'report_from', 'Report from '
+        = text_field_tag 'report[from]', @from, :class => 'datepicker'
+        = label_tag 'report_until', 'Until', :class => 'inline'
         = text_field_tag 'report[until]', @until, :class => 'datepicker'
       %p
         - option_tags = [['All category', '']]
-        - @categories.each {|cat| option_tags << ["#{cat.name} - #{cat.formatted_code}", cat.id] if cat.leaf? }
+        - @categories.each {|cat| option_tags << ["#{'&nbsp;&nbsp;' * cat.level}#{cat.name} - #{cat.fullcode}", cat.id] }
         = label_tag 'report_category', ' Category '
-        = select_tag 'report[category]', options_for_select(option_tags)
+        = select_tag 'report[category]', options_for_select(option_tags, nil, false)
       %p
         - option_tags = [['All warehouse', '']]
         - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
