@@ -20,7 +20,6 @@ h3 { font-size:1.5em; }
 h4 { font-size:1.3em; }
 h5 { font-size:1.15em; }
 h6 { font-size:1.1em; }
-p { margin-bottom:10px; }
 #flash_notice, #flash_error, #flash_success {
   padding: 5px 8px;
   margin: 10px 0;
@@ -314,7 +313,13 @@ table.report th, table.report td {
 }
 table.report tr th {
   background:#666;
+  border:medium none;
   color:#fff;
+  vertical-align:bottom;
+}
+table.report tr th > span {
+  float:left;
+  margin-top:-4px;
 }
 table.report tr.even td {
   background:rgba(239,239,239,.8);
@@ -329,7 +334,7 @@ table.report tr.even td {
   text-align:right;
   width:5%;
 }
-input.numbers { text-align:right; }
+.numbers { text-align:right; }
 .tdc { text-align:center; }
 .tdr { text-align:right; }
 .td_5 { width:5%; }
@@ -391,17 +396,17 @@ input.numbers { text-align:right; }
   padding:0 20px;
 }
 #dialog_form div {
-  /*margin-bottom:20px; */ /* this is commented for the firerift-style-checkbox to work */
   overflow:hidden;
 }
 .transaction_label {
   display:block;
   float:left;
+  margin-bottom:10px;
   width:160px;
 }
 .transaction_label + p {
   margin-left:160px;
-  overflow:hidden;
+
 }
 td img { vertical-align:middle; }
 #hint {
@@ -523,12 +528,6 @@ p.date_range input[type="text"] { width:86px; }
   color:#fff;
 }
 #report th, #report td { margin:3px; padding:5px; }
-#report #item_movement tr th:nth-child(1) { min-width:50px; }
-#report #item_movement tr th:nth-child(2) { min-width:200px; }
-#report #item_movement tr th:nth-child(3) { min-width:300px; }
-#report #item_movement tr th:nth-child(4) { min-width:100px; }
-#report #item_movement tr th:nth-child(7) { min-width:100px; }
-#report #item_movement tr:nth-child(2) th { min-width:200px; }
 .main_link + div {
   margin-top:10px;
 }
@@ -553,4 +552,64 @@ fieldset.report label.inline {
   float:none;
   margin:0 0.5em;
   width:auto;
+}
+table.form {
+  width:100%;
+  margin-bottom:20px;
+}
+table.form tr th, table.form tr td {
+  padding:4px;
+}
+table.form tr th {
+  background:#B3CFAE;
+}
+table.form tr td:first-child {
+  text-align:center;
+}
+#notifier {
+  font-weight:bold;
+  letter-spacing:.2em;
+  width:120px;
+  background:rgba(255,255,0,.8);
+  margin:0 auto;
+  position:fixed;
+  top:0;
+  display:none;
+  z-index:999;
+  text-align:center;
+  padding:5px;
+  -moz-border-radius:0 0 5px 5px;
+  -webkit-border-radius:0 0 5px 5px;
+}
+#notifier img {
+  vertical-align:middle;
+}
+.string div.inline {
+  display:inline-block;
+}
+.string div.inline .inline-hints.inline-labels {
+  margin:.5em 0 0 0;
+}
+.string div.inline > input {
+  width:96% !important;
+}
+fieldset.info {
+  border:solid 1px #666666;
+  padding:10px;
+  margin-bottom:20px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
+fieldset.info legend, fieldset.form_section legend {
+  padding:0 10px;
+  font-weight:bold;
+  font-size:1.2em;
+}
+fieldset.form_section {
+  border-top:solid 1px #666666 !important;
+  margin:0 0 20px !important;
+  padding-top:10px !important;
+}
+fieldset.form_section legend {
+  padding:0 10px 0 0 !important;
 }

@@ -3,64 +3,50 @@
   = hint "Select the kind of report you want to see"
   - content_for :breadcrumb do
     = breadcrumb [ link_to('Reports', reports_path), |
-      "Item Movements" ] |
+      "Item Movement" ] |
+    %span#notifier
+      = image_tag 'indicator.gif'
+      Loading...
 
   %fieldset.plain.report
-    %legend Filter
-    - form_tag generate_reports_item_movements_path, :method => :post do
+    %legend
+      Filter
+    - form_tag generate_reports_item_movements_path, :method => :get do
       %p.date_range
-        = label_tag 'report_from', 'Report from '
-        = text_field_tag 'report[from]', @from, :class => 'datepicker'
-        = label_tag 'report_until', 'Until', :class => 'inline'
-        = text_field_tag 'report[until]', @until, :class => 'datepicker'
+        = label_tag 'from', 'Report from '
+        = text_field_tag 'from', @from, :class => 'datepicker'
+        = label_tag 'to', 'To', :class => 'inline'
+        = text_field_tag 'to', @to, :class => 'datepicker'
       %p
         - option_tags = [['All category', '']]
         - @categories.each {|cat| option_tags << ["#{'&nbsp;&nbsp;' * cat.level}#{cat.name} - #{cat.fullcode}", cat.id] }
-        = label_tag 'report_category', ' Category '
-        = select_tag 'report[category]', options_for_select(option_tags, nil, false)
+        = label_tag 'category', ' Category '
+        = select_tag 'category', options_for_select(option_tags, nil, false)
       %p
         - option_tags = [['All warehouse', '']]
         - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
-        = label_tag 'report_warehouse', 'Warehouse'
-        = select_tag 'report[warehouse]', options_for_select(option_tags)
-      %p Transaction types (select up to 3 transaction, the rest of the transaction will go into the <strong>others</strong> column)
-      %ol#transaction_types
-        - for trans in @transactions
-          %li
-            = check_box_tag "report[transactions][]", trans.id, false, :id => "transaction_#{trans.id}"
-            = trans.description
-            - if trans.inward?
-              %span.tag_green in
-            - elsif trans.outward?
-              %span.tag_pink out
-            - else
-              %span.tag_yellow transfer
+        = label_tag 'warehouse', 'Warehouse'
+        = select_tag 'warehouse', options_for_select(option_tags)
       %p
-        %button{ :type => :submit } Generate report
-        = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} get report as PDF", reports_item_movements_path(:format => :pdf, :until => @until, :category => @category)
-
-  #report
-    %table#item_movement
-      %tr
-        %th{ :rowspan => 2 } Index
-        %th{ :rowspan => 2 } Code
-        %th{ :rowspan => 2 } Name
-        %th{ :rowspan => 2 } Initial Stock
-        %th{ :colspan => 7 } Stock In
-        %th{ :colspan => 7 } Stock Out
-        %th{ :rowspan => 2 } End Stock
-      %tr
-        %th Retur SJ Penjualan
-        %th Pembelian
-        %th Hasil Produksi
-        %th Mutasi Masuk
-        %th Assembly
-        %th Retur Proyek
-        %th Total Masuk
-        %th SJ Penjualan
-        %th Retur Pembelian
-        %th Pemakaian Produksi
-        %th Mutasi Keluar
-        %th Total Dis-assembly
-        %th Kirim ke Proyek
-        %th Total Keluar
+        %strong Transaction types:
+      %table#transaction_types.form
+        %tr
+          %th= check_box_tag "all", nil, nil, :id => "all"
+          %th Code
+          %th Name &amp; description
+        - for trans in @transactions
+          %tr
+            %td= check_box_tag "transactions[]", trans.id, false, :id => "transaction_#{trans.id}", :class => "transaction_type"
+            %td= trans.code
+            %td
+              = "#{trans.name} <em>(#{trans.description})</em>"
+              - if trans.inward?
+                %span.tag_green in
+              - elsif trans.outward?
+                %span.tag_pink out
+              - else
+                %span.tag_yellow transfer
+      %p
+        %button{ :type => :submit }
+          = image_tag 'icons/silk/report_go.png'
+          Generate report

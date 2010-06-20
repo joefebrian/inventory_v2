@@ -1,0 +1,15 @@
+one:
+  customer_id: 1
+  first_name: MyString
+  last_name: MyString
+  address: MyText
+  postal_code: MyString
+  npwp_number: MyString
+
+two:
+  customer_id: 1
+  first_name: MyString
+  last_name: MyString
+  address: MyText
+  postal_code: MyString
+  npwp_number: MyString

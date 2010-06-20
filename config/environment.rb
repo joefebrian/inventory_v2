@@ -29,6 +29,7 @@ Rails::Initializer.run do |config|
   config.gem 'chronic'
   config.gem 'prawn'
   config.gem 'haml'
+  config.gem 'spreadsheet'
   # config.gem 'ruport'
   # config.gem 'googlecharts'
   # config.gem 'newrelic_rpm'

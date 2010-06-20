@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100520080205) do
+ActiveRecord::Schema.define(:version => 20100616044339) do
 
   create_table "categories", :force => true do |t|
     t.integer  "company_id"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20100520080205) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "subdomain"
+  end
+
+  create_table "customers", :force => true do |t|
+    t.integer  "profile_id"
+    t.string   "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "company_id"
   end
 
   create_table "entries", :force => true do |t|
@@ -108,11 +116,33 @@ ActiveRecord::Schema.define(:version => 20100520080205) do
     t.string   "code"
   end
 
+  create_table "profiles", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.text     "address"
+    t.string   "city"
+    t.string   "phone"
+    t.string   "fax"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "suppliers", :force => true do |t|
     t.integer  "company_id"
     t.string   "code"
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tax_profiles", :force => true do |t|
+    t.integer  "customer_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.text     "address"
+    t.string   "postal_code"
+    t.string   "npwp_number"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

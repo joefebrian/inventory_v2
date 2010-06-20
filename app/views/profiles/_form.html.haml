@@ -1,0 +1,28 @@
+- form_for @profile do |f|
+  = f.error_messages
+  %p
+    = f.label :first_name
+    %br
+    = f.text_field :first_name
+  %p
+    = f.label :last_name
+    %br
+    = f.text_field :last_name
+  %p
+    = f.label :address
+    %br
+    = f.text_area :address
+  %p
+    = f.label :city
+    %br
+    = f.text_field :city
+  %p
+    = f.label :phone
+    %br
+    = f.text_field :phone
+  %p
+    = f.label :fax
+    %br
+    = f.text_field :fax
+  %p
+    = f.submit

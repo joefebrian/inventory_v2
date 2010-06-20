@@ -17,6 +17,7 @@ class Company < ActiveRecord::Base
   has_many :trackers
   has_many :transactions
   has_many :entries
+  has_many :customers
 
   default_scope :order => :created_at
 
@@ -46,5 +47,28 @@ class Company < ActiveRecord::Base
 
   def stock
     @stock || Stock.new(self)
+  end
+
+  def item_movement_report(from, to, category, warehouse, types)
+    # assume every par ams has value(s)
+    entries = Entry.transaction_created_at_gte(from.to_s(:db)).transaction_created_at_lte(to.to_s(:db)).transaction_type_not('BeginingBalance')
+    entries = entries.transaction_origin_id_or_transaction_destination_id_is(warehouse) unless warehouse.blank?
+    if category
+      cat = Category.find(category)
+      entries = cat.leaf? ? entries.item_category_id_is(cat) : entries.item_category_id_in(cat.leaf_ids)
+    end
+    #all_items = items.ascend_by_name
+    rows = []
+    entries.each do |entry|
+      eid = entry.item.id
+      rows[eid] = {} if rows[eid].blank?
+      rows[eid][:item] = entry.item if rows[eid][:item].blank?
+      rows[eid][:start_balance] = entry.item.on_hand_until(from - 1.day) if rows[eid][:start_balance].blank?
+      rows[eid][:end_balance] = entry.item.stock if rows[eid][:end_balance].blank?
+      rows[eid][:transactions] = {} if rows[eid][:transactions].blank?
+      rows[eid][:transactions][entry.transaction.transaction_type.code] = 0 if rows[eid][:transactions][entry.transaction.transaction_type.code].nil?
+      rows[eid][:transactions][entry.transaction.transaction_type.code] = rows[eid][:transactions][entry.transaction.transaction_type.code] + entry.quantity
+    end
+    rows.compact
   end
 end

@@ -9,6 +9,53 @@ $(function() {
     buttonImage: '/images/icons/silk/calendar_select_day.png',
     buttonImageOnly: true
   });
+  $('#from').change(function() {
+    $('#notifier').show();
+    $.get("/transactions/created",
+      { from: this.value,
+        until: $('#until').val(),
+        category: $('#category').val(),
+        warehouse: $('#warehouse').val() },
+      function() { $('#notifier').hide(); },
+      'script');
+  });
+  $('#until').change(function() {
+    $('#notifier').show();
+    $.get("/transactions/created",
+      { from: $('#from').val(),
+        until: this.value,
+        category: $('#category').val(),
+        warehouse: $('#warehouse').val() },
+      function() { $('#notifier').hide(); }, 'script');
+  });
+  $('#category').change(function() {
+    $('#notifier').show();
+    $.get("/transactions/created",
+      { from: $('#from').val(),
+        until: $('#until').val(),
+        category: this.value,
+        warehouse: $('#warehouse').val() },
+      function() { $('#notifier').hide(); }, 'script');
+  });
+  $('#warehouse').change(function() {
+    $('#notifier').show();
+    $.get("/transactions/created",
+      { from: $('#from').val(),
+        until: $('#until').val(),
+        category: $('#category').val(),
+        warehouse: this.value },
+      function() { $('#notifier').hide(); }, 'script');
+  });
+  $('#all').click(function() {
+    if(this.checked) {
+      $('.transaction_type:visible').attr('checked', 'checked');
+    } else {
+      $('.transaction_type').removeAttr('checked');
+    }
+  });
+  if($('table#enhanced').length) {
+    $('table#enhanced').dataTable({"bJQueryUI": true});
+  }
 });
 
 $('.plu_input').live('click', function() {

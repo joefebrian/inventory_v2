@@ -1,0 +1,23 @@
+- title "Tax Profiles"
+
+%table
+  %tr
+    %th Customer
+    %th First name
+    %th Last name
+    %th Address
+    %th Postal code
+    %th Npwp number
+  - for tax_profile in @tax_profiles
+    %tr
+      %td= h tax_profile.customer_id
+      %td= h tax_profile.first_name
+      %td= h tax_profile.last_name
+      %td= h tax_profile.address
+      %td= h tax_profile.postal_code
+      %td= h tax_profile.npwp_number
+      %td= link_to 'Show', tax_profile
+      %td= link_to 'Edit', edit_tax_profile_path(tax_profile)
+      %td= link_to 'Destroy', tax_profile, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Tax Profile", new_tax_profile_path

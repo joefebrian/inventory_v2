@@ -1,5 +1,6 @@
 class Transaction < ActiveRecord::Base
   belongs_to :company
+  belongs_to :transaction_type
   has_many :entries
 
   default_scope :order => "created_at"
@@ -74,6 +75,10 @@ class Transaction < ActiveRecord::Base
 
   def inward?
     origin_id.nil? && !destination_id.nil?
+  end
+
+  def transfer?
+    !origin_id.nil? && !destination_id.nil?
   end
 
   def run_trackers

@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :customers do |customer|
+    customer.resource :profile
+    customer.resource :tax_profile
+  end
 
   map.resources :general_transactions, :member => { :detail => :get }
   map.resources :item_outs
@@ -9,13 +13,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :placements
   map.resources :plus
   map.resources :suppliers
+  map.connect 'ceated_transactions', :controller => :transactions, :action => :created
   map.resources :warehouses, :member => { :plu_available => :get, :setdefault => :get, :setasdefault => :put } do |warehouse|
     warehouse.resources :locations
   end
 
   map.namespace(:reports) do |report|
     report.resources :on_hands
-    report.resources :item_movements, :collection => { :generate => :post }
+    report.resources :item_movements, :collection => { :generate => :get, :excel => :get }
     report.resources :stock_cards
   end
   map.signin "signin", :controller => :user_sessions, :action => :new

@@ -14,60 +14,75 @@ class Reports::ItemMovementsController < ApplicationController
   end
 
   def generate
-    @params = params[:report]
-    balance_end_date = @params[:from].blank? ? Time.now.beginning_of_month : @params[:from].kind_of?(Time) ? @params[:from] : Chronic.parse(@params[:from])
-    all_items = Item.search(:company_id => current_company)
-    cat = Category.find(@params[:category]) unless @params[:category].blank?
-    if cat
-      if cat.leaf?
-        all_items = all_items.category_id_is(@params[:category])
-      else
-        all_items = all_items.category_id_in(cat.leaf_ids)
-      end
-    end
-    @items = all_items.all(:order => 'name ASC').paginate(:page => params[:page])
-    @ins, @outs, trf, other_in, other_out, other_trf = [], [], [], [], [], []
-    @params[:transactions].each do |t|
-      tt = TransactionType.find(t)
-      if tt.inward? 
-        if @ins.length <= 3
-          @ins << tt
-        else
-          other_in << tt
-        end
-      elsif tt.outward?
-        if @outs.length <= 3
-          @outs << tt
-        else
-          other_out << tt
-        end
-      else
-        if trf.length <= 3
-          trf << tt
-        else
-          other_trf << tt
-        end
-      end
-    end
-    @rows = []
-    @items.each do |i|
-      row = {}
-      row[:item] = i
-      row[:start_balance] = i.sum_on_hand_between(nil, balance_end_date - 1.day )
-      row[:end_balance] = i.stock
-      row[:other_in] = i.total_quantity_for_transactions(other_in, @params[:from], @params[:until])
-      unless @params[:from].blank? && @params[:until].blank?
-        row[:other_in] = row[:other_in] + i.total_begining_balance_between(@params[:from], @params[:until])
-      end
-      row[:other_out] = i.total_quantity_for_transactions(other_out, @params[:from], @params[:until])
-      row[:user_in] = @ins.collect { |tt| i.total_quantity_for_transaction(tt, @params[:from], @params[:until]) }
-      row[:user_out] = @outs.collect { |tt| i.total_quantity_for_transaction(tt, @params[:from], @params[:until]) }
-      @rows << row
-    end
+    @from = params[:from].blank? ? (Time.now.beginning_of_month) : Chronic.parse(params[:from]).beginning_of_day
+    @to = params[:to].blank? ? (Time.now) : Chronic.parse(params[:to]).end_of_day
+    @warehouse = params[:warehouse]
+    @category = params[:category]
+    @transactions = params[:transactions]
+
+    @generator = ItemMovementReport.new(current_company)
+    @generator.time_start = @from
+    @generator.time_end = @to
+    @generator.warehouse = @warehouse
+    @generator.category = @category
+    @generator.displayed_transactions = @transactions
+
+    # @rows = current_company.item_movement_report(@from, @to, @category, @warehouse, @transactions)
+    @rows = @generator.generate
     respond_to do |format|
       format.html { render :layout => 'wide' }
       format.pdf
     end
+  end
+
+  def excel
+    @from = params[:from].blank? ? (Time.now.beginning_of_month) : Chronic.parse(params[:from]).beginning_of_day
+    @to = params[:until].blank? ? (Time.now) : Chronic.parse(params[:until]).end_of_day
+    @warehouse = params[:warehouse]
+    @category = params[:category]
+
+    @ins, @outs, @rows = current_company.item_movement_report(@from, @to, @category, @warehouse, params[:transactions])
+    book = Spreadsheet::Workbook.new
+    sheet1 = book.create_worksheet
+    sheet1[0,0] = "Item Code"
+    sheet1[0,1] = "Item name"
+    sheet1[0,2] = "Start"
+    idx = 3
+    @ins.each do |i| 
+      sheet1[0,idx] = i.code
+      idx = idx + 1
+    end
+    sheet1[0,idx] = "Other"
+    idx = idx + 1
+    @outs.each do |i| 
+      sheet1[0,idx] = i.code
+      idx = idx + 1
+    end
+    sheet1[0,idx] = "Other"
+    idx = idx + 1
+    sheet1[0,idx] = "End"
+    @rows.each_with_index do |row, i|
+      sheet1[i+1,0] = row[:item].code
+      sheet1[i+1,1] = row[:item].name
+      sheet1[i+1,2] = row[:start_balance]
+      idx = 3
+      row[:user_in].each_with_index do |r, z|
+        sheet1[i+1,idx] = r
+        idx = idx + 1
+      end
+      sheet1[i+1,idx] = row[:other_in]
+        idx = idx + 1
+      row[:user_out].each_with_index do |r, z|
+        sheet1[i+1,idx] = r
+        idx = idx + 1
+      end
+      sheet1[i+1,idx] = row[:other_out]
+        idx = idx + 1
+        sheet1[i+1,idx] = row[:end_balance]
+    end
+
+    book.write "#{Rails.root}/tmp/excel.xls"
+    send_file "#{Rails.root}/tmp/excel.xls"
   end
 
   private

@@ -1,0 +1,27 @@
+- title "Profile"
+
+%p
+  %strong First Name:
+  =h @profile.first_name
+%p
+  %strong Last Name:
+  =h @profile.last_name
+%p
+  %strong Address:
+  =h @profile.address
+%p
+  %strong City:
+  =h @profile.city
+%p
+  %strong Phone:
+  =h @profile.phone
+%p
+  %strong Fax:
+  =h @profile.fax
+
+%p
+  = link_to "Edit", edit_profile_path(@profile)
+  |
+  = link_to "Destroy", @profile, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", profiles_path

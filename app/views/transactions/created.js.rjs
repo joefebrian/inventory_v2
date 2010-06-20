@@ -1,0 +1,10 @@
+script = <<JS
+
+$('.transaction_type:hidden').parents('tr').show();
+
+JS
+
+page << script
+@hidden_types.each do |i|
+  page << "$('#transaction_#{i}').removeAttr('checked').parents('tr').hide();"
+end

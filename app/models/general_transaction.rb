@@ -1,7 +1,6 @@
 class GeneralTransaction < Transaction
   attr_writer :validating_origin, :validating_destination
   belongs_to :company  
-  belongs_to :transaction_type
   belongs_to :originator_warehouse, :class_name => 'Warehouse', :foreign_key => :origin_id
   belongs_to :destination_warehouse, :class_name => 'Warehouse', :foreign_key => :destination_id
   has_many :entries, :foreign_key => :transaction_id, :dependent => :destroy

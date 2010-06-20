@@ -14,6 +14,7 @@ class Item < ActiveRecord::Base
     :styles => { :medium => "150x150>", :thumb => "60x60>" },
     :url => "/system/items/:id/:style/:basename.:extension",
     :path => ":rails_root/public/system/items/:id/:style/:basename.:extension"
+
   attr_accessor :on_hand_stock
 
   def available_tracker
@@ -66,23 +67,30 @@ class Item < ActiveRecord::Base
     ins - out
   end
 
-  def total_begining_balance_between(start = nil, finish = nil)
+  def days_range(start = nil, finish = nil)
     start = start.blank? ? '01/01/1970' : (start.kind_of?(Time) ? start.beginning_of_day : Chronic.parse(start)).beginning_of_day
     finish = finish.blank? ? Chronic.parse('today').end_of_day : (finish.kind_of?(Time) ? finish.end_of_day : Chronic.parse(finish)).end_of_day
+    [start, finish]
+  end
+
+  def total_begining_balance_between(start = nil, finish = nil)
+    start, finish = days_range(start, finish)
     Entry.item_id_is(self.id).transaction_type_is('BeginingBalance').transaction_created_at_gte(start).transaction_created_at_lte(finish).sum(:quantity)
   end
 
   def total_quantity_for_transaction(type, start = nil, finish = nil)
-    start = start.blank? ? '01/01/1970' : (start.kind_of?(Time) ? start.beginning_of_day : Chronic.parse(start)).beginning_of_day
-    finish = finish.blank? ? 'today' : (finish.kind_of?(Time) ? finish.end_of_day : Chronic.parse(finish)).end_of_day
+    start, finish = days_range(start, finish)
     Entry.item_id_is(self.id).transaction_transaction_type_id_is(type).transaction_created_at_lte(finish).transaction_created_at_gte(start).sum(:quantity)
   end
 
   def total_quantity_for_transactions(types, start = nil, finish = nil)
-    start = start.blank? ? '01/01/1970' : (start.kind_of?(Time) ? start.beginning_of_day : Chronic.parse(start)).beginning_of_day
-    finish = finish.blank? ? 'today' : (finish.kind_of?(Time) ? finish.end_of_day : Chronic.parse(finish)).end_of_day
+    start, finish = days_range(start, finish)
     return 0 if types.blank?
-    Entry.item_id_is(self.id).transaction_transaction_type_id_in(type).transaction_created_at_lte(finish).transaction_created_at_gte(start).sum(:quantity)
+    Entry.item_id_is(self.id).transaction_transaction_type_id_in(types).transaction_created_at_lte(finish).transaction_created_at_gte(start).sum(:quantity)
+  end
+
+  def on_hand_until(time = Time.now)
+    on_hand_between(nil, time)
   end
 
   def fifo?

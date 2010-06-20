@@ -11,6 +11,12 @@ class ItemsController < ApplicationController
     @active = params[:active] || 1
     @items = @items.active_is(@active) unless (@active.blank? || @active == 'all')
     @items.all
+
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @items }
+      format.json { render :json => @items }
+    end
   end
   
   def show

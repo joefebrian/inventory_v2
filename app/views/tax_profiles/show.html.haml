@@ -1,0 +1,27 @@
+- title "Tax Profile"
+
+%p
+  %strong Customer:
+  =h @tax_profile.customer_id
+%p
+  %strong First Name:
+  =h @tax_profile.first_name
+%p
+  %strong Last Name:
+  =h @tax_profile.last_name
+%p
+  %strong Address:
+  =h @tax_profile.address
+%p
+  %strong Postal Code:
+  =h @tax_profile.postal_code
+%p
+  %strong Npwp Number:
+  =h @tax_profile.npwp_number
+
+%p
+  = link_to "Edit", edit_tax_profile_path(@tax_profile)
+  |
+  = link_to "Destroy", @tax_profile, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", tax_profiles_path

@@ -1,0 +1,28 @@
+- form_for @tax_profile do |f|
+  = f.error_messages
+  %p
+    = f.label :customer_id
+    %br
+    = f.text_field :customer_id
+  %p
+    = f.label :first_name
+    %br
+    = f.text_field :first_name
+  %p
+    = f.label :last_name
+    %br
+    = f.text_field :last_name
+  %p
+    = f.label :address
+    %br
+    = f.text_area :address
+  %p
+    = f.label :postal_code
+    %br
+    = f.text_field :postal_code
+  %p
+    = f.label :npwp_number
+    %br
+    = f.text_field :npwp_number
+  %p
+    = f.submit
