@@ -13,7 +13,7 @@
           = p.text_field :last_name
           %br
           %p.inline-hints.inline-labels Last name
-      = p.input :address, :input_html => { :rows => 3, :cols => 30 }
+      = p.input :address, :input_html => { :rows => 2, :cols => 30 }
       %li.string
         = p.label :phone, "Telephone / Fax"
         .inline
@@ -36,7 +36,7 @@
           = tax.text_field :last_name
           %br
           %p.inline-hints.inline-labels Last name
-      = tax.input :address, :input_html => { :rows => 3, :cols => 30 }, :as => :text
+      = tax.input :address, :input_html => { :rows => 2, :cols => 30 }, :as => :text
       = tax.input :postal_code
       = tax.input :npwp_number, :label => "NPWP"
   %fieldset.buttons

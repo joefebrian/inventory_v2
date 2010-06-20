@@ -42,7 +42,7 @@ class CustomersController < ApplicationController
   end
   
   def destroy
-    @customer = current_company.customer.find(params[:id])
+    @customer = current_company.customers.find(params[:id])
     @customer.destroy
     flash[:notice] = "Successfully destroyed customer."
     redirect_to customers_url
