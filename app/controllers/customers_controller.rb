@@ -48,6 +48,11 @@ class CustomersController < ApplicationController
     redirect_to customers_url
   end
 
+  def edit_prices
+    @customer = Customer.find(params[:id])
+    @customer.special_prices.build if @customer.special_prices.blank?
+  end
+
   private
   def set_tab
     @tab = 'administrations'

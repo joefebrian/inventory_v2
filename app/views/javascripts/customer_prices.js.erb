@@ -1,0 +1,22 @@
+<%=
+<<JS
+    var items = #{@items.to_json(:only => [:id, :name], :methods => :name_with_code)};
+    var item_chooser = $('input.item_chooser');
+    var item_target = $('input.item_target');
+
+    item_chooser.autocomplete(items, {
+      formatItem: function(row, i) { return row.item.name_with_code; },
+      mustMatch: true
+    })
+    .result(function(event, data) {
+      if(data) {
+        item_target.val(data.item.id);
+        //$.get('/items/'+data.item.id+'.json', null, function(response) {
+        //});
+      }
+      else {
+        item_target.val('');
+      }
+    });
+JS
+%>

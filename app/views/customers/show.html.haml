@@ -9,6 +9,8 @@
 
     - content_for :main_act do
       = link_to "#{image_tag('icons/silk/user_edit.png')} Edit Customer", edit_customer_path(@customer), :class => 'main_link'
+      %ul#secondary_actions
+        %li= link_to "Special Prices", customer_customer_prices_path(@customer)
       
     = hint ""
 
@@ -37,3 +39,19 @@
       %div
         %span.light.transaction_label NPWP
         %p= @customer.tax_profile.npwp_number
+    %fieldset#prices.info
+      %legend Special Prices
+      %table.list
+        %tr
+          %th.numbers.index No
+          %th Item Code
+          %th Item Name
+          %th Prices
+        - @customer.special_prices_matrix.each_with_index do |price, i|
+          %tr
+            %td.numbers.index= i+1
+            %td= price['item'].code
+            %td= price['item'].name
+            %td
+              - for p in price['prices']
+                %span.customer_prices= p

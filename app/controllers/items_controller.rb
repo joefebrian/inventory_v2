@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_filter :set_tab
-  before_filter :authenticate
+  before_filter :authenticate, :except => [:index, :show]
   before_filter :categories_list, :except => [:index, :show]
   def index
     if params[:category_id]
@@ -21,7 +21,11 @@ class ItemsController < ApplicationController
   
   def show
     @item = Item.find(params[:id])
-    render :layout => false if request.xhr?
+    respond_to do |format|
+      format.html { render :layout => false if request.xhr? }
+      format.xml { render :xml => @item.to_xml(:include  => :units) }
+      format.json { render :json => @item.to_json(:include  => :units) }
+    end
   end
   
   def new

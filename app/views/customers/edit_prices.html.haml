@@ -1,0 +1,13 @@
+- title 'Edit Customer Special Prices'
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administration', administrations_path), |
+    link_to('Customers', customers_path), |
+    link_to("#{@customer.code} &bull; #{@customer.profile.full_name}", @customer), |
+    'Special Prices' ] |
+
+- semantic_form_for @customer, :url => update_prices_customer_path(@customer) do |f|
+  = f.error_messages
+  - f.inputs do
+    - semantic_fields_for :special_prices do |sp|
+      = sp.input :price

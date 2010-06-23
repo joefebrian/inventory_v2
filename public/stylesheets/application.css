@@ -116,8 +116,7 @@ h6 { font-size:1.1em; }
   text-shadow:0 1px 1px rgba(255,255,255,.9);
 }
 #sidemenu li a {
-  color:rgb(35, 95, 38);
-  color:rgba(35, 95, 38, 1);
+  color:#40bf3f;
   display:block;
   font-size:1.06em;
   font-weight:bold;
@@ -612,4 +611,13 @@ fieldset.form_section {
 }
 fieldset.form_section legend {
   padding:0 10px 0 0 !important;
+}
+#secondary_actions {
+  margin:10px 0 20px;
+}
+#secondary_actions li a {
+  color:#387E3A;
+  display:block;
+  font-weight:bold;
+  padding:2px 0;
 }

@@ -85,8 +85,15 @@ $("form#search").live('submit', function() {
       $('#searchresult').html(response)
       $('.searchresults tr:nth-child(2) td ul li:first-child a').focus();
       $('.plu_code_handle').bind('click', function() {
-        $($('body').data('input_id')).val(this.title).search().parent('td').next().next().children()[0].focus();
-        Boxy.get(this).hideAndUnload();
+        if($('body').data('input_id')) {
+          $($('body').data('input_id')).val(this.title).search().parent('td').next().next().children()[0].focus();
+          Boxy.get(this).hideAndUnload();
+        } else if($('body').data('type') == 'customer_prices') {
+          $('body').data('item_id', $(this).next().value);
+          //console.log($('body').data('item_id'));
+          Boxy.get(this).hideAndUnload();
+        }
+        return false;
       });
     }
   });
@@ -163,3 +170,21 @@ function set_autocomplete() {
     // else input.next('input[type=hidden]').val('');
   });
 }
+$('#add_item').live('click', function() {
+  $('body').data('type', 'customer_prices');
+  Boxy.load(this.href, {
+    //modal: true,
+    draggable: true,
+    unloadOnHide: true,
+    title: "Item Lookup",
+    closeText: "<img src='/images/icons/cross.png' alt='close'/>",
+    afterShow: function() {
+      $('#keyword').focus();
+    },
+    beforeUnload: function() {
+      var item_id = $('body').data('item_id');
+      window.location = window.location.toString().replace(/\/+$/,'') + '/new?item=' + item_id;
+    }
+  });
+  return false;
+});

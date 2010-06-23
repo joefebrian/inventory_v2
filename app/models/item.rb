@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :category
   has_many :units
   has_many :plus
+  has_many :customer_prices
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"
   validates_presence_of :category_code, :message => "category can't be blank"

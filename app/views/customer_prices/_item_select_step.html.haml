@@ -1,0 +1,4 @@
+%fieldset.inputs
+  %ol
+    = f.input :item_code, :input_html => { :class => "item_chooser" }
+    %li= f.hidden_field :item_id, { :class => "item_target" }

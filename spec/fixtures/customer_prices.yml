@@ -1,0 +1,9 @@
+one:
+  customer_id: 1
+  item_id: 1
+  unit_id: 1
+
+two:
+  customer_id: 1
+  item_id: 1
+  unit_id: 1

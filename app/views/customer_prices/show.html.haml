@@ -1,0 +1,18 @@
+- title "Customer Price"
+
+%p
+  %strong Customer:
+  =h @customer_price.customer_id
+%p
+  %strong Item:
+  =h @customer_price.item_id
+%p
+  %strong Unit:
+  =h @customer_price.unit_id
+
+%p
+  = link_to "Edit", edit_customer_price_path(@customer_price)
+  |
+  = link_to "Destroy", @customer_price, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", customer_prices_path

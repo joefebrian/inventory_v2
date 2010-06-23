@@ -10,4 +10,6 @@
         - unless item.plus.blank?
           %ul
             - for plu in item.plus
-              %li= link_to plu.code, '#', :class => 'plu_code_handle', :title => plu.code
+              %li
+                = link_to plu.code, '#', :class => 'plu_code_handle', :title => plu.code
+                %input{ :type => "hidden", :value => item.id }

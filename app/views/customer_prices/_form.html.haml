@@ -1,0 +1,15 @@
+- javascript 'customer_prices'
+
+- semantic_form_for [@customer, @customer_price] do |f|
+  = f.error_messages
+  = render "#{@customer_price.current_step}_step", :f => f
+
+  %fieldset.buttons
+    - if @customer_price.last_step?
+      %button{ :type => "submit" }
+        = image_tag 'icons/silk/disk.png'
+        Save Prices
+    - else
+      %p
+        = f.submit "Back", :name => "back_button" unless @customer_price.first_step?
+        = f.submit "Continue"
