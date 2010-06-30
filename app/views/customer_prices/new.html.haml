@@ -8,8 +8,11 @@
 
 - if @step == 1
   %h1 Select item(s)
+  %p
+    Item not listed here is already have a special price for you, you may want to
+    = link_to 'edit them', edit_prices_customer_customer_prices_path(@customer, :item => @item_with_special_price)
+    instead
   - semantic_form_for @customer, :url => new_customer_customer_price_path(@customer), :html => { :method => :get } do |f|
-    = hidden_field_tag :step, @step.to_i + 1
     %table.list
       %thead
         %tr
@@ -19,11 +22,13 @@
       %tfoot
         %tr
           %td &nbsp;
-          %td{ :colspan => 2 }= submit_tag "Continue"
+          %td{ :colspan => 2 }
+            = hidden_field_tag :step, @step.to_i + 1
+            = submit_tag "Continue"
       %tbody
         - for item in @items
           %tr
-            %td.td_5.tdc= check_box_tag 'item[]', item.id
+            %td.td_5.tdc= check_box_tag 'item[]', item.id, nil, :id => "item_#{item.id}"
             %td=h item.code
             %td=h item.name
 - elsif @step == 2

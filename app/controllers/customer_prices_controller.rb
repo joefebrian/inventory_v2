@@ -14,7 +14,8 @@ class CustomerPricesController < ApplicationController
     @customer = current_company.customers.find(params[:customer_id])
     if params[:step].blank? || params[:step].to_i == 1
       @step = 1
-      @items = current_company.items.paginate(:page => params[:page])
+      @item_with_special_price = @customer.special_prices.all(:group => "customer_prices.item_id").collect { |rec| rec.item_id }
+      @items = current_company.items.id_not_in(@item_with_special_price).paginate(:page => params[:page])
     elsif params[:step].to_i == 2
       @step = 2
       @items = current_company.items.find(params[:item])
@@ -40,7 +41,7 @@ class CustomerPricesController < ApplicationController
   def edit_prices
     redirect_to customer_path(params[:customer_id]) if params[:item].blank?
     @customer = current_company.customers.find(params[:customer_id])
-    @special_prices = @customer.special_prices.item_id_is(params[:item])
+    @special_prices = @customer.special_prices.item_id_is(params[:item]).all(:order => "customer_prices.item_id, units.position ASC")
   end
   
   def update_prices

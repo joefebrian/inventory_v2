@@ -599,6 +599,7 @@ fieldset.info {
   border:solid 1px #666666;
   padding:10px;
   margin-bottom:20px;
+  border-radius:5px;
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
 }
