@@ -8,27 +8,29 @@
 
 - if @step == 1
   %h1 Select item(s)
-  %p
-    Item not listed here is already have a special price for you, you may want to
+  %h5
+    Item not listed here is already have special price(s) for you, you may want to
     = link_to 'edit them', edit_prices_customer_customer_prices_path(@customer, :item => @item_with_special_price)
     instead
   - semantic_form_for @customer, :url => new_customer_customer_price_path(@customer), :html => { :method => :get } do |f|
     %table.list
       %thead
         %tr
-          %th Check
+          %th.tdc= check_box_tag "all", 1, nil, :id => "check_master"
           %th Item Code
           %th Item name
       %tfoot
         %tr
           %td &nbsp;
-          %td{ :colspan => 2 }
+          %td{ :colspan => 2, :class => "tdr" }
             = hidden_field_tag :step, @step.to_i + 1
-            = submit_tag "Continue"
+            %button{ :type => "submit" }
+              Continue
+              = image_tag 'icons/silk/arrow_right.png'
       %tbody
         - for item in @items
           %tr
-            %td.td_5.tdc= check_box_tag 'item[]', item.id, nil, :id => "item_#{item.id}"
+            %td.td_5.tdc= check_box_tag 'item[]', item.id, nil, :id => "item_#{item.id}", :class => "check_slave"
             %td=h item.code
             %td=h item.name
 - elsif @step == 2
@@ -42,19 +44,23 @@
           %th Prices
       %tfoot
         %tr
-          %td{ :colspan => 3, :class => "tdc" }= f.submit "Save special prices"
+          %td{ :colspan => 3, :class => "tdr" }
+            %button{ :type => "submit" }
+              = image_tag 'icons/silk/disk.png'
+              Save special prices
       %tbody
         - current_item = nil
         - idx = 1
         - f.fields_for :special_prices do |sp|
           - if current_item.nil? || current_item != sp.object.item.id
+            = "</td></tr>" unless current_item.nil?
             - current_item = sp.object.item.id
             <tr>
             = "<td style='vertical-align:top;'>#{idx}</td>"
             = "<td style='vertical-align:top;'>#{h sp.object.item.name}</td>"
             <td class="string">
             <div class="inline">
-            = sp.text_field :price, :label => false, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
+            = sp.text_field :price, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
             = sp.hidden_field :item_id
             = sp.hidden_field :unit_id
             = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
@@ -62,8 +68,9 @@
             - idx = idx + 1
           - else
             <div class="inline">
-            = sp.text_field :price, :label => false, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
+            = sp.text_field :price, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
             = sp.hidden_field :item_id
             = sp.hidden_field :unit_id
             = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
             </div>
+        </td></tr>

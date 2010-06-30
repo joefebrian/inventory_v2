@@ -628,3 +628,5 @@ fieldset.form_section legend {
 .box_blue { padding:5px; width:80px; text-align:right; }
 .box_blue { background:#B5D0DF; }
 .top_align tr td { vertical-align:top; }
+.mid-align { vertical-align:middle !important; }
+input.subtle { background:none; border:none; color:#666; }

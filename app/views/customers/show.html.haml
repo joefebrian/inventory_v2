@@ -10,7 +10,7 @@
     - content_for :main_act do
       = link_to "#{image_tag('icons/silk/user_edit.png')} Edit Customer", edit_customer_path(@customer), :class => 'main_link'
       %ul#secondary_actions
-        %li= link_to "Special Prices", customer_customer_prices_path(@customer)
+        %li= link_to "#{image_tag('icons/silk/add.png')} Add special Prices", new_customer_customer_price_path(@customer)
       
     = hint ""
 
@@ -40,24 +40,5 @@
         %span.light.transaction_label NPWP
         %p= @customer.tax_profile.npwp_number
     %fieldset#prices.info
-      %legend Special Prices
-      %table.list.top_align
-        %tr
-          %th.numbers.index No
-          %th Item
-          %th Prices
-          %th.actions Actions
-        - @customer.special_prices_matrix.each_with_index do |price, i|
-          %tr
-            %td.numbers.index= i+1
-            %td
-              = link_to h(price[1]['item'].code), item_path(price[1]['item'])
-              %br
-              =h price[1]['item'].name
-            %td.string
-              - for p in price[1]['prices']
-                .customer_prices.inline.box_blue
-                  = number_to_currency(p.price, :unit => "Rp. ", :delimiter => ".", :precision => 0)
-                  %br
-                  %p.inline-hints.inline-labels= p.unit.name
-            %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_prices_customer_customer_prices_path(@customer, :item => price[1]['item'].id), :title => "edit special prices"
+      %legend= link_to "Special Prices", customer_customer_prices_path(@customer)
+      = render 'special_prices'

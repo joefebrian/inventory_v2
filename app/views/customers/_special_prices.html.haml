@@ -1,0 +1,32 @@
+- form_for @customer, :url => edit_prices_customer_customer_prices_path(@customer), :html => { :method => :get } do |f|
+  %table.list.top_align
+    %thead
+      %tr
+        %th.tdc= check_box_tag 'check_all', 1, nil, :id => "check_master"
+        %th.numbers.index No
+        %th Item
+        %th Prices
+        %th.actions Actions
+    %tfoot
+      %tr
+        %td{ :colspan => 4 }
+          %button{ :type => "submit" } Edit checked
+          = link_to "#{image_tag('icons/silk/add.png')} Add special Prices", new_customer_customer_price_path(@customer)
+        %td{ :colspan => 1, :class => "tdr mid-align" }
+          = f.submit "delete checked", :name => "delete", :class => "subtle"
+    %tbody
+      - @customer.special_prices_matrix.each_with_index do |price, i|
+        %tr
+          %td.tdc= check_box_tag 'item[]', price[1]['item'].id, nil, :id => "item_#{price[1]['item'].id}", :class => "check_slave"
+          %td.numbers.index= i+1
+          %td
+            = link_to h(price[1]['item'].code), item_path(price[1]['item'])
+            %br
+            =h price[1]['item'].name
+          %td.string
+            - for p in price[1]['prices']
+              .customer_prices.inline.box_blue
+                = number_to_currency(p.price, :unit => "Rp. ", :delimiter => ".", :precision => 0)
+                %br
+                %p.inline-hints.inline-labels= p.unit.name
+          %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_prices_customer_customer_prices_path(@customer, :item => price[1]['item'].id), :title => "edit special prices"

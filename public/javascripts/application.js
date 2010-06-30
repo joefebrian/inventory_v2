@@ -74,6 +74,13 @@ $(function() {
       // else input.next('input[type=hidden]').val('');
     });
   }
+  $('#check_master').click(function() {
+    if(this.checked) {
+      $('.check_slave').attr('checked', 'checked');
+    } else {
+      $('.check_slave').removeAttr('checked');
+    }
+  });
 });
 
 $('.plu_input').live('click', function() {

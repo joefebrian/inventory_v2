@@ -41,6 +41,11 @@ class CustomerPricesController < ApplicationController
   def edit_prices
     redirect_to customer_path(params[:customer_id]) if params[:item].blank?
     @customer = current_company.customers.find(params[:customer_id])
+    if params[:delete]
+      CustomerPrice.destroy(@customer.special_prices.item_id_is(params[:item]))
+      flash[:notice] = "Customer special price(s) deleted"
+      redirect_to @customer
+    end
     @special_prices = @customer.special_prices.item_id_is(params[:item]).all(:order => "customer_prices.item_id, units.position ASC")
   end
   
