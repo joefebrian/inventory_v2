@@ -1,5 +1,5 @@
 class CustomerPrice < ActiveRecord::Base
-  attr_accessible :customer_id, :item_id, :unit_id, :item_code
+  attr_accessible :customer_id, :item_id, :unit_id, :item_code, :price
   attr_writer :current_step, :item_code
 
   belongs_to :customer

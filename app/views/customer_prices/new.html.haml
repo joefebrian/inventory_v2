@@ -1,3 +1,64 @@
-- title "New Customer Price"
+- title 'Edit Customer Special Prices'
 
-= render :partial => 'form'
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administration', administrations_path), |
+    link_to('Customers', customers_path), |
+    link_to("#{@customer.code} &bull; #{@customer.profile.full_name}", @customer), |
+    'Special Prices' ] |
+
+- if @step == 1
+  %h1 Select item(s)
+  - semantic_form_for @customer, :url => new_customer_customer_price_path(@customer), :html => { :method => :get } do |f|
+    = hidden_field_tag :step, @step.to_i + 1
+    %table.list
+      %thead
+        %tr
+          %th Check
+          %th Item Code
+          %th Item name
+      %tfoot
+        %tr
+          %td &nbsp;
+          %td{ :colspan => 2 }= submit_tag "Continue"
+      %tbody
+        - for item in @items
+          %tr
+            %td.td_5.tdc= check_box_tag 'item[]', item.id
+            %td=h item.code
+            %td=h item.name
+- elsif @step == 2
+  %h1 Input prices
+  - form_for @customer, :url => { :controller => 'customer_prices', :action => :create }, :html => { :method => :post } do |f|
+    %table.list
+      %thead
+        %tr
+          %th.td_5 No. 
+          %th Item name
+          %th Prices
+      %tfoot
+        %tr
+          %td{ :colspan => 3, :class => "tdc" }= f.submit "Save special prices"
+      %tbody
+        - current_item = nil
+        - idx = 1
+        - f.fields_for :special_prices do |sp|
+          - if current_item.nil? || current_item != sp.object.item.id
+            - current_item = sp.object.item.id
+            <tr>
+            = "<td style='vertical-align:top;'>#{idx}</td>"
+            = "<td style='vertical-align:top;'>#{h sp.object.item.name}</td>"
+            <td class="string">
+            <div class="inline">
+            = sp.text_field :price, :label => false, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
+            = sp.hidden_field :item_id
+            = sp.hidden_field :unit_id
+            = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
+            </div>
+            - idx = idx + 1
+          - else
+            <div class="inline">
+            = sp.text_field :price, :label => false, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
+            = sp.hidden_field :item_id
+            = sp.hidden_field :unit_id
+            = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
+            </div>

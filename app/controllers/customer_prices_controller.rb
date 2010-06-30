@@ -11,50 +11,45 @@ class CustomerPricesController < ApplicationController
   end
   
   def new
-    session[:customer_price_params] ||= {}
-    @customer = Customer.find(params[:customer_id])
-    @customer_price = @customer.special_prices.new(session[:customer_price_params])
-    @customer_price.current_step = session[:customer_price_step]
+    @customer = current_company.customers.find(params[:customer_id])
+    if params[:step].blank? || params[:step].to_i == 1
+      @step = 1
+      @items = current_company.items.paginate(:page => params[:page])
+    elsif params[:step].to_i == 2
+      @step = 2
+      @items = current_company.items.find(params[:item])
+      for item in @items
+        for unit in item.units
+          @customer.special_prices.build(:item_id => item.id, :unit_id => unit.id)
+        end
+      end
+    end
   end
   
   def create
-    session[:customer_price_params].deep_merge!(params[:customer_price]) if params[:customer_price]
-    @customer = Customer.find(params[:customer_id])
-    @customer_price = @customer.special_prices.new(session[:customer_price_params])
-    @customer_price.current_step = session[:customer_price_step]
-    if @customer_price.valid?
-      if params[:back_button]
-        @customer_price.previous_step
-      elsif @customer_price.last_step?
-        #@customer_price.save if @customer_price.all_valid?
-      else
-        @customer_price.next_step
-        if @customer_price.current_step == 'unit_fill_in'
-          @item = Item.find(params[:customer_price][:item_id])
-        end
-      end
-      session[:customer_price_step] = @customer_price.current_step
-    end
-    if @customer_price.new_record?
-      render "new"
+    @customer = current_company.customers.find(params[:customer_id])
+    if @customer.update_attributes(params[:customer])
+      flash[:success] = "Special prices saved"
+      redirect_to @customer
     else
-      session[:customer_price_step] = session[:customer_price_params] = nil
-      flash[:notice] = "Order saved!"
-      redirect_to @customer_price
+      @step = 2
+      render :action => :new
     end
   end
   
-  def edit
-    @customer_price = CustomerPrice.find(params[:id])
+  def edit_prices
+    redirect_to customer_path(params[:customer_id]) if params[:item].blank?
+    @customer = current_company.customers.find(params[:customer_id])
+    @special_prices = @customer.special_prices.item_id_is(params[:item])
   end
   
-  def update
-    @customer_price = CustomerPrice.find(params[:id])
-    if @customer_price.update_attributes(params[:customer_price])
+  def update_prices
+    @customer = current_company.customers.find(params[:customer_id])
+    if @customer.update_attributes(params[:customer])
       flash[:notice] = "Successfully updated customer price."
-      redirect_to @customer_price
+      redirect_to @customer
     else
-      render :action => 'edit'
+      render :action => 'edit_prices'
     end
   end
   

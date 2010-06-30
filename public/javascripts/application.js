@@ -56,6 +56,24 @@ $(function() {
   if($('table#enhanced').length) {
     $('table#enhanced').dataTable({"bJQueryUI": true});
   }
+  if($('.item_chooser').length) {
+    $('.item_chooser').autocomplete(items, {
+      formatItem: function(row, i) { return row.item.name; },
+      autoFill: true,
+      mustMatch: true }
+    )
+    .result(function(event, data) {
+      var input = $(this);
+      if(data) {
+        // $.get('/items/'+data.item.id+'/customer_prices',
+        // input.next('input[type=hidden]').val(data.item.id);
+        // input.parent().next().html(data.item.name);
+        // input.parent().next().next().children()[0].focus();
+        event.stopImmediatePropagation();
+      }
+      // else input.next('input[type=hidden]').val('');
+    });
+  }
 });
 
 $('.plu_input').live('click', function() {

@@ -1,26 +1,25 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.resources :customers, :member => { :edit_prices => :get, :update_prices => :put } do |customer|
+  map.resources :customers do |customer|
     customer.resource :profile
     customer.resource :tax_profile
-    customer.resources :customer_prices, :only => :index
+    customer.resources :customer_prices,
+      :only => [:index, :new, :create],
+      :collection => { :edit_prices => :get, :update_prices => :put }
   end
 
   map.resources :general_transactions, :member => { :detail => :get }
-  map.resources :item_outs
-  map.resources :item_ins
-  map.resources :item_transfers
   map.resources :transaction_types
   map.resources :begining_balances
   map.resources :placements
   map.resources :plus
   map.resources :suppliers
-  map.connect 'ceated_transactions', :controller => :transactions, :action => :created
+  map.connect 'created_transactions', :controller => :transactions, :action => :created
   map.resources :warehouses, :member => { :plu_available => :get, :setdefault => :get, :setasdefault => :put } do |warehouse|
     warehouse.resources :locations
   end
   map.resources :user_sessions
-  map.resources :items, :collection => { :lookup => :get }
+  map.resources :items, :collection => { :lookup => :get }, :member => { :customer_prices => :get }
   map.resources :categories, :member => {:items_for_begining_balance => :get} do |category|
     category.resources :items, :member => { :activate => :get, :deactivate => :get }
   end

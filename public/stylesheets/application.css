@@ -585,9 +585,12 @@ table.form tr td:first-child {
 }
 .string div.inline {
   display:inline-block;
+  margin-right:5px;
 }
 .string div.inline .inline-hints.inline-labels {
-  margin:.5em 0 0 0;
+  margin: 0;
+  font-style:italic;
+  color:#666;
 }
 .string div.inline > input {
   width:96% !important;
@@ -621,3 +624,6 @@ fieldset.form_section legend {
   font-weight:bold;
   padding:2px 0;
 }
+.box_blue { padding:5px; width:80px; text-align:right; }
+.box_blue { background:#B5D0DF; }
+.top_align tr td { vertical-align:top; }

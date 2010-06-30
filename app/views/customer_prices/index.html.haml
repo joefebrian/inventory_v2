@@ -8,20 +8,25 @@
       'Special Prices' ] |
 
   - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Special Prices", edit_prices_customer_path(@customer), :class => 'main_link'
+    = link_to "#{image_tag('icons/silk/add.png')} Add Special Prices", new_customer_customer_price_path(@customer), :class => 'main_link'
 
-  %table#customer_prices.list
+  %table#customer_prices.list.top_align
     %tr
       %th.number.index No.
       %th Item
       %th Prices
-    - @customer_prices.each_with_index do |price, i|
-      %tr
-        %td= h i+1
-        %td
-          = h price['item'].code
-          %br
-          = h price['item'].name
-        %td
-          - for p in price['prices']
-            %span.customer_prices= p
+      %th.actions Actions
+      - @customer.special_prices_matrix.each_with_index do |price, i|
+        %tr
+          %td.numbers.index= i+1
+          %td
+            =h price[1]['item'].code
+            %br
+            =h price[1]['item'].name
+          %td.string
+            - for p in price[1]['prices']
+              .customer_prices.inline.box_blue
+                = number_to_currency(p.price, :unit => "Rp. ", :delimiter => ".", :precision => 0)
+                %br
+                %p.inline-hints.inline-labels= p.unit.name
+          %td.actions= link_to "edit", '#'
