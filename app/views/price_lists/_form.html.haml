@@ -1,0 +1,9 @@
+- semantic_form_for(@price_list) do |f|
+  = f.error_messages
+  - f.inputs do
+    = f.input :code
+    = f.input :name
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save price list

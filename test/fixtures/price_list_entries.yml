@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  price_list: 
+  item_id: 1
+  value: 1
+
+two:
+  price_list: 
+  item_id: 1
+  value: 1

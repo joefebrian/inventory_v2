@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
       :collection => { :edit_prices => :get, :update_prices => :put }
   end
 
+  map.resources :price_lists
   map.resources :general_transactions, :member => { :detail => :get }
   map.resources :transaction_types
   map.resources :begining_balances

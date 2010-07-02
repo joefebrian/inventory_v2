@@ -52,25 +52,26 @@
         - current_item = nil
         - idx = 1
         - f.fields_for :special_prices do |sp|
-          - if current_item.nil? || current_item != sp.object.item.id
-            = "</td></tr>" unless current_item.nil?
-            - current_item = sp.object.item.id
-            <tr>
-            = "<td style='vertical-align:top;'>#{idx}</td>"
-            = "<td style='vertical-align:top;'>#{h sp.object.item.name}</td>"
-            <td class="string">
-            <div class="inline">
-            = sp.text_field :price, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
-            = sp.hidden_field :item_id
-            = sp.hidden_field :unit_id
-            = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
-            </div>
-            - idx = idx + 1
-          - else
-            <div class="inline">
-            = sp.text_field :price, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
-            = sp.hidden_field :item_id
-            = sp.hidden_field :unit_id
-            = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
-            </div>
+          - if sp.object.new_record?
+            - if current_item.nil? || current_item != sp.object.item.id
+              = "</td></tr>" unless current_item.nil?
+              - current_item = sp.object.item.id
+              <tr>
+              = "<td style='vertical-align:top;'>#{idx}</td>"
+              = "<td style='vertical-align:top;'>#{h sp.object.item.name}</td>"
+              <td class="string">
+              <div class="inline">
+              = sp.text_field :price, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
+              = sp.hidden_field :item_id
+              = sp.hidden_field :unit_id
+              = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
+              </div>
+              - idx = idx + 1
+            - else
+              <div class="inline">
+              = sp.text_field :price, :size => 10, :value => (sp.object.price || sp.object.unit.value || 0), :class => "numbers"
+              = sp.hidden_field :item_id
+              = sp.hidden_field :unit_id
+              = "<p class='inline-hints inline-labels'>#{h sp.object.unit.name}</p>"
+              </div>
         </td></tr>
