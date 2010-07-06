@@ -81,6 +81,9 @@ $(function() {
       $('.check_slave').removeAttr('checked');
     }
   });
+  $('#sidemenu li.submenu_handler').click(function() {
+    $(this).children('ul.submenu').toggle('blind');
+  });
 });
 
 $('.plu_input').live('click', function() {

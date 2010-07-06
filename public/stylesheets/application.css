@@ -155,7 +155,7 @@ h6 { font-size:1.1em; }
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/
   color:#fff;
 }
-#sidemenu ul {
+#sidemenu ul.submenu {
   display:none;
   padding:0 0 0 20px;
 }
