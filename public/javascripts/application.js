@@ -54,7 +54,7 @@ $(function() {
     }
   });
   if($('table#enhanced').length) {
-    $('table#enhanced').dataTable({"bJQueryUI": true});
+    $('table#enhanced').dataTable({"bJQueryUI": true, "sPaginationType": "full_numbers"});
   }
   if($('.item_chooser').length) {
     $('.item_chooser').autocomplete(items, {

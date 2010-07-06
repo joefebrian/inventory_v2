@@ -1,24 +1,11 @@
-<h1>Editing price_list</h1>
+- title 'Edit Price List'
 
-<% form_for(@price_list) do |f| %>
-  <%= f.error_messages %>
+- cache do
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Administrations', administrations_path), |
+      link_to('Price Lists', price_lists_path), |
+      "Edit #{@price_list.name}" ] |
 
-  <p>
-    <%= f.label :company_id %><br />
-    <%= f.text_field :company_id %>
-  </p>
-  <p>
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+  = sidemenu @tab
 
-<%= link_to 'Show', @price_list %> |
-<%= link_to 'Back', price_lists_path %>
+  = render 'form'

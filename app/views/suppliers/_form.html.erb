@@ -3,9 +3,22 @@
 <div id="dialog_form">
   <% semantic_form_for @supplier, {}, :html => { :id => "supplier_form" } do |f| %>
     <% f.inputs do %>
-      <%= f.input :code %>
-      <%= f.input :name %>
-      <%= f.input :description, :input_html => { :rows => 3 } %>
+      <%= f.input :code, :label => "Supplier code" %>
+      <%= f.input :name, :label => "Supplier name" %>
+      <% f.semantic_fields_for :profile do |pr| %>
+        <%= pr.input :address, :input_html => { :rows => 4 } %>
+        <li class="string">
+          <%= pr.label :phone, "Phone / Fax number" %>
+          <div class="inline">
+            <%= pr.text_field :phone %><br/>
+            <p class="inline-hints inline-labels">Phone</p>
+          </div>
+          <div class="inline">
+            <%= pr.text_field :fax %><br/>
+            <p class="inline-hints inline-labels">Fax</p>
+          </div>
+        </li>
+      <% end -%>
     <% end -%>
     <fieldset class="buttons">
       <button type="submit"><%= image_tag 'icons/silk/disk.png' %> Save supplier</button>

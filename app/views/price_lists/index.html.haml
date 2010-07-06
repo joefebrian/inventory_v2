@@ -9,3 +9,25 @@
 
   - content_for :main_act do
     = link_to "#{image_tag('icons/silk/add.png')} Add New Price List", new_price_list_path, :class => 'main_link'
+
+  %table.list
+    %thead
+      %tr
+        %th.index No
+        %th Name
+        %th Active time range
+        %th.actions Actions
+    %tfoot
+      %tr
+        %td{ :colspan => 4 } &nbsp;
+    %tbody
+      - @price_lists.each_with_index do |price_list, i|
+        %tr
+          %td.index= (i + 1)
+          %td= link_to h(price_list.name), price_list
+          %td
+            = "#{price_list.active_from.to_s(:long)} - #{price_list.active_until.to_s(:long)}"
+            %span= " ( currently active )" if price_list.currently_active?
+          %td.actions
+            = link_to image_tag('icons/silk/application_form_edit.png'), edit_price_list_path(price_list), :title => "edit price list"
+            = link_to image_tag('icons/silk/delete.png'), price_list, :method => :delete, :confirm => "Are you sure?", :title => "delete price list"

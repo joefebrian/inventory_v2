@@ -24,6 +24,7 @@
           = p.text_field :fax
           %br
           %p.inline-hints.inline-labels fax
+      = f.input :price_list, :include_blank => "-- select price list --"
   - f.inputs "Tax Information", :class => "form_section" do
     - f.semantic_fields_for :tax_profile do |tax|
       %li.string

@@ -326,9 +326,7 @@ table.report tr.even td {
 .report span.description {
   font-style:italic;
 }
-.report td.index {
-  background:rgba(139,139,139,1) !important;
-  color:#fff;
+td.index {
   font-weight:bold;
   text-align:right;
   width:5%;
@@ -588,7 +586,7 @@ table.form tr td:first-child {
   margin-right:5px;
 }
 .string div.inline .inline-hints.inline-labels {
-  margin: 0;
+  margin: 3px 0 0;
   font-style:italic;
   color:#666;
 }
@@ -630,3 +628,10 @@ fieldset.form_section legend {
 .top_align tr td { vertical-align:top; }
 .mid-align { vertical-align:middle !important; }
 input.subtle { background:none; border:none; color:#666; }
+.ui-widget-header { padding:5px; }
+a#enhanced_previous { float:left; }
+a#enhanced_next { float:left; }
+.boxy-wrapper .top, .boxy-wrapper .bottom { border:none; }
+.dataTables_wrapper { top:-150px; }
+.dataTables_info, .paging_full_numbers  { width:auto !important; }
+.ui-state-default { padding:3px !important; cursor:pointer; }

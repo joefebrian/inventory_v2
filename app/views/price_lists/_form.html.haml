@@ -1,8 +1,55 @@
 - semantic_form_for(@price_list) do |f|
   = f.error_messages
   - f.inputs do
-    = f.input :code
-    = f.input :name
+    = f.input :code, :label => "Price list code"
+    = f.input :name, :label => "Price list name"
+    %li.string
+      = f.label :active_from, "Active"
+      .inline
+        = f.text_field :active_from, :size => 20, :class => "datepicker"
+        %br
+        %p.inline-hints.inline-labels From
+      .inline
+        = f.text_field :active_until, :size => 20, :class => "datepicker"
+        %br
+        %p.inline-hints.inline-labels Until
+  - current_item = nil
+  - idx = 1
+  %h3 Items
+  %table.report
+    %thead
+      %tr
+        %th #
+        %th Item
+        %th Prices
+    %tfoot
+      %tr
+        %td{ :colspan => 3 }
+    %tbody
+      - f.semantic_fields_for :entries do |ent|
+        - if current_item.nil? || current_item != ent.object.item.id
+          = "</td></tr>" unless current_item.nil?
+          - current_item = ent.object.item.id
+          <tr>
+          = "<td style='vertical-align:top;' class='index'>#{idx}</td>"
+          = "<td style='vertical-align:top;'>#{link_to h(ent.object.item.name), ent.object.item}</td>"
+          <td class="string">
+          <div class="inline">
+          = ent.text_field :value, :size => 10, :value => (ent.object.value || ent.object.unit.value || 0), :class => "numbers"
+          = ent.hidden_field :item_id
+          = ent.hidden_field :unit_id
+          = "<p class='inline-hints inline-labels'>#{h ent.object.unit.name} (#{number_to_currency(ent.object.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
+          </div>
+          - idx = idx + 1
+        - else
+          <div class="inline">
+          = ent.text_field :value, :size => 10, :value => (ent.object.value || ent.object.unit.value || 0), :class => "numbers"
+          = ent.hidden_field :item_id
+          = ent.hidden_field :unit_id
+          = "<p class='inline-hints inline-labels'>#{h ent.object.unit.name} (#{number_to_currency(ent.object.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
+          </div>
+      </td></tr>
+      
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'

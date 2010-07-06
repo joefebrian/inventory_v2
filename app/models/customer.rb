@@ -2,6 +2,7 @@ class Customer < ActiveRecord::Base
   attr_accessible :profile_id, :code, :profile_attributes, :tax_profile_attributes, :item_code, :special_prices_attributes
   belongs_to :company
   belongs_to :profile
+  belongs_to :price_list
   has_one :tax_profile
   has_many :special_prices, :class_name => "CustomerPrice", :order => "units.position", :include => :unit
 

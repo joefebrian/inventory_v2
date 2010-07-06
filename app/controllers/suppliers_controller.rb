@@ -12,6 +12,7 @@ class SuppliersController < ApplicationController
   
   def new
     @supplier = current_company.suppliers.new
+    @supplier.build_profile
     render :layout => false if request.xhr?
   end
   
@@ -27,6 +28,7 @@ class SuppliersController < ApplicationController
   
   def edit
     @supplier = Supplier.find(params[:id])
+    @supplier.build_profile if @supplier.profile.blank?
     render :layout => false if request.xhr?
   end
   
