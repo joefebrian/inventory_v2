@@ -48,7 +48,7 @@ class TransactionTypesController < ApplicationController
 
   private
   def assign_tab
-    @tab = 'transactions'
+    @tab = 'administrations'
     @current = 'tt'
   end
 end

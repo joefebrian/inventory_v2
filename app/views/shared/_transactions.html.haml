@@ -1,4 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil }
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil }
 - current[@current] = 'current'
 %ul#sidemenu
   %li
@@ -8,5 +8,5 @@
     = link_to "Begining Balances", begining_balances_path, :class => current['bb']
     %div
   %li
-    = link_to "Transaction Types", transaction_types_path, :class => current['tt']
+    = link_to "Purchasing", '#', :class => current['pur']
     %div
