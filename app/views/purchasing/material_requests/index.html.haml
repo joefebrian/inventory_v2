@@ -1,0 +1,23 @@
+- title "Material Requests"
+
+%table
+  %tr
+    %th Company
+    %th Number
+    %th Userdate
+    %th Reference
+    %th Requester
+    %th Description
+  - for material_request in @material_requests
+    %tr
+      %td= h material_request.company_id
+      %td= h material_request.number
+      %td= h material_request.userdate
+      %td= h material_request.reference
+      %td= h material_request.requester
+      %td= h material_request.description
+      %td= link_to 'Show', material_request
+      %td= link_to 'Edit', edit_material_request_path(material_request)
+      %td= link_to 'Destroy', material_request, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Material Request", new_purchasing_material_request_path

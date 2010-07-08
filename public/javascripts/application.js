@@ -81,9 +81,11 @@ $(function() {
       $('.check_slave').removeAttr('checked');
     }
   });
+  $('#sidemenu ul.submenu').hide();
   $('#sidemenu li.submenu_handler').click(function() {
     $(this).children('ul.submenu').toggle('blind');
   });
+  $('#sidemenu ul.submenu li a.current').parents('ul.submenu').show();
 });
 
 $('.plu_input').live('click', function() {

@@ -1,4 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil }
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil }
 - current[@current] = 'current'
 %ul#sidemenu
   %li
@@ -12,7 +12,7 @@
     %div
     %ul.submenu
       %li
-        = link_to "Material Request", '#'
+        = link_to "Material Request", purchasing_material_requests_path, :class => current['mr']
         %div
       %li
         = link_to "Quotation", '#'

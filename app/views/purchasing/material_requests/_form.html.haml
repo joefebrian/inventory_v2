@@ -1,0 +1,28 @@
+- form_for @material_request do |f|
+  = f.error_messages
+  %p
+    = f.label :company_id
+    %br
+    = f.text_field :company_id
+  %p
+    = f.label :number
+    %br
+    = f.text_field :number
+  %p
+    = f.label :userdate
+    %br
+    = f.date_select :userdate
+  %p
+    = f.label :reference
+    %br
+    = f.text_field :reference
+  %p
+    = f.label :requester
+    %br
+    = f.text_field :requester
+  %p
+    = f.label :description
+    %br
+    = f.text_area :description
+  %p
+    = f.submit

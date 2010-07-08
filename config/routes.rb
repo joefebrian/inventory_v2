@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.namespace(:purchasing) do |purchase|
+    purchase.resources :material_requests
+  end
 
   map.resources :customers do |customer|
     customer.resource :profile

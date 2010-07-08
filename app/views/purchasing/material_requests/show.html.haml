@@ -1,0 +1,27 @@
+- title "Material Request"
+
+%p
+  %strong Company:
+  =h @material_request.company_id
+%p
+  %strong Number:
+  =h @material_request.number
+%p
+  %strong Userdate:
+  =h @material_request.userdate
+%p
+  %strong Reference:
+  =h @material_request.reference
+%p
+  %strong Requester:
+  =h @material_request.requester
+%p
+  %strong Description:
+  =h @material_request.description
+
+%p
+  = link_to "Edit", edit_material_request_path(@material_request)
+  |
+  = link_to "Destroy", @material_request, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", material_requests_path

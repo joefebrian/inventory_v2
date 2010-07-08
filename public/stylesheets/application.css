@@ -156,8 +156,10 @@ h6 { font-size:1.1em; }
   color:#fff;
 }
 #sidemenu ul.submenu {
-  display:none;
   padding:0 0 0 20px;
+}
+#sidemenu ul.submenu li a.current {
+  display:block !important;
 }
 #main {
   background:rgb(255,255,255);
