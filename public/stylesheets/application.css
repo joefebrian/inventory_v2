@@ -600,7 +600,7 @@ table.form tr td:first-child {
   display:inline-block;
   margin-right:5px;
 }
-.string div.inline .inline-hints.inline-labels {
+.string div.inline .inline-hints.inline-labels, .inline-labels {
   margin: 3px 0 0;
   font-style:italic;
   color:#666;
@@ -650,3 +650,16 @@ a#enhanced_next { float:left; }
 .dataTables_wrapper { top:-150px; }
 .dataTables_info, .paging_full_numbers  { width:auto !important; }
 .ui-state-default { padding:3px !important; cursor:pointer; }
+fieldset.form-wrapper {
+  padding:2em 1em 1em;
+  border:1px solid #999999;
+  border-radius:10px 10px 10px 10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+fieldset.form-wrapper legend {
+  font-weight:bold;
+  font-size:16px;
+  letter-spacing:.1em;
+  padding:0 .5em;
+}

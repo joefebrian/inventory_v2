@@ -1,28 +1,12 @@
-- form_for @material_request do |f|
+- semantic_form_for [:purchasing, @material_request] do |f|
   = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :userdate
-    %br
-    = f.date_select :userdate
-  %p
-    = f.label :reference
-    %br
-    = f.text_field :reference
-  %p
-    = f.label :requester
-    %br
-    = f.text_field :requester
-  %p
-    = f.label :description
-    %br
-    = f.text_area :description
-  %p
-    = f.submit
+  - f.inputs do
+    = f.input :number, :label => "No. MR"
+    = f.input :userdate, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    = f.input :reference
+    = f.input :requester
+    = f.input :description, :input_html => { :rows => 3 }
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save material request

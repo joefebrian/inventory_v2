@@ -2,7 +2,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
   def index
-    @material_requests = MaterialRequest.all
+    @material_requests = current_company.material_requests.all
   end
   
   def show
@@ -10,25 +10,25 @@ class Purchasing::MaterialRequestsController < ApplicationController
   end
   
   def new
-    @material_request = MaterialRequest.new
+    @material_request = current_company.material_requests.new
   end
   
   def create
-    @material_request = MaterialRequest.new(params[:material_request])
+    @material_request = current_company.material_requests.new(params[:material_request])
     if @material_request.save
       flash[:notice] = "Successfully created material request."
-      redirect_to @material_request
+      redirect_to purchasing_material_request_path(@material_request)
     else
       render :action => 'new'
     end
   end
   
   def edit
-    @material_request = MaterialRequest.find(params[:id])
+    @material_request = current_company.material_requests.find(params[:id])
   end
   
   def update
-    @material_request = MaterialRequest.find(params[:id])
+    @material_request = current_company.material_requests.find(params[:id])
     if @material_request.update_attributes(params[:material_request])
       flash[:notice] = "Successfully updated material request."
       redirect_to @material_request
@@ -38,7 +38,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   end
   
   def destroy
-    @material_request = MaterialRequest.find(params[:id])
+    @material_request = current_company.material_requests.find(params[:id])
     @material_request.destroy
     flash[:notice] = "Successfully destroyed material request."
     redirect_to material_requests_url

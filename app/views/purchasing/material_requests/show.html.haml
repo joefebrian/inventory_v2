@@ -1,27 +1,32 @@
 - title "Material Request"
 
-%p
-  %strong Company:
-  =h @material_request.company_id
-%p
-  %strong Number:
-  =h @material_request.number
-%p
-  %strong Userdate:
-  =h @material_request.userdate
-%p
-  %strong Reference:
-  =h @material_request.reference
-%p
-  %strong Requester:
-  =h @material_request.requester
-%p
-  %strong Description:
-  =h @material_request.description
+- cache do
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      'Purchasing', |
+      link_to('Material Request', purchasing_material_requests_path), |
+      "Material Request ##{@material_request.number}" ] |
 
-%p
-  = link_to "Edit", edit_material_request_path(@material_request)
-  |
-  = link_to "Destroy", @material_request, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", material_requests_path
+    = sidemenu @tab
+
+  - content_for :main_act do
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Material Request", edit_purchasing_material_request_path(@material_request), :class => 'main_link'
+
+  %p
+    %strong Company:
+    =h @material_request.company_id
+  %p
+    %strong Number:
+    =h @material_request.number
+  %p
+    %strong Userdate:
+    =h @material_request.userdate
+  %p
+    %strong Reference:
+    =h @material_request.reference
+  %p
+    %strong Requester:
+    =h @material_request.requester
+  %p
+    %strong Description:
+    =h @material_request.description
