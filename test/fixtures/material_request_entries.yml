@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  material_request_id: 1
+  item_id: 1
+  quantity: 1
+  estimated_delivery_date: 2010-07-08
+
+two:
+  material_request_id: 1
+  item_id: 1
+  quantity: 1
+  estimated_delivery_date: 2010-07-08

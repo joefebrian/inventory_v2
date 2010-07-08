@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100708035608) do
+ActiveRecord::Schema.define(:version => 20100708083106) do
 
   create_table "categories", :force => true do |t|
     t.integer  "company_id"
@@ -104,6 +104,15 @@ ActiveRecord::Schema.define(:version => 20100708035608) do
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
+  end
+
+  create_table "material_request_entries", :force => true do |t|
+    t.integer  "material_request_id"
+    t.integer  "item_id"
+    t.integer  "quantity"
+    t.date     "estimated_delivery_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "material_requests", :force => true do |t|
