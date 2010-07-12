@@ -6,6 +6,7 @@ set :repository,  "."
 
 set :scm, :git
 set :scm_passphrase, "14mr3xuz"
+set :repository, "git@github.com:rahmat-budiharso/inventory_v2.git"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 set :user, "root"
