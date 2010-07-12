@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     warehouse.resources :locations
   end
   map.resources :user_sessions
-  map.resources :items, :collection => { :lookup => :get }, :member => { :customer_prices => :get }
+  map.resources :items, :collection => { :lookup => :get, :search => :get, :picker => :get }, :member => { :customer_prices => :get }
   map.resources :categories, :member => {:items_for_begining_balance => :get} do |category|
     category.resources :items, :member => { :activate => :get, :deactivate => :get }
   end

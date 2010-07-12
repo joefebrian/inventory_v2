@@ -106,6 +106,25 @@ class ItemsController < ApplicationController
     end
   end
 
+  def search
+    @keyword = params[:keyword]
+    @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).all
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.js { 
+        @html = render_to_string :partial => "items_result"
+      }
+    end
+  end
+
+  def picker
+    @items = Item.id_in(params[:items])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def activate
     item = Item.find(params[:id])
     item.update_attributes(:active => true)

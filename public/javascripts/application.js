@@ -86,6 +86,19 @@ $(function() {
     $(this).children('ul.submenu').toggle('blind');
   });
   $('#sidemenu ul.submenu li a.current').parents('ul.submenu').show();
+  $('.item_chooser_link').live('click', function() {
+    Boxy.load(this.href, {
+      //modal: true,
+      draggable: true,
+      unloadOnHide: true,
+      title: this.title,
+      closeText: "<img src='/images/icons/cross.png' alt='close'/>",
+      afterShow: function() {
+        $('#keyword').focus();
+      }
+    });
+    return false;
+  });
 });
 
 $('.plu_input').live('click', function() {
@@ -105,8 +118,8 @@ $('.plu_input').live('click', function() {
 });
 
 $("form#search").live('submit', function() {
-  $(this).find('button[type=submit]')
-  .after("<span id='progress' style='font-style:italic;color:green;padding-left:5px;'>searching...</span>");
+  $(this).find('button[type=submit]').html('Searching...');
+  //.after("<span id='progress' style='font-style:italic;color:green;padding-left:5px;'>searching...</span>");
   $.ajax({ url: this.action,
     type: this.method,
     data: $(this).serialize(),
@@ -125,6 +138,35 @@ $("form#search").live('submit', function() {
         }
         return false;
       });
+    }
+  });
+  return false;
+});
+
+$("form#search2").live('submit', function() {
+  var button = $(this).find('button[type=submit]');
+  button.html('Searching...');
+  button.attr('disabled', 'disabled');
+  $.ajax({ url: this.action,
+    type: this.method,
+    data: $(this).serialize(),
+    dataType: 'script',
+    success: function(response, status) {
+      response;
+      button.html('Search items');
+      button.removeAttr('disabled');
+    }
+  });
+  return false;
+});
+
+$("form#item_picker").live('submit', function() {
+  $.ajax({ url: this.action,
+    data: $(this).serialize(),
+    type: this.method,
+    dataType: 'script',
+    success: function(response, status) {
+      response;
     }
   });
   return false;

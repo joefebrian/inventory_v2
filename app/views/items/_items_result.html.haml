@@ -1,0 +1,10 @@
+- form_tag picker_items_path, :method => :get, :id => 'item_picker' do
+  %ol.searchresults
+    - for item in @items
+      %li
+        %span.actions= check_box_tag 'items[]', item.id
+        %strong=h item.name
+        %br
+        %span.inline-hints.inline-labels=h item.category_code
+
+  %button{ :type => "submit" } Get selected item(s)

@@ -1,0 +1,5 @@
+<% if @items.blank? %>
+  $('#searchresult').html('No match found');
+<% else %>
+  $('#searchresult').html('<%= escape_javascript(@html) %>');
+<% end -%>
