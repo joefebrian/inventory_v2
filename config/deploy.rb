@@ -22,7 +22,7 @@ after "deploy:update_code", :touch_restart_txt
 
 desc "touch restart.txt file to restart passenger"
 task :touch_restart_txt, :role => :app do
-  system("touch /opt/rails-apps/inventory/tmp/restart.txt")
+  run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 end
 
 depend :local, :command, "git"
