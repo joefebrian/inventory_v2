@@ -1,15 +1,17 @@
+default_run_options[:pty] = true
 set :application, "Inventory"
 set :domain, "inventory.cycomsoft.com"
 set :deploy_via, :remote_cache
 set :deploy_to, "/opt/rails-apps/inventory/"
 set :repository,  "."
 
+set :user, "deployer"
 set :scm, :git
-set :scm_passphrase, "14mr3xuz"
+set :scm_passphrase, "deployer"
 set :repository, "git@github.com:rahmat-budiharso/inventory_v2.git"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-set :user, "root"
+set :use_sudo, false
 set :copy_startegy, "checkout"
 set :copy_compression, :gzip
 
@@ -26,6 +28,7 @@ task :touch_restart_txt, :role => :app do
 end
 
 depend :local, :command, "git"
+depend :remote, :gem, "rails", "2.3.8"
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
