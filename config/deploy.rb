@@ -20,7 +20,7 @@ role :app, "inventory.cycomsoft.com"                          # This may be the 
 role :db,  "inventory.cycomsoft.com", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
-after "deploy:update_code", :touch_restart_txt
+# after "deploy:update_code", :touch_restart_txt
 
 desc "touch restart.txt file to restart passenger"
 task :touch_restart_txt, :role => :app do
@@ -33,10 +33,10 @@ depend :remote, :gem, "rails", "2.3.8"
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
 
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+end
