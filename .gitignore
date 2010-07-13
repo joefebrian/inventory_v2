@@ -13,3 +13,7 @@ tmp/**/*
 db/*.sqlite3
 public/system/**/*
 config/database.yml
+.loadpath
+.project
+Capfile
+config/deploy.rb
