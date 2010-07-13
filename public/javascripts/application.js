@@ -99,6 +99,9 @@ $(function() {
     });
     return false;
   });
+  $('input#testing').autocomplete('/items/search',
+    { width: 20 }
+  );
 });
 
 $('.plu_input').live('click', function() {

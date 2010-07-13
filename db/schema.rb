@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.string   "code"
     t.string   "name"
     t.string   "symbol"
+    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -157,6 +158,19 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.string   "reference"
     t.string   "requester"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "penawaran_hargas", :force => true do |t|
+    t.integer  "company_id"
+    t.string   "number"
+    t.integer  "customer_id"
+    t.date     "tgl_berlaku"
+    t.string   "memo"
+    t.text     "keterangan"
+    t.string   "nama_perlatan"
+    t.string   "nama_proyek"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

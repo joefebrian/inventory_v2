@@ -18,10 +18,10 @@ development:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: inventory2
+  database: inventory2_alt_development
   pool: 5
   username: root
-  password: admin
+  password: dbadmin
   socket: /var/run/mysqld/mysqld.sock
 
 # Warning: The database defined as "test" will be erased and
