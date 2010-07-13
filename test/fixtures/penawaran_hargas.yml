@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  company_id: 1
+  number: MyString
+  customer_id: 1
+  tgl_berlaku: 2010-06-22
+  memo: MyString
+  keterangan: MyText
+  nama_perlatan: MyString
+  nama_proyek: MyString
+
+two:
+  company_id: 1
+  number: MyString
+  customer_id: 1
+  tgl_berlaku: 2010-06-22
+  memo: MyString
+  keterangan: MyText
+  nama_perlatan: MyString
+  nama_proyek: MyString

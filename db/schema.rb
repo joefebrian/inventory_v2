@@ -11,6 +11,15 @@
 
 ActiveRecord::Schema.define(:version => 20100708083106) do
 
+  create_table "assemblies", :force => true do |t|
+    t.integer  "company_id"
+    t.string   "type"
+    t.string   "number"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", :force => true do |t|
     t.integer  "company_id"
     t.string   "name"
@@ -48,6 +57,15 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.datetime "updated_at"
     t.integer  "company_id"
     t.integer  "price_list_id"
+  end
+
+  create_table "detail_assemblies", :force => true do |t|
+    t.integer  "assembly_id"
+    t.integer  "company_id"
+    t.integer  "item_id"
+    t.string   "qty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "entries", :force => true do |t|
@@ -91,6 +109,23 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+  end
+
+  create_table "kurs_ids", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.string   "symbol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "kurs_rates", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.integer  "value"
+    t.date     "tgl_berlaku"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "locations", :force => true do |t|
@@ -176,6 +211,21 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.datetime "updated_at"
   end
 
+  create_table "quotations", :force => true do |t|
+    t.string   "number"
+    t.integer  "company_id"
+    t.integer  "customer_id"
+    t.date     "tgl_berlaku"
+    t.string   "hal"
+    t.string   "memo"
+    t.text     "keterngan"
+    t.string   "penerima"
+    t.string   "nama_perlatan"
+    t.string   "nama_proyek"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "suppliers", :force => true do |t|
     t.integer  "company_id"
     t.string   "code"
@@ -222,6 +272,7 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.datetime "updated_at"
     t.boolean  "alter_stock"
     t.string   "name"
+    t.boolean  "edittable",   :default => true
   end
 
   create_table "transactions", :force => true do |t|

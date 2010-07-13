@@ -132,7 +132,7 @@ h6 { font-size:1.1em; }
 #sidemenu li a.current {
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/
   color:#fff;
-  margin-right:-20px;
+  margin-right:-21px;
   text-shadow:0 -1px rgba(0,0,0,1);
 }
 #sidemenu li a.current + div, #sidemenu li a:hover + div {
@@ -153,7 +153,7 @@ h6 { font-size:1.1em; }
 #sidemenu li a:hover {
   background:#9bfb9d;
   color:rgb(0, 0, 0);
-  margin-right:-20px;
+  margin-right:-21px;
 }
 #sidemenu li a.current:hover {
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/

@@ -1,0 +1,42 @@
+<% javascript "assemblies" %>
+<%= javascript_tag "
+      var detail_assemblies = #{@detail_assemblies.to_json(:only => [:id, :name], :methods => :name_with_code)};
+      var items = #{@items.to_json(:only => [:id, :name], :methods => :name_with_code)};"
+    %>
+
+<div id="dialog_form">
+  <% semantic_form_for @assembly, {}, :html => { :id => "assemblies_form" } do |f| %>
+ <ul class="form_info">
+      <li>Fields marked <span class="required">*</span> are required</li>
+    </ul>
+
+    <% f.inputs do %>
+      <%= f.input :code %>
+      <%= f.input :name %>
+      <%= f.input :description, :input_html => { :rows => 3} %>
+    <% end -%>
+    <fieldset id="detail_assemblies">
+      <legend>
+        <label for="detail_assemblies_attributes_0_name">Items</label>
+      </legend>
+      <ol>
+        <% f.fields_for :detail_assemblies do |detail_assembly| %>
+          <li>
+            <%= detail_assembly.label :name %>
+            <%= detail_assembly.input :item_name %>
+            <%= detail_assembly.input :item_id, :as => :hidden %>
+            <%= detail_assembly.label :qty %>
+            <%= detail_assembly.text_field :qty, :size => 10 %>
+            <%= detail_assembly.hidden_field :_destroy %>
+            <a href="#" title="remove item" class="item_remover"><%= image_tag 'icons/silk/cross.png' %></a>
+          </li>
+        <% end -%>
+      </ol>
+      <a href="#" id="add_detail_assemblies"><%= image_tag 'icons/silk/add.png' %> add more item</a>
+    </fieldset>
+
+    <fieldset class="buttons">
+      <button type="submit"><%= image_tag 'icons/silk/disk.png' %> Save Assemblies</button>
+    </fieldset>
+  <% end %>
+</div>

@@ -17,6 +17,7 @@ class Company < ActiveRecord::Base
   has_many :trackers
   has_many :transactions
   has_many :entries
+  has_many :assemblies
   has_many :customers
   has_many :price_lists
   has_many :material_requests

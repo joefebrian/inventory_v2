@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :kurs_rates
+  map.resources :kurs_ids
+  map.resources :quotations
+  map.resources :assemblies
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
   end

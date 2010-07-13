@@ -1,0 +1,50 @@
+<% cache do %>
+  <% title "Quotations" %>
+  <% javascript "assemblies" %>
+
+  <% content_for :breadcrumb do %>
+    <%= breadcrumb [ link_to("Transactions", transactions_path),
+                     link_to("Quotations", quotations_path) ] %>
+  <% end -%>
+
+  <% content_for :main_act do %>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create new Quotations", new_quotation_path, :class => "main_link new_quotation", :title => "Create New Quotations" %>
+  <% end -%>  
+  <%= sidemenu %>
+
+<table class="list">
+  <tr>
+    <th>Number</th>
+    <th>Company</th>
+    <th>Customer</th>
+    <th>Tgl berlaku</th>
+    <th>Hal</th>
+    <th>Memo</th>
+    <th>Keterngan</th>
+    <th>Penerima</th>
+    <th>Nama perlatan</th>
+    <th>Nama proyek</th>
+    <th class="action">Action</th>
+  </tr>
+
+<% @quotations.each do |quotation| %>
+  <tr>
+    <td><%=h quotation.number %></td>
+    <td><%=h quotation.company_id %></td>
+    <td><%=h quotation.customer_id %></td>
+    <td><%=h quotation.tgl_berlaku %></td>
+    <td><%=h quotation.hal %></td>
+    <td><%=h quotation.memo %></td>
+    <td><%=h quotation.keterngan %></td>
+    <td><%=h quotation.penerima %></td>
+    <td><%=h quotation.nama_perlatan %></td>
+    <td><%=h quotation.nama_proyek %></td>
+    <td class="actions">  
+      <%= link_to image_tag('icons/silk/view.png'), quotation, :title => "view Report #{quotation.number}" %>
+      <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_quotation_path(quotation), :class => 'new_edit_quotation', :title => "Edit #{quotation.number}" %>
+      <%= link_to image_tag('icons/silk/delete.png'), quotation, :confirm => 'Are you sure?', :method => :delete, :title => "Delete #{quotation.number}" %>
+    </td>
+  </tr>
+<% end %>
+</table>
+<% end %>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  assembly_id: 1
+  company_id: 1
+  item_id: 1
+  qty: MyString
+
+two:
+  assembly_id: 1
+  company_id: 1
+  item_id: 1
+  qty: MyString

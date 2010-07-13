@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  code: MyString
+  name: MyString
+  value: 1
+  tgl_berlaku: 2010-06-24
+
+two:
+  code: MyString
+  name: MyString
+  value: 1
+  tgl_berlaku: 2010-06-24

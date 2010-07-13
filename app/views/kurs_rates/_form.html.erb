@@ -1,0 +1,16 @@
+<div id="dialog_form">
+  <% semantic_form_for @kurs_rate, {}, :html => { :id => 'kurs_rate_form' } do |f| %>
+    <ul class="form_info">
+      <li>Fields marked <span class="required">*</span> are required</li>
+    </ul>
+    <% f.inputs do %>
+      <%= f.input :tgl_berlaku, 'class'=>'datepicker' %>
+      <%= f.input :code %>
+      <%= f.input :name %>
+      <%= f.input :value %>
+    <% end -%>
+    <fieldset class="buttons">
+      <button type="submit"><%= image_tag('icons/silk/disk.png') %> Save Kurs Rate</button>
+    </fieldset>
+  <% end %>
+</div>

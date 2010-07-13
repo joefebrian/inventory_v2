@@ -10,6 +10,7 @@ class Customer < ActiveRecord::Base
   validates_uniqueness_of :code, :scope => :company_id
   accepts_nested_attributes_for :profile
   accepts_nested_attributes_for :tax_profile
+  
   accepts_nested_attributes_for :special_prices, :allow_destroy => true, :reject_if => lambda { |at| at[:price].blank? }
 
   def special_prices_matrix
@@ -21,6 +22,10 @@ class Customer < ActiveRecord::Base
       matrix[price.item.code]['prices'] << price
     end
     matrix
+  end
+
+  def to_s
+    profile.full_name
   end
 
   def item_code

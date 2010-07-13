@@ -200,6 +200,12 @@ $('#add_entries').live('click', function(e) {
   return false;
 });
 
+$('#add_items').live('click', function(e) {
+  var entries_count = $('#transaction_entries tr').length - 1; // 1 is the table header, we're only intersted in rows with input fields in it
+  $('#transaction_entries').append(item_row(entries_count));
+  return false;
+});
+
 $('input.entries_quantity, input.entries_value').live('keypress', function(e) {
   if(e.keyCode == 13 && this.value != '') {
     $('#add_entries').click();
@@ -220,6 +226,22 @@ function entry_row(count) {
     "<input type=\"hidden\" name=\""+model+"[entries_attributes]["+idx+"][item_id]\" id=\""+model+"_entries_attributes_"+idx+"_item_id\"></td>"; 
   if(window.with_value == true) {
     html += "<td class=\"actions td_20\"><input type=\"text\" size=\"30\" name=\""+model+"[entries_attributes]["+idx+"][value]\" id=\""+model+"_entries_attributes_"+idx+"_value\" class=\"numbers entries_value\"></td>"; 
+  }
+  html += "</tr>";
+  return html;
+}
+
+function item_row(count) {
+  var idx = count;
+  var html = "<tr><td class=\"td_20\">" +
+    "<input type=\"text\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][item_id]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_item_id\" class=\"plu_code ac_input\" autocomplete=\"off\">" +
+    "<input type=\"hidden\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][item_id]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_item_id\" value=\"\">" +
+    "<a class=\"plu_input\" href=\"/items/lookup2.js\"><img src=\"/images/icons/silk/magnifier.png\" alt=\"Magnifier\"></a></td> " +
+    "<td class=\"td_50\"></td> <td class=\"actions td_10\">" +
+    "<input type=\"text\" size=\"10\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][quantity]\" id=\""+model+"_detail-assemblies_attributes_"+idx+"_quantity\" class=\"numbers detail_assemblies_quantity\">" +
+    "<input type=\"hidden\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][item_id]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_item_id\"></td>"; 
+  if(window.with_value == true) {
+    html += "<td class=\"actions td_20\"><input type=\"text\" size=\"30\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][value]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_value\" class=\"numbers detail_assemblies_value\"></td>"; 
   }
   html += "</tr>";
   return html;

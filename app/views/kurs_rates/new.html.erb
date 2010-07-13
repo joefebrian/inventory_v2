@@ -1,0 +1,13 @@
+<% cache do %>
+  <% title "New Kurs Rate" %>
+
+  <% content_for :breadcrumb do %>
+    <%= breadcrumb [ link_to("Administrations", administrations_path),
+                     link_to("Kurs Rate", kurs_rates_path),
+                     "Create New Kurs Rates" ] %>
+  <% end -%>
+
+  <%= sidemenu %>
+
+  <%= render :partial => 'form' %>
+<% end -%>
