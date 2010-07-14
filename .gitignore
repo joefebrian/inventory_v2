@@ -17,3 +17,4 @@ config/database.yml
 .project
 Capfile
 config/deploy.rb
+nbproject/*
