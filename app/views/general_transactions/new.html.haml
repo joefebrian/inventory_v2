@@ -1,11 +1,10 @@
-- cache do
-  - title "New General Transaction"
+- title "New General Transaction"
 
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Transactions', transactions_path), |
-      link_to('General transactions', general_transactions_path), |
-      'Create new transaction' ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('General transactions', general_transactions_path), |
+    'Create new transaction' ] |
 
-  = hint "Select one of the transaction type first to show the transaction form"
+= hint "Select one of the transaction type first to show the transaction form"
 
 = render :partial => 'form'
