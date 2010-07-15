@@ -1,12 +1,11 @@
-- cache do
-  #dialog_form
-    - unless request.format == 'js'
-      %h3 Search Items 
+#dialog_form
+  - unless request.format == 'js'
+    %h3 Search Items 
 
-    - form_tag search_items_path(:format => :js), :method => :get, :class => 'formtastic', :id => 'search2' do
-      .inline
-        %input{ :type => :text, :name => 'keyword', :id => 'keyword', :value => @keyword, :class => 'default', :size => 50 }
-        %button{ :type => :submit } Search items
+  - form_tag search_items_path(:format => :js), :method => :get, :class => 'formtastic', :id => 'search2' do
+    .inline
+      %input{ :type => :text, :name => 'q', :id => 'keyword', :value => @keyword, :class => 'default', :size => 50 }
+      %button{ :type => :submit } Search items
 
-    %h4{ :style => "clear:both;" } Search results
-    #searchresult
+  %h4{ :style => "clear:both;" } Search results
+  #searchresult

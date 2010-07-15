@@ -1,5 +1,5 @@
 class MaterialRequest < ActiveRecord::Base
-  attr_accessible :company_id, :number, :userdate, :reference, :requester, :description
+  attr_accessible :company_id, :number, :userdate, :reference, :requester, :description, :entries_attributes
   belongs_to :company
   has_many :entries, :class_name => "MaterialRequestEntry"
 

@@ -1,11 +1,10 @@
 - title 'Edit Price List'
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Administrations', administrations_path), |
-      link_to('Price Lists', price_lists_path), |
-      "Edit #{@price_list.name}" ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Price Lists', price_lists_path), |
+    "Edit #{@price_list.name}" ] |
 
-  = sidemenu @tab
+= sidemenu @tab
 
-  = render 'form'
+= render 'form'

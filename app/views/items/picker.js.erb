@@ -1,1 +1,22 @@
-alert('item picked: <%= @items.collect {|i| i.id}.join(", ") %>');
+var items = <%= @items.to_json(:only => [:id, :name, :code]) %>;
+if($('.report tbody tr').length == 1 && $(".report tbody tr td input#new_item").length) {
+  var new_trs = "";
+  for (var i = items.length - 1; i >= 0; i--){
+    var elem = template.replace(regexp3, "item_" + new_id);
+    elem = elem.replace(regexp1, "[" + new_id + "]");
+    elem = elem.replace(regexp2, "_" + new_id + "_");
+    var new_tr = "<tr>" + elem + "</tr>";
+    var new_obj = $(new_tr);
+    new_obj.find('#item_' + new_id).val(items[i].item.id);
+    new_id++;
+    new_trs += new_tr;
+  };
+  $(".report tbody").html(new_trs);
+  Boxy.get($(".boxy-wrapper")).hide();
+  new_id = $('.report tbody tr').length;
+  $('input.datepicker').datepicker({
+    showOn:'button',
+    buttonImage: '/images/icons/silk/calendar_select_day.png',
+    buttonImageOnly: true
+  });
+}

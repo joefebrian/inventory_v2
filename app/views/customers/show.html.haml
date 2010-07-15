@@ -1,44 +1,43 @@
 - title "Customer"
-- cache do
-  #dialog_form
+#dialog_form
 
-    - content_for :breadcrumb do
-      = breadcrumb [ link_to('Administration', administrations_path), |
-        link_to('Customers', customers_path), |
-        "#{@customer.code} &bull; #{@customer.profile.full_name}" ] |
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Administration', administrations_path), |
+      link_to('Customers', customers_path), |
+      "#{@customer.code} &bull; #{@customer.profile.full_name}" ] |
 
-    - content_for :main_act do
-      = link_to "#{image_tag('icons/silk/user_edit.png')} Edit Customer", edit_customer_path(@customer), :class => 'main_link'
-      %ul#secondary_actions
-        %li= link_to "#{image_tag('icons/silk/add.png')} Add special Prices", new_customer_customer_price_path(@customer)
-      
-    = hint ""
+  - content_for :main_act do
+    = link_to "#{image_tag('icons/silk/user_edit.png')} Edit Customer", edit_customer_path(@customer), :class => 'main_link'
+    %ul#secondary_actions
+      %li= link_to "#{image_tag('icons/silk/add.png')} Add special Prices", new_customer_customer_price_path(@customer)
+    
+  = hint ""
 
-    %fieldset#profile.info
-      %legend Profile
-      %div
-        %span.light.transaction_label Code
-        %p= @customer.code
-      %div
-        %span.light.transaction_label Full Name
-        %p= @customer.profile.full_name
-      %div
-        %span.light.transaction_label Address
-        %p= @customer.profile.address
-      %div
-        %span.light.transaction_label Phone / Fax
-        %p= "#{@customer.profile.phone} / #{@customer.profile.fax}"
-    %fieldset#tax-profile.info
-      %legend Tax Information
-      %div
-        %span.light.transaction_label Full Name
-        %p= @customer.tax_profile.full_name
-      %div
-        %span.light.transaction_label Address
-        %p= @customer.tax_profile.address
-      %div
-        %span.light.transaction_label NPWP
-        %p= @customer.tax_profile.npwp_number
-    %fieldset#prices.info
-      %legend= link_to "Special Prices", customer_customer_prices_path(@customer)
-      = render 'special_prices'
+  %fieldset#profile.info
+    %legend Profile
+    %div
+      %span.light.transaction_label Code
+      %p= @customer.code
+    %div
+      %span.light.transaction_label Full Name
+      %p= @customer.profile.full_name
+    %div
+      %span.light.transaction_label Address
+      %p= @customer.profile.address
+    %div
+      %span.light.transaction_label Phone / Fax
+      %p= "#{@customer.profile.phone} / #{@customer.profile.fax}"
+  %fieldset#tax-profile.info
+    %legend Tax Information
+    %div
+      %span.light.transaction_label Full Name
+      %p= @customer.tax_profile.full_name
+    %div
+      %span.light.transaction_label Address
+      %p= @customer.tax_profile.address
+    %div
+      %span.light.transaction_label NPWP
+      %p= @customer.tax_profile.npwp_number
+  %fieldset#prices.info
+    %legend= link_to "Special Prices", customer_customer_prices_path(@customer)
+    = render 'special_prices'

@@ -107,16 +107,17 @@ class ItemsController < ApplicationController
   end
 
   def search
-    @keyword = params[:keyword]
+    @keyword = params[:q]
     @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).all
     respond_to do |format|
       format.html { render :layout => false }
       format.js { 
         @html = render_to_string :partial => "items_result"
+        # render :layout => false
       }
     end
   end
-
+  
   def picker
     @items = Item.id_in(params[:items])
     respond_to do |format|

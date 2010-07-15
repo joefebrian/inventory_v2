@@ -1,13 +1,12 @@
 - title "Customer Prices"
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Administration', administrations_path), |
-      link_to('Customers', customers_path), |
-      link_to("#{@customer.code} &bull; #{@customer.profile.full_name}", @customer), |
-      'Special Prices' ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administration', administrations_path), |
+    link_to('Customers', customers_path), |
+    link_to("#{@customer.code} &bull; #{@customer.profile.full_name}", @customer), |
+    'Special Prices' ] |
 
-  - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/add.png')} Add Special Prices", new_customer_customer_price_path(@customer), :class => 'main_link'
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} Add Special Prices", new_customer_customer_price_path(@customer), :class => 'main_link'
 
-  = render 'customers/special_prices'
+= render 'customers/special_prices'

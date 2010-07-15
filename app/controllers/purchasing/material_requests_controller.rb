@@ -11,6 +11,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   
   def new
     @material_request = current_company.material_requests.new
+    @material_request.entries.build
   end
   
   def create

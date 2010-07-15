@@ -1,56 +1,54 @@
-<% cache do %>
-  <div id="dialog_form">
-    <% title "Item #{@item.name}" %>
+<div id="dialog_form">
+  <% title "Item #{@item.name}" %>
 
-    <% content_for :breadcrumb do %>
-      <%= breadcrumb [ link_to("Administrations", administrations_path),
-        link_to("Items", items_path),
-        @item.name ] %>
+  <% content_for :breadcrumb do %>
+    <%= breadcrumb [ link_to("Administrations", administrations_path),
+      link_to("Items", items_path),
+      @item.name ] %>
+  <% end -%>
+
+  <% content_for :main_act do %>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit #{@item.code}", edit_item_path(@item), :class => "main_link edit_item", :title => "Edit Item #{@item.code}" %>
+  <% end -%>
+
+  <%= sidemenu %>
+
+  <%= image_tag @item.photo.url(:medium), :class => 'top_right_photo' %>
+
+  <p>
+    <span class="light">Category:</span>
+    <strong><%= @item.category_tree %></strong>
+  </p>
+  <p>
+    <span class="light">Code:</span>
+    <strong><%= @item.code %></strong>
+  </p>
+  <p>
+    <span class="light">Name:</span>
+    <strong><%= @item.name %></strong>
+  </p>
+  <p>
+    <span class="light">Description:</span>
+    <strong><%= @item.description %></strong>
+  </p>
+  <div>
+    <strong>Units:</strong>
+    <% unless @item.units.blank? %>
+      <ol>
+        <% @item.units.each do |unit| %>
+          <li><%=h unit.name %></li>
+        <% end -%>
+      </ol>
     <% end -%>
-
-    <% content_for :main_act do %>
-      <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit #{@item.code}", edit_item_path(@item), :class => "main_link edit_item", :title => "Edit Item #{@item.code}" %>
-    <% end -%>
-
-    <%= sidemenu %>
-
-    <%= image_tag @item.photo.url(:medium), :class => 'top_right_photo' %>
-
-    <p>
-      <span class="light">Category:</span>
-      <strong><%= @item.category_tree %></strong>
-    </p>
-    <p>
-      <span class="light">Code:</span>
-      <strong><%= @item.code %></strong>
-    </p>
-    <p>
-      <span class="light">Name:</span>
-      <strong><%= @item.name %></strong>
-    </p>
-    <p>
-      <span class="light">Description:</span>
-      <strong><%= @item.description %></strong>
-    </p>
-    <div>
-      <strong>Units:</strong>
-      <% unless @item.units.blank? %>
-        <ol>
-          <% @item.units.each do |unit| %>
-            <li><%=h unit.name %></li>
-          <% end -%>
-        </ol>
-      <% end -%>
-    </div>
-
-    <div>
-      <strong>Stock</strong>
-      <p>
-        Overall : <%= @item.stock %>
-      </p>
-      <p>
-        Per Plu : 
-      </p>
-    </div>
   </div>
-<% end -%>
+
+  <div>
+    <strong>Stock</strong>
+    <p>
+      Overall : <%= @item.stock %>
+    </p>
+    <p>
+      Per Plu : 
+    </p>
+  </div>
+</div>

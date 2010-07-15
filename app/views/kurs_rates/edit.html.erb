@@ -1,46 +1,15 @@
-<!--<h1>Editing kurs_rate</h1>
+<% title "Edit Kurs Rate" %>
 
-<% form_for(@kurs_rate) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :code %><br />
-    <%= f.text_field :code %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :value %><br />
-    <%= f.text_field :value %>
-  </p>
-  <p>
-    <%= f.label :tgl_berlaku %><br />
-    <%= f.date_select :tgl_berlaku %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @kurs_rate %> |
-<%= link_to 'Back', kurs_rates_path %>-->
-
-<% cache do %>
-  <% title "Edit Kurs Rate" %>
-
-  <% content_for :breadcrumb do %>
-    <%= breadcrumb [ link_to("Administrations", administrations_path),
-                     link_to("Kurs Rate", kurs_rates_path),
-                     "Edit Kurs Rate" ] %>
-  <% end -%>
-
-  <% content_for :main_act do %>
-    <%= link_to "#{image_tag('icons/silk/zoom_in.png')} kurs_rate detail", @kurs_rates, :class => "main_link kurs_rates_detail" %>
-  <% end -%>
-
-  <%= sidemenu %>
-
-  <%= render :partial => 'form' %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Kurs Rate", kurs_rates_path),
+                   "Edit Kurs Rate" ] %>
 <% end -%>
+
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/zoom_in.png')} kurs_rate detail", @kurs_rates, :class => "main_link kurs_rates_detail" %>
+<% end -%>
+
+<%= sidemenu %>
+
+<%= render :partial => 'form' %>

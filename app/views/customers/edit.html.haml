@@ -1,13 +1,12 @@
 - title "Edit Customer"
 
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Administrations', administrations_path), |
-      link_to("Customers", customers_path), |
-      link_to("#{h @customer.code} &bull; #{h @customer.profile.full_name}", customer_path(@customer)), |
-      "Edit" ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to("Customers", customers_path), |
+    link_to("#{h @customer.code} &bull; #{h @customer.profile.full_name}", customer_path(@customer)), |
+    "Edit" ] |
 
-  = sidemenu @tab
+= sidemenu @tab
 
-  = render :partial => 'form'
+= render :partial => 'form'

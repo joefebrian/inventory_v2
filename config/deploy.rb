@@ -20,7 +20,7 @@ role :app, "inventory.cycomsoft.com"                          # This may be the 
 role :db,  "inventory.cycomsoft.com", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
-# after "deploy:update_code", :touch_restart_txt
+after "deploy:update_code", :touch_restart_txt
 
 desc "touch restart.txt file to restart passenger"
 task :touch_restart_txt, :role => :app do

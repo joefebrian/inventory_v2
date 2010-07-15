@@ -1,57 +1,56 @@
 - title "#{h @price_list.name}"
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Administrations', administrations_path), |
-      link_to('Price Lists', price_lists_path), |
-      "#{h @price_list.name}" ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Price Lists', price_lists_path), |
+    "#{h @price_list.name}" ] |
 
-  = sidemenu @tab
+= sidemenu @tab
 
-  - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Price List", edit_price_list_path(@price_list), :class => 'main_link'
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Price List", edit_price_list_path(@price_list), :class => 'main_link'
 
-  #dialog_form
-    .two_columns
-      %p
-        %span.light.transaction_label Code
-        %strong=h @price_list.code
-      %p
-        %span.light.transaction_label Name
-        %strong=h @price_list.name
+#dialog_form
+  .two_columns
     %p
-      %span.light.transaction_label Active in
-      %strong= "#{@price_list.active_from.to_s(:long)} - #{@price_list.active_until.to_s(:long)}"
+      %span.light.transaction_label Code
+      %strong=h @price_list.code
+    %p
+      %span.light.transaction_label Name
+      %strong=h @price_list.name
+  %p
+    %span.light.transaction_label Active in
+    %strong= "#{@price_list.active_from.to_s(:long)} - #{@price_list.active_until.to_s(:long)}"
 
-    %table#enhanced.list
-      %thead
-        %tr
-          %th.index No
-          %th Item
-          %th Prices
-      %tfoot
-        %tr
-          %td{ :colspan => 3 } &nbsp;
-      %tbody
-        - idx = 1
-        - current_item = nil
-        - for entry in @price_list.entries
-          - if current_item.nil? || current_item != entry.item.id
-            = "</td></tr>" unless current_item.nil?
-            - current_item = entry.item.id
-            <tr>
-            = "<td style='vertical-align:top;'>#{idx}</td>"
-            = "<td style='vertical-align:top;'>#{link_to h(entry.item.name), entry.item}</td>"
-            <td class="string">
-            <div class="inline">
-            = entry.value || entry.unit.value || 0
-            = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
-            </div>
-            - idx = idx + 1
-          - else
-            <div class="inline">
-            = entry.value || entry.unit.value || 0
-            = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
-            </div>
-        </td></tr>
+  %table#enhanced.list
+    %thead
+      %tr
+        %th.index No
+        %th Item
+        %th Prices
+    %tfoot
+      %tr
+        %td{ :colspan => 3 } &nbsp;
+    %tbody
+      - idx = 1
+      - current_item = nil
+      - for entry in @price_list.entries
+        - if current_item.nil? || current_item != entry.item.id
+          = "</td></tr>" unless current_item.nil?
+          - current_item = entry.item.id
+          <tr>
+          = "<td style='vertical-align:top;'>#{idx}</td>"
+          = "<td style='vertical-align:top;'>#{link_to h(entry.item.name), entry.item}</td>"
+          <td class="string">
+          <div class="inline">
+          = entry.value || entry.unit.value || 0
+          = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
+          </div>
+          - idx = idx + 1
+        - else
+          <div class="inline">
+          = entry.value || entry.unit.value || 0
+          = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
+          </div>
+      </td></tr>
 

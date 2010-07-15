@@ -1,52 +1,51 @@
-- cache do
-  - title "On Hands Report"
-  = hint "Select the kind of report you want to see"
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Reports', reports_path), |
-      "Item Movement" ] |
-    %span#notifier
-      = image_tag 'indicator.gif'
-      Loading...
+- title "On Hands Report"
+= hint "Select the kind of report you want to see"
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Reports', reports_path), |
+    "Item Movement" ] |
+  %span#notifier
+    = image_tag 'indicator.gif'
+    Loading...
 
-  %fieldset.plain.report
-    %legend
-      Filter
-    - form_tag generate_reports_item_movements_path, :method => :get do
-      %p.date_range
-        = label_tag 'from', 'Report from '
-        = text_field_tag 'from', @from, :class => 'datepicker'
-        = label_tag 'to', 'To', :class => 'inline'
-        = text_field_tag 'to', @to, :class => 'datepicker'
-      %p
-        - option_tags = [['All category', '']]
-        - @categories.each {|cat| option_tags << ["#{'&nbsp;&nbsp;' * cat.level}#{cat.name} - #{cat.fullcode}", cat.id] }
-        = label_tag 'category', ' Category '
-        = select_tag 'category', options_for_select(option_tags, nil, false)
-      %p
-        - option_tags = [['All warehouse', '']]
-        - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
-        = label_tag 'warehouse', 'Warehouse'
-        = select_tag 'warehouse', options_for_select(option_tags)
-      %p
-        %strong Transaction types:
-      %table#transaction_types.form
+%fieldset.plain.report
+  %legend
+    Filter
+  - form_tag generate_reports_item_movements_path, :method => :get do
+    %p.date_range
+      = label_tag 'from', 'Report from '
+      = text_field_tag 'from', @from, :class => 'datepicker'
+      = label_tag 'to', 'To', :class => 'inline'
+      = text_field_tag 'to', @to, :class => 'datepicker'
+    %p
+      - option_tags = [['All category', '']]
+      - @categories.each {|cat| option_tags << ["#{'&nbsp;&nbsp;' * cat.level}#{cat.name} - #{cat.fullcode}", cat.id] }
+      = label_tag 'category', ' Category '
+      = select_tag 'category', options_for_select(option_tags, nil, false)
+    %p
+      - option_tags = [['All warehouse', '']]
+      - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
+      = label_tag 'warehouse', 'Warehouse'
+      = select_tag 'warehouse', options_for_select(option_tags)
+    %p
+      %strong Transaction types:
+    %table#transaction_types.form
+      %tr
+        %th= check_box_tag "all", nil, nil, :id => "all"
+        %th Code
+        %th Name &amp; description
+      - for trans in @transactions
         %tr
-          %th= check_box_tag "all", nil, nil, :id => "all"
-          %th Code
-          %th Name &amp; description
-        - for trans in @transactions
-          %tr
-            %td= check_box_tag "transactions[]", trans.id, false, :id => "transaction_#{trans.id}", :class => "transaction_type"
-            %td= trans.code
-            %td
-              = "#{trans.name} <em>(#{trans.description})</em>"
-              - if trans.inward?
-                %span.tag_green in
-              - elsif trans.outward?
-                %span.tag_pink out
-              - else
-                %span.tag_yellow transfer
-      %p
-        %button{ :type => :submit }
-          = image_tag 'icons/silk/report_go.png'
-          Generate report
+          %td= check_box_tag "transactions[]", trans.id, false, :id => "transaction_#{trans.id}", :class => "transaction_type"
+          %td= trans.code
+          %td
+            = "#{trans.name} <em>(#{trans.description})</em>"
+            - if trans.inward?
+              %span.tag_green in
+            - elsif trans.outward?
+              %span.tag_pink out
+            - else
+              %span.tag_yellow transfer
+    %p
+      %button{ :type => :submit }
+        = image_tag 'icons/silk/report_go.png'
+        Generate report

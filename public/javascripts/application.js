@@ -4,11 +4,7 @@ $(function() {
     $(this).parents('li').children('input[type=text]').val(this.rel);
     return false;
   });
-  $('input.datepicker').datepicker({
-    showOn:'button',
-    buttonImage: '/images/icons/silk/calendar_select_day.png',
-    buttonImageOnly: true
-  });
+  attach_datepicker();
   $('#from').change(function() {
     $('#notifier').show();
     $.get("/transactions/created",
@@ -99,10 +95,40 @@ $(function() {
     });
     return false;
   });
-  $('input#testing').autocomplete('/items/search',
-    { width: 20 }
-  );
+  mr_autocomplete();
 });
+
+function attach_datepicker() {
+  $('input.datepicker').datepicker({
+    showOn:'button',
+    buttonImage: '/images/icons/silk/calendar_select_day.png',
+    buttonImageOnly: true
+  });
+}
+
+function add_entry_fields(prev) {
+  var elem = template.replace(regexp1, "[" + new_id + "]");
+  elem = elem.replace(regexp2, "_" + new_id + "_");
+  elem = "<tr>" + elem + "</tr>";
+  prev.after(elem);
+  mr_autocomplete();
+  attach_datepicker();
+  new_id++;
+}
+
+function mr_autocomplete() {
+  $('input.item_autocomplete').autocomplete('/items/search.js', {
+    formatItem:   function(row, i) { return eval('('+row[0]+')').item.name; },
+    formatResult: function(row, i) { return eval('('+row[0]+')').item.name; },
+    mustMatch:    true
+  })
+  .result(function(event, data) {
+    if(data) {
+      $(this).next().val(eval('('+data[0]+')').item.id);
+      add_entry_fields($(this).parents('tr'));
+    }
+  });
+}
 
 $('.plu_input').live('click', function() {
   var input_id = $(this).prevAll('input[type=text]').attr("id");

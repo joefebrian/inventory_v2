@@ -1,27 +1,26 @@
--cache do
-  - title "Begining Balances"
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to("Transactions", transactions_path), 'Begining Balances' ]
+- title "Begining Balances"
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Transactions", transactions_path), 'Begining Balances' ]
 
-  = sidemenu @tab
+= sidemenu @tab
 
-  - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/add.png')} Create new BB ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} Create new BB ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
 
-  %table.list
+%table.list
+  %tr
+    %th Number
+    %th Created
+    %th Last Update
+    %th.actions Actions
+  - if @begining_balances.blank?
     %tr
-      %th Number
-      %th Created
-      %th Last Update
-      %th.actions Actions
-    - if @begining_balances.blank?
+      %td{ :colspan => 4 }
+        %div.no_record No transaction recorded yet
+  - else
+    - for begining_balance in @begining_balances
       %tr
-        %td{ :colspan => 4 }
-          %div.no_record No transaction recorded yet
-    - else
-      - for begining_balance in @begining_balances
-        %tr
-          %td= link_to begining_balance.number, begining_balance
-          %td= begining_balance.created_at
-          %td= begining_balance.updated_at
-          %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_begining_balance_path(begining_balance)
+        %td= link_to begining_balance.number, begining_balance
+        %td= begining_balance.created_at
+        %td= begining_balance.updated_at
+        %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_begining_balance_path(begining_balance)

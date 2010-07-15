@@ -1,33 +1,32 @@
 - title "Material Requests"
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Transactions', transactions_path), |
-      'Purchasing', 'Material Request' ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', 'Material Request' ] |
 
-    = sidemenu @tab
+  = sidemenu @tab
 
-  - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/add.png')} New Material Request", new_purchasing_material_request_path, :class => 'main_link'
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} New Material Request", new_purchasing_material_request_path, :class => 'main_link'
 
-  %table.list
-    %thead
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Reference
+      %th Description
+      %th.actions Actions
+  %tbody
+    - for material_request in @material_requests
       %tr
-        %th Number
-        %th Reference
-        %th Description
-        %th.actions Actions
-    %tbody
-      - for material_request in @material_requests
-        %tr
-          %td
-            %strong= h material_request.number
-          %td= h material_request.reference
-          %td
-            = truncate(h(material_request.description), :length => 60)
-            %br
-            %span.inline-hints.inline-labels
-              = "on <strong>#{material_request.userdate.to_s(:long)}</strong>, request by <strong>#{h material_request.requester}</strong>"
-          %td.actions
-            = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_material_request_path(material_request)
-            = link_to image_tag('icons/silk/delete.png'), purchasing_material_request_path(material_request), :confirm => 'Are you sure?', :method => :delete
+        %td
+          %strong= h material_request.number
+        %td= h material_request.reference
+        %td
+          = truncate(h(material_request.description), :length => 60)
+          %br
+          %span.inline-hints.inline-labels
+            = "on <strong>#{material_request.userdate.to_s(:long)}</strong>, request by <strong>#{h material_request.requester}</strong>"
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_material_request_path(material_request)
+          = link_to image_tag('icons/silk/delete.png'), purchasing_material_request_path(material_request), :confirm => 'Are you sure?', :method => :delete

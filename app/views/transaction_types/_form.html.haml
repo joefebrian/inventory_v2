@@ -1,17 +1,16 @@
-- cache do
-  - javascript 'custom_checkbox'
-  - semantic_form_for @transaction_type do |f|
-    %p.hints fields marked with <span class='required'>*</span> are required
-    - f.inputs do
-      = f.input :code, :input_html => { :class => :default }
-      = f.input :name
-      = f.input :description, :input_html => { :rows => 3 }
-      = f.input :direction, :as => :radio, :collection => [['In',0],['Out',1],['Both',2]], :wrapper_html => { :class => 'inline' }
-      %li.inline
-        = f.check_box :alter_date
-        = f.label :alter_date
-        = f.check_box :alter_stock
-        = f.label :alter_stock
-    %fieldset.buttons
-      %button{ 'type' => 'submit' }
-        = "#{image_tag('icons/silk/disk.png')} Save transaction type"
+- javascript 'custom_checkbox'
+- semantic_form_for @transaction_type do |f|
+  %p.hints fields marked with <span class='required'>*</span> are required
+  - f.inputs do
+    = f.input :code, :input_html => { :class => :default }
+    = f.input :name
+    = f.input :description, :input_html => { :rows => 3 }
+    = f.input :direction, :as => :radio, :collection => [['In',0],['Out',1],['Both',2]], :wrapper_html => { :class => 'inline' }
+    %li.inline
+      = f.check_box :alter_date
+      = f.label :alter_date
+      = f.check_box :alter_stock
+      = f.label :alter_stock
+  %fieldset.buttons
+    %button{ 'type' => 'submit' }
+      = "#{image_tag('icons/silk/disk.png')} Save transaction type"

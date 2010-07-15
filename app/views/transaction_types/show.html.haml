@@ -1,25 +1,24 @@
-- cache do
-  - title "Transaction Type"
+- title "Transaction Type"
 
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Administrations', administrations_path), |
-      link_to('Transaction types', transaction_types_path), |
-      "#{@transaction_type.code}" ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Transaction types', transaction_types_path), |
+    "#{@transaction_type.code}" ] |
 
-    = sidemenu @tab
+  = sidemenu @tab
 
-  %p 
-    Code:
-    %strong= @transaction_type.code
-  %p
-    Description:
-    %strong= @transaction_type.description
-  %p
-    Direction:
-    %strong= @transaction_type.direction
-  %p
-    Negate:
-    %strong= @transaction_type.negate
-  %p
-    Alter Date:
-    %strong= @transaction_type.alter_date
+%p 
+  Code:
+  %strong= @transaction_type.code
+%p
+  Description:
+  %strong= @transaction_type.description
+%p
+  Direction:
+  %strong= @transaction_type.direction
+%p
+  Negate:
+  %strong= @transaction_type.negate
+%p
+  Alter Date:
+  %strong= @transaction_type.alter_date

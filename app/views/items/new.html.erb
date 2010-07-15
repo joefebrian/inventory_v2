@@ -1,13 +1,11 @@
-<% cache do %>
-  <% title "New Item" %>
+<% title "New Item" %>
 
-  <% content_for :breadcrumb do %>
-    <%= breadcrumb [ link_to("Administrations", administrations_path),
-                     link_to("Items",items_path),
-                     'Create New Item' ] %>
-  <% end -%>
-
-  <%= sidemenu %>
-
-  <%= render :partial => 'form' %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Items",items_path),
+                   'Create New Item' ] %>
 <% end -%>
+
+<%= sidemenu %>
+
+<%= render :partial => 'form' %>

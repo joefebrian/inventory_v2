@@ -1,11 +1,10 @@
 - title 'New Price List'
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Administrations', administrations_path), |
-      link_to('Price Lists', price_lists_path), |
-      'Add new' ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Price Lists', price_lists_path), |
+    'Add new' ] |
 
-  = sidemenu @tab
+= sidemenu @tab
 
-  = render 'form'
+= render 'form'

@@ -1,16 +1,15 @@
 - title "Edit Material Request"
 
-- cache do
-  - content_for :breadcrumb do
-    = breadcrumb [ link_to('Transactions', transactions_path), |
-      'Purchasing', |
-      link_to('Material Request', purchasing_material_requests_path), |
-      link_to(@material_request.number, purchasing_material_request_path(@material_request)), |
-      'Edit Material Request' ] |
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Material Request', purchasing_material_requests_path), |
+    link_to(@material_request.number, purchasing_material_request_path(@material_request)), |
+    'Edit Material Request' ] |
 
-    = sidemenu @tab
+  = sidemenu @tab
 
-  - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/page_white_text.png')} Material Request Detail", purchasing_material_request_path(@material_request), :class => 'main_link'
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/page_white_text.png')} Material Request Detail", purchasing_material_request_path(@material_request), :class => 'main_link'
 
-  = render :partial => 'form'
+= render :partial => 'form'

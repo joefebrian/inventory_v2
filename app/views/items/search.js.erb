@@ -1,5 +1,3 @@
-<% if @items.blank? %>
-  $('#searchresult').html('No match found');
-<% else %>
-  $('#searchresult').html('<%= escape_javascript(@html) %>');
-<% end -%>
+<% for item in @items %>
+<%= item.to_json(:only => [:id, :name, :code]) %>
+<% end %>

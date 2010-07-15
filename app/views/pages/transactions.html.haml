@@ -1,11 +1,10 @@
-- cache do
-  - title "Transactions"
-  - content_for :breadcrumb do
-    = breadcrumb ['Transactions']
+- title "Transactions"
+- content_for :breadcrumb do
+  = breadcrumb ['Transactions']
 
-  = sidemenu @tab
+= sidemenu @tab
 
-  - content_for :hint do
-    #hint
-      %h2 Hint
-      %p Select one of these transaction to see it's list of saved transactions.
+- content_for :hint do
+  #hint
+    %h2 Hint
+    %p Select one of these transaction to see it's list of saved transactions.
