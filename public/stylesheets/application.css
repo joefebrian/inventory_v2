@@ -659,3 +659,4 @@ a#enhanced_next { float:left; }
 .searchresults li:nth-child(2n+1) { background:#EFF3FF; }
 .searchresults li .actions { float:right; margin:6px 0; }
 div.inline { float:left; margin-right:1em; }
+input.item_autocomplete { width:98% !important; }

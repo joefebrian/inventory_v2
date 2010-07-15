@@ -18,8 +18,7 @@
         %tfoot
           %tr
             %td &nbsp;
-            %td{ :colspan => 3 }
-              = link_to "#{image_tag('icons/silk/magnifier.png')} Add item(s)", search_items_path, :class => "item_chooser_link", :title => "Search items"
+            %td{ :colspan => 3 } &nbsp;
         %tbody
           - f.semantic_fields_for :entries do |ent|
             %tr
