@@ -11,21 +11,36 @@
 - content_for :main_act do
   = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Material Request", edit_purchasing_material_request_path(@material_request), :class => 'main_link'
 
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Number
+      %strong= @material_request.number
+    %p
+      %span.light.transaction_label Date
+      %strong= @material_request.userdate.to_s(:long)
+    %p
+      %span.light.transaction_label Reference
+      %strong= @material_request.reference
+    %p
+      %span.light.transaction_label Requester
+      %strong= @material_request.requester
 %p
-  %strong Company:
-  =h @material_request.company_id
-%p
-  %strong Number:
-  =h @material_request.number
-%p
-  %strong Userdate:
-  =h @material_request.userdate
-%p
-  %strong Reference:
-  =h @material_request.reference
-%p
-  %strong Requester:
-  =h @material_request.requester
-%p
-  %strong Description:
-  =h @material_request.description
+  %span.light.transaction_label Description
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @material_request.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+      %th Est. Delivery Date
+  %tbody
+  - @material_request.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity
+      %td.tdc= entry.estimated_delivery_date.to_s(:long)

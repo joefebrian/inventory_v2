@@ -26,13 +26,14 @@ class Purchasing::MaterialRequestsController < ApplicationController
   
   def edit
     @material_request = current_company.material_requests.find(params[:id])
+    @material_request.entries.build
   end
   
   def update
     @material_request = current_company.material_requests.find(params[:id])
     if @material_request.update_attributes(params[:material_request])
       flash[:notice] = "Successfully updated material request."
-      redirect_to @material_request
+      redirect_to purchasing_material_request_path(@material_request)
     else
       render :action => 'edit'
     end
