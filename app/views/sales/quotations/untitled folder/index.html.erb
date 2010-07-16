@@ -1,0 +1,38 @@
+<% title "Quotation" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Quotations", quotations_path) ] %>
+<% end -%>
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/add.png')} Create new Quotations", new_quotation_path, :class => "main_link new_assemblies", :title => "Create New Assembling" %>
+<% end -%>  
+<%= sidemenu %>
+
+<table class="list">
+  <tr>
+    <th>Number</th>
+    <th>Tanggal berlaku</th>
+    <th>Customer</th>
+    <th>Hal</th>
+    <th>Penerima</th>
+    <th>Nama proyek customer</th>
+    <th>Keterangan</th>
+  </tr>
+  <% @quotations.each do |quotation| %>
+    <tr>
+      <td><%=h quotation.number %></td>
+      <td><%=h quotation.tanggal_berlaku %></td>
+      <td><%=h quotation.customer_id %></td>
+      <td><%=h quotation.hal %></td>
+      <td><%=h quotation.penerima %></td>
+      <td><%=h quotation.nama_proyek_customer %></td>
+      <td><%=h quotation.keterangan %></td>
+      <td><%= link_to 'Show', quotation %></td>
+      <td class="actions">
+         <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_plu_path(plu), :title => 'Edit PLU' %>
+        <%= link_to image_tag('icons/silk/delete.png'), plu, :confirm => 'Are you sure?', :method => :delete, :title => 'Delete PLU' %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -9,13 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100708083106) do
+ActiveRecord::Schema.define(:version => 20100716025527) do
 
   create_table "assemblies", :force => true do |t|
     t.integer  "company_id"
     t.string   "type"
     t.string   "number"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "assembly_entries", :force => true do |t|
+    t.integer  "assembly_id"
+    t.string   "item_id"
+    t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,15 +65,6 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.datetime "updated_at"
     t.integer  "company_id"
     t.integer  "price_list_id"
-  end
-
-  create_table "detail_assemblies", :force => true do |t|
-    t.integer  "assembly_id"
-    t.integer  "company_id"
-    t.integer  "item_id"
-    t.string   "qty"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "entries", :force => true do |t|
@@ -115,7 +114,6 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.string   "code"
     t.string   "name"
     t.string   "symbol"
-    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -158,19 +156,6 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.string   "reference"
     t.string   "requester"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "penawaran_hargas", :force => true do |t|
-    t.integer  "company_id"
-    t.string   "number"
-    t.integer  "customer_id"
-    t.date     "tgl_berlaku"
-    t.string   "memo"
-    t.text     "keterangan"
-    t.string   "nama_perlatan"
-    t.string   "nama_proyek"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -225,17 +210,22 @@ ActiveRecord::Schema.define(:version => 20100708083106) do
     t.datetime "updated_at"
   end
 
+  create_table "quotation_entries", :force => true do |t|
+    t.integer  "quotation_id"
+    t.integer  "item_id"
+    t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "quotations", :force => true do |t|
     t.string   "number"
-    t.integer  "company_id"
+    t.date     "tanggal_berlaku"
     t.integer  "customer_id"
-    t.date     "tgl_berlaku"
     t.string   "hal"
-    t.string   "memo"
-    t.text     "keterngan"
     t.string   "penerima"
-    t.string   "nama_perlatan"
-    t.string   "nama_proyek"
+    t.string   "nama_proyek_customer"
+    t.text     "keterangan"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

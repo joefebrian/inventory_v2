@@ -2,24 +2,18 @@
 
 one:
   number: MyString
-  company_id: 1
+  tanggal_berlaku: 2010-07-16
   customer_id: 1
-  tgl_berlaku: 2010-06-23
   hal: MyString
-  memo: MyString
-  keterngan: MyText
   penerima: MyString
-  nama_perlatan: MyString
-  nama_proyek: MyString
+  nama_proyek_customer: MyString
+  keterangan: MyText
 
 two:
   number: MyString
-  company_id: 1
+  tanggal_berlaku: 2010-07-16
   customer_id: 1
-  tgl_berlaku: 2010-06-23
   hal: MyString
-  memo: MyString
-  keterngan: MyText
   penerima: MyString
-  nama_perlatan: MyString
-  nama_proyek: MyString
+  nama_proyek_customer: MyString
+  keterangan: MyText

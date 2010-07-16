@@ -2,15 +2,12 @@ class CreateQuotations < ActiveRecord::Migration
   def self.up
     create_table :quotations do |t|
       t.string :number
-      t.integer :company_id
+      t.date :tanggal_berlaku
       t.integer :customer_id
-      t.date :tgl_berlaku
       t.string :hal
-      t.string :memo
-      t.text :keterngan
       t.string :penerima
-      t.string :nama_perlatan
-      t.string :nama_proyek
+      t.string :nama_proyek_customer
+      t.text :keterangan
 
       t.timestamps
     end

@@ -1,0 +1,38 @@
+<p>
+  <b>Number:</b>
+  <%=h @quotation.number %>
+</p>
+
+<p>
+  <b>Tanggal berlaku:</b>
+  <%=h @quotation.tanggal_berlaku %>
+</p>
+
+<p>
+  <b>Customer:</b>
+  <%=h @quotation.customer_id %>
+</p>
+
+<p>
+  <b>Hal:</b>
+  <%=h @quotation.hal %>
+</p>
+
+<p>
+  <b>Penerima:</b>
+  <%=h @quotation.penerima %>
+</p>
+
+<p>
+  <b>Nama proyek customer:</b>
+  <%=h @quotation.nama_proyek_customer %>
+</p>
+
+<p>
+  <b>Keterangan:</b>
+  <%=h @quotation.keterangan %>
+</p>
+
+
+<%= link_to 'Edit', edit_quotation_path(@quotation) %> |
+<%= link_to 'Back', quotations_path %>

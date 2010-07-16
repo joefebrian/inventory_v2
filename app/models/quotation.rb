@@ -1,6 +1,5 @@
 class Quotation < ActiveRecord::Base
-  has_many :quotation_items
-  belongs_to :items
+  has_many :quotation_entries
   belongs_to :company
   belongs_to :customer
   validates_presence_of :number
@@ -8,9 +7,9 @@ class Quotation < ActiveRecord::Base
   
 
   def tgl_active
-   tgl_berlaku = Chronic.parse(tgl_berlaku)
+   tanggal_berlaku = Chronic.parse(tanggal_berlaku)
   end
- # accepts_nested_attributes_for :detail_assemblies, :allow_destroy => true, :reject_if => lambda {|a| a['qty'].blank? }
+  accepts_nested_attributes_for :quotation_entries, :allow_destroy => true, :reject_if => lambda {|a| a['quantity'].blank? }
  # attr_accessor :item_name, :supplier_name
 
   def self.suggested_number(company)

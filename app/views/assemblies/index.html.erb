@@ -1,11 +1,9 @@
 <% title "Assembling" %>
-<% javascript "assemblies" %>
 
 <% content_for :breadcrumb do %>
   <%= breadcrumb [ link_to("Administrations", administrations_path),
                    link_to("Assembling", assemblies_path) ] %>
 <% end -%>
-
 <% content_for :main_act do %>
   <%= link_to "#{image_tag('icons/silk/add.png')} Create new Assembling", new_assembly_path, :class => "main_link new_assemblies", :title => "Create New Assembling" %>
 <% end -%>  
@@ -15,18 +13,19 @@
   <tr>
     <th>Type</th>
     <th>Number</th>
-    <th>Item Code</th>
+    <th></th>
     <th class="actions">Actions</th>
   </tr>
-  <% for assembly in @assemblies %>
-    <tr>
-      <td><%= link_to assembly.type, assembly %></td>
-      <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
-      <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
-       <td class="actions">
-         <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_plu_path(plu), :title => 'Edit PLU' %>
-        <%= link_to image_tag('icons/silk/delete.png'), plu, :confirm => 'Are you sure?', :method => :delete, :title => 'Delete PLU' %>
-      </td>
-    </tr>
-  <% end %>
+<% @assemblies.each do |assembly| %>
+<tr>
+  <td><%=h assembly.type %></td>
+  <td><%=h assembly.number %></td>
+  <td><%=h assembly.number %></td>
+  <td class="actions">
+  <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_kurs_id_path(kurs_id), :class => 'new_edit_kurs_id', :title => "Edit #{kurs_id.name}" %>
+  <%= link_to image_tag('icons/silk/delete.png'), kurs_id, :confirm => 'Are you sure?', :method => :delete, :title => "Delete #{kurs_id.name}" %>
+  </td>
+</tr>
+<% end %>
+
 </table>

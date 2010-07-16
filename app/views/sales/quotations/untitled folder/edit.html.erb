@@ -1,0 +1,40 @@
+<h1>Editing quotation</h1>
+
+<% form_for(@quotation) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p>
+    <%= f.label :tanggal_berlaku %><br />
+    <%= f.date_select :tanggal_berlaku %>
+  </p>
+  <p>
+    <%= f.label :customer_id %><br />
+    <%= f.text_field :customer_id %>
+  </p>
+  <p>
+    <%= f.label :hal %><br />
+    <%= f.text_field :hal %>
+  </p>
+  <p>
+    <%= f.label :penerima %><br />
+    <%= f.text_field :penerima %>
+  </p>
+  <p>
+    <%= f.label :nama_proyek_customer %><br />
+    <%= f.text_field :nama_proyek_customer %>
+  </p>
+  <p>
+    <%= f.label :keterangan %><br />
+    <%= f.text_area :keterangan %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @quotation %> |
+<%= link_to 'Back', quotations_path %>

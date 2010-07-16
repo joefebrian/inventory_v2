@@ -1,0 +1,46 @@
+- title "Material Request"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Material Request', purchasing_material_requests_path), |
+    "Material Request ##{@material_request.number}" ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Material Request", edit_purchasing_material_request_path(@material_request), :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Number
+      %strong= @material_request.number
+    %p
+      %span.light.transaction_label Date
+      %strong= @material_request.userdate.to_s(:long)
+    %p
+      %span.light.transaction_label Reference
+      %strong= @material_request.reference
+    %p
+      %span.light.transaction_label Requester
+      %strong= @material_request.requester
+%p
+  %span.light.transaction_label Description
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @material_request.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+      %th Est. Delivery Date
+  %tbody
+  - @material_request.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity
+      %td.tdc= entry.estimated_delivery_date.to_s(:long)

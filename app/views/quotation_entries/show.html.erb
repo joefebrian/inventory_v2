@@ -1,0 +1,18 @@
+<p>
+  <b>Quotation:</b>
+  <%=h @quotation_entry.quotation_id %>
+</p>
+
+<p>
+  <b>Item:</b>
+  <%=h @quotation_entry.item_id %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%=h @quotation_entry.quantity %>
+</p>
+
+
+<%= link_to 'Edit', edit_quotation_entry_path(@quotation_entry) %> |
+<%= link_to 'Back', quotation_entries_path %>

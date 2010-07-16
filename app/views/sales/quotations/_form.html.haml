@@ -1,17 +1,21 @@
-- semantic_form_for @assembly do |f|
+- semantic_form_for [:sales, @quotation] do |f|
   = f.error_messages
-  - f.inputs do
-    = f.input :type, :as => :select, :collection => [['Assembling', 'Ass'],['Production','Prod']], :include_blank => false 
+  - f.inputs 'Quotations', :class => "form_section" do
     %li#general_transaction_number_input.string.required
-      %label{ :for => 'assembly_number' } Number <span class="required">*</span>
+      %label{ :for => 'quotation_number' } Number <span class="required">*</span>
       %input{ :type => :text, :size => 50,
-              :name => 'assembly[number]',
-              :id => 'assembly_number',
+              :name => 'quotation[number]',
+              :id => 'quotation_number',
               :value => f.object.attributes['number'],
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
-    = f.input :description, :input_html => { :rows => 3 }
-
+ 
+    = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    = f.input :customer_id
+    = f.input :hal
+    = f.input :penerima
+    = f.input :nama_proyek_customer
+    = f.input :keterangan, :input_html => { :rows => 3 }
   - f.inputs 'Items', :class => "form_section" do
     %li
       %table.report
@@ -20,6 +24,7 @@
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
             %th Quantity
+            %th Est. Delivery Date
         %tfoot
           %tr
             %td &nbsp;
@@ -32,6 +37,7 @@
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+              %td.tdr.td_20= ent.text_field :estimated_delivery_date, :class => "datepicker", :size => 20
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
