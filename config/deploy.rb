@@ -39,8 +39,8 @@ depend :remote, :gem, "formtastic", "0.9.10"
 depend :remote, :gem, "chronic", "0.2.3"
 depend :remote, :gem, "prawn", "0.8.4"
 depend :remote, :gem, "haml", "3.0.13"
-depend :remote, :gem, "spreadsheet". "0.6.4.1"
-depend :remote, :gem, "paperclip". "2.3.3"
+depend :remote, :gem, "spreadsheet", "0.6.4.1"
+depend :remote, :gem, "paperclip", "2.3.3"
 
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
