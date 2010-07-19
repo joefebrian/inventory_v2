@@ -29,17 +29,19 @@ end
 
 depend :local, :command, "git"
 depend :remote, :gem, "rails", "2.3.8"
-depend :remote, :gem, "will_paginate"
-depend :remote, :gem, "authlogic"
-depend :remote, :gem, "searchlogic"
-depend :remote, :gem, "subdomain-fu"
-depend :remote, :gem, "cancan"
-depend :remote, :gem, "slim_scrooge"
-depend :remote, :gem, "formtastic"
-depend :remote, :gem, "chronic"
-depend :remote, :gem, "prawn"
-depend :remote, :gem, "haml"
-depend :remote, :gem, "spreadsheet"
+depend :remote, :gem, "will_paginate", "2.3.14"
+depend :remote, :gem, "authlogic", "2.1.5"
+depend :remote, :gem, "searchlogic", "2.4.19"
+depend :remote, :gem, "subdomain-fu", "0.5.4"
+depend :remote, :gem, "cancan", "1.1.1"
+depend :remote, :gem, "slim_scrooge", "1.0.10"
+depend :remote, :gem, "formtastic", "0.9.10"
+depend :remote, :gem, "chronic", "0.2.3"
+depend :remote, :gem, "prawn", "0.8.4"
+depend :remote, :gem, "haml", "3.0.13"
+depend :remote, :gem, "spreadsheet". "0.6.4.1"
+depend :remote, :gem, "paperclip". "2.3.3"
+
 # If you are using Passenger mod_rails uncomment this:
 # if you're still using the script/reapear helper you will need
 # these http://github.com/rails/irs_process_scripts
