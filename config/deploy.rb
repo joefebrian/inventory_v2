@@ -1,4 +1,4 @@
-require "capistrano_database_yml"
+require "config/capistrano_database_yml"
 
 default_run_options[:pty] = true
 set :application, "Inventory"
@@ -22,12 +22,12 @@ role :app, "inventory.cycomsoft.com"                          # This may be the 
 role :db,  "inventory.cycomsoft.com", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
-after "deploy:update_code", :touch_restart_txt
+#after "deploy:update_code", :touch_restart_txt
 
-desc "touch restart.txt file to restart passenger"
-task :touch_restart_txt, :role => :app do
-  run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-end
+#desc "touch restart.txt file to restart passenger"
+#task :touch_restart_txt, :role => :app do
+#  run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+#end
 
 depend :local, :command, "git"
 depend :remote, :gem, "rails", "2.3.8"
