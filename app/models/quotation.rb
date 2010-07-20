@@ -1,5 +1,6 @@
 class Quotation < ActiveRecord::Base
-  has_many :quotation_entries
+  attr_accessible :company_id, :number, :tanggal_berlaku, :customer_id, :hal, :penerima, :nama_proyek_customer, :keterangan, :entries_attributes
+  has_many :entries, :class_name => "QuotationEntry"
   belongs_to :company
   belongs_to :customer
   validates_presence_of :number
@@ -9,8 +10,9 @@ class Quotation < ActiveRecord::Base
   def tgl_active
    tanggal_berlaku = Chronic.parse(tanggal_berlaku)
   end
-  accepts_nested_attributes_for :quotation_entries, :allow_destroy => true, :reject_if => lambda {|a| a['quantity'].blank? }
- # attr_accessor :item_name, :supplier_name
+  accepts_nested_attributes_for :entries, 
+    :allow_destroy => true, 
+    :reject_if => lambda {|a| a['quantity'].blank? }
 
   def self.suggested_number(company)
     last_number = Quotation.last.try(:number)
@@ -20,11 +22,4 @@ class Quotation < ActiveRecord::Base
     "#{prefix}.#{next_available}"
   end
 
-  def item_name
-    @item_name || item.try(:name_with_code)
-  end
-  
-  def item_name_with_code
-    item.name_with_code
-  end
 end

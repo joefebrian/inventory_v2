@@ -7,61 +7,47 @@ class AssembliesController < ApplicationController
     @assemblies = current_company.assemblies
   end
 
-  def show
+   def show
     @assembly = Assembly.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @assembly }
-    end
-  end
+  end 
 
   def new
-    @assembly = Assembly.new
+    @assembly = current_company.assemblies.new
+    @assembly.entries.build
     @assembly.number = Assembly.suggested_number(current_company)
-  end
-
-  def edit
-    @assembly = Assembly.find(params[:id])
-  end
-
+  end  
+  
   def create
-    @assembly = Assembly.new(params[:assembly])
-
-    respond_to do |format|
-      if @assembly.save
-        format.html { redirect_to(@assembly, :notice => 'Assembly was successfully created.') }
-        format.xml  { render :xml => @assembly, :status => :created, :location => @assembly }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @assembly.errors, :status => :unprocessable_entity }
-      end
+    @assembly = current_company.assemblies.new(params[:assembly])
+    if @assembly.save
+      flash[:notice] = "Successfully created assembling."
+      redirect_to assembly_path(@assembly)
+    else
+      render :action => 'new'
     end
   end
 
+ def edit
+    @assembly = current_company.assemblies.find(params[:id])
+    @assembly.entries.build
+  end
+  
   def update
-    @assembly = Assembly.find(params[:id])
-
-    respond_to do |format|
-      if @assembly.update_attributes(params[:assembly])
-        format.html { redirect_to(@assembly, :notice => 'Assembly was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @assembly.errors, :status => :unprocessable_entity }
-      end
+    @assembly = current_company.assemblies.find(params[:id])
+    if @assembly.update_attributes(params[:assembly])
+      flash[:notice] = "Successfully updated  assembling."
+      redirect_to assembly_path(@assembly)
+    else
+      render :action => 'edit'
     end
   end
-
+  
   def destroy
-    @assembly = Assembly.find(params[:id])
+    @assembly = current_company.assemblies.find(params[:id])
     @assembly.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(assemblies_url) }
-      format.xml  { head :ok }
-    end
-  end
+    flash[:notice] = "Successfully destroyed assembling."
+    redirect_to assembly_url
+  end 
   
   private
   def assign_tab

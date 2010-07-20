@@ -9,15 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100716025527) do
+ActiveRecord::Schema.define(:version => 20100720083947) do
 
   create_table "assemblies", :force => true do |t|
     t.integer  "company_id"
-    t.string   "type"
     t.string   "number"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "tipe"
   end
 
   create_table "assembly_entries", :force => true do |t|
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(:version => 20100716025527) do
     t.text     "keterangan"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "company_id"
   end
 
   create_table "suppliers", :force => true do |t|

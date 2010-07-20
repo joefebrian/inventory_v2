@@ -28,8 +28,9 @@ class Sales::QuotationsController < ApplicationController
   # GET /quotations/new
   # GET /quotations/new.xml
   def new
-    @quotation = Quotation.new
-
+    @quotation = Quotation.new 
+    @quotation.entries.build
+    @quotation.number = Quotation.suggested_number(current_company)
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @quotation }

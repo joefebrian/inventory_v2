@@ -1,13 +1,13 @@
 class Assembly < ActiveRecord::Base
-  attr_accessible :item_id, :company_id, :number, :type, :description, :quantity, :assembly_entries_attributes
-  has_many :assembly_entries
+  attr_accessible :company_id, :tipe, :number, :description, :entries_attributes
   belongs_to :company
-  validates_presence_of :number
-  validates_presence_of :type
+  has_many :entries, :class_name => "AssemblyEntry"
+  validates_presence_of :number, :tipe
   validates_uniqueness_of :number, :scope => :company_id
 
-  accepts_nested_attributes_for :assembly_entries, :allow_destroy => true, :reject_if => lambda {|a| a['quantity'].blank? }
- # attr_accessor :item_name, :supplier_name
+  accepts_nested_attributes_for :entries, 
+    :allow_destroy => true, 
+    :reject_if => lambda {|a| a['quantity'].blank? }
 
  def self.suggested_number(company)
     last_number = Assembly.last.try(:number)
@@ -16,4 +16,5 @@ class Assembly < ActiveRecord::Base
     prefix = "#{TRANS_PREFIX[:assembly]}.#{time.strftime('%Y%m')}"
     "#{prefix}.#{next_available}"
   end
+
 end
