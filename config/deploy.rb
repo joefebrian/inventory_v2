@@ -1,4 +1,4 @@
-require 'capistrano_database_yml'
+require "capistrano_database_yml"
 
 default_run_options[:pty] = true
 set :application, "Inventory"
