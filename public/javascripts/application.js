@@ -100,7 +100,7 @@ $(function() {
 
 function attach_datepicker() {
   $('input.datepicker').datepicker({
-    showOn:'button',
+    showOn:'both',
     buttonImage: '/images/icons/silk/calendar_select_day.png',
     buttonImageOnly: true
   });
