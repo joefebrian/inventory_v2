@@ -9,4 +9,12 @@ class MaterialRequest < ActiveRecord::Base
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
+
+  def self.suggested_number
+    last_number = MaterialRequest.last.try(:number)
+    next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
+    time = Time.now
+    prefix = "#{TRANS_PREFIX[:material_request]}.#{time.strftime('%Y%m')}"
+    "#{prefix}.#{next_available}"
+  end
 end

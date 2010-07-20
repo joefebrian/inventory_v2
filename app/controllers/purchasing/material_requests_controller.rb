@@ -11,6 +11,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   
   def new
     @material_request = current_company.material_requests.new
+    @material_request.number = MaterialRequest.suggested_number
     @material_request.entries.build
   end
   
@@ -43,7 +44,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
     @material_request = current_company.material_requests.find(params[:id])
     @material_request.destroy
     flash[:notice] = "Successfully destroyed material request."
-    redirect_to material_requests_url
+    redirect_to purchasing_material_requests_path
   end
 
   private
