@@ -8,6 +8,7 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+=begin
 require 'metric_fu'
 
 MetricFu::Configuration.run do |config|
@@ -37,3 +38,4 @@ MetricFu::Configuration.run do |config|
                       "--exclude /gems/,/Library/,test"]}
   config.graph_engine = :bluff
 end
+=end
