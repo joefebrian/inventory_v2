@@ -1,44 +1,53 @@
 class Purchasing::QuotationRequestsController < ApplicationController
+  before_filter :authenticate
+  before_filter :assign_tab
+
   def index
-    @purchasing/quotation_requests = Purchasing::quotationRequest.all
+    @quotation_requests = QuotationRequest.all
   end
   
   def show
-    @purchasing/quotation_request = Purchasing::quotationRequest.find(params[:id])
+    @quotation_request = QuotationRequest.find(params[:id])
   end
   
   def new
-    @purchasing/quotation_request = Purchasing::quotationRequest.new
+    @quotation_request = QuotationRequest.new
   end
   
   def create
-    @purchasing/quotation_request = Purchasing::quotationRequest.new(params[:purchasing/quotation_request])
-    if @purchasing/quotation_request.save
+    @quotation_request = QuotationRequest.new(params[:quotation_request])
+    if @quotation_request.save
       flash[:notice] = "Successfully created purchasing/quotation request."
-      redirect_to @purchasing/quotation_request
+      redirect_to @quotation_request
     else
       render :action => 'new'
     end
   end
   
   def edit
-    @purchasing/quotation_request = Purchasing::quotationRequest.find(params[:id])
+    @quotation_request = QuotationRequest.find(params[:id])
   end
   
   def update
-    @purchasing/quotation_request = Purchasing::quotationRequest.find(params[:id])
-    if @purchasing/quotation_request.update_attributes(params[:purchasing/quotation_request])
-      flash[:notice] = "Successfully updated purchasing/quotation request."
-      redirect_to @purchasing/quotation_request
+    @quotation_request = QuotationRequest.find(params[:id])
+    if @quotation_request.update_attributes(params[:quotation_request])
+      flash[:notice] = "Successfully updated quotation request."
+      redirect_to @quotation_request
     else
       render :action => 'edit'
     end
   end
   
   def destroy
-    @purchasing/quotation_request = Purchasing::quotationRequest.find(params[:id])
-    @purchasing/quotation_request.destroy
-    flash[:notice] = "Successfully destroyed purchasing/quotation request."
-    redirect_to purchasing/quotation_requests_url
+    @quotation_request = QuotationRequest.find(params[:id])
+    @quotation_request.destroy
+    flash[:notice] = "Successfully destroyed quotation request."
+    redirect_to quotation_requests_url
+  end
+
+  private
+  def assign_tab
+    @tab = 'transactions'
+    @current = 'qr'
   end
 end

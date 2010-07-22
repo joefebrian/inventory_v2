@@ -64,5 +64,10 @@ class ApplicationController < ActionController::Base
     flash[:error] = "Sorry, but your session has just timed out. Please re-login to continue."
     clear_authlogic_session
   end
+
+  def assign_tab(tab, current)
+    @tab = tab
+    @current = current
+  end
 end
 
