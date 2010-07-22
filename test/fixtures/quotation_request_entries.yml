@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  quotation_request_id: 1
+  item_id: 1
+  quantity: 1
+  note: MyText
+
+two:
+  quotation_request_id: 1
+  item_id: 1
+  quantity: 1
+  note: MyText
