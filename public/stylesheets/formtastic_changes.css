@@ -12,7 +12,7 @@ input, form.formtastic input, form.formtastic textarea, form.formtastic select {
   border:solid 1px rgb(159,159,159);
   padding:2px;
 }
-form.formtastic fieldset ol li.string input { width:30%; }
+form.formtastic fieldset ol li.string input { width:35%; }
 form.formtastic fieldset ol li.password input { width:30%; }
 form.formtastic fieldset ol li.numeric input { width:30%; }
 form.formtastic fieldset ol li.text textarea { width:60%; }

@@ -257,13 +257,10 @@ table.list tr td {
   background:rgba(95,191,99,.1);
   padding:4px;
 }
-table.list tr:nth-child(2n+1) {
+table.list tr:nth-child(2n+1) td {
   background:rgba(95,191,99,.2);
 }
-table.report tr td {
-  background:rgba(250,250,250,1);
-}
-table.report tr:nth-child(2n+1) {
+table.report tr:nth-child(2n+1) td {
   background:rgba(242,242,242,1);
 }
 table.list tr:hover td, table.list tr.odd:hover td, table.list tr.even:hover td {

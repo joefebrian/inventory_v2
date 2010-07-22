@@ -1,5 +1,5 @@
 class Supplier < ActiveRecord::Base
-  attr_accessible :company_id, :code, :name, :description
+  attr_accessible :company_id, :code, :name, :description, :profile_attributes
   belongs_to :company
   belongs_to :profile
   has_and_belongs_to_many :quotation_requests

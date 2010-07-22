@@ -5,7 +5,34 @@
     = f.input :suppliers, :input_html => { :class => "multiselect" }
     = f.input :request_date, :as => :string, :input_html => { :class => "datepicker" }
     = f.input :description, :input_html => { :rows => 2, :cols => 50 }
+  - f.inputs 'Items', :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th Item
+            %th Quantity
+        %tfoot
+          %tr
+            %td &nbsp;
+            %td{ :colspan => 2 } &nbsp;
+        %tbody
+          - f.semantic_fields_for :entries do |ent|
+            %tr
+              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+              %td.item
+                = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                = ent.hidden_field :item_id
+              %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
       Save Quotation Request
+
+- content_for :javascripts do
+  - javascript_tag do
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;

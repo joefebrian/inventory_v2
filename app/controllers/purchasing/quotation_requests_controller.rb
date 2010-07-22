@@ -3,7 +3,7 @@ class Purchasing::QuotationRequestsController < ApplicationController
   before_filter :assign_tab
 
   def index
-    @quotation_requests = current_company.quotation_requests.all
+    @quotation_requests = current_company.quotation_requests.paginate(:page => params[:page])
   end
   
   def show
@@ -12,6 +12,7 @@ class Purchasing::QuotationRequestsController < ApplicationController
   
   def new
     @quotation_request = current_company.quotation_requests.new
+    @quotation_request.entries.build
   end
   
   def create

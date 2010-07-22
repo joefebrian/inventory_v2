@@ -9,20 +9,21 @@
 - content_for :main_act do
   = link_to "#{image_tag('icons/silk/add.png')} New Quotation Request", new_purchasing_quotation_request_path, :class => 'main_link'
 
-%table
+%table.list
   %tr
-    %th Company
+    %th.td_5 No.
     %th Number
     %th Request date
     %th Description
-  - for quotation_request in @quotation_requests
+    %th.actions Actions
+  - @quotation_requests.each_with_index do |quotation_request, i|
     %tr
-      %td= h quotation_request.company_id
-      %td= h quotation_request.number
-      %td= h quotation_request.request_date
-      %td= h quotation_request.description
-      %td= link_to 'Show', [:purchasing, quotation_request]
-      %td= link_to 'Edit', edit_purchasing_quotation_request_path(quotation_request)
-      %td= link_to 'Destroy', [:purchasing, quotation_request], :confirm => 'Are you sure?', :method => :delete
+      %td.td_r.numbers= (i+1)
+      %td= link_to h(quotation_request.number), [:purchasing, quotation_request]
+      %td.tdc= h quotation_request.request_date.to_s(:long)
+      %td= h truncate(quotation_request.description, :length => 60)
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_quotation_request_path(quotation_request)
+        = link_to image_tag('icons/silk/delete.png'), [:purchasing, quotation_request], :confirm => 'Are you sure?', :method => :delete
 
-%p= link_to "New Purchasing/Quotation Request", new_purchasing_quotation_request_path
+  = will_paginate @quotation_requests

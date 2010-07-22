@@ -23,16 +23,20 @@
   %span.light.transaction_label Description
 %p{ :style => "overflow:hidden; margin-bottom:20px;" }
   %strong= @quotation_request.description
+%p
+  %span.light.transaction_label Intended Suppliers
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @quotation_request.suppliers.collect { |supp| link_to(supp.name, supp) }.join(', ')
 
-%table.report
+%table.list
   %thead
     %tr
       %th.td_5 No.
       %th Item
       %th Qty
   %tbody
-  - @quotation_request.entries.each_with_index do |entry, i|
-    %tr
-      %td.tdr.td_5= (i+1)
-      %td= link_to h(entry.item.name), entry.item
-      %td.tdr= entry.quantity
+    - @quotation_request.entries.each_with_index do |entry, i|
+      %tr
+        %td.tdr.td_5= (i+1)
+        %td= link_to h(entry.item.name), entry.item
+        %td.tdr= entry.quantity
