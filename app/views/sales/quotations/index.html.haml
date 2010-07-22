@@ -15,10 +15,6 @@
       %th Number
       %th Tanggal Berlaku
       %th Customer
-      %th Hal
-      %th Penerima
-      %th Nama Proyek Customer
-      %th Keterangan
       %th.actions Actions
   %tbody
     - for quotation in @quotations
@@ -26,11 +22,8 @@
         %td
           %strong= h quotation.number
         %td= h quotation.tanggal_berlaku
-        %td= h quotation.customer
-        %td= h quotation.hal
-        %td= h quotation.penerima
-        %td= h quotation.nama_proyek_customer
-        %td= h quotation.keterangan
+        %td= h quotation.customer.profile.full_name
         %td.actions
-          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_material_request_path(material_request)
-          = link_to image_tag('icons/silk/delete.png'), purchasing_material_request_path(material_request), :confirm => 'Are you sure?', :method => :delete
+          = link_to image_tag('icons/silk/eye.png'), sales_quotation_path(quotation), :class => 'show_quotation', :title => "Show #{quotation.id}"  
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_quotation_path(quotation)
+          = link_to image_tag('icons/silk/delete.png'), sales_quotation_path(quotation), :confirm => 'Are you sure?', :method => :delete

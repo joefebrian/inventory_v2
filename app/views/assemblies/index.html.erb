@@ -13,16 +13,18 @@
   <tr>
     <th>Type</th>
     <th>Number</th>
-    <th></th>
+    <th>Name</th>
+    <th>Code</th>
     <th class="actions">Actions</th>
   </tr>
 <% @assemblies.each do |assembly| %>
 <tr>
   <td><%=h assembly.type %></td>
   <td><%=h assembly.number %></td>
-  <td><%=h assembly.number %></td>
+  <td><%=h assembly.name %></td>
+  <td><%=h assembly.code %></td>
   <td class="actions">
-  <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_assembly_path(assembly), :class => 'new_edit_assembly', :title => "Edit #{assembly.id}" %>  
+  <%= link_to image_tag('icons/silk/eye.png'), assembly_path(assembly), :class => 'show_assembly', :title => "Show #{assembly.id}" %>  
   <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_assembly_path(assembly), :class => 'new_edit_assembly', :title => "Edit #{assembly.id}" %>
   <%= link_to image_tag('icons/silk/delete.png'), assembly, :confirm => 'Are you sure?', :method => :delete, :title => "Delete #{assembly.id}" %>
   </td>

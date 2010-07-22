@@ -4,7 +4,7 @@ class AssembliesController < ApplicationController
   before_filter :prepare_autocomplete, :only => [:new, :create, :edit, :update]
 
   def index 
-    @assemblies = current_company.assemblies
+    @assemblies = current_company.assemblies.paginate(:page => params[:page])
   end
 
    def show
@@ -15,6 +15,7 @@ class AssembliesController < ApplicationController
     @assembly = current_company.assemblies.new
     @assembly.entries.build
     @assembly.number = Assembly.suggested_number(current_company)
+    @category = current_company.categories.collect {|category| [category.name,category.id] if category.leaf?}.compact
   end  
   
   def create
@@ -30,6 +31,7 @@ class AssembliesController < ApplicationController
  def edit
     @assembly = current_company.assemblies.find(params[:id])
     @assembly.entries.build
+    @category = current_company.categories.collect {|category| [category.name,category.id] if category.leaf?}.compact
   end
   
   def update

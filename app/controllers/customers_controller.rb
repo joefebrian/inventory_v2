@@ -47,6 +47,26 @@ class CustomersController < ApplicationController
     flash[:notice] = "Successfully destroyed customer."
     redirect_to customers_url
   end
+  
+    def search
+    @keyword = params[:q]
+    @customers = @keyword.nil? ? {} : current_company.customers.name_or_code_like(@keyword).all
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.js { 
+        @html = render_to_string :partial => "customers_result"
+        # render :layout => false
+      }
+    end
+  end
+  
+  def picker
+    @customers = Customer.id_in(params[:customers])
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
 
   private
   def set_tab

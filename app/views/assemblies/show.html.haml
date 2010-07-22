@@ -1,0 +1,46 @@
+- title "Assembling"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Assembling', assemblies_path)] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Assembling", edit_assembly_path(@assembly), :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Type
+      %strong= @assembly.tipe
+    %p
+      %span.light.transaction_label Number
+      %strong= @assembly.number
+    %p
+      %span.light.transaction_label Name
+      %strong= @assembly.name
+    %p
+      %span.light.transaction_label Category
+      %strong= @assembly.category.name
+    %p
+      %span.light.transaction_label Code
+      %strong= @assembly.code
+
+%p
+  %span.light.transaction_label Description
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @assembly.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @assembly.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity

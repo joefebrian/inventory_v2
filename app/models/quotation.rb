@@ -26,4 +26,8 @@ class Quotation < ActiveRecord::Base
     "#{prefix}.#{next_available}"
   end
 
+  def before_save
+    unless customer_id.blank?
+    end
+  end
 end

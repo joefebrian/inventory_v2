@@ -18,6 +18,9 @@ ActiveRecord::Schema.define(:version => 20100722071312) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tipe"
+    t.string   "name"
+    t.integer  "category_id"
+    t.string   "code"
   end
 
   create_table "assembly_entries", :force => true do |t|
@@ -117,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20100722071312) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.boolean  "assembly"
   end
 
   create_table "kurs_ids", :force => true do |t|

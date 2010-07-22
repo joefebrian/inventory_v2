@@ -1,34 +1,40 @@
-- title "Material Request"
+- title "Quotations for Sales"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Purchasing', |
-    link_to('Material Request', purchasing_material_requests_path), |
-    "Material Request ##{@material_request.number}" ] |
+    'Sales', |
+    link_to('Quotations', sales_quotations_path), |
+    "Quotations ##{@quotation.number}" ] |
 
   = sidemenu @tab
 
 - content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Material Request", edit_purchasing_material_request_path(@material_request), :class => 'main_link'
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Quotation", edit_sales_quotation_path(@material_request), :class => 'main_link'
 
 #dialog_form
   .two_columns
     %p
       %span.light.transaction_label Number
-      %strong= @material_request.number
+      %strong= @quotation.number
     %p
-      %span.light.transaction_label Date
-      %strong= @material_request.userdate.to_s(:long)
+      %span.light.transaction_label Effective Date
+      %strong= @quotation.tanggal_berlaku
     %p
-      %span.light.transaction_label Reference
-      %strong= @material_request.reference
+      %span.light.transaction_label Customer Name
+      %strong= @quotation.customer_id
     %p
-      %span.light.transaction_label Requester
-      %strong= @material_request.requester
+      %span.light.transaction_label Case
+      %strong= @quotation.hal
+    %p
+      %span.light.transaction_label Recipient
+      %strong= @quotation.penerima
+    %p
+      %span.light.transaction_label Customer Name Project
+      %strong= @quotation.nama_proyek_customer 
 %p
   %span.light.transaction_label Description
 %p{ :style => "overflow:hidden; margin-bottom:20px;" }
-  %strong= @material_request.description
+  %strong= @quotation.keterangan
 
 %table.report
   %thead
@@ -36,11 +42,9 @@
       %th No.
       %th Item
       %th Qty
-      %th Est. Delivery Date
   %tbody
-  - @material_request.entries.each_with_index do |entry, i|
+  - @quotation.entries.each_with_index do |entry, i|
     %tr
       %td.tdr.td_5= (i+1)
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
-      %td.tdc= entry.estimated_delivery_date.to_s(:long)
