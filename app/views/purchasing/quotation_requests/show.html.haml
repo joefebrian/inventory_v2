@@ -1,21 +1,25 @@
-- title "Purchasing/Quotation Request"
+- title "Purchasing::Quotation Request"
 
-%p
-  %strong Company:
-  =h @purchasing/quotation_request.company_id
-%p
-  %strong Number:
-  =h @purchasing/quotation_request.number
-%p
-  %strong Request Date:
-  =h @purchasing/quotation_request.request_date
-%p
-  %strong Description:
-  =h @purchasing/quotation_request.description
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Quotation Request', purchasing_quotation_requests_path), |
+    "Quotation Request # #{@quotation_request.number}" ] |
 
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Quotation Request", edit_purchasing_quotation_request_path(@quotation_request), :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Number
+      %strong= @quotation_request.number
+    %p
+      %span.light.transaction_label Date
+      %strong= @quotation_request.request_date.to_s(:long)
 %p
-  = link_to "Edit", edit_purchasing/quotation_request_path(@purchasing/quotation_request)
-  |
-  = link_to "Destroy", @purchasing/quotation_request, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", purchasing/quotation_requests_path
+  %span.light.transaction_label Description
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @quotation_request.description

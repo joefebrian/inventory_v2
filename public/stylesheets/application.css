@@ -660,3 +660,10 @@ a#enhanced_next { float:left; }
 .searchresults li .actions { float:right; margin:6px 0; }
 div.inline { float:left; margin-right:1em; }
 input.item_autocomplete { width:98% !important; }
+form.formtastic .ui-multiselect-checkboxes label {
+  width:auto;
+  float:none;
+  padding:.5em;
+}
+.ui-multiselect-checkboxes { overflow:auto !important; }
+.ui-multiselect-checkboxes label input { margin-right:1em !important; }

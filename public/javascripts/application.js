@@ -5,6 +5,7 @@ $(function() {
     return false;
   });
   attach_datepicker();
+  $('.multiselect').multiselect();
   $('#from').change(function() {
     $('#notifier').show();
     $.get("/transactions/created",

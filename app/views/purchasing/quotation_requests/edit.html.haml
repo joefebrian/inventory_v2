@@ -1,8 +1,13 @@
-- title "Edit Purchasing/Quotation Request"
+- title "Edit Purchasing::Quotation Request"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Quotation Request', purchasing_quotation_requests_path), |
+    "Edit Quotation Request # #{link_to @quotation_request.number, [:purchasing, @quotation_request]}" ] |
+
+  = sidemenu @tab
+
+= hint "Select one of the transaction type first to show the transaction form"
 
 = render :partial => 'form'
-
-%p
-  = link_to "Show", purchasing/quotation_request_path(@purchasing/quotation_request)
-  |
-  = link_to "View All", purchasing/quotation_requests_path

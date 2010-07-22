@@ -18,7 +18,7 @@ class Purchasing::QuotationRequestsController < ApplicationController
     @quotation_request = current_company.quotation_requests.new(params[:quotation_request])
     if @quotation_request.save
       flash[:notice] = "Successfully created purchasing/quotation request."
-      redirect_to @quotation_request
+      redirect_to [:purchasing, @quotation_request]
     else
       render :action => 'new'
     end
@@ -32,7 +32,7 @@ class Purchasing::QuotationRequestsController < ApplicationController
     @quotation_request = current_company.quotation_requests.find(params[:id])
     if @quotation_request.update_attributes(params[:quotation_request])
       flash[:notice] = "Successfully updated quotation request."
-      redirect_to @quotation_request
+      redirect_to [:purchasing, @quotation_request]
     else
       render :action => 'edit'
     end
