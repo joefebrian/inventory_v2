@@ -11,7 +11,6 @@ class Purchasing::MaterialRequestsController < ApplicationController
   
   def new
     @material_request = current_company.material_requests.new
-    @material_request.number = MaterialRequest.suggested_number
     @material_request.entries.build
   end
   

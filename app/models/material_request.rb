@@ -10,8 +10,12 @@ class MaterialRequest < ActiveRecord::Base
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
 
-  def self.suggested_number
-    last_number = MaterialRequest.last.try(:number)
+  def after_initialize
+    self.number = suggested_number if new_record?
+  end
+
+  def suggested_number
+    last_number = company.material_requests.last.try(:number)
     next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
     time = Time.now
     prefix = "#{TRANS_PREFIX[:material_request]}.#{time.strftime('%Y%m')}"

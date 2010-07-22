@@ -4,5 +4,6 @@ TRANS_PREFIX = { :item_transfer => 'TRF',
                  :item_out => 'OUT',
                  :assembly => 'ASS',
                  :material_request => "MRQ",
+                 :quotation_request => "QRQ",
                  :quotation => 'QUO' }
 

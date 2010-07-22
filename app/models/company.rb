@@ -21,6 +21,8 @@ class Company < ActiveRecord::Base
   has_many :customers
   has_many :price_lists
   has_many :material_requests
+  has_many :quotation_requests
+  has_many :quotations
 
   default_scope :order => :created_at
 

@@ -1,20 +1,10 @@
-- form_for @purchasing/quotation_request do |f|
+- semantic_form_for [:purchasing, @quotation_request] do |f|
   = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :request_date
-    %br
-    = f.date_select :request_date
-  %p
-    = f.label :description
-    %br
-    = f.text_area :description
-  %p
-    = f.submit
+  - f.inputs 'Quotation Request', :class => "form_section" do
+    = f.input :number
+    = f.input :request_date, :as => :string, :input_html => { :class => "datepicker" }
+    = f.input :description, :input_html => { :rows => 2, :cols => 50 }
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Quotation Request
