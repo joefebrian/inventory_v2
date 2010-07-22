@@ -1,0 +1,44 @@
+- form_for @sales_order do |f|
+  = f.error_messages
+  %p
+    = f.label :company_id
+    %br
+    = f.text_field :company_id
+  %p
+    = f.label :quotation_id
+    %br
+    = f.text_field :quotation_id
+  %p
+    = f.label :number
+    %br
+    = f.text_field :number
+  %p
+    = f.label :tanggal
+    %br
+    = f.text_field :tanggal
+  %p
+    = f.label :top
+    %br
+    = f.text_field :top
+  %p
+    = f.label :advance
+    %br
+    = f.text_field :advance
+  %p
+    = f.label :status
+    %br
+    = f.text_field :status
+  %p
+    = f.label :totral_bruto
+    %br
+    = f.text_field :totral_bruto
+  %p
+    = f.label :total_disc
+    %br
+    = f.text_field :total_disc
+  %p
+    = f.label :total_netto
+    %br
+    = f.text_field :total_netto
+  %p
+    = f.submit

@@ -9,7 +9,8 @@
   = sidemenu @tab
 
 - content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Quotation", edit_sales_quotation_path(@material_request), :class => 'main_link'
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Quotation", edit_sales_quotation_path(@quotation), :class => 'main_link'
+  = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", '#', :class => 'main_link'
 
 #dialog_form
   .two_columns

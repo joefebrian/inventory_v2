@@ -19,11 +19,9 @@
   %tbody
     - for quotation in @quotations
       %tr
-        %td
-          %strong= h quotation.number
+        %td= link_to h(quotation.number), [:sales, quotation]
         %td= h quotation.tanggal_berlaku
         %td= h quotation.customer.profile.full_name
         %td.actions
-          = link_to image_tag('icons/silk/eye.png'), sales_quotation_path(quotation), :class => 'show_quotation', :title => "Show #{quotation.id}"  
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_quotation_path(quotation)
           = link_to image_tag('icons/silk/delete.png'), sales_quotation_path(quotation), :confirm => 'Are you sure?', :method => :delete

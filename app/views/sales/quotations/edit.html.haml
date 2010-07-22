@@ -1,15 +1,15 @@
-- title "Edit Material Request"
+- title "Edit Quotation"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Purchasing', |
-    link_to('Material Request', purchasing_material_requests_path), |
-    link_to(@material_request.number, purchasing_material_request_path(@material_request)), |
-    'Edit Material Request' ] |
+    'Sales', |
+    link_to('Quotation', sales_quotation_path), |
+    link_to(@quotation.number, sales_quotation_path(@quotation)), |
+    'Edit Quotation' ] |
 
   = sidemenu @tab
 
 - content_for :main_act do
-  = link_to "#{image_tag('icons/silk/page_white_text.png')} Material Request Detail", purchasing_material_request_path(@material_request), :class => 'main_link'
+  = link_to "#{image_tag('icons/silk/page_white_text.png')} Quotation Detail", sales_quotation_path(@quotation), :class => 'main_link'
 
 = render :partial => 'form'

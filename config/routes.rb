@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :sales_orders
+
 
   map.resources :assemblies
   map.resources :kurs_rates

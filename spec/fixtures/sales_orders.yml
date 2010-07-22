@@ -1,0 +1,23 @@
+one:
+  company_id: 
+  quotation_id: 
+  number: 
+  tanggal: 
+  top: 
+  advance: 
+  status: 
+  totral_bruto: 
+  total_disc: 
+  total_netto: 1
+
+two:
+  company_id: 
+  quotation_id: 
+  number: 
+  tanggal: 
+  top: 
+  advance: 
+  status: 
+  totral_bruto: 
+  total_disc: 
+  total_netto: 1

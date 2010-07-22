@@ -1,0 +1,8 @@
+- title "Edit Sales Order"
+
+= render :partial => 'form'
+
+%p
+  = link_to "Show", sales_order_path(@sales_order)
+  |
+  = link_to "View All", sales_orders_path

@@ -1,0 +1,39 @@
+- title "Sales Order"
+
+%p
+  %strong Company:
+  =h @sales_order.company_id
+%p
+  %strong Quotation:
+  =h @sales_order.quotation_id
+%p
+  %strong Number:
+  =h @sales_order.number
+%p
+  %strong Tanggal:
+  =h @sales_order.tanggal
+%p
+  %strong Top:
+  =h @sales_order.top
+%p
+  %strong Advance:
+  =h @sales_order.advance
+%p
+  %strong Status:
+  =h @sales_order.status
+%p
+  %strong Totral Bruto:
+  =h @sales_order.totral_bruto
+%p
+  %strong Total Disc:
+  =h @sales_order.total_disc
+%p
+  %strong Total Netto:
+  =h @sales_order.total_netto
+
+%p
+  = link_to "Edit", edit_sales_order_path(@sales_order)
+  |
+  = link_to "Destroy", @sales_order, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", sales_orders_path

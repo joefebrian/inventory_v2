@@ -1,0 +1,31 @@
+- title "Sales Orders"
+
+%table
+  %tr
+    %th Company
+    %th Quotation
+    %th Number
+    %th Tanggal
+    %th Top
+    %th Advance
+    %th Status
+    %th Totral bruto
+    %th Total disc
+    %th Total netto
+  - for sales_order in @sales_orders
+    %tr
+      %td= h sales_order.company_id
+      %td= h sales_order.quotation_id
+      %td= h sales_order.number
+      %td= h sales_order.tanggal
+      %td= h sales_order.top
+      %td= h sales_order.advance
+      %td= h sales_order.status
+      %td= h sales_order.totral_bruto
+      %td= h sales_order.total_disc
+      %td= h sales_order.total_netto
+      %td= link_to 'Show', sales_order
+      %td= link_to 'Edit', edit_sales_order_path(sales_order)
+      %td= link_to 'Destroy', sales_order, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Sales Order", new_sales_order_path
