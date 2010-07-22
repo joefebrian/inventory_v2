@@ -108,6 +108,9 @@ h6 { font-size:1.1em; }
   -moz-border-radius:8px;
   -webkit-border-radius:8px;
 }
+#sidebar ul#additional_actions li {
+  padding:15px 6px;
+}
 #sidemenu li { position:relative; }
 #sidemenu li span {
   color:rgb(111, 111, 111);
@@ -288,7 +291,7 @@ td.subcategories_count span {
   text-shadow:0 -1px rgba(0, 0, 0, .9);
   width:40px;
 }
-.actions { text-align:right !important; }
+.actions { text-align:right !important; width:12%; }
 .boxy-wrapper {
   border-bottom: none;
   width:700px;

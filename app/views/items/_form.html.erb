@@ -8,8 +8,7 @@
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>
     <% f.inputs do %>
-      <%= f.input :category_code, :input_html => { :class => 'default' } %>
-      <%= f.input :category_id, :as => :hidden %>
+      <%= f.input :category, :collection => current_company.categories.collect {|cat| ["#{cat.fullcode} - #{cat.name}", cat.id] if cat.leaf?}.compact, :include_blank => "Select category" %>
       <%= f.input :count_method, :as => :select, :collection => [['Average', 'avg'],['FIFO','fifo'],['LIFO','lifo']], :include_blank => false %>
       <%= f.input :code %>
       <%= f.input :name %>

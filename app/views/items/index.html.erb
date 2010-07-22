@@ -11,14 +11,14 @@
 <% end -%>
 
 <% content_for :sidebar do %>
-  <div id="filter">
-    <p>
+  <ul id="additional_actions">
+    <li>
       <strong>Showing items:</strong>
       <%= link_to_if (!@active || @active != 'all'), "All", items_path(:active => 'all') %> |
       <%= link_to_if (!@active || @active == 'all' || @active.to_i == 0), "Active", items_path(:active => 1) %> |
       <%= link_to_if (!@active || @active == 'all' || @active.to_i == 1), "Inactive", items_path(:active => 0) %>
-    </p>
-  </div>
+    </li>
+  </ul>
 <% end -%>
 
 <%= sidemenu %>
