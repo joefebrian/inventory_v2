@@ -1,5 +1,6 @@
 class QuotationRequest < ActiveRecord::Base
   belongs_to :company
+  has_and_belongs_to_many :suppliers
   validates_presence_of :number
   validates_presence_of :request_date
   validates_uniqueness_of :number, :scope => :company_id
