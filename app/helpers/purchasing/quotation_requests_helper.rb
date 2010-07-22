@@ -1,0 +1,2 @@
+module Purchasing::QuotationRequestsHelper
+end

@@ -1,0 +1,19 @@
+- title "Purchasing/Quotation Requests"
+
+%table
+  %tr
+    %th Company
+    %th Number
+    %th Request date
+    %th Description
+  - for purchasing/quotation_request in @purchasing/quotation_requests
+    %tr
+      %td= h purchasing/quotation_request.company_id
+      %td= h purchasing/quotation_request.number
+      %td= h purchasing/quotation_request.request_date
+      %td= h purchasing/quotation_request.description
+      %td= link_to 'Show', purchasing/quotation_request
+      %td= link_to 'Edit', edit_purchasing/quotation_request_path(purchasing/quotation_request)
+      %td= link_to 'Destroy', purchasing/quotation_request, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Purchasing/Quotation Request", new_purchasing/quotation_request_path

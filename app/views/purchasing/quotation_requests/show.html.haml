@@ -1,0 +1,21 @@
+- title "Purchasing/Quotation Request"
+
+%p
+  %strong Company:
+  =h @purchasing/quotation_request.company_id
+%p
+  %strong Number:
+  =h @purchasing/quotation_request.number
+%p
+  %strong Request Date:
+  =h @purchasing/quotation_request.request_date
+%p
+  %strong Description:
+  =h @purchasing/quotation_request.description
+
+%p
+  = link_to "Edit", edit_purchasing/quotation_request_path(@purchasing/quotation_request)
+  |
+  = link_to "Destroy", @purchasing/quotation_request, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", purchasing/quotation_requests_path
