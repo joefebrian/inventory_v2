@@ -7,7 +7,7 @@ class Sales::QuotationsController < ApplicationController
   end
   
   def show
-    @quotation = Quotation.find(params[:id])
+    @quotation = current_company.Quotation.find(params[:id])
   end
   
   def new

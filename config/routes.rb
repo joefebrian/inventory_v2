@@ -1,7 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :sales_orders
-
-
   map.resources :assemblies
   map.resources :kurs_rates
   map.resources :kurs_ids
@@ -11,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations
+    sales.resource  :sales_orders
   end
   map.resources :customers do |customer|
     customer.resource :profile

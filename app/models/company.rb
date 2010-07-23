@@ -23,6 +23,7 @@ class Company < ActiveRecord::Base
   has_many :material_requests
   has_many :quotation_requests
   has_many :quotations
+  has_many :sales_orders
 
   default_scope :order => :created_at
 

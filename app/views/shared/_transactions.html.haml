@@ -1,5 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil,
-  'qr' => nil }
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil }
 - current[@current] = 'current'
 %ul#sidemenu
   %li
@@ -16,7 +15,7 @@
         =link_to "Quotation", sales_quotations_path, :class => current['quo']
         %div
       %li
-        =link_to "Sales Order", '#'
+        =link_to "Sales Order", sales_sales_orders_path, :class => current['so']
         %div
       %li
         =link_to "Covering Letter", '#'
