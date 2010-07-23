@@ -70,6 +70,15 @@ ActiveRecord::Schema.define(:version => 20100723005948) do
     t.integer  "price_list_id"
   end
 
+  create_table "detail_assemblies", :force => true do |t|
+    t.integer  "assembly_id"
+    t.integer  "company_id"
+    t.integer  "item_id"
+    t.string   "qty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "entries", :force => true do |t|
     t.integer  "company_id"
     t.integer  "transaction_id"
@@ -118,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20100723005948) do
     t.string   "code"
     t.string   "name"
     t.string   "symbol"
+    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -160,6 +170,19 @@ ActiveRecord::Schema.define(:version => 20100723005948) do
     t.string   "reference"
     t.string   "requester"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "penawaran_hargas", :force => true do |t|
+    t.integer  "company_id"
+    t.string   "number"
+    t.integer  "customer_id"
+    t.date     "tgl_berlaku"
+    t.string   "memo"
+    t.text     "keterangan"
+    t.string   "nama_perlatan"
+    t.string   "nama_proyek"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

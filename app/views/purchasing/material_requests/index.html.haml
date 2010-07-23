@@ -12,15 +12,17 @@
 %table.list
   %thead
     %tr
+      %th.td_5.numbers No.
       %th Number
       %th Reference
       %th Description
       %th.actions Actions
   %tbody
-    - for material_request in @material_requests
+    - @material_requests.each_with_index do |material_request, i|
       %tr
+        %td.td_5.numbers= (i+1)
         %td
-          %strong= h material_request.number
+          %strong= link_to h(material_request.number), [:purchasing, material_request]
         %td= h material_request.reference
         %td
           = truncate(h(material_request.description), :length => 60)
