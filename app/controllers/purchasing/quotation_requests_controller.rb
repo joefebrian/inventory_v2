@@ -46,6 +46,15 @@ class Purchasing::QuotationRequestsController < ApplicationController
     redirect_to quotation_requests_url
   end
 
+  def send_request
+    @quotation_request = current_company.quotation_requests.find(params[:id])
+    for supplier in @quotation_request.suppliers
+      PurchasingMailer.deliver_quotation_request(@quotation_request, supplier)
+    end
+    flash[:notice] = "Quotation request sent"
+    redirect_to [:purchasing, @quotation_request]
+  end
+
   private
   def assign_tab
     @tab = 'transactions'

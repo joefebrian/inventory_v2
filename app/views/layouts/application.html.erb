@@ -57,6 +57,9 @@
         <div id="main">
           <div id="breadcrumb">
             <%= yield :breadcrumb %>
+            <div id="top_right_link">
+              <%= yield :top_right_link %>
+            </div>
           </div>
           
           <%- flash.each do |name, msg| -%>
