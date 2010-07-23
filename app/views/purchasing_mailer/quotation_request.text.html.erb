@@ -1,0 +1,44 @@
+<% content_for :banner do %>
+  <%=h @quotation.company.name %> :: Inventory System
+<% end -%>
+<p>Ref: <%= @quotation.number %></p>
+<p>Jakarta, <%= Time.now.to_s(:long) %></p>
+
+<p>
+  Kepada Yth:<br/>
+  <strong><%= @supplier.name %></strong><br/>
+  <%= @supplier.profile.address %><br/>
+  Telp: <%= @supplier.profile.phone %><br/>
+  Fax : <%= @supplier.profile.fax %><br/>
+</p>
+<p>U.p. <strong><%= "To be implemented" %></strong></p>
+
+<p>Hal: <%= @quotation.description %></p>
+
+<p>
+  Dengan Hormat,<br/>
+  Mohon kirimkan penawaran harga untuk barang - barang dibawah ini. Terima kasih.
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Item</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @quotation.entries.each_with_index do |entry, i| %>
+      <tr>
+        <td><%= (i+1) %></td>
+        <td><%=h entry.item.name %></td>
+        <td><%=h entry.quantity %></td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+<p>
+  Sekian dan terima kasih atas perhatiannya.<br/>
+  <em>Purchasing Dept. <%= @quotation.company.name %></em>
+</p>

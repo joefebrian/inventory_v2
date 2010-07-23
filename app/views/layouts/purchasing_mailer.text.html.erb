@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head profile="http://www.w3.org/2005/10/profile">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /> 
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="banner">
+        <%= yield :banner %>
+      </div>
+      <div id="content">
+        <div id="main">
+          <%= yield %>
+        </div>
+        <div id="footer">
+          <p>
+            <a href="#">About Us</a> &bull;
+            <a href="#">Site Map</a> &bull;
+            <a href="#">Contact Us</a>
+          </p>
+          Copyright &copy; <%= Time.now.year %> Rahmat Budiharso
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

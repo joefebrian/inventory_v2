@@ -19,7 +19,4 @@ Capfile
 config/deploy.rb
 nbproject/*
 db/schema.rb
-<<<<<<< HEAD
-=======
 config/initializers/gmail_setup.rb
->>>>>>> 4b17be51752a1dfc7553000da4e385d64f0ed58d
