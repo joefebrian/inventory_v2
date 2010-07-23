@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations
-    sales.resource  :sales_orders
+    sales.resources  :sales_orders
   end
   map.resources :customers do |customer|
     customer.resource :profile

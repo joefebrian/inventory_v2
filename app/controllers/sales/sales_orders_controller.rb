@@ -3,23 +3,23 @@ class Sales::SalesOrdersController < ApplicationController
   before_filter :assign_tab
 
   def index
-    @sales_orders = current_company.SalesOrders.all
+    @sales_orders = current_company.sales_orders.all
   end
   
   def show
-    @sales_order = current_company.SalesOrder.find(params[:id])
+    @sales_order = current_company.sales_orders.find(params[:id])
   end
   
   def new
-    @sales_order = current_company.SalesOrder.new
-    @quotation.number = SalesOrder.suggested_number(current_company)
-    @quotation.entries.build
+    @sales_order = current_company.sales_order.new
+    @sales_order.number = sales_order.suggested_number(current_company)
+    @sales_order.entries.build
     @customer = current_company.customers
     @assembly = current_company.assemblies
   end
   
   def create
-    @sales_order = current_company.SalesOrder.new(params[:sales_order])
+    @sales_order = current_company.sales_orders.new(params[:sales_order])
     if @sales_order.save
       flash[:notice] = "Successfully created sales order."
       redirect_to @sales_order
@@ -29,11 +29,11 @@ class Sales::SalesOrdersController < ApplicationController
   end
   
   def edit
-    @sales_order = current_company.SalesOrder.find(params[:id])
+    @sales_order = current_company.sales_order.find(params[:id])
   end
   
   def update
-    @sales_order = current_company.SalesOrder.find(params[:id])
+    @sales_order = current_company.sales_order.find(params[:id])
     if @sales_order.update_attributes(params[:sales_order])
       flash[:notice] = "Successfully updated sales order."
       redirect_to @sales_order
