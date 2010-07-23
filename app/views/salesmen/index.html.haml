@@ -1,17 +1,23 @@
 - title "Salesmen"
 
-%table
-  %tr
-    %th Company
-    %th Profile
-    %th Code
-  - for salesman in @salesmen
-    %tr
-      %td= h salesman.company_id
-      %td= h salesman.profile_id
-      %td= h salesman.code
-      %td= link_to 'Show', salesman
-      %td= link_to 'Edit', edit_salesman_path(salesman)
-      %td= link_to 'Destroy', salesman, :confirm => 'Are you sure?', :method => :delete
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Salesmen", salesmen_path) ]
 
-%p= link_to "New Salesman", new_salesman_path
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} New Salesmen", new_salesman_path, :class => 'main_link'
+
+
+%table.list
+  %tr
+    %th Code
+    %th Profile
+    %th.actions Actions
+  - for salesman in @salesman
+    %tr
+      %td= link_to h(salesman.code)
+      %td= h salesman.profile_id
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_salesman_path(salesman)
+        = link_to image_tag('icons/silk/delete.png'), salesman_path(salesman), :confirm => 'Are you sure?', :method => :delete

@@ -1,5 +1,15 @@
 - title "Salesman"
 
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Salesmen', salesmen_path), |
+    " ##{@salesman.code}" ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Salesman", edit_salesman_path(@salesman), :class => 'main_link'
+
 %p
   %strong Company:
   =h @salesman.company_id

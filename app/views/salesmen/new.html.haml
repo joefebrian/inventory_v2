@@ -1,5 +1,13 @@
 - title "New Salesman"
 
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to('Salesman', salesmen_path), |
+    'New Salesman' ] |
+
+  = sidemenu @tab
+
+= hint "Sales => Sales Order"
+
 = render :partial => 'form'
 
-%p= link_to "Back to List", salesmen_path

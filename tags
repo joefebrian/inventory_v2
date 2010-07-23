@@ -1,4 +1,4 @@
-1279858950
+1279880514
 ACCOUNT_AGENT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_AGENT_RESOURCE_PATH =
 ACCOUNT_APPLICATION_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_APPLICATION_RESOURCE_PATH =
 ACCOUNT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_RESOURCE_PATH =
@@ -249,6 +249,7 @@ CreateQuotationRequestsSuppliers	/home/ones006/ROR/inventory_first/inventory_v2/
 CreateQuotations	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100716024657_create_quotations.rb	class CreateQuotations 
 CreateSalesOrderEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723005948_create_sales_order_entries.rb	class CreateSalesOrderEntries 
 CreateSalesOrders	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722185052_create_sales_orders.rb	class CreateSalesOrders 
+CreateSalesmen	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_create_salesmen.rb	class CreateSalesmen 
 CreateSuppliers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100309084459_create_suppliers.rb	class CreateSuppliers 
 CreateTaxProfiles	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100616044339_create_tax_profiles.rb	class CreateTaxProfiles 
 CreateTransactionTypes	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100330093615_create_transaction_types.rb	class CreateTransactionTypes 
@@ -680,6 +681,9 @@ SalesOrderEntry	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_
 SalesOrderEntryTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/sales_order_entry_test.rb	class SalesOrderEntryTest 
 SalesOrdersController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	class Sales::SalesOrdersController 
 SalesOrdersHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/sales_orders_helper.rb	module SalesOrdersHelper
+Salesman	/home/ones006/ROR/inventory_first/inventory_v2/app/models/salesman.rb	class Salesman 
+SalesmenController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	class SalesmenController 
+SalesmenHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/salesmen_helper.rb	module SalesmenHelper
 SampleApp	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/spec/fixtures/sample_app.rb	class SampleApp 
 Sampler	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/sampler.rb	class NewRelic::Agent::Sampler
 Samplers	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/samplers/cpu_sampler.rb	    module Samplers
@@ -973,6 +977,7 @@ assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/report
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/reports/stock_cards_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def assign_tab
+assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def assign_tab
 assign_used_up	/home/ones006/ROR/inventory_first/inventory_v2/app/models/entry_detail.rb	  def assign_used_up
 assign_value	/home/ones006/ROR/inventory_first/inventory_v2/app/models/entry.rb	  def assign_value
@@ -1206,6 +1211,7 @@ create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def create
+create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def create
@@ -1290,6 +1296,7 @@ destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasin
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def destroy
+destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def destroy
@@ -1438,6 +1445,7 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722093941_ad
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722101255_add_code_to_assembly.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722185052_create_sales_orders.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723005948_create_sales_order_entries.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_create_salesmen.rb	  def self.down
 draggable_element_js	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def draggable_element_js
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table.rb	  def draw
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table/cell.rb	      def draw
@@ -1480,6 +1488,7 @@ edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/m
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def edit
+edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def edit
@@ -1766,6 +1775,7 @@ index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/reports/on_
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/reports/stock_cards_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def index
+index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def index
@@ -2163,6 +2173,7 @@ new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/ma
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def new
+new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def new
@@ -2714,6 +2725,7 @@ show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/m
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def show
+show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def show
@@ -3274,6 +3286,7 @@ to_ms	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm
 to_percentage	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/ui/helpers/newrelic_helper.rb	  def to_percentage
 to_query	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/ui/helpers/google_pie_chart.rb	  def to_query
 to_s	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def to_s
+to_s	/home/ones006/ROR/inventory_first/inventory_v2/app/models/salesman.rb	  def to_s
 to_s	/home/ones006/ROR/inventory_first/inventory_v2/app/models/transaction_type.rb	  def to_s
 to_s	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/test/fixtures/category.rb	  def to_s
 to_s	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/samplers/memory_sampler.rb	      def to_s
@@ -3444,6 +3457,7 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722093941_add_
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722101255_add_code_to_assembly.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722185052_create_sales_orders.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723005948_create_sales_order_entries.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_create_salesmen.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update
@@ -3465,6 +3479,7 @@ update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def update
+update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/tax_profiles_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/transaction_types_controller.rb	  def update
