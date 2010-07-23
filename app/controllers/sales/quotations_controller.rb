@@ -12,7 +12,6 @@ class Sales::QuotationsController < ApplicationController
   
   def new
     @quotation = current_company.quotations.new
-    @quotation.number = Quotation.suggested_number(current_company)
     @quotation.entries.build
     @customer = current_company.customers
   end

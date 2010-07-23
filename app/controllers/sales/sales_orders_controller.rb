@@ -11,10 +11,10 @@ class Sales::SalesOrdersController < ApplicationController
   end
   
   def new
-    @sales_order = current_company.sales_order.new
-    @sales_order.number = sales_order.suggested_number(current_company)
+    @sales_order = current_company.sales_orders.new
     @sales_order.entries.build
     @customer = current_company.customers
+    @quotation = current_company.quotations
     @assembly = current_company.assemblies
   end
   

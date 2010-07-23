@@ -1,39 +1,59 @@
 - title "Sales Order"
 
-%p
-  %strong Company:
-  =h @sales_order.company_id
-%p
-  %strong Quotation:
-  =h @sales_order.quotation_id
-%p
-  %strong Number:
-  =h @sales_order.number
-%p
-  %strong Tanggal:
-  =h @sales_order.tanggal
-%p
-  %strong Top:
-  =h @sales_order.top
-%p
-  %strong Advance:
-  =h @sales_order.advance
-%p
-  %strong Status:
-  =h @sales_order.status
-%p
-  %strong Totral Bruto:
-  =h @sales_order.totral_bruto
-%p
-  %strong Total Disc:
-  =h @sales_order.total_disc
-%p
-  %strong Total Netto:
-  =h @sales_order.total_netto
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', |
+    link_to('Sales Order', sales_sales_orders_path), |
+    "Sales Orders ##{@sales_order.number}" ] |
 
-%p
-  = link_to "Edit", edit_sales_sales_order_path(@sales_order)
-  |
-  = link_to "Destroy", @sales_order, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", sales_sales_orders_path
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Sales Order", edit_sales_sales_order_path(@quotation), :class => 'main_link'
+  = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", '#', :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %strong.light.transaction_label Company:
+      =h @sales_order.company_id
+    %p
+      %strong.light.transaction_label Quotation:
+      =h @sales_order.quotation_id
+    %p
+      %strong.light.transaction_label Number:
+      =h @sales_order.number
+    %p
+      %strong.light.transaction_label Date:
+      =h @sales_order.tanggal
+    %p
+      %strong.light.transaction_label Top:
+      =h @sales_order.top
+    %p
+      %strong.light.transaction_label Advance:
+      =h @sales_order.advance
+    %p
+      %strong.light.transaction_label Status:
+      =h @sales_order.status
+    %p
+      %strong.light.transaction_label Totral Bruto:
+      =h @sales_order.totral_bruto
+    %p
+      %strong.light.transaction_label Total Disc:
+      =h @sales_order.total_disc
+    %p
+    %strong.light.transaction_label Total Netto:
+    =h @sales_order.total_netto
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @sales_order.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity

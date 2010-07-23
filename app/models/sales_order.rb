@@ -1,5 +1,5 @@
 class SalesOrder < ActiveRecord::Base
-  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :totral_bruto, :total_disc, :total_netto
+  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status
   has_many :entries, :class_name => "SalesOrderEntry"
   belongs_to :company
   belongs_to :assembly

@@ -1,31 +1,31 @@
 - title "Sales Orders"
 
-%table
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', 'Sales Order' ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} New Sales Order", new_sales_sales_order_path, :class => 'main_link'
+
+%table.list
   %tr
+    %th Number
     %th Company
     %th Quotation
-    %th Number
     %th Tanggal
-    %th Top
-    %th Advance
     %th Status
-    %th Totral bruto
-    %th Total disc
-    %th Total netto
+    %th.actions Actions
   - for sales_order in @sales_orders
     %tr
+      %td= link_to h(sales_order.number), [:sales, sales_order]
       %td= h sales_order.company_id
       %td= h sales_order.quotation_id
-      %td= h sales_order.number
       %td= h sales_order.tanggal
-      %td= h sales_order.top
-      %td= h sales_order.advance
       %td= h sales_order.status
-      %td= h sales_order.totral_bruto
-      %td= h sales_order.total_disc
-      %td= h sales_order.total_netto
-      %td= link_to 'Show', sales_order
-      %td= link_to 'Edit', edit_sales_sales_order_path(sales_order)
-      %td= link_to 'Destroy', sales_order, :confirm => 'Are you sure?', :method => :delete
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(quotation)
+        = link_to image_tag('icons/silk/delete.png'), sales_sales_order_path(quotation), :confirm => 'Are you sure?', :method => :delete
 
-%p= link_to "New Sales Order", new_sales_sales_order_path
+

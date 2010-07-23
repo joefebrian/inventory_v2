@@ -1,44 +1,49 @@
-- form_for @sales_order do |f|
+- semantic_form_for [:sales, @sales_order] do |f|
   = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :quotation_id
-    %br
-    = f.text_field :quotation_id
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :tanggal
-    %br
-    = f.text_field :tanggal
-  %p
-    = f.label :top
-    %br
-    = f.text_field :top
-  %p
-    = f.label :advance
-    %br
-    = f.text_field :advance
-  %p
-    = f.label :status
-    %br
-    = f.text_field :status
-  %p
-    = f.label :totral_bruto
-    %br
-    = f.text_field :totral_bruto
-  %p
-    = f.label :total_disc
-    %br
-    = f.text_field :total_disc
-  %p
-    = f.label :total_netto
-    %br
-    = f.text_field :total_netto
-  %p
-    = f.submit
+  - f.inputs 'Sales Order', :class => "form_section" do
+    %li#general_transaction_number_input.string.required
+      %label{ :for => 'sales_order_number' } Number <span class="required">*</span>
+      %input{ :type => :text, :size => 50,
+              :name => 'sales_order[number]',
+              :id => 'sales_order_number',
+              :value => f.object.attributes['number'],
+              :class => 'default' }
+      %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
+    
+    = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    = f.input :quotation_id, :as => :select, :collection => @quotation.collect {|quotation| [quotation.number,quotation.id]}, :label => "Quotation Number", :include_blank => "select Quotation" 
+    = f.input :top, :label => "Top"
+    = f.input :advance, :label => "Advance"
+    = f.input :status, :label => "Status"
+
+  - f.inputs 'Items', :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th Item
+            %th Quantity
+        %tfoot
+          %tr
+            %td &nbsp;
+            %td{ :colspan => 3 } &nbsp;
+        %tbody
+          - f.semantic_fields_for :entries do |ent|
+            %tr
+              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+              %td.item
+                = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                = ent.hidden_field :item_id
+              %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Sales Order
+
+- content_for :javascripts do
+  - javascript_tag do
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
