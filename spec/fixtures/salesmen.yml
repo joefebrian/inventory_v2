@@ -1,0 +1,9 @@
+one:
+  company_id: 1
+  profile_id: 1
+  code: MyString
+
+two:
+  company_id: 1
+  profile_id: 1
+  code: MyString

@@ -1,0 +1,18 @@
+- title "Salesman"
+
+%p
+  %strong Company:
+  =h @salesman.company_id
+%p
+  %strong Profile:
+  =h @salesman.profile_id
+%p
+  %strong Code:
+  =h @salesman.code
+
+%p
+  = link_to "Edit", edit_salesman_path(@salesman)
+  |
+  = link_to "Destroy", @salesman, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", salesmen_path

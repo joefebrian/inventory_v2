@@ -1,0 +1,17 @@
+- title "Salesmen"
+
+%table
+  %tr
+    %th Company
+    %th Profile
+    %th Code
+  - for salesman in @salesmen
+    %tr
+      %td= h salesman.company_id
+      %td= h salesman.profile_id
+      %td= h salesman.code
+      %td= link_to 'Show', salesman
+      %td= link_to 'Edit', edit_salesman_path(salesman)
+      %td= link_to 'Destroy', salesman, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Salesman", new_salesman_path
