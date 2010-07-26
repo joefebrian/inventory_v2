@@ -667,3 +667,4 @@ form.formtastic .ui-multiselect-checkboxes label {
 }
 .ui-multiselect-checkboxes { overflow:auto !important; }
 .ui-multiselect-checkboxes label input { margin-right:1em !important; }
+#top_right_link { float:right; }

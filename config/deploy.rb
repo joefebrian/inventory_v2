@@ -52,6 +52,7 @@ namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :restart, :roles => :app, :except => { :no_release => true } do
+    run "#{try_sudo} ln -s #{File.join(current_path,'..', '..', 'email_account.rb')} #{File.join(current_path, 'config', 'initializers', 'email_account.rb')}"
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end

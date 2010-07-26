@@ -1,1 +1,23 @@
-Quotation Request No. <%= @quotation.number %>
+<%= @quotation.company.name %>
+
+Ref: <%= @quotation.number %>
+Jakarta, <%= Time.now.to_s(:long) %>
+
+Kepada Yth:
+<%= @supplier.name %>
+<%= @supplier.profile.address %>
+Telp: <%= @supplier.profile.phone %>
+Fax : <%= @supplier.profile.fax %>
+
+U.p. <%= "To be implemented" %>
+
+Hal: <%= @quotation.description %>
+
+Dengan Hormat,
+Mohon kirimkan penawaran harga untuk barang - barang dibawah ini. Terima kasih.
+<% for entry in @quotation.entries %>
+  - <%= entry.item.name %> ( Qty: <%= "#{entry.quantity} #{entry.item.units.first.name}" %> )
+<% end -%>
+
+Sekian dan terima kasih atas perhatiannya.
+Purchasing Dept. <%= @quotation.company.name %>

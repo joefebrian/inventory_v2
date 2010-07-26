@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :kurs_ids
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
-    purchase.resources :quotation_requests
+    purchase.resources :quotation_requests, :member => { :send_request => :get }
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations

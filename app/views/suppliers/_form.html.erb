@@ -5,6 +5,7 @@
     <% f.inputs do %>
       <%= f.input :code, :label => "Supplier code" %>
       <%= f.input :name, :label => "Supplier name" %>
+      <%= f.input :email, :label => "Email address" %>
       <% f.semantic_fields_for :profile do |pr| %>
         <%= pr.input :address, :input_html => { :rows => 4 } %>
         <li class="string">
