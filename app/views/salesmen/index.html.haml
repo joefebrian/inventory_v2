@@ -12,12 +12,12 @@
 %table.list
   %tr
     %th Code
-    %th Profile
+    %th Name
     %th.actions Actions
   - for salesman in @salesman
     %tr
       %td= link_to h(salesman.code)
-      %td= h salesman.profile_id
+      %td= h salesman.profile.full_name
       %td.actions
         = link_to image_tag('icons/silk/application_form_edit.png'), edit_salesman_path(salesman)
         = link_to image_tag('icons/silk/delete.png'), salesman_path(salesman), :confirm => 'Are you sure?', :method => :delete

@@ -27,6 +27,7 @@ class SalesmenController < ApplicationController
   
   def edit
     @salesman = current_company.Salesman.find(params[:id])
+    @salesman.build_profile
   end
   
   def update
