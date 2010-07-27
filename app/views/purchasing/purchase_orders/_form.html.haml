@@ -2,10 +2,10 @@
   = f.error_messages
   - f.inputs "Purchase Order", :class => "form_section" do
     = f.input :number
-    = f.input :material_request
-    = f.input :supplier
+    = f.input :material_request, :include_blank => "Select from MR"
+    = f.input :supplier, :include_blank => "Select supplier", :required => true
     = f.input :term_of_payment, :input_html => { :rows => 2 }
-    = f.input :po_date, :as => :string, :input_html => { :class => "datepicker" }
+    = f.input :po_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :attention
     = f.input :notes, :input_html => { :rows => 3 }
   %fieldset.buttons

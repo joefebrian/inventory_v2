@@ -2,6 +2,7 @@ class MaterialRequest < ActiveRecord::Base
   attr_accessible :company_id, :number, :userdate, :reference, :requester, :description, :entries_attributes
   belongs_to :company
   has_many :entries, :class_name => "MaterialRequestEntry"
+  has_many :purchase_orders
 
   validates_presence_of :number, :userdate, :reference, :requester
   validates_uniqueness_of :number, :scope => :company_id
@@ -12,6 +13,7 @@ class MaterialRequest < ActiveRecord::Base
 
   def after_initialize
     self.number = suggested_number if new_record?
+    self.userdate = Time.now.to_s(:long) if new_record?
   end
 
   def suggested_number
@@ -20,5 +22,9 @@ class MaterialRequest < ActiveRecord::Base
     time = Time.now
     prefix = "#{TRANS_PREFIX[:material_request]}.#{time.strftime('%Y%m')}"
     "#{prefix}.#{next_available}"
+  end
+
+  def name
+    number
   end
 end

@@ -17,7 +17,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
     if @purchase_order.save
       flash[:notice] = "Successfully created purchase order."
-      redirect_to [:purchase, @purchase_order]
+      redirect_to [:purchasing, @purchase_order]
     else
       render :action => 'new'
     end
