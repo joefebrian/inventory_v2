@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }
+    purchase.resources :purchase_orders
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations

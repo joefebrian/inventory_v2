@@ -1,0 +1,14 @@
+- title "Edit Purchasing/Purchase Order"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Purchase Orders', purchasing_purchase_orders_path), |
+    "Purchasing Order # #{link_to h(@purchase_order.number), [:purchasing, @purchase_order]}", |
+    'Edit Purchase Order' ] |
+
+  = sidemenu @tab
+
+= hint "Select one of the transaction type first to show the transaction form"
+
+= render :partial => 'form'

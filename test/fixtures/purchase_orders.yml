@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  company_id: 1
+  number: MyString
+  material_request_id: 1
+  supplier_id: 1
+  term_of_payment: MyText
+  po_date: 2010-07-27
+  attention: MyString
+  notes: MyText
+
+two:
+  company_id: 1
+  number: MyString
+  material_request_id: 1
+  supplier_id: 1
+  term_of_payment: MyText
+  po_date: 2010-07-27
+  attention: MyString
+  notes: MyText
