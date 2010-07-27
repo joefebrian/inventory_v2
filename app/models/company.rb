@@ -22,6 +22,7 @@ class Company < ActiveRecord::Base
   has_many :price_lists
   has_many :material_requests
   has_many :quotation_requests
+  has_many :purchase_orders
   has_many :quotations
   has_many :sales_orders
   has_many :salesmen

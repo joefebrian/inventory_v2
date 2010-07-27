@@ -1,25 +1,29 @@
-- title "Purchasing/Purchase Orders"
+- title "Purchasing::Purchase Orders"
 
-%table
-  %tr
-    %th Number
-    %th Material request
-    %th Supplier
-    %th Term of payment
-    %th Po date
-    %th Attention
-    %th Notes
-  - for purchasing/purchase_order in @purchasing/purchase_orders
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', 'Purchase Orders' ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} New Purchase Order", new_purchasing_purchase_order_path, :class => 'main_link'
+
+%table.list
+  %thead
     %tr
-      %td= h purchasing/purchase_order.number
-      %td= h purchasing/purchase_order.material_request_id
-      %td= h purchasing/purchase_order.supplier_id
-      %td= h purchasing/purchase_order.term_of_payment
-      %td= h purchasing/purchase_order.po_date
-      %td= h purchasing/purchase_order.attention
-      %td= h purchasing/purchase_order.notes
-      %td= link_to 'Show', purchasing/purchase_order
-      %td= link_to 'Edit', edit_purchasing/purchase_order_path(purchasing/purchase_order)
-      %td= link_to 'Destroy', purchasing/purchase_order, :confirm => 'Are you sure?', :method => :delete
-
-%p= link_to "New Purchasing/Purchase Order", new_purchasing/purchase_order_path
+      %th.td_5 No.
+      %th Number
+      %th Supplier
+      %th Po date
+      %th.actions Actions
+  %tbody
+    - @purchase_orders.each_with_index do |purchase_order, i|
+      %tr
+        %td.td_5.tdr= (i+1)
+        %td= link_to h(purchase_order.number), [:purchasing, purchase_order]
+        %td= h purchase_order.supplier.name
+        %td= h purchase_order.po_date.to_s(:long)
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_purchase_order_path(purchase_order)
+          = link_to image_tag('icons/silk/delete.png'), purchasing_purchase_order, :confirm => 'Are you sure?', :method => :delete

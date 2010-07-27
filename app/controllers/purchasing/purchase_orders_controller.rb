@@ -1,44 +1,52 @@
 class Purchasing::PurchaseOrdersController < ApplicationController
+  before_filter :authenticate
+  before_filter :assign_tab
   def index
-    @purchasing/purchase_orders = Purchasing::purchaseOrder.all
+    @purchase_orders = current_company.purchase_orders.all
   end
   
   def show
-    @purchasing/purchase_order = Purchasing::purchaseOrder.find(params[:id])
+    @purchase_order = current_company.purchase_orders.find(params[:id])
   end
   
   def new
-    @purchasing/purchase_order = Purchasing::purchaseOrder.new
+    @purchase_order = current_company.purchase_orders.new
   end
   
   def create
-    @purchasing/purchase_order = Purchasing::purchaseOrder.new(params[:purchasing/purchase_order])
-    if @purchasing/purchase_order.save
-      flash[:notice] = "Successfully created purchasing/purchase order."
-      redirect_to @purchasing/purchase_order
+    @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
+    if @purchase_order.save
+      flash[:notice] = "Successfully created purchase order."
+      redirect_to [:purchase, @purchase_order]
     else
       render :action => 'new'
     end
   end
   
   def edit
-    @purchasing/purchase_order = Purchasing::purchaseOrder.find(params[:id])
+    @purchase_order = current_company.purchase_orders.find(params[:id])
   end
   
   def update
-    @purchasing/purchase_order = Purchasing::purchaseOrder.find(params[:id])
-    if @purchasing/purchase_order.update_attributes(params[:purchasing/purchase_order])
-      flash[:notice] = "Successfully updated purchasing/purchase order."
-      redirect_to @purchasing/purchase_order
+    @purchase_order = current_company.purchase_orders.find(params[:id])
+    if @purchase_order.update_attributes(params[:purchase_order])
+      flash[:notice] = "Successfully updated purchase order."
+      redirect_to [:purchasing, @purchase_order]
     else
       render :action => 'edit'
     end
   end
   
   def destroy
-    @purchasing/purchase_order = Purchasing::purchaseOrder.find(params[:id])
-    @purchasing/purchase_order.destroy
-    flash[:notice] = "Successfully destroyed purchasing/purchase order."
-    redirect_to purchasing/purchase_orders_url
+    @purchase_order = current_company.purchase_orders.find(params[:id])
+    @purchase_order.destroy
+    flash[:notice] = "Successfully destroyed purchase order."
+    redirect_to purchasing_purchase_orders_url
+  end
+
+  private
+  def assign_tab
+    @tab = 'transactions'
+    @current = 'po'
   end
 end
