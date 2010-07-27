@@ -25,6 +25,8 @@ class Company < ActiveRecord::Base
   has_many :quotations
   has_many :sales_orders
   has_many :salesmen
+  has_many :kusr_ids
+  has_many :kusr_rates
 
   default_scope :order => :created_at
 
