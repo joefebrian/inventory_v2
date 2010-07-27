@@ -1,0 +1,25 @@
+- title "Purchasing/Purchase Orders"
+
+%table
+  %tr
+    %th Number
+    %th Material request
+    %th Supplier
+    %th Term of payment
+    %th Po date
+    %th Attention
+    %th Notes
+  - for purchasing/purchase_order in @purchasing/purchase_orders
+    %tr
+      %td= h purchasing/purchase_order.number
+      %td= h purchasing/purchase_order.material_request_id
+      %td= h purchasing/purchase_order.supplier_id
+      %td= h purchasing/purchase_order.term_of_payment
+      %td= h purchasing/purchase_order.po_date
+      %td= h purchasing/purchase_order.attention
+      %td= h purchasing/purchase_order.notes
+      %td= link_to 'Show', purchasing/purchase_order
+      %td= link_to 'Edit', edit_purchasing/purchase_order_path(purchasing/purchase_order)
+      %td= link_to 'Destroy', purchasing/purchase_order, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Purchasing/Purchase Order", new_purchasing/purchase_order_path
