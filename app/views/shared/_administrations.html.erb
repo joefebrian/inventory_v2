@@ -1,4 +1,4 @@
-<% current = { 'cat' => nil, 'it' => nil, 'wrh' => nil, 'sup' => nil, 'plu' => nil, 'customer' => nil, 'ass' => nil, 'slm' => nil, 'kursid' => nil, 'kursrate' => nil, 'tt' => nil, 'price_list' => nil } %>
+<% current = { 'cat' => nil, 'it' => nil, 'wrh' => nil, 'sup' => nil, 'plu' => nil, 'customer' => nil, 'ass' => nil, 'slm' => nil, 'curr' => nil, 'er' => nil, 'tt' => nil, 'price_list' => nil } %>
 <% current[@current] = 'current' %>
 <ul id="sidemenu">
   <li><%= link_to "Categories", categories_path, :class => current['cat'] %><div></div></li>
@@ -9,8 +9,8 @@
   <li><%= link_to "Assemblies", assemblies_path, :class => current['ass'] %><div></div></li>
   <li><%= link_to "Salesmen", salesmen_path, :class => current['slm'] %><div></div></li>
   <li><%= link_to "Customers", customers_path, :class => current['customer'] %><div></div></li>
-  <li><%= link_to "Kurs ID", kurs_ids_path, :class => current['kursid'] %><div></div></li>
-  <li><%= link_to "Kurs Rate", kurs_rates_path, :class => current['kursrate'] %><div></div></li>
+  <li><%= link_to "Currencies", currencies_path, :class => current['curr'] %><div></div></li>
+  <li><%= link_to "Exchange Rate", exchage_rates_path, :class => current['er'] %><div></div></li>
   <li><%= link_to "Transaction Types", transaction_types_path, :class => current['tt'] %><div></div></li>
   <li><%= link_to "Price List", price_lists_path, :class => current['price_list'] %><div></div></li>
 </ul>

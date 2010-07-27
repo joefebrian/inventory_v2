@@ -3,6 +3,6 @@ class KursId < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :symbol
   validates_uniqueness_of :code
-  has_many :sales_order
+  has_many :sales_orders
   belongs_to :company
 end

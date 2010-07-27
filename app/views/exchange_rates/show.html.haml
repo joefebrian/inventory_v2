@@ -1,0 +1,21 @@
+- title "Exchange Rate"
+
+%p
+  %strong Company:
+  =h @exchange_rate.company_id
+%p
+  %strong Currency:
+  =h @exchange_rate.currency_id
+%p
+  %strong Value:
+  =h @exchange_rate.value
+%p
+  %strong Effective Date:
+  =h @exchange_rate.effective_date
+
+%p
+  = link_to "Edit", edit_exchange_rate_path(@exchange_rate)
+  |
+  = link_to "Destroy", @exchange_rate, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", exchange_rates_path

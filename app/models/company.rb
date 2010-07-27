@@ -25,8 +25,8 @@ class Company < ActiveRecord::Base
   has_many :quotations
   has_many :sales_orders
   has_many :salesmen
-  has_many :kusr_ids
-  has_many :kusr_rates
+  has_many :currencies
+  has_many :kurs_rates
 
   default_scope :order => :created_at
 
@@ -60,7 +60,7 @@ class Company < ActiveRecord::Base
 
   def item_movement_report(from, to, category, warehouse, types)
     # assume every par ams has value(s)
-    entries = Entry.transaction_created_at_gte(from.to_s(:db)).transaction_created_at_lte(to.to_s(:db)).transaction_type_not('BeginingBalance')
+    entries = Entry.transaction_created_at_gte(from.to_s( :db)).transaction_created_at_lte(to.to_s(:db)).transaction_type_not('BeginingBalance')
     entries = entries.transaction_origin_id_or_transaction_destination_id_is(warehouse) unless warehouse.blank?
     if category
       cat = Category.find(category)

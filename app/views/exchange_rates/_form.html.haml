@@ -1,0 +1,20 @@
+- form_for @exchange_rate do |f|
+  = f.error_messages
+  %p
+    = f.label :company_id
+    %br
+    = f.text_field :company_id
+  %p
+    = f.label :currency_id
+    %br
+    = f.text_field :currency_id
+  %p
+    = f.label :value
+    %br
+    = f.text_field :value
+  %p
+    = f.label :effective_date
+    %br
+    = f.date_select :effective_date
+  %p
+    = f.submit

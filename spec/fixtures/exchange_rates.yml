@@ -1,0 +1,11 @@
+one:
+  company_id: 1
+  currency_id: 1
+  value: 1
+  effective_date: 2010-07-27
+
+two:
+  company_id: 1
+  currency_id: 1
+  value: 1
+  effective_date: 2010-07-27

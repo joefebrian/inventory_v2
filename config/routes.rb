@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :exchange_rates
+
+  map.resources :currencies
+
   map.resources :salesmen
   map.resources :assemblies
   map.resources :kurs_rates

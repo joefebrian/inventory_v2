@@ -1,0 +1,21 @@
+- title "Currency"
+
+%p
+  %strong Company:
+  =h @currency.company_id
+%p
+  %strong Code:
+  =h @currency.code
+%p
+  %strong Name:
+  =h @currency.name
+%p
+  %strong Symbol:
+  =h @currency.symbol
+
+%p
+  = link_to "Edit", edit_currency_path(@currency)
+  |
+  = link_to "Destroy", @currency, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", currencies_path

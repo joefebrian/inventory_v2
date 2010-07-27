@@ -4,7 +4,7 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :assembly
   belongs_to :customer
-  belongs_to :kurs_id
+  belongs_to :currency
   belongs_to :kurs_rate
   validates_presence_of :number, :kurs_id, :kurs_rate
   validates_uniqueness_of :number, :scope => :company_id

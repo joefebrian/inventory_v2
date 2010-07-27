@@ -1,4 +1,4 @@
-1280208885
+1280232401
 ACCOUNT_AGENT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_AGENT_RESOURCE_PATH =
 ACCOUNT_APPLICATION_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_APPLICATION_RESOURCE_PATH =
 ACCOUNT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_RESOURCE_PATH =
@@ -51,6 +51,7 @@ AddCompanyIdToTransactions	/home/ones006/ROR/inventory_first/inventory_v2/db/mig
 AddCompanyIdToUser	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100303084734_add_company_id_to_user.rb	class AddCompanyIdToUser 
 AddCompanyIdToWarehouse	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100309034039_add_company_id_to_warehouse.rb	class AddCompanyIdToWarehouse 
 AddCountMethodToItems	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100422031932_add_count_method_to_items.rb	class AddCountMethodToItems 
+AddCurrencyIdToSalesOrder	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727081742_add_currency_id_to_sales_order.rb	class AddCurrencyIdToSalesOrder 
 AddDefaultToWarehouse	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100401033802_add_default_to_warehouse.rb	class AddDefaultToWarehouse 
 AddDimesionToItems	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100520053223_add_dimesion_to_items.rb	class AddDimesionToItems 
 AddEdittableToTransctionTypes	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100629022821_add_edittable_to_transction_types.rb	class AddEdittableToTransctionTypes 
@@ -230,10 +231,12 @@ CreateAssemblies	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100
 CreateAssemblyEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100716023555_create_assembly_entries.rb	class CreateAssemblyEntries 
 CreateCategories	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100303064531_create_categories.rb	class CreateCategories 
 CreateCompanies	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100302081925_create_companies.rb	class CreateCompanies 
+CreateCurrencies	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727081555_create_currencies.rb	class CreateCurrencies 
 CreateCustomerPrices	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100620171109_create_customer_prices.rb	class CreateCustomerPrices 
 CreateCustomers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100615085434_create_customers.rb	class CreateCustomers 
 CreateEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100316185506_create_entries.rb	class CreateEntries 
 CreateEntryDetails	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100507090006_create_entry_details.rb	class CreateEntryDetails 
+CreateExchangeRates	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727091419_create_exchange_rates.rb	class CreateExchangeRates 
 CreateFifoTrackers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100422033006_create_fifo_trackers.rb	class CreateFifoTrackers 
 CreateItems	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100307155345_create_items.rb	class CreateItems 
 CreateKursIds	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100624160534_create_kurs_ids.rb	class CreateKursIds 
@@ -262,6 +265,9 @@ CreateTransactions	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/201
 CreateUnits	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100310042459_create_units.rb	class CreateUnits 
 CreateUsers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100228072359_create_users.rb	class CreateUsers 
 CreateWarehouses	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100309023454_create_warehouses.rb	class CreateWarehouses 
+CurrenciesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	class CurrenciesController 
+CurrenciesHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/currencies_helper.rb	module CurrenciesHelper
+Currency	/home/ones006/ROR/inventory_first/inventory_v2/app/models/currency.rb	class Currency 
 Customer	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	class Customer 
 CustomerPrice	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer_price.rb	class CustomerPrice 
 CustomerPricesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customer_prices_controller.rb	class CustomerPricesController 
@@ -299,6 +305,9 @@ ErrorCollector	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/new
 ErrorCollectorTest	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/error_collector_test.rb	class NewRelic::Agent::ErrorCollectorTest 
 Errors	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_parser/errors.rb	class NewRelic::MetricParser::Errors 
 Errors	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/errors.rb	module Prawn::Errors
+ExchangeRate	/home/ones006/ROR/inventory_first/inventory_v2/app/models/exchange_rate.rb	class ExchangeRate 
+ExchangeRatesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	class ExchangeRatesController 
+ExchangeRatesHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/exchange_rates_helper.rb	module ExchangeRatesHelper
 External	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/control/external.rb	class NewRelic::Control::External 
 External	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_parser/external.rb	class NewRelic::MetricParser::External 
 FIXTURES_DIR	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/test/helper.rb	FIXTURES_DIR =
@@ -968,6 +977,7 @@ assign_position	/home/ones006/ROR/inventory_first/inventory_v2/app/models/unit.r
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/application_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def assign_tab
+assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_ins_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_outs_controller.rb	  def assign_tab
@@ -1198,8 +1208,10 @@ create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def create
+create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customer_prices_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def create
+create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_ins_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_outs_controller.rb	  def create
@@ -1284,8 +1296,10 @@ destination_warehouse	/home/ones006/ROR/inventory_first/inventory_v2/app/models/
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def destroy
+destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customer_prices_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def destroy
+destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_ins_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_outs_controller.rb	  def destroy
@@ -1458,6 +1472,9 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_ad
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727045909_add_kurs_value_to_sales_order.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052143_add_company_id_to_kurs_id.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052203_add_company_id_to_kurs_rate.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727081555_create_currencies.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727081742_add_currency_id_to_sales_order.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727091419_create_exchange_rates.rb	  def self.down
 draggable_element_js	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def draggable_element_js
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table.rb	  def draw
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table/cell.rb	      def draw
@@ -1483,7 +1500,9 @@ edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_c
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def edit
+edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def edit
+edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_transfers_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def edit
@@ -1764,8 +1783,10 @@ index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def index
+index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customer_prices_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def index
+index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_ins_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_outs_controller.rb	  def index
@@ -2165,8 +2186,10 @@ new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_co
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def new
+new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customer_prices_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def new
+new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_ins_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_outs_controller.rb	  def new
@@ -2719,8 +2742,10 @@ show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_c
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def show
+show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customer_prices_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def show
+show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_ins_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_outs_controller.rb	  def show
@@ -3477,11 +3502,16 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_add_
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727045909_add_kurs_value_to_sales_order.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052143_add_company_id_to_kurs_id.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052203_add_company_id_to_kurs_rate.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727081555_create_currencies.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727081742_add_currency_id_to_sales_order.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727091419_create_exchange_rates.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/companies_controller.rb	  def update
+update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/currencies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def update
+update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/exchange_rates_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/item_transfers_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def update

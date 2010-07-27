@@ -1,0 +1,11 @@
+- title "Edit Currency"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to("Currences", currencies_path), |
+    link_to("#{h @currencies.code} &bull; #{h @currencies.name}", currency_path(@currency)), |
+    "Edit" ] |
+
+= sidemenu @tab
+
+= render :partial => 'form'

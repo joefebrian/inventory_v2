@@ -1,0 +1,19 @@
+- title "Exchange Rates"
+
+%table
+  %tr
+    %th Company
+    %th Currency
+    %th Value
+    %th Effective date
+  - for exchange_rate in @exchange_rates
+    %tr
+      %td= h exchange_rate.company_id
+      %td= h exchange_rate.currency_id
+      %td= h exchange_rate.value
+      %td= h exchange_rate.effective_date
+      %td= link_to 'Show', exchange_rate
+      %td= link_to 'Edit', edit_exchange_rate_path(exchange_rate)
+      %td= link_to 'Destroy', exchange_rate, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Exchange Rate", new_exchange_rate_path

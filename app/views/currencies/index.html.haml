@@ -1,0 +1,27 @@
+- title "Currencies"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Currencies", currencies_path) ]
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} New Currencies", new_currency_path, :class => 'main_link'
+
+%table.list
+  %tr
+    %th Code
+    %th Name
+    %th Symbol
+    %th.actions Actions
+  - for currency in @currencies
+    %tr
+      %td= h currency.code
+      %td= h currency.name
+      %td= h currency.symbol
+      %td= link_to 'Show', currency
+      %td= link_to 'Edit', edit_currency_path(currency)
+      %td= link_to 'Destroy', currency, :confirm => 'Are you sure?', :method => :delete
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_currency_path(currency)
+        = link_to image_tag('icons/silk/delete.png'), currency_path(currency), :confirm => 'Are you sure?', :method => :delete
