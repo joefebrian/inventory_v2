@@ -1,32 +1,14 @@
-- form_for @purchasing/purchase_order do |f|
+- semantic_form_for [:purchasing, @purchase_order] do |f|
   = f.error_messages
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :material_request_id
-    %br
-    = f.text_field :material_request_id
-  %p
-    = f.label :supplier_id
-    %br
-    = f.text_field :supplier_id
-  %p
-    = f.label :term_of_payment
-    %br
-    = f.text_area :term_of_payment
-  %p
-    = f.label :po_date
-    %br
-    = f.date_select :po_date
-  %p
-    = f.label :attention
-    %br
-    = f.text_field :attention
-  %p
-    = f.label :notes
-    %br
-    = f.text_area :notes
-  %p
-    = f.submit
+  - f.inputs "Purchase Order", :class => "form_section" do
+    = f.input :number
+    = f.input :material_request
+    = f.input :supplier
+    = f.input :term_of_payment, :input_html => { :rows => 2 }
+    = f.input :po_date, :as => :string, :input_html => { :class => "datepicker" }
+    = f.input :attention
+    = f.input :notes, :input_html => { :rows => 3 }
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Purchase Order
