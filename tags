@@ -1,4 +1,4 @@
-1280207938
+1280208885
 ACCOUNT_AGENT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_AGENT_RESOURCE_PATH =
 ACCOUNT_APPLICATION_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_APPLICATION_RESOURCE_PATH =
 ACCOUNT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_RESOURCE_PATH =
@@ -42,6 +42,8 @@ AddCodeToPlus	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100312
 AddCompanyIdToCustomers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100615090321_add_company_id_to_customers.rb	class AddCompanyIdToCustomers 
 AddCompanyIdToFifoTrackers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100422033520_add_company_id_to_fifo_trackers.rb	class AddCompanyIdToFifoTrackers 
 AddCompanyIdToItems	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100307171542_add_company_id_to_items.rb	class AddCompanyIdToItems 
+AddCompanyIdToKursId	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052143_add_company_id_to_kurs_id.rb	class AddCompanyIdToKursId 
+AddCompanyIdToKursRate	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052203_add_company_id_to_kurs_rate.rb	class AddCompanyIdToKursRate 
 AddCompanyIdToLocation	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100312091021_add_company_id_to_location.rb	class AddCompanyIdToLocation 
 AddCompanyIdToPlu	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100311063054_add_company_id_to_plu.rb	class AddCompanyIdToPlu 
 AddCompanyIdToQuotation	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100720055026_add_company_id_to_quotation.rb	class AddCompanyIdToQuotation 
@@ -1454,6 +1456,8 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_cr
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723070520_add_email_to_suppliers.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_add_retensi_to_sales_order.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727045909_add_kurs_value_to_sales_order.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052143_add_company_id_to_kurs_id.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052203_add_company_id_to_kurs_rate.rb	  def self.down
 draggable_element_js	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def draggable_element_js
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table.rb	  def draw
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table/cell.rb	      def draw
@@ -3471,6 +3475,8 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_crea
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723070520_add_email_to_suppliers.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_add_retensi_to_sales_order.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727045909_add_kurs_value_to_sales_order.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052143_add_company_id_to_kurs_id.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727052203_add_company_id_to_kurs_rate.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update

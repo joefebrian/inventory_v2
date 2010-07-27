@@ -18,5 +18,4 @@ public/system/**/*
 Capfile
 config/deploy.rb
 nbproject/*
-db/schema.rb
 config/initializers/gmail_setup.rb
