@@ -10,10 +10,13 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
     
+    = f.input :order_ref, :label => "Order Ref"
     = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :quotation_id, :as => :select, :collection => @quotation.collect {|quotation| [quotation.number,quotation.id]}, :label => "Quotation Number", :include_blank => "select Quotation" 
     = f.input :top, :label => "Top"
-    = f.input :advance, :label => "Advance"
+    = f.input :retensi, :label => "Retensi"
+    = f.input :kurs_id, :label => "Kurs ID"
+    = f.input :kurs_rate, :label => "Rate"
     = f.input :status, :label => "Status"
 
   - f.inputs 'Items', :class => "form_section" do

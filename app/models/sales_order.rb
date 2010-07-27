@@ -1,10 +1,12 @@
 class SalesOrder < ActiveRecord::Base
-  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status
+  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :kurs_id, :kurs_rate, :order_ref
   has_many :entries, :class_name => "SalesOrderEntry"
   belongs_to :company
   belongs_to :assembly
   belongs_to :customer
-  validates_presence_of :number
+  belongs_to :kurs_id
+  belongs_to :kurs_rate
+  validates_presence_of :number, :kurs_id, :kurs_rate
   validates_uniqueness_of :number, :scope => :company_id
   
 

@@ -1,4 +1,4 @@
-1280136897
+1280203133
 ACCOUNT_AGENT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_AGENT_RESOURCE_PATH =
 ACCOUNT_APPLICATION_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_APPLICATION_RESOURCE_PATH =
 ACCOUNT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_RESOURCE_PATH =
@@ -64,6 +64,7 @@ AddPriceListIdToCustomers	/home/ones006/ROR/inventory_first/inventory_v2/db/migr
 AddPriceToCustomerPrices	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100623085530_add_price_to_customer_prices.rb	class AddPriceToCustomerPrices 
 AddProfileIdToSuppliers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100706033816_add_profile_id_to_suppliers.rb	class AddProfileIdToSuppliers 
 AddRemarkToTransaction	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100405091523_add_remark_to_transaction.rb	class AddRemarkToTransaction 
+AddRetensiToSalesOrder	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_add_retensi_to_sales_order.rb	class AddRetensiToSalesOrder 
 AddSubdomainToCompany	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100303084502_add_subdomain_to_company.rb	class AddSubdomainToCompany 
 AddTipeToAssembly	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100720083947_add_tipe_to_assembly.rb	class AddTipeToAssembly 
 AddTransactionTypeIdToTransactions	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100413025649_add_transaction_type_id_to_transactions.rb	class AddTransactionTypeIdToTransactions 
@@ -1450,6 +1451,7 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722185052_cr
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723005948_create_sales_order_entries.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_create_salesmen.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723070520_add_email_to_suppliers.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_add_retensi_to_sales_order.rb	  def self.down
 draggable_element_js	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def draggable_element_js
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table.rb	  def draw
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table/cell.rb	      def draw
@@ -3465,6 +3467,7 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722185052_crea
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723005948_create_sales_order_entries.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_create_salesmen.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723070520_add_email_to_suppliers.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100726101348_add_retensi_to_sales_order.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update
