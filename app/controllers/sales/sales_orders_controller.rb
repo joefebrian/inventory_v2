@@ -16,6 +16,8 @@ class Sales::SalesOrdersController < ApplicationController
     @customer = current_company.customers
     @quotation = current_company.quotations
     @assembly = current_company.assemblies
+    @kurs_id = current_company.kurs_ids
+    @kurs_rate = current_company.kurs_rates
   end
   
   def create
