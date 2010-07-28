@@ -32,11 +32,12 @@ class ApplicationController < ActionController::Base
   private
   def current_company
     return @current_company if defined?(@current_company)
-    @current_company = current_user.company if current_user
+    # @current_company = current_user.company if current_user
+    @current_company = current_user ? Company.find_by_subdomain(current_subdomain) : nil
   end
 
   def authenticate
-    unless current_user
+    unless current_user && current_company.users.include?(current_user)
       flash[:error] = "Sorry, you have to log in first."
       redirect_to root_url and return
     end

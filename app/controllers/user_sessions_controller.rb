@@ -7,10 +7,10 @@ class UserSessionsController < ApplicationController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      # company = Company.find_by_subdomain(current_subdomain)
-      company = current_user.company
-      if company.nil?
+      company = Company.find_by_subdomain(current_subdomain)
+      unless company && company.users.include?(current_user)
         @user_session.destroy
+        flash[:error] = "Invalid username or password"
         redirect_to signin_path
       else
         flash[:notice] = "Login success"
