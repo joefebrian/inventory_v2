@@ -9,4 +9,8 @@ class Supplier < ActiveRecord::Base
   validates_uniqueness_of :code, :scope => :company_id
 
   accepts_nested_attributes_for :profile
+
+  def address
+    profile.address
+  end
 end

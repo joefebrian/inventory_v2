@@ -17,7 +17,7 @@ class PurchaseOrder < ActiveRecord::Base
     last_number = company.purchase_orders.last.try(:number)
     next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
     time = Time.now
-    prefix = "#{TRANS_PREFIX[:material_request]}.#{time.strftime('%Y%m')}"
+    prefix = "#{TRANS_PREFIX[:purchase_orders]}.#{time.strftime('%Y%m')}"
     "#{prefix}.#{next_available}"
   end
 end

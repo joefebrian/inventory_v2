@@ -11,6 +11,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   
   def new
     @purchase_order = current_company.purchase_orders.new
+    @suppliers = current_company.suppliers
   end
   
   def create
