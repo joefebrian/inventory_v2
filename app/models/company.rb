@@ -27,7 +27,7 @@ class Company < ActiveRecord::Base
   has_many :sales_orders
   has_many :salesmen
   has_many :currencies
-  has_many :kurs_rates
+  has_many :exchange_rates
 
   default_scope :order => :created_at
 

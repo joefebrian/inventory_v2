@@ -1,18 +1,22 @@
 class ExchangeRatesController < ApplicationController
+   before_filter :authenticate
+   before_filter :assign_tab
+  
   def index
-    @exchange_rates = ExchangeRate.all
+    @exchange_rates = current_company.exchange_rates.paginate(:page => params[:page])
   end
   
   def show
-    @exchange_rate = ExchangeRate.find(params[:id])
+    @exchange_rate = current_company.exchange_rates.find(params[:id])
   end
   
   def new
-    @exchange_rate = ExchangeRate.new
+    @exchange_rate = current_company.exchange_rates.new
+    @currency = current_company.currencies
   end
   
   def create
-    @exchange_rate = ExchangeRate.new(params[:exchange_rate])
+    @exchange_rate = current_company.exchange_rates.new(params[:exchange_rate])
     if @exchange_rate.save
       flash[:notice] = "Successfully created exchange rate."
       redirect_to @exchange_rate
@@ -22,11 +26,12 @@ class ExchangeRatesController < ApplicationController
   end
   
   def edit
-    @exchange_rate = ExchangeRate.find(params[:id])
+    @exchange_rate = current_company.exchange_rates.find(params[:id])
+    @currency = current_company.currencies
   end
   
   def update
-    @exchange_rate = ExchangeRate.find(params[:id])
+    @exchange_rate = current_company.exchange_rates.find(params[:id])
     if @exchange_rate.update_attributes(params[:exchange_rate])
       flash[:notice] = "Successfully updated exchange rate."
       redirect_to @exchange_rate
@@ -36,9 +41,16 @@ class ExchangeRatesController < ApplicationController
   end
   
   def destroy
-    @exchange_rate = ExchangeRate.find(params[:id])
+    @exchange_rate = current_company.exchange_rates.find(params[:id])
     @exchange_rate.destroy
     flash[:notice] = "Successfully destroyed exchange rate."
     redirect_to exchange_rates_url
   end
+  
+  private
+  def assign_tab
+    @tab = 'administrations'
+    @current = 'er'
+  end
+  
 end

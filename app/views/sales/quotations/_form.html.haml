@@ -10,11 +10,11 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
  
-    = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Effective Date"
+    = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Due Date"
     = f.input :customer_id, :as => :select, :collection => @customer.collect {|customer| [customer.profile.full_name,customer.id]}, :label => "Customer Name", :include_blank => "select Customer" 
-    = f.input :hal, :label => "Case"
-    = f.input :penerima, :label => "Recipient"
-    = f.input :nama_proyek_customer, :label => "Customer Name Project"
+    = f.input :hal, :label => "Subject"
+    = f.input :penerima, :label => "Attention"
+    = f.input :nama_proyek_customer, :label => "Customer Project Name"
     = f.input :keterangan, :input_html => { :rows => 3 }, :label => "Description"
   - f.inputs 'Items', :class => "form_section" do
     %li

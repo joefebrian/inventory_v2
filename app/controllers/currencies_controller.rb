@@ -7,7 +7,7 @@ class CurrenciesController < ApplicationController
   end
   
   def show
-    @currency = current_company.currency.find(params[:id])
+    @currency = current_company.currencies.find(params[:id])
   end
   
   def new
@@ -15,7 +15,7 @@ class CurrenciesController < ApplicationController
   end
   
   def create
-    @currency = current_company.currency.new(params[:currency])
+    @currency = current_company.currencies.new(params[:currency])
     if @currency.save
       flash[:notice] = "Successfully created currency."
       redirect_to @currency
@@ -25,11 +25,11 @@ class CurrenciesController < ApplicationController
   end
   
   def edit
-    @currency = current_company.currency.find(params[:id])
+    @currency = current_company.currencies.find(params[:id])
   end
   
   def update
-    @currency = current_company.currency.find(params[:id])
+    @currency = current_company.currencies.find(params[:id])
     if @currency.update_attributes(params[:currency])
       flash[:notice] = "Successfully updated currency."
       redirect_to @currency
@@ -39,7 +39,7 @@ class CurrenciesController < ApplicationController
   end
   
   def destroy
-    @currency = current_company.currency.find(params[:id])
+    @currency = current_company.currencies.find(params[:id])
     @currency.destroy
     flash[:notice] = "Successfully destroyed currency."
     redirect_to currencies_url
@@ -50,4 +50,4 @@ class CurrenciesController < ApplicationController
     @tab = 'administrations'
     @current = 'curr'
   end
-end 
+end

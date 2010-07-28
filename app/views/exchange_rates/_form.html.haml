@@ -1,20 +1,10 @@
-- form_for @exchange_rate do |f|
+- semantic_form_for @exchange_rate do |f|
   = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :currency_id
-    %br
-    = f.text_field :currency_id
-  %p
-    = f.label :value
-    %br
-    = f.text_field :value
-  %p
-    = f.label :effective_date
-    %br
-    = f.date_select :effective_date
-  %p
-    = f.submit
+  -f.inputs "Excange Rates", :class => "form_section" do
+    = f.input :effective_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Due Date"
+    = f.input :currency_id, :as => :select, :collection => @currency.collect {|currency| [currency.name,currency.id]}, :label => "Currency", :include_blank => "select Currency" 
+    = f.input :value, :label => "value"
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Exchange Rate

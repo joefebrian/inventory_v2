@@ -1,21 +1,21 @@
 - title "Exchange Rate"
+  
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Exchange Rates", exchange_rates_path) ]
 
-%p
-  %strong Company:
-  =h @exchange_rate.company_id
-%p
-  %strong Currency:
-  =h @exchange_rate.currency_id
-%p
-  %strong Value:
-  =h @exchange_rate.value
-%p
-  %strong Effective Date:
-  =h @exchange_rate.effective_date
+  = sidemenu @tab
 
-%p
-  = link_to "Edit", edit_exchange_rate_path(@exchange_rate)
-  |
-  = link_to "Destroy", @exchange_rate, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", exchange_rates_path
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Currency", edit_currency_path(@exchange_rate), :class => 'main_link'
+  
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Due Date
+      %strong= @exchange_rate.effective_date
+    %p
+      %span.light.transaction_label Currency
+      %strong= @exchange_rate.currency.name
+    %p
+      %span.light.transaction_label Value
+      %strong= @exchange_rate.value

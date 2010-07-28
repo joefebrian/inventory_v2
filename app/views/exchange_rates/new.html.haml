@@ -1,5 +1,8 @@
 - title "New Exchange Rate"
 
-= render :partial => 'form'
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to("Exchange Rate", exchange_rates_path), |
+    "Add new Exchange Rate" ] |
 
-%p= link_to "Back to List", exchange_rates_path
+= render :partial => 'form'

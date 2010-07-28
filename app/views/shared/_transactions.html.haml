@@ -1,13 +1,45 @@
 - current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil,
-  'po' => nil}
+  'po' => nil, 'prod' => nil}
 - current[@current] = 'current'
 %ul#sidemenu
-  %li
-    = link_to "General Transaction", general_transactions_path, :class => current['gt']
+  %li.submenu_handler
+    =link_to "Inventory", '#', :class => current['inv']
     %div
-  %li
-    = link_to "Begining Balances", begining_balances_path, :class => current['bb']
+    %ul.submenu
+      %li
+        = link_to "General Transaction", general_transactions_path, :class => current['gt']
+        %div
+      %li
+        = link_to "Begining Balances", begining_balances_path, :class => current['bb']
+        %div
+  %li.submenu_handler
+    = link_to "Purchasing", '#', :class => current['pur']
     %div
+    %ul.submenu
+      %li
+        = link_to "Material Request", purchasing_material_requests_path, :class => current['mr']
+        %div
+      %li
+        = link_to "Quotation Request", purchasing_quotation_requests_path, :class => current['qr']
+        %div
+      %li
+        = link_to "Purchase Order", purchasing_purchase_orders_path, :class => current['po']
+        %div
+      %li
+        = link_to "Goods Receive Proof", '#'
+        %div
+      %li
+        = link_to "Purchase Retur", '#'
+        %div
+      %li
+        = link_to "Purchase Without Goods", '#'
+        %div
+      %li
+        = link_to "Tanda Terima Faktur", '#'
+        %div
+      %li
+        = link_to "refilling", '#'
+        %div
   %li.submenu_handler
     =link_to "Sales", '#', :class => current['sal']
     %div
@@ -43,30 +75,9 @@
         =link_to "Process POS SO", '#'
         %div
   %li.submenu_handler
-    = link_to "Purchasing", '#', :class => current['pur']
+    =link_to "Production", '#', :class => current['prod']
     %div
     %ul.submenu
       %li
-        = link_to "Material Request", purchasing_material_requests_path, :class => current['mr']
-        %div
-      %li
-        = link_to "Quotation Request", purchasing_quotation_requests_path, :class => current['qr']
-        %div
-      %li
-        = link_to "Purchase Order", purchasing_purchase_orders_path, :class => current['po']
-        %div
-      %li
-        = link_to "Goods Receive Proof", '#'
-        %div
-      %li
-        = link_to "Purchase Retur", '#'
-        %div
-      %li
-        = link_to "Purchase Without Goods", '#'
-        %div
-      %li
-        = link_to "Tanda Terima Faktur", '#'
-        %div
-      %li
-        = link_to "refilling", '#'
+        =link_to "1", '#'
         %div

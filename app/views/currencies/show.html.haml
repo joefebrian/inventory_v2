@@ -1,21 +1,24 @@
 - title "Currency"
 
-%p
-  %strong Company:
-  =h @currency.company_id
-%p
-  %strong Code:
-  =h @currency.code
-%p
-  %strong Name:
-  =h @currency.name
-%p
-  %strong Symbol:
-  =h @currency.symbol
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Currencies", currencies_path) ]
 
-%p
-  = link_to "Edit", edit_currency_path(@currency)
-  |
-  = link_to "Destroy", @currency, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", currencies_path
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Currency", edit_currency_path(@currency), :class => 'main_link'
+  
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Code
+      %strong= @currency.code
+    %p
+      %span.light.transaction_label Name
+      %strong= @currency.name
+    %p
+      %span.light.transaction_label Symbol
+      %strong= @currency.symbol
+
+
+

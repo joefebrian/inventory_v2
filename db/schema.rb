@@ -234,6 +234,19 @@ ActiveRecord::Schema.define(:version => 20100727091419) do
     t.datetime "updated_at"
   end
 
+  create_table "purchase_orders", :force => true do |t|
+    t.integer  "company_id"
+    t.string   "number"
+    t.integer  "material_request_id"
+    t.integer  "supplier_id"
+    t.text     "term_of_payment"
+    t.date     "po_date"
+    t.string   "attention"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "quotation_entries", :force => true do |t|
     t.integer  "quotation_id"
     t.integer  "item_id"
