@@ -1,12 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :exchange_rates
-
   map.resources :currencies
-
   map.resources :salesmen
   map.resources :assemblies
-  map.resources :kurs_rates
-  map.resources :kurs_ids
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }
