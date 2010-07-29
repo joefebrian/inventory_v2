@@ -1,18 +1,20 @@
 class UsersController < ApplicationController
+  before_filter :authenticate
+  before_filter :assign_tab
   def index
-    @users = User.all
+    @users = current_company.users
   end
   
   def show
-    @user = User.find(params[:id])
+    @user = current_company.users.find(params[:id])
   end
   
   def new
-    @user = User.new
+    @user = current_company.users.new
   end
   
   def create
-    @user = User.new(params[:user])
+    @user = current_company.users.new(params[:user])
     if @user.save
       flash[:notice] = "You're signed up!"
       redirect_to @user
@@ -22,11 +24,11 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    @user = current_company.users.find(params[:id])
   end
   
   def update
-    @user = User.find(params[:id])
+    @user = current_company.users.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "Successfully updated user."
       redirect_to @user
@@ -36,9 +38,15 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:id])
+    @user = current_company.users.find(params[:id])
     @user.destroy
     flash[:notice] = "Successfully destroyed user."
     redirect_to users_url
+  end
+
+  private
+  def assign_tab
+    @tab = 'administrations'
+    @current = 'users'
   end
 end

@@ -1,24 +1,32 @@
 <% title "Users" %>
 
-<table>
+<table class="list">
   <tr>
+    <th class="td_5 tdr">No.</th>
     <th>Username</th>
     <th>Email</th>
-    <th>Password</th>
+    <th>Role</th>
+    <th class="actions">Actions</th>
   </tr>
-  <% for user in @users %>
+  <% @users.each_with_index do |user, i| %>
     <tr>
+      <td class="td_5 tdr"><%=h (i+1) %></td>
       <td><%=h user.username %></td>
       <td><%=h user.email %></td>
-      <td><%=h user.password %></td>
-      <td><%= link_to "Show", user %></td>
-      <td><%= link_to "Edit", edit_user_path(user) %></td>
-      <td><%= link_to "Destroy", user, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%=h user.role %></td>
+      <td class="actions">
+        <%= link_to "Edit", edit_user_path(user) %> &bull;
+        <%= link_to "Destroy", user, :confirm => 'Are you sure?', :method => :delete %>
+      </td>
     </tr>
   <% end %>
 </table>
 
-<p>
-  <%= link_to "Sign In", signin_path %> or
-  <%= link_to "Sign Up", new_user_path %>
-</p>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Users", users_path) ] %>
+<% end -%>
+
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/add.png')} Add new user", new_user_path, :class => "main_link new_item", :title => "Add New User" %>
+<% end -%>
