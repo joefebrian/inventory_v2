@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :roles
+
   map.resources :exchange_rates
   map.resources :currencies
   map.resources :salesmen
@@ -44,8 +46,6 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :item_movements, :collection => { :generate => :get, :excel => :get }
     report.resources :stock_cards
   end
-  map.signin "signin", :controller => :user_sessions, :action => :new
-  map.signout "signout", :controller => :user_sessions, :action => :destroy
 
   map.with_options(:controller => :pages, :action => :show) do |page|
     page.transactions 'transactions', :id => 'transactions'
@@ -53,6 +53,8 @@ ActionController::Routing::Routes.draw do |map|
     page.administrations 'administrations', :id => 'administrations'
   end
   map.dashboard 'dashboard', :controller => :pages
+  map.signin "signin", :controller => :user_sessions, :action => :new
+  map.signout "signout", :controller => :user_sessions, :action => :destroy
 
   map.root :controller => :pages
   map.connect ':controller/:action.:format'
