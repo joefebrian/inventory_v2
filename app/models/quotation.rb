@@ -1,5 +1,5 @@
 class Quotation < ActiveRecord::Base
-  attr_accessible :company_id, :number, :tanggal_berlaku, :customer_id, :hal, :penerima, :nama_proyek_customer, :keterangan, :entries_attributes
+  attr_accessible :company_id, :number, :tanggal_berlaku, :customer_id, :day, :hal, :penerima, :nama_proyek_customer, :keterangan, :entries_attributes
   has_many :entries, :class_name => "QuotationEntry"
   belongs_to :company
   belongs_to :customer

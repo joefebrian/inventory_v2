@@ -68,6 +68,16 @@ class CustomersController < ApplicationController
     end
   end
 
+  def price
+    @customer = current_company.customers.find(params[:customer])
+    @price_list = @customer.price_list.entries.item_name_is(params[:item])
+    respond_to do |format|
+      format.js {
+        @html = render :text => @price_list.first.value
+      }
+    end
+  end
+
   private
   def set_tab
     @tab = 'administrations'

@@ -117,6 +117,21 @@ function add_entry_fields(prev) {
   new_id++;
 }
 
+$('.price').live('focus', function(){
+  var itemname=$(this).parent('td').prev().prev().children('input').val();
+  var customerid=$('#quotation_customer_id').val();
+  var qty=$(this).parent('td').prev().children('input').val();
+  var input=$(this);
+  $.ajax({
+    url:'/customers/price.js',
+    type:'get',
+    data:'customer='+customerid+'&item='+itemname,
+    success: function(respone, status){
+      input.val(parseInt(respone)*parseInt(qty));
+    }
+  });
+});
+
 function mr_autocomplete() {
   $('input.item_autocomplete').autocomplete('/items/search.js', {
     formatItem:   function(row, i) { return eval('('+row[0]+')').item.name; },

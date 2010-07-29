@@ -12,7 +12,7 @@
  
     = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :customer_id, :as => :select, :collection => @customer.collect {|customer| [customer.profile.full_name,customer.id]}, :label => "Customer Name", :include_blank => "select Customer" 
-    = f.input :day, :label => "Subject"
+    = f.input :day, :label => "Days"
     = f.input :hal, :label => "Subject"
     = f.input :penerima, :label => "Attention"
     = f.input :nama_proyek_customer, :label => "Customer Project Name"
@@ -24,11 +24,14 @@
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
-            %th Quantity
+            %th.td_5 Qty
+            %th Price
+            %th.td_5 Disc (%)
+            %th Description
         %tfoot
           %tr
             %td &nbsp;
-            %td{ :colspan => 3 } &nbsp;
+            %td{ :colspan => 6 } &nbsp;
         %tbody
           - f.semantic_fields_for :entries do |ent|
             %tr
@@ -36,7 +39,10 @@
               %td.item
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
-              %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
+              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "price"
+              %td.tdr.td_5= ent.text_field :discount, :size => 5, :class => "numbers mr_qty"
+              %td.tdr.td_15= ent.text_field :description, :size => 15, :class => "numbers mr_qty"
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
