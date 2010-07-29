@@ -7,6 +7,12 @@ class PagesController < ApplicationController
 
   def show
     @tab = params[:id]
+    if params[:id] == 'administrations'
+      unless current_user.roles?('admin')
+        flash[:error] = "Sorry, you are not allowed to access that page"
+        redirect_to dashboard_path and return
+      end
+    end
     render @tab
   end
 

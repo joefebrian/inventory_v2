@@ -1,6 +1,7 @@
 class WarehousesController < ApplicationController
   before_filter :authenticate
   before_filter :set_tab
+  load_and_authorize_resource
 
   def index
     @warehouses = current_company.warehouses

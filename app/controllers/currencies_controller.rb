@@ -1,6 +1,7 @@
 class CurrenciesController < ApplicationController
-   before_filter :authenticate
-   before_filter :assign_tab
+  before_filter :authenticate
+  before_filter :assign_tab
+  load_and_authorize_resource
 
   def index
     @currencies = current_company.currencies.paginate(:page => params[:page])

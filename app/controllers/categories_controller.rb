@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
   before_filter :categories_list, :except => [:show, :destroy]
+  load_and_authorize_resource
 
   def index
     @categories = current_company.categories.sorted

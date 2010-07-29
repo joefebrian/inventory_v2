@@ -2,6 +2,7 @@ class AssembliesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
   before_filter :prepare_autocomplete, :only => [:new, :create, :edit, :update]
+  load_and_authorize_resource
 
   def index 
     @assemblies = current_company.assemblies.paginate(:page => params[:page])

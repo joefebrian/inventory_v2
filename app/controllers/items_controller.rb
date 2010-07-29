@@ -2,6 +2,8 @@ class ItemsController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
   before_filter :categories_list
+  load_and_authorize_resource
+
   def index
     if params[:category_id]
       @items = Category.id_is(params[:category_id]).first.items

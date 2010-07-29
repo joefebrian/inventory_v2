@@ -28,6 +28,7 @@ class Company < ActiveRecord::Base
   has_many :salesmen
   has_many :currencies
   has_many :exchange_rates
+  has_many :roles
 
   default_scope :order => :created_at
 
@@ -80,5 +81,9 @@ class Company < ActiveRecord::Base
       rows[eid][:transactions][entry.transaction.transaction_type.code] = rows[eid][:transactions][entry.transaction.transaction_type.code] + entry.quantity
     end
     rows.compact
+  end
+
+  def inventory_only?
+    COMPANY_MODE[subdomain.to_sym]
   end
 end

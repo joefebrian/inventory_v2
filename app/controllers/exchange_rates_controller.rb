@@ -1,6 +1,7 @@
 class ExchangeRatesController < ApplicationController
-   before_filter :authenticate
-   before_filter :assign_tab
+  before_filter :authenticate
+  before_filter :assign_tab
+  load_and_authorize_resource
   
   def index
     @exchange_rates = current_company.exchange_rates.paginate(:page => params[:page])

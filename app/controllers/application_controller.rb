@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
   #   flash[:error] = "Maaf, anda tidak bisa mengakses halaman tersebut."
   #   redirect_to root_path
   # end
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:error] = exception.message
+    redirect_to dashboard_path
+  end
+
   def category_names
     current_company.categories.collect { |cat| cat.name }
   end
