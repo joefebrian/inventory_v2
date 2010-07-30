@@ -12,10 +12,10 @@
     
     = f.input :order_ref, :label => "Order Ref"
     = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
-    = f.input :quotation_id, :as => :select, :collection => @quotation.collect {|quotation| [quotation.number,quotation.id]}, :label => "Quotation Number", :include_blank => "select Quotation" 
+    = f.input :quotation, :collection => @quotation, :label => "Quotation Number", :include_blank => "select Quotation" 
     = f.input :top, :label => "Top"
     = f.input :retensi, :label => "Retensi"
-    = f.input :kurs_id, :label => "Kurs ID"
+    = f.input :kurs_id, :label => "Currency", :as => :select, :collection => @currencies
     = f.input :kurs_value, :label => "Rate"
     = f.input :status, :label => "Status"
 

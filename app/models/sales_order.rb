@@ -1,13 +1,17 @@
 class SalesOrder < ActiveRecord::Base
-  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :kurs_id, :kurs_value, :order_ref
+  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :kurs_id, :kurs_value, :order_ref, :entries_attributes
   has_many :entries, :class_name => "SalesOrderEntry"
   belongs_to :company
   belongs_to :assembly
   belongs_to :customer
   belongs_to :currency
-  belongs_to :kurs_rate
-  validates_presence_of :number, :kurs_id, :kurs_rate
+  belongs_to :quotation
+  validates_presence_of :number, :kurs_id
   validates_uniqueness_of :number, :scope => :company_id
+
+  accepts_nested_attributes_for :entries,
+    :allow_destroy => true,
+    :reject_if => lambda {|at| at['quantity'].blank? || at['quantity'].to_i == 0}
   
 
   def tgl_active
