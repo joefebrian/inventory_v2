@@ -12,7 +12,6 @@ class CustomersController < ApplicationController
   end
   
   def new
-    @customer = current_company.customers.new
     @customer.build_profile
     @customer.build_tax_profile
   end

@@ -6,13 +6,13 @@ class ItemsController < ApplicationController
 
   def index
     if params[:category_id]
-      @items = Category.id_is(params[:category_id]).first.items
+      @items = current_company.categories.id_is(params[:category_id]).first.items.searchlogic
     else
-      @items = Item.company_id_is(current_company)
+      @items = current_company.items.searchlogic
     end
     @active = params[:active] || 1
     @items = @items.active_is(@active) unless (@active.blank? || @active == 'all')
-    @items.all
+    @items = @items.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html

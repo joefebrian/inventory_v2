@@ -13,6 +13,10 @@ class Customer < ActiveRecord::Base
   
   accepts_nested_attributes_for :special_prices, :allow_destroy => true, :reject_if => lambda { |at| at[:price].blank? }
 
+  def after_initialize
+    build_profile if new_record?
+  end
+
   def special_prices_matrix
     matrix = {}
     for price in special_prices
@@ -22,6 +26,12 @@ class Customer < ActiveRecord::Base
       matrix[price.item.code]['prices'] << price
     end
     matrix
+  end
+
+  def fullname=(name)
+    names = name.split(/\s/, 2)
+    profile.first_name = names.first
+    profile.last_name = names.last
   end
 
   def to_s
