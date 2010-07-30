@@ -19,3 +19,5 @@ Capfile
 config/deploy.rb
 nbproject/*
 db/schema.rb
+tags.orig
+tags
