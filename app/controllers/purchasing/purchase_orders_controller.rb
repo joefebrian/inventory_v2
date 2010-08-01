@@ -2,7 +2,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
   def index
-    @purchase_orders = current_company.purchase_orders.all
+    @purchase_orders = current_company.purchase_orders.paginate(:page => params[:page])
   end
   
   def show

@@ -27,7 +27,8 @@
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
-              %td.tdr.td_20= ent.text_field :estimated_delivery_date, :class => "datepicker", :size => 20
+              %td.tdr.td_20
+                = ent.text_field :estimated_delivery_date, :class => "datepicker", :size => 20
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
