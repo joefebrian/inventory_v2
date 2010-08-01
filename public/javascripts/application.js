@@ -1,5 +1,6 @@
 $(function() {
   $('input.default').focus();
+  $('.popup_note').hide();
   $('.number_suggestion').click(function() {
     $(this).parents('li').children('input[type=text]').val(this.rel);
     return false;
@@ -112,6 +113,7 @@ function add_entry_fields(prev) {
   elem = elem.replace(regexp2, "_" + new_id + "_");
   elem = "<tr>" + elem + "</tr>";
   prev.after(elem);
+  $('.should_hidden').hide();
   mr_autocomplete();
   attach_datepicker();
   new_id++;
@@ -325,5 +327,30 @@ $('#add_item').live('click', function() {
       window.location = window.location.toString().replace(/\/+$/,'') + '/new?item=' + item_id;
     }
   });
+  return false;
+});
+
+$('.popup_handle').live('click', function() {
+  var link = $(this);
+  var p = link.next('p');
+  var input = p.children().attr('name');
+  $.prompt("<h6>Add note</h6><br/>"+p.html(),
+    {
+      prefix: 'pop_',
+      submit: function(v, m, f) {
+        p.children().val($.trim(f[input]));
+        if($.trim(f[input]).length == 0) { link.children().attr('src', '/images/icons/silk/comment.png'); }
+        else { link.children().attr('src', '/images/icons/silk/comment_filled.png'); }
+      }
+    }
+  );
+  $('.pop_close').html('<img src="/images/icons/silk/cross.png"/>');
+  $('.pop_message input')[0].focus();
+});
+
+$('.row_remover').live('click', function() {
+  var tr = $(this).parents('tr');
+  tr.find('input[name*="_destroy"][type=checkbox]').attr('checked', 'checked');
+  tr.hide();
   return false;
 });

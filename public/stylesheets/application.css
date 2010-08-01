@@ -10,7 +10,7 @@ a { text-decoration:none; color: #235f26; }
   height: 0;
   overflow: hidden;
 }
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5 {
   font-weight:bold;
   margin-bottom:20px;
 }
@@ -669,3 +669,36 @@ form.formtastic .ui-multiselect-checkboxes label {
 .ui-multiselect-checkboxes { overflow:auto !important; }
 .ui-multiselect-checkboxes label input { margin-right:1em !important; }
 #top_right_link { float:right; }
+#pop_ {
+  border-radius:1em 1em 1em 1em;
+  -moz-border-radius:1em 1em 1em 1em;
+  -webkit-border-radius:1em 1em 1em 1em;
+  box-shadow:0 0 20px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow:0 0 20px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow:0 0 20px rgba(0, 0, 0, 0.6);
+  background:none repeat scroll 0 0 #FFFFFF;
+  border:5px solid rgba(0, 0, 0, 0.5);
+  left:0 !important;
+  margin:0 auto !important;
+  padding:1em;
+  position:relative !important;
+  top:50% !important;
+  width:500px;
+}
+.pop_container {
+}
+.pop_close {
+  width:16px;
+  height:16px;
+  cursor:pointer;
+  position:absolute;
+  top:1em;
+  right:1em;
+}
+#pop_states {
+}
+.pop_input {
+  width:98%;
+  margin:5px 0;
+}
+.pop_message h6 { font-size:1.5em; }
