@@ -25,8 +25,8 @@ h6 { font-size:1.1em; }
   margin: 10px 0;
 }
 #flash_notice {
-  background-color: #CFC;
-  border: solid 1px #6C6;
+  background-color: #FFF1AF;
+  border: solid 1px #FFD100;
 }
 #flash_error {
   background-color: #FCC;
@@ -666,6 +666,7 @@ form.formtastic .ui-multiselect-checkboxes label {
   float:none;
   padding:.5em;
 }
+form.formtastic .ui-multiselect-menu { width:auto !important; }
 .ui-multiselect-checkboxes { overflow:auto !important; }
 .ui-multiselect-checkboxes label input { margin-right:1em !important; }
 #top_right_link { float:right; }
