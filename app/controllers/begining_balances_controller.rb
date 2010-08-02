@@ -13,7 +13,6 @@ class BeginingBalancesController < ApplicationController
     @categories = current_company.leaf_categories
     @begining_balance = current_company.begining_balances.new
     @begining_balance.number = BeginingBalance.suggested_number(current_company)
-    #@begining_balance.entries.build(:item_id => 1)
   end
   
   def create

@@ -1,30 +1,35 @@
 = javascript_tag "var categories = #{@categories.to_json(:only => :id, :methods => [:formatted_code])};"
 
-- semantic_form_for @begining_balance, :url => begining_balances_path do |f|
-  - f.inputs do
-    = f.input :number, :input_html => { :class => 'default' }
-    = f.input :category_name
-    = f.input :remark, :input_html => { :rows => 3 }
+- if current_company.warehouses.blank?
+  #flash_error.no_record
+    %h5 Sorry, but you have to at least have 1 warehouse to act as a default warehouse.
+    %h6= link_to "Click to add default warehouse", new_warehouse_path(:default => true)
+- else
+  - semantic_form_for @begining_balance, :url => begining_balances_path do |f|
+    - f.inputs do
+      = f.input :number, :input_html => { :class => 'default' }
+      = f.input :category_name
+      = f.input :remark, :input_html => { :rows => 3 }
 
-    %li.string
-      #items
-        %table.list
-          %tr
-            %th.td_20 Code
-            %th.td_40 Name
-            %th.actions.td_10 Quantity
-            %th.actions.td_30 @ Value
-        - unless @begining_balance.entries.blank?
-          - f.semantic_fields_for :entries do |entry|
+      %li.string
+        #items
+          %table.list
             %tr
-              %td= entry.object.item.code
-              %td= entry.object.item.name
-              %td.actions.td_10
-                = entry.text_field :quantity, :size => 10, :input_html => { :class => 'numbers' }
-                = entry.hidden_field :item_id
-              %td.actions.td_30= entry.text_field :value, :size => 30, :input_html => { :class => 'numbers' }
+              %th.td_20 Code
+              %th.td_40 Name
+              %th.actions.td_10 Quantity
+              %th.actions.td_30 @ Value
+          - unless @begining_balance.entries.blank?
+            - f.semantic_fields_for :entries do |entry|
+              %tr
+                %td= entry.object.item.code
+                %td= entry.object.item.name
+                %td.actions.td_10
+                  = entry.text_field :quantity, :size => 10, :input_html => { :class => 'numbers' }
+                  = entry.hidden_field :item_id
+                %td.actions.td_30= entry.text_field :value, :size => 30, :input_html => { :class => 'numbers' }
 
-  %fieldset.buttons
-    %button{ :type => :submit }
-      = image_tag 'icons/silk/disk.png'
-      Save Begining Balance
+    %fieldset.buttons
+      %button{ :type => :submit }
+        = image_tag 'icons/silk/disk.png'
+        Save Begining Balance

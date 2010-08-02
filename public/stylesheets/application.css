@@ -470,7 +470,7 @@ input.plu_code {
 }
 .searchresults td ul li a:focus { background:#FFAD0F; }
 div.no_record {
-  font:1.6em bold;
+  font:1.2em bold;
   padding:10px;
   text-align:center;
 }

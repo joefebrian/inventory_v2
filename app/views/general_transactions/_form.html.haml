@@ -3,48 +3,54 @@
 = javascript_tag "var with_value = true;"
 - javascript 'item_transfer'
 - javascript 'general_transaction'
-#dialog_form  
-  - semantic_form_for @general_transaction do |f|
-    = f.error_messages
-    - f.inputs do
-      = f.input :transaction_type
-      %li#general_transaction_number_input.string.required
-        %label{ :for => 'general_transaction_number' } Number <span class="required">*</span>
-        %input{ :type => :text, :size => 50,
-                :name => 'general_transaction[number]',
-                :id => 'general_transaction_number',
-                :value => f.object.attributes['number'],
-                :class => 'default' }
-        %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggestion}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
 
-      = f.input :originator_warehouse, :include_blank => false, :input_html => { :class => 'plu_source' }
-      = f.input :destination_warehouse, :include_blank => false
-      = f.input :remark, :input_html => { :rows => 2 }
+- if current_company.transaction_types.blank?
+  #flash_error.no_record
+    %h5 Sorry, but you have to at least have 1 transaction type before you can create any transaction.
+    %h6= link_to "Click here to add transaction type", new_transaction_type_path
+- else
+  #dialog_form  
+    - semantic_form_for @general_transaction do |f|
+      = f.error_messages
+      - f.inputs do
+        = f.input :transaction_type, :collection => @transaction_types, :include_blank => "Select the transaction type"
+        %li#general_transaction_number_input.string.required
+          %label{ :for => 'general_transaction_number' } Number <span class="required">*</span>
+          %input{ :type => :text, :size => 50,
+                  :name => 'general_transaction[number]',
+                  :id => 'general_transaction_number',
+                  :value => f.object.attributes['number'],
+                  :class => 'default' }
+          %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggestion}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
 
-      %li.string
-        #items
-          %table#transaction_entries.list
-            %tr
-              %th.td_20 PLU Code
-              %th.td_50 Item
-              %th.actions.td_10 Quantity
-              %th.actions.td_20 @ Value
-            - unless @general_transaction.entries.blank?
-              - f.semantic_fields_for :entries do |entry|
-                %tr
-                  %td.td_20
-                    = entry.text_field :plu_code, :class => 'plu_code'
-                    = entry.hidden_field :plu_id
-                    = link_to image_tag('icons/silk/magnifier.png'), lookup_items_path(:format => :js), :class => 'plu_input'
-                  %td= entry.object.plu.try(:item).try(:name_with_code)
-                  %td.actions.td_10
-                    = entry.text_field :quantity, :size => 10, :class => 'numbers entries_quantity'
-                    = entry.hidden_field :item_id
-                  %td.actions.td_20= entry.text_field :value, :size => 30, :class => 'numbers entries_value'
+        = f.input :originator_warehouse, :include_blank => false, :input_html => { :class => 'plu_source' }
+        = f.input :destination_warehouse, :include_blank => false
+        = f.input :remark, :input_html => { :rows => 2 }
 
-          %p
-            %a{:href => '#', :id => 'add_entries'}
-              = "#{image_tag('icons/silk/add.png')} add transaction entries"
+        %li.string
+          #items
+            %table#transaction_entries.list
+              %tr
+                %th.td_20 PLU Code
+                %th.td_50 Item
+                %th.actions.td_10 Quantity
+                %th.actions.td_20 @ Value
+              - unless @general_transaction.entries.blank?
+                - f.semantic_fields_for :entries do |entry|
+                  %tr
+                    %td.td_20
+                      = entry.text_field :plu_code, :class => 'plu_code'
+                      = entry.hidden_field :plu_id
+                      = link_to image_tag('icons/silk/magnifier.png'), lookup_items_path(:format => :js), :class => 'plu_input'
+                    %td= entry.object.plu.try(:item).try(:name_with_code)
+                    %td.actions.td_10
+                      = entry.text_field :quantity, :size => 10, :class => 'numbers entries_quantity'
+                      = entry.hidden_field :item_id
+                    %td.actions.td_20= entry.text_field :value, :size => 30, :class => 'numbers entries_value'
 
-    %fieldset.buttons
-      %button{ :type => :submit }= "#{image_tag('icons/silk/disk.png')} Save Transaction"
+            %p
+              %a{:href => '#', :id => 'add_entries'}
+                = "#{image_tag('icons/silk/add.png')} add transaction entries"
+
+      %fieldset.buttons
+        %button{ :type => :submit }= "#{image_tag('icons/silk/disk.png')} Save Transaction"

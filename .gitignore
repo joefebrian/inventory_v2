@@ -17,6 +17,7 @@ public/system/**/*
 .project
 Capfile
 config/deploy.rb
+config/newrelic.yml
 nbproject/*
 db/schema.rb
 tags.orig

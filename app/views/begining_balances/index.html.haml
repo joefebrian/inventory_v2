@@ -16,7 +16,12 @@
   - if @begining_balances.blank?
     %tr
       %td{ :colspan => 4 }
-        %div.no_record No transaction recorded yet
+        %div.no_record
+          %h4 No transaction recorded yet
+          - if current_company.warehouses.blank?
+            #flash_notice
+              %h6 It seems that you don't have any warehouse yet, so you cannot create any beginning balance.
+              %h6= link_to "Click here to create default warehouse", new_warehouse_path(:default => true)
   - else
     - for begining_balance in @begining_balances
       %tr
