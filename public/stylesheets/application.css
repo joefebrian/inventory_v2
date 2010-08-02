@@ -679,11 +679,9 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
   -webkit-box-shadow:0 0 20px rgba(0, 0, 0, 0.6);
   background:none repeat scroll 0 0 #FFFFFF;
   border:5px solid rgba(0, 0, 0, 0.5);
-  left:0 !important;
-  margin:0 auto !important;
   padding:1em;
+  left:0 !important;
   position:relative !important;
-  top:50% !important;
   width:500px;
 }
 .pop_container {

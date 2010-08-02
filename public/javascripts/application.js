@@ -332,11 +332,14 @@ $('#add_item').live('click', function() {
 
 $('.popup_handle').live('click', function() {
   var link = $(this);
+  var link_pos = link.position();
   var p = link.next('p');
   var input = p.children().attr('name');
   $.prompt("<h6>Add note</h6><br/>"+p.html(),
     {
       prefix: 'pop_',
+      top: parseInt(link_pos.top) - 130,
+      loaded: function() { $('#pop_').css('margin-left', parseInt(link_pos.left) - $('#pop_').width()); },
       submit: function(v, m, f) {
         p.children().val($.trim(f[input]));
         if($.trim(f[input]).length == 0) { link.children().attr('src', '/images/icons/silk/comment.png'); }
