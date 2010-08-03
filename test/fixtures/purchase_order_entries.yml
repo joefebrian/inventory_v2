@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  purchase_order_id: 1
+  item_id: 1
+  quantity: 1
+  purchase_price: 1
+  discount: 1
+
+two:
+  purchase_order_id: 1
+  item_id: 1
+  quantity: 1
+  purchase_price: 1
+  discount: 1

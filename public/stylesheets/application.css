@@ -701,3 +701,4 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
   margin:5px 0;
 }
 .pop_message h6 { font-size:1.5em; }
+.should_hidden { display:none; }
