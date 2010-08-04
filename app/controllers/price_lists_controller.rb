@@ -1,6 +1,7 @@
 class PriceListsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
   # GET /price_lists
   # GET /price_lists.xml
   def index

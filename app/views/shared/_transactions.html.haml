@@ -12,81 +12,82 @@
       %li
         = link_to "Begining Balances", begining_balances_path, :class => current['bb']
         %div
-  %li.submenu_handler
-    = link_to "Purchasing", '#', :class => current['pur']
-    %div
-    %ul.submenu
-      %li
-        = link_to "Material Request", purchasing_material_requests_path, :class => current['mr']
-        %div
-      %li
-        = link_to "Quotation Request", purchasing_quotation_requests_path, :class => current['qr']
-        %div
-      %li
-        = link_to "Purchase Order", purchasing_purchase_orders_path, :class => current['po']
-        %div
-      %li
-        = link_to "Goods Receive Proof", '#'
-        %div
-      %li
-        = link_to "Purchase Retur", '#'
-        %div
-      %li
-        = link_to "Purchase Without Goods", '#'
-        %div
-      %li
-        = link_to "Tanda Terima Faktur", '#'
-        %div
-      %li
-        = link_to "refilling", '#'
-        %div
-  %li.submenu_handler
-    =link_to "Sales", '#', :class => current['sal']
-    %div
-    %ul.submenu
-      %li
-        =link_to "Quotations", sales_quotations_path, :class => current['quo']
-        %div
-      %li
-        =link_to "Sales Orders", sales_sales_orders_path, :class => current['so']
-        %div
-      %li
-        =link_to "Delivery Orders", '#'
-        %div
-      %li
-        =link_to "Sales Invoices", '#'
-        %div
-      %li
-        =link_to "Sales Receipt", '#'
-        %div
-      %li
-        =link_to "Sales Returns", '#'
-        %div
-      %li
-        =link_to "Close SO", '#'
-        %div
-      %li
-        =link_to  "Customer Down Payment", '#'
-        %div
-      %li
-        =link_to "Sales Tax", '#'
-        %div
-      %li
-        =link_to "Process POS SO", '#'
-        %div
-  %li.submenu_handler
-    =link_to "Production", '#', :class => current['prod']
-    %div
-    %ul.submenu
-      %li
-        =link_to "Working Order", '#'
-        %div
-      %li
-        =link_to "Permintaan Barang Produksi", '#'
-        %div
-      %li
-        =link_to "Pemakaian Bahan Bantu", '#'
-        %div
-      %li
-        =link_to "Penerimaan Hasil Produksi", '#'
-        %div
+  - unless current_company.inventory_only?
+    %li.submenu_handler
+      = link_to "Purchasing", '#', :class => current['pur']
+      %div
+      %ul.submenu
+        %li
+          = link_to "Material Request", purchasing_material_requests_path, :class => current['mr']
+          %div
+        %li
+          = link_to "Quotation Request", purchasing_quotation_requests_path, :class => current['qr']
+          %div
+        %li
+          = link_to "Purchase Order", purchasing_purchase_orders_path, :class => current['po']
+          %div
+        %li
+          = link_to "Goods Receive Proof", '#'
+          %div
+        %li
+          = link_to "Purchase Retur", '#'
+          %div
+        %li
+          = link_to "Purchase Without Goods", '#'
+          %div
+        %li
+          = link_to "Tanda Terima Faktur", '#'
+          %div
+        %li
+          = link_to "refilling", '#'
+          %div
+    %li.submenu_handler
+      =link_to "Sales", '#', :class => current['sal']
+      %div
+      %ul.submenu
+        %li
+          =link_to "Quotations", sales_quotations_path, :class => current['quo']
+          %div
+        %li
+          =link_to "Sales Orders", sales_sales_orders_path, :class => current['so']
+          %div
+        %li
+          =link_to "Delivery Orders", '#'
+          %div
+        %li
+          =link_to "Sales Invoices", '#'
+          %div
+        %li
+          =link_to "Sales Receipt", '#'
+          %div
+        %li
+          =link_to "Sales Returns", '#'
+          %div
+        %li
+          =link_to "Close SO", '#'
+          %div
+        %li
+          =link_to  "Customer Advances", '#'
+          %div
+        %li
+          =link_to "Sales Tax", '#'
+          %div
+        %li
+          =link_to "Process POS SO", '#'
+          %div
+    %li.submenu_handler
+      =link_to "Production", '#', :class => current['prod']
+      %div
+      %ul.submenu
+        %li
+          =link_to "Working Order", '#'
+          %div
+        %li
+          =link_to "Permintaan Barang Produksi", '#'
+          %div
+        %li
+          =link_to "Pemakaian Bahan Bantu", '#'
+          %div
+        %li
+          =link_to "Penerimaan Hasil Produksi", '#'
+          %div

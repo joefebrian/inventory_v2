@@ -13,12 +13,13 @@
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
-            %th Quantity
+            %th Qty
             %th Est. Delivery Date
+            %th
         %tfoot
           %tr
             %td &nbsp;
-            %td{ :colspan => 3 } &nbsp;
+            %td{ :colspan => 4 } &nbsp;
         %tbody
           - f.semantic_fields_for :entries do |ent|
             %tr
@@ -26,8 +27,16 @@
               %td.item
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
-              %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
               %td.tdr.td_20= ent.text_field :estimated_delivery_date, :class => "datepicker", :size => 20
+              %td.tdr
+                - if ent.object.note.blank?
+                  = link_to image_tag('icons/silk/comment.png'), '#', :class => "popup_handle"
+                - else
+                  = link_to image_tag('icons/silk/comment_filled.png'), '#', :class => "popup_handle"
+                %p.popup_note.should_hidden= ent.text_field :note, :class => "pop_input default"
+                = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'

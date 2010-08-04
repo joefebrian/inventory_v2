@@ -1,6 +1,8 @@
 class CustomersController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
+  load_and_authorize_resource
+
   def index
     @customers = current_company.customers.paginate(:page => params[:page])
   end
@@ -10,7 +12,6 @@ class CustomersController < ApplicationController
   end
   
   def new
-    @customer = current_company.customers.new
     @customer.build_profile
     @customer.build_tax_profile
   end

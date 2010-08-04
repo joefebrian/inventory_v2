@@ -16,29 +16,41 @@ class Sales::SalesOrdersController < ApplicationController
     @customer = current_company.customers
     @quotation = current_company.quotations
     @assembly = current_company.assemblies
-    @kurs_id = current_company.kurs_ids
-    @kurs_rate = current_company.kurs_rates
+    @currencies = current_company.currencies
+    @exchange_rate = current_company.exchange_rates
   end
   
   def create
     @sales_order = current_company.sales_orders.new(params[:sales_order])
     if @sales_order.save
       flash[:notice] = "Successfully created sales order."
-      redirect_to @sales_order
+      redirect_to [:sales, @sales_order]
     else
+      @sales_order.entries.build
+      @customer = current_company.customers
+      @quotation = current_company.quotations
+      @assembly = current_company.assemblies
+      @currencies = current_company.currencies
+      @exchange_rate = current_company.exchange_rates
       render :action => 'new'
     end
   end
   
   def edit
-    @sales_order = current_company.sales_order.find(params[:id])
+    @sales_order = current_company.sales_orders.find(params[:id])
+    @sales_order.entries.build
+    @customer = current_company.customers
+    @quotation = current_company.quotations
+    @assembly = current_company.assemblies
+    @currencies = current_company.currencies
+    @exchange_rate = current_company.exchange_rates
   end
   
   def update
-    @sales_order = current_company.sales_order.find(params[:id])
+    @sales_order = current_company.sales_orders.find(params[:id])
     if @sales_order.update_attributes(params[:sales_order])
       flash[:notice] = "Successfully updated sales order."
-      redirect_to @sales_order
+      redirect_to [:sales, @sales_order]
     else
       render :action => 'edit'
     end

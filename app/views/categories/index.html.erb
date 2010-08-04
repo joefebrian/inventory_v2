@@ -20,4 +20,7 @@
     <th class="actions">Actions</th>
   </tr>
   <%= render @categories %>
+  <tr>
+    <td colspan="5"><%= will_paginate @categories %></td>
+  </tr>
 </table>

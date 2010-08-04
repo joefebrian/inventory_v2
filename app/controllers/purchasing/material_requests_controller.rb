@@ -17,7 +17,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   def create
     @material_request = current_company.material_requests.new(params[:material_request])
     if @material_request.save
-      flash[:notice] = "Successfully created material request."
+      flash[:success] = "Successfully created material request."
       redirect_to purchasing_material_request_path(@material_request)
     else
       render :action => 'new'
@@ -32,7 +32,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   def update
     @material_request = current_company.material_requests.find(params[:id])
     if @material_request.update_attributes(params[:material_request])
-      flash[:notice] = "Successfully updated material request."
+      flash[:success] = "Successfully updated material request."
       redirect_to purchasing_material_request_path(@material_request)
     else
       render :action => 'edit'

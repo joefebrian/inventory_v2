@@ -25,7 +25,7 @@
       %td= h sales_order.tanggal
       %td= h sales_order.status
       %td.actions
-        = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(quotation)
-        = link_to image_tag('icons/silk/delete.png'), sales_sales_order_path(quotation), :confirm => 'Are you sure?', :method => :delete
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(sales_order)
+        = link_to image_tag('icons/silk/delete.png'), sales_sales_order_path(sales_order), :confirm => 'Are you sure?', :method => :delete
 
 

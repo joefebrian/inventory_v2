@@ -41,6 +41,8 @@
   - @material_request.entries.each_with_index do |entry, i|
     %tr
       %td.tdr.td_5= (i+1)
-      %td= link_to h(entry.item.name), entry.item
+      %td
+        %p= link_to h(entry.item.name), entry.item
+        %p.inline-hints.inline-labels=h "Note: #{entry.note}" unless entry.note.blank?
       %td.tdr= entry.quantity
       %td.tdc= entry.estimated_delivery_date.to_s(:long)

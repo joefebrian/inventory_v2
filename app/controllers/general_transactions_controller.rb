@@ -13,6 +13,7 @@ class GeneralTransactionsController < ApplicationController
   def new
     @general_transaction = current_company.general_transactions.new
     @general_transaction.entries.build
+    @transaction_types = current_company.transaction_types
     @plus = current_company.plus.all(:include => :item)
     @hint = 'new_general_transaction'.to_sym
   end

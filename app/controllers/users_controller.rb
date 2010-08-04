@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
+
   def index
     @users = current_company.users
   end

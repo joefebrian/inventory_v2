@@ -1,6 +1,7 @@
 class TransactionTypesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
 
   def index
     @transaction_types = current_company.transaction_types.all

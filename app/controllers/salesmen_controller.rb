@@ -1,6 +1,7 @@
 class SalesmenController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
 
   def index
     @salesman = current_company.salesmen.paginate(:page => params[:page])

@@ -5,7 +5,6 @@
     <th class="td_5 tdr">No.</th>
     <th>Username</th>
     <th>Email</th>
-    <th>Role</th>
     <th class="actions">Actions</th>
   </tr>
   <% @users.each_with_index do |user, i| %>
@@ -13,7 +12,6 @@
       <td class="td_5 tdr"><%=h (i+1) %></td>
       <td><%=h user.username %></td>
       <td><%=h user.email %></td>
-      <td><%=h user.role %></td>
       <td class="actions">
         <%= link_to "Edit", edit_user_path(user) %> &bull;
         <%= link_to "Destroy", user, :confirm => 'Are you sure?', :method => :delete %>
