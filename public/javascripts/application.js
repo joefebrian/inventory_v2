@@ -97,7 +97,35 @@ $(function() {
     });
     return false;
   });
-  mr_autocomplete();
+});
+
+$('input.item_autocomplete').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/items/search.js',
+    focus:  function(event, ui) { $(this).val(ui.item.item.name); return false; },
+    select: function(event, ui) {
+      $(this).val(ui.item.item.name);
+      $(this).next().val(ui.item.item.id);
+      // generate the next row of inputs
+      var elem = template.replace(regexp1, "[" + new_id + "]");
+      elem = elem.replace(regexp2, "_" + new_id + "_");
+      elem = "<tr>" + elem + "</tr>";
+      input.parents('tr').after(elem);
+      $('.should_hidden').hide();
+      attach_datepicker();
+      new_id++;
+
+      return false;
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, item) {
+    return $("<li></li>")
+    .data("item.autocomplete", item)
+    .append("<a>" + item.item.name + "</a>")
+    .appendTo(ul);
+  };
 });
 
 function attach_datepicker() {
@@ -134,7 +162,7 @@ $('.price').live('focus', function(){
   });
 });
 
-function mr_autocomplete() {
+function xmr_autocomplete() {
   $('input.item_autocomplete').autocomplete('/items/search.js', {
     formatItem:   function(row, i) { return eval('('+row[0]+')').item.name; },
     formatResult: function(row, i) { return eval('('+row[0]+')').item.name; },

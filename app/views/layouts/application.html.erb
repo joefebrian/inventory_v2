@@ -5,15 +5,14 @@
     <title><%= h(yield(:title) || "Inventory") %></title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/red_heart.ico" />
     <%= stylesheet_link_tag 'reset',
-      'application',
+      'jquery.ui.theme',
+      'jquery.ui.datepicker',
+      'jquery.ui.autocomplete',
+      'jquery.multiselect',
+      'jquery.boxy',
       'formtastic',
       'formtastic_changes',
-      'jquery.autocomplete',
-      'jquery.boxy',
-      'jquery.ui.datepicker',
-      'jquery.ui.theme',
-      'jquery.multiselect',
-      'demo_table',
+      'application',
       'yahoo_pagination',
       :cache => "cached"
     %>
@@ -81,16 +80,11 @@
       </div>
     </div>
     <%= javascript_include_tag 'jquery',
-      'jquery.ui.core.min',
-      'jquery.effects.core.min',
-      'jquery.effects.blind.min',
-      'jquery.ui.datepicker.min',
-      'jquery.ui.widget.min',
-      'jquery.autocomplete.min',
+      'jquery-ui-1.8.2.custom.min',
+      'jquery.multiselect.min',
       'jquery.impromptu.min',
       'jquery.boxy',
       'jquery.dataTables.min',
-      'jquery.multiselect.min',
       'application',
       :cache => 'cached'
     %>

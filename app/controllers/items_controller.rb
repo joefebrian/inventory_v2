@@ -109,8 +109,8 @@ class ItemsController < ApplicationController
   end
 
   def search
-    @keyword = params[:q]
-    @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).all
+    @keyword = params[:term]
+    @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).all(:limit => 10)
     respond_to do |format|
       format.html { render :layout => false }
       format.js { 
