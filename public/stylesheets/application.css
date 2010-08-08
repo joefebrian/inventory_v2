@@ -659,7 +659,7 @@ a#enhanced_next { float:left; }
 }
 .searchresults li:nth-child(2n+1) { background:#EFF3FF; }
 .searchresults li .actions { float:right; margin:6px 0; }
-div.inline { float:left; margin-right:1em; width:25%; }
+div.inline { float:left; margin-right:1em; min-width:100px; }
 input.item_autocomplete { width:98% !important; }
 form.formtastic .ui-multiselect-checkboxes label {
   width:auto;

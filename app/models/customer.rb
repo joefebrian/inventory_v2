@@ -41,4 +41,9 @@ class Customer < ActiveRecord::Base
   def item_code
     @item_code
   end
+
+  # get item price with this precedence, [1] special price or [2] price list or [3] purchase price
+  def item_price_for(customer)
+    item_in_price_list = customer.price_list.entries
+  end
 end

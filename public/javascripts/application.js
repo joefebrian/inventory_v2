@@ -63,13 +63,8 @@ $(function() {
     .result(function(event, data) {
       var input = $(this);
       if(data) {
-        // $.get('/items/'+data.item.id+'/customer_prices',
-        // input.next('input[type=hidden]').val(data.item.id);
-        // input.parent().next().html(data.item.name);
-        // input.parent().next().next().children()[0].focus();
         event.stopImmediatePropagation();
       }
-      // else input.next('input[type=hidden]').val('');
     });
   }
   $('#check_master').click(function() {
@@ -97,6 +92,8 @@ $(function() {
     });
     return false;
   });
+  $('#price_list_item_adder').click(function() {
+  });
 });
 
 $('input.item_autocomplete').live('focus', function() {
@@ -107,15 +104,31 @@ $('input.item_autocomplete').live('focus', function() {
     select: function(event, ui) {
       $(this).val(ui.item.item.name);
       $(this).next().val(ui.item.item.id);
-      // generate the next row of inputs
-      var elem = template.replace(regexp1, "[" + new_id + "]");
-      elem = elem.replace(regexp2, "_" + new_id + "_");
-      elem = "<tr>" + elem + "</tr>";
-      input.parents('tr').after(elem);
-      $('.should_hidden').hide();
-      attach_datepicker();
-      new_id++;
-
+      if(insert_fields) {
+        // generate the next row of inputs
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        input.parents('tr').after(elem);
+        $('.should_hidden').hide();
+        attach_datepicker();
+        new_id++;
+      }
+      if(insert_units) {
+        var form = $(this).parents('form');
+        $.ajax({
+          url: form[0].action,
+          type: 'post',
+          data: form.serialize(),
+          success: function(response, status) {
+            var html = $(response);
+            var tbody = form.find('tbody');
+            html.find('tbody tr:last').appendTo(tbody);
+            tbody.find('tr:last').find('input[type=text]:first').select();
+            form.find('#item').val('');
+          }
+        });
+      }
       return false;
     }
   })
@@ -127,6 +140,11 @@ $('input.item_autocomplete').live('focus', function() {
     .appendTo(ul);
   };
 });
+
+$('.units_remover').live('click', function() {
+  $(this).parents('tr').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
+  return false;
+})
 
 function attach_datepicker() {
   $('input.datepicker').datepicker({

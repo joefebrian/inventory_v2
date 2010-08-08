@@ -28,12 +28,20 @@ class PriceListsController < ApplicationController
   # GET /price_lists/new.xml
   def new
     @price_list = current_company.price_lists.new
-    @items = current_company.items
-    for item in @items
-      for unit in item.units
-        @price_list.entries.build(:item_id => item.id, :unit_id => unit.id, :value => 0)
+    if params[:items]
+      for id in params[:items]
+        item = current_company.items.find(id)
+        for unit in item.units
+          @price_list.entries.build(:item_id => item.id, :unit_id => unit.id, :value => unit.value)
+        end
       end
     end
+    #@items = current_company.items.all(:include => :units, :order => "name").paginate(:page => params[:page])
+    #for item in @items
+    #  for unit in item.units
+    #    @price_list.entries.build(:item_id => item.id, :unit_id => unit.id, :value => 0)
+    #  end
+    #end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,6 +58,13 @@ class PriceListsController < ApplicationController
   # POST /price_lists.xml
   def create
     @price_list = current_company.price_lists.new(params[:price_list])
+    unless !request.xhr? && params[:item_getter].blank?
+      @item = current_company.items.find_by_name(params[:item_getter])
+      for unit in @item.units
+        @price_list.entries.build(:item_id => @item.id, :unit_id => unit.id, :value => unit.value)
+      end
+      render("new", :layout => false) and return
+    end
 
     respond_to do |format|
       if @price_list.save
@@ -66,6 +81,13 @@ class PriceListsController < ApplicationController
   # PUT /price_lists/1.xml
   def update
     @price_list = PriceList.find(params[:id])
+    unless !request.xhr? && params[:item_getter].blank?
+      @item = current_company.items.find_by_name(params[:item_getter])
+      for unit in @item.units
+        @price_list.entries.build(:item_id => @item.id, :unit_id => unit.id, :value => unit.value)
+      end
+      render("edit", :layout => false) and return
+    end
 
     respond_to do |format|
       if @price_list.update_attributes(params[:price_list])

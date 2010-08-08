@@ -13,7 +13,7 @@ class Sales::QuotationsController < ApplicationController
   def new
     @quotation = current_company.quotations.new
     @quotation.entries.build
-    @customer = current_company.customers
+    @customer = current_company.customers.all(:include => :profile)
   end
   
   def create
@@ -22,6 +22,8 @@ class Sales::QuotationsController < ApplicationController
       flash[:notice] = "Successfully created quotation."
       redirect_to sales_quotation_path(@quotation)
     else
+      @quotation.entries.build
+      @customer = current_company.customers.all(:include => :profile)
       render :action => 'new'
     end
   end
@@ -29,11 +31,7 @@ class Sales::QuotationsController < ApplicationController
   def edit
     @quotation = current_company.quotations.find(params[:id])
     @quotation.entries.build
-    @customer = current_company.customers
-  end
-  
-  def update
-    @quotation = current_company.quotations.find(params[:id])
+    @customer = current_company.customers.all(:include => :profile)
   end
   
   def update
@@ -42,6 +40,8 @@ class Sales::QuotationsController < ApplicationController
       flash[:notice] = "Successfully updated quotation."
       redirect_to sales_quotation_path(@quotation)
     else
+      @quotation.entries.build
+      @customer = current_company.customers.all(:include => :profile)
       render :action => 'edit'
     end
   end
