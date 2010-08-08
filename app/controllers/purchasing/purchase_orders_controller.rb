@@ -15,7 +15,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       mr = current_company.material_requests.find_by_number(params[:mr], :include => :entries)
       @purchase_order.material_request = mr
       mr.entries.each do |entry|
-        @purchase_order.entries.build(:item => entry.item, :quantity => entry.quantity, :purchase_price => 0)
+        @purchase_order.entries.build(:item => entry.item, :quantity => entry.quantity, :purchase_price => entry.item.base_price)
       end
     end
     @purchase_order.entries.build

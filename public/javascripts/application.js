@@ -6,7 +6,7 @@ $(function() {
     return false;
   });
   attach_datepicker();
-  $('.multiselect').multiselect();
+  $('.multiselect').multiselect().multiselectfilter();
   $('#from').change(function() {
     $('#notifier').show();
     $.get("/transactions/created",

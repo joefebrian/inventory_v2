@@ -53,6 +53,6 @@ class Customer < ActiveRecord::Base
   end
 
   def price_list_for(item, unit_position = 1)
-    price_list.entries.item_id_is(item).unit_position_is(unit_position).first.try(:value)
+    price_list.entries.item_id_is(item).unit_position_is(unit_position).first.try(:value) if price_list.active?
   end
 end
