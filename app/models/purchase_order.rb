@@ -26,4 +26,22 @@ class PurchaseOrder < ActiveRecord::Base
     prefix = "#{TRANS_PREFIX[:purchase_orders]}.#{time.strftime('%Y%m')}"
     "#{prefix}.#{next_available}"
   end
+
+  def build_entries_from_mr
+    unless material_requests.blank?
+      items = MaterialRequestEntry.calculate(:sum,
+                                             :quantity,
+                                             :conditions => { :material_request_id => material_request_ids },
+                                             :group => :item_id)
+      items.each do |item_id, qty|
+        self.entries.build(:item_id => item_id,
+                           :quantity => qty,
+                           :purchase_price => Item.find(item_id).base_price)
+      end
+    end
+  end
+
+  def material_request_numbers
+    material_requests.collect {|mr| mr.number}.join(', ')
+  end
 end

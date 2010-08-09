@@ -47,20 +47,37 @@
 
 - content_for :javascripts do
   - javascript_tag do
-    var template = $('tbody tr:last-child').html();
-    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
-    var regexp2 = new RegExp("_(\\d+)_", "g");
-    var new_id = $('tbody tr').length;
+    var insert_fields = true;
     var suppliers = [];
     - for supplier in @suppliers
       = "suppliers[#{supplier.id}] = #{supplier.to_json(:only => [:id, :name], :methods => [:address])};"
-    //$('#purchase_order_supplier_id').change(function() {
-    //if(this.value) { $(this).next().html(suppliers[this.value].supplier.address); }
-    //else { $(this).next().html(''); }
-    //});
-    $(function() {
-    $('.select').parents('li').append('<span id="supplier_address" style="margin-left:10px;"></span>');
-    $('.select').bind('multiselectclick', function(event, ui) {
-    if(typeof(suppliers[ui.value]) != 'undefined') $('#supplier_address').html(suppliers[ui.value].supplier.address);
-    });
-    });
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('.select').parents('li').append('<span id="supplier_address" style="margin-left:10px;"></span>');
+        $('.select').bind('multiselectclick', function(event, ui) {
+        if(typeof(suppliers[ui.value]) != 'undefined') {
+          $('#supplier_address').html(suppliers[ui.value].supplier.address);
+          $(this).multiselect('close');
+        }
+        });
+        $('.multiselect').bind('multiselectclose', function(event, ui) {
+          var mrs = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_mrs" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_mrs]').remove();
+            }
+          });
+          return false;
+        });
+      });

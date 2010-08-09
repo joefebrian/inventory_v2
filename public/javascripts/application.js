@@ -110,7 +110,7 @@ $('input.item_autocomplete').live('focus', function() {
     select: function(event, ui) {
       $(this).val(ui.item.item.name);
       $(this).next().val(ui.item.item.id);
-      if(insert_fields) {
+      if(window.insert_fields) {
         // generate the next row of inputs
         var elem = template.replace(regexp1, "[" + new_id + "]");
         elem = elem.replace(regexp2, "_" + new_id + "_");
@@ -120,7 +120,7 @@ $('input.item_autocomplete').live('focus', function() {
         attach_datepicker();
         new_id++;
       }
-      if(insert_units) {
+      if(window.insert_units) {
         var form = $(this).parents('form');
         $.ajax({
           url: form[0].action,

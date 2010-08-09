@@ -11,19 +11,18 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   
   def new
     @purchase_order = current_company.purchase_orders.new
-    if params[:mr]
-      mr = current_company.material_requests.find_by_number(params[:mr], :include => :entries)
-      @purchase_order.material_request = mr
-      mr.entries.each do |entry|
-        @purchase_order.entries.build(:item => entry.item, :quantity => entry.quantity, :purchase_price => entry.item.base_price)
-      end
-    end
     @purchase_order.entries.build
     @suppliers = current_company.suppliers.all(:include => :profile)
   end
   
   def create
     @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
+    if params[:get_mrs] && params[:get_mrs].to_i == 1
+      @suppliers = current_company.suppliers.all(:include => :profile)
+      @purchase_order.build_entries_from_mr
+      @purchase_order.entries.build
+      render("new", :layout => false) and return
+    end
     if @purchase_order.save
       flash[:notice] = "Successfully created purchase order."
       redirect_to [:purchasing, @purchase_order]
