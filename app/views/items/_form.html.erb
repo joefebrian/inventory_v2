@@ -8,8 +8,8 @@
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>
     <% f.inputs do %>
-      <%= f.input :category, :collection => current_company.categories.collect {|cat| ["#{cat.fullcode} - #{cat.name}", cat.id] if cat.leaf?}.compact, :include_blank => "Select category" %>
-      <%= f.input :count_method, :as => :select, :collection => [['Average', 'avg'],['FIFO','fifo'],['LIFO','lifo']], :include_blank => false %>
+      <%= f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select" } %>
+      <%= f.input :count_method, :as => :radio, :collection => [['Average', 'avg'],['FIFO','fifo'],['LIFO','lifo']], :wrapper_html => { :class => "inline" } %>
       <%= f.input :code %>
       <%= f.input :name %>
       <%= f.input :description, :input_html => { :rows => 1 } %>
@@ -18,7 +18,7 @@
         <%= f.check_box(:active) %> <%= f.label :active %> 
         <%= f.check_box(:is_stock) %> <%= f.label :is_stock %> 
       </li>
-      <li class="inline">
+      <li class="inline" id="dimension">
         <span class="label">Dimension (mm, kg)</span>
         <%= f.label :length %>
         <%= f.text_field :length, :size => 5, :class => 'number' %>
@@ -50,7 +50,7 @@
       </ol>
       <a href="#" id="add_unit"><%= image_tag 'icons/silk/add.png' %> add more unit</a>
     </fieldset>
-    <fieldset class="inputs">
+    <fieldset class="inputs" id="photo_input">
       <ol>
         <li>
           <%= f.label :photo %>
@@ -63,3 +63,16 @@
     </fieldset>
   <% end %>
 </div>
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    $(function() {
+      if(!$('#item_is_stock').checked) $('#dimension, #units, #photo_input').hide();
+      $('#item_is_stock').click(function() {
+        $('#dimension, #units, #photo_input').toggle();
+      });
+      $('.select').bind('multiselectclick', function(event, ui) {
+        $(this).multiselect('close');
+      });
+    });
+  <% end -%>
+<% end -%>

@@ -36,6 +36,7 @@ class ItemsController < ApplicationController
     @item.units.build(:name => 'unit', :conversion_rate => 1)
     @item.units.build
     @item.units.build
+    @categories = current_company.categories.collect { |cat| [cat.fullcode, cat.id] if cat.leaf? }.compact
     render :layout => false if request.xhr?
   end
   
@@ -55,6 +56,8 @@ class ItemsController < ApplicationController
         status = 'validation error'
         render :json => {'status' => status, 'form' => form }.to_json
       else
+        @categories = current_company.categories.collect { |cat| [cat.fullcode, cat.id] if cat.leaf? }.compact
+        (3 - @item.units.length).times { @item.units.build } if @item.units.length < 3
         render :action => 'new'
       end
     end
@@ -63,6 +66,7 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     @item.units.build(:name => 'unit', :conversion_rate => 1) if @item.units.length < 1
+    @categories = current_company.categories.collect { |cat| [cat.fullcode, cat.id] if cat.leaf? }.compact
     render :layout => false if request.xhr?
   end
   
@@ -81,6 +85,8 @@ class ItemsController < ApplicationController
         status = 'validation error'
         render :json => {'status' => status, 'form' => form }.to_json
       else
+        @item.units.build(:name => 'unit', :conversion_rate => 1) if @item.units.length < 1
+        @categories = current_company.categories.collect { |cat| [cat.fullcode, cat.id] if cat.leaf? }.compact
         render :action => 'edit'
       end
     end

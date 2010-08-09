@@ -35,7 +35,7 @@ class Sales::QuotationsController < ApplicationController
   end
   
   def update
-    @quotation = current_company.material_requests.find(params[:id])
+    @quotation = current_company.quotations.find(params[:id])
     if @quotation.update_attributes(params[:quotation])
       flash[:notice] = "Successfully updated quotation."
       redirect_to sales_quotation_path(@quotation)

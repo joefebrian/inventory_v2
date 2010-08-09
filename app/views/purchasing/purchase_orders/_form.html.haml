@@ -59,10 +59,10 @@
       $(function() {
         $('.select').parents('li').append('<span id="supplier_address" style="margin-left:10px;"></span>');
         $('.select').bind('multiselectclick', function(event, ui) {
-        if(typeof(suppliers[ui.value]) != 'undefined') {
-          $('#supplier_address').html(suppliers[ui.value].supplier.address);
-          $(this).multiselect('close');
-        }
+          if(typeof(suppliers[ui.value]) != 'undefined') {
+            $('#supplier_address').html(suppliers[ui.value].supplier.address);
+            $(this).multiselect('close');
+          }
         });
         $('.multiselect').bind('multiselectclose', function(event, ui) {
           var mrs = $(this).multiselect('getChecked');

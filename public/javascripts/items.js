@@ -4,9 +4,10 @@ var categories;
 
 $(function() {
   unit_length = $('#units ol li').length;
+  $('#units ol li input[name*=conversion_rate]:first').attr('readonly', 'readonly');
   first_unit_value = $('#units ol li input[name*=value]')[0].value;
   $('#units ol li:first-child').find('a.unit_remover').remove();
-  set_autocomplete();
+  //set_autocomplete();
 
   $($('#units ol li input[name*=value]')[0]).blur(function() {
     first_unit_value = parseInt(this.value);
@@ -23,6 +24,7 @@ $('#units ol li input[name*=conversion_rate]').live('keyup', function() {
   }
 });
 
+/*
 function set_autocomplete() {
   var item_category_code = $('#item_category_code');
   var item_category_id = $('#item_category_id');
@@ -40,6 +42,7 @@ function set_autocomplete() {
     else item_category_id.val('');
   });
 }
+*/
 
 $("a#add_unit").live('click', function() {
   $("#units ol").append(new_unit_fields(unit_length));

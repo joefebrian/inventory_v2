@@ -98,8 +98,6 @@ $(function() {
     });
     return false;
   });
-  $('#price_list_item_adder').click(function() {
-  });
 });
 
 $('input.item_autocomplete').live('focus', function() {
@@ -110,8 +108,9 @@ $('input.item_autocomplete').live('focus', function() {
     select: function(event, ui) {
       $(this).val(ui.item.item.name);
       $(this).next().val(ui.item.item.id);
+      var form = $(this).parents('form');
+      // run when you want to add new set of inputs
       if(window.insert_fields) {
-        // generate the next row of inputs
         var elem = template.replace(regexp1, "[" + new_id + "]");
         elem = elem.replace(regexp2, "_" + new_id + "_");
         elem = "<tr>" + elem + "</tr>";
@@ -120,8 +119,8 @@ $('input.item_autocomplete').live('focus', function() {
         attach_datepicker();
         new_id++;
       }
+      // only used in price list form
       if(window.insert_units) {
-        var form = $(this).parents('form');
         $.ajax({
           url: form[0].action,
           type: 'post',
@@ -134,6 +133,19 @@ $('input.item_autocomplete').live('focus', function() {
             form.find('#item').val('');
           }
         });
+      }
+      // get the item price for the customer
+      if(window.get_customer_price) {
+        var cust_id = $('#quotation_customer_id').multiselect('getChecked');
+        if(typeof(cust_id) != 'undefined') {
+          $.ajax({
+            url: '/customers/'+cust_id[0].value+'/price.js',
+            data: 'item_id='+ui.item.item.id,
+            success: function(response, status) {
+              input.parents('td').next().next().children('input').val(response);
+            }
+          });
+        }
       }
       return false;
     }
@@ -160,6 +172,7 @@ function attach_datepicker() {
   });
 }
 
+/*
 function add_entry_fields(prev) {
   var elem = template.replace(regexp1, "[" + new_id + "]");
   elem = elem.replace(regexp2, "_" + new_id + "_");
@@ -170,6 +183,7 @@ function add_entry_fields(prev) {
   attach_datepicker();
   new_id++;
 }
+*/
 
 $('.price').live('focus', function(){
   var itemname=$(this).parent('td').prev().prev().children('input').val();
@@ -186,6 +200,7 @@ $('.price').live('focus', function(){
   });
 });
 
+/*
 function xmr_autocomplete() {
   $('input.item_autocomplete').autocomplete('/items/search.js', {
     formatItem:   function(row, i) { return eval('('+row[0]+')').item.name; },
@@ -199,6 +214,7 @@ function xmr_autocomplete() {
     }
   });
 }
+*/
 
 $('.plu_input').live('click', function() {
   var input_id = $(this).prevAll('input[type=text]').attr("id");
