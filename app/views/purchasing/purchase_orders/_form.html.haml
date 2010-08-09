@@ -54,14 +54,13 @@
     var suppliers = [];
     - for supplier in @suppliers
       = "suppliers[#{supplier.id}] = #{supplier.to_json(:only => [:id, :name], :methods => [:address])};"
-    $('#purchase_order_supplier_id').change(function() {
-    if(this.value) { $(this).next().html(suppliers[this.value].supplier.address); }
-    else { $(this).next().html(''); }
-    });
+    //$('#purchase_order_supplier_id').change(function() {
+    //if(this.value) { $(this).next().html(suppliers[this.value].supplier.address); }
+    //else { $(this).next().html(''); }
+    //});
     $(function() {
     $('.select').parents('li').append('<span id="supplier_address" style="margin-left:10px;"></span>');
-    $('#purchase_order_supplier_id + span + button.ui-multiselect').css('margin-left', '-8px');
     $('.select').bind('multiselectclick', function(event, ui) {
-    $('#supplier_address').html(suppliers[ui.value].supplier.address);
+    if(typeof(suppliers[ui.value]) != 'undefined') $('#supplier_address').html(suppliers[ui.value].supplier.address);
     });
     });
