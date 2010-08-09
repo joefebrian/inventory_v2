@@ -6,6 +6,12 @@ $(function() {
     return false;
   });
   attach_datepicker();
+  $("select.select").multiselect({
+    multiple: false,
+    header: "Select an option",
+    noneSelectedText: "Select an option",
+    selectedList: 1
+  });
   $('.multiselect').multiselect().multiselectfilter();
   $('#from').change(function() {
     $('#notifier').show();

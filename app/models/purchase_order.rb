@@ -2,6 +2,8 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :supplier
   has_many :entries, :class_name => "PurchaseOrderEntry"
+  has_many :trackers, :class_name => "PoMrTracker"
+  has_many :material_requests, :through => :trackers
 
   validates_presence_of :number
   validates_uniqueness_of :number, :scope => :company_id

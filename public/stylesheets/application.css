@@ -646,7 +646,6 @@ a#enhanced_next { float:left; }
 .boxy-wrapper .top, .boxy-wrapper .bottom { border:none; }
 .dataTables_wrapper { top:-150px; }
 .dataTables_info, .paging_full_numbers  { width:auto !important; }
-.ui-state-default { padding:3px !important; cursor:pointer; }
 .searchresults {
   list-style:outside decimal;
   margin-left:20px;
@@ -693,8 +692,6 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
   position:absolute;
   top:1em;
   right:1em;
-}
-#pop_states {
 }
 .pop_input {
   width:98%;
