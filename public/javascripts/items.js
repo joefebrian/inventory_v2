@@ -18,7 +18,6 @@ $(function() {
 
 $('#units ol li input[name*=conversion_rate]').live('keyup', function() {
   var value = this.value;
-  console.log(value);
   if($(this).parent('li').index() != 0) {
     $(this).parent('li').find('input[name*=value]').val(first_unit_value * parseInt(value));
   }
