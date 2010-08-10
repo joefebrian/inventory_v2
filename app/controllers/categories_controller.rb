@@ -16,6 +16,7 @@ class CategoriesController < ApplicationController
   
   def new
     @category = Category.new
+    @parents = current_company.categories.collect { |cat| [cat.fullcode, cat.id] }.compact
     render :layout => false if request.xhr?
   end
   
@@ -35,6 +36,7 @@ class CategoriesController < ApplicationController
         status = 'validation error'
         render :json => {'status' => status, 'form' => form }.to_json
       else
+        @parents = current_company.categories.collect { |cat| [cat.fullcode, cat.id] }.compact
         render :action => 'new'
       end
     end
@@ -42,6 +44,7 @@ class CategoriesController < ApplicationController
   
   def edit
     @category = Category.find(params[:id])
+    @parents = current_company.categories.collect { |cat| [cat.fullcode, cat.id] }.compact
     render :layout => false if request.xhr?
   end
   
@@ -60,6 +63,7 @@ class CategoriesController < ApplicationController
         status = 'validation error'
         render :json => {'status' => status, 'form' => form }.to_json
       else
+        @parents = current_company.categories.collect { |cat| [cat.fullcode, cat.id] }.compact
         render :action => 'edit'
       end
     end
@@ -77,6 +81,9 @@ class CategoriesController < ApplicationController
     if request.xhr?
       render :layout => false
     end
+  end
+
+  def search
   end
 
   private

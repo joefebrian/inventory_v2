@@ -10,6 +10,7 @@
   <%= link_to "#{image_tag('icons/silk/zoom_in.png')} Show category detail", @item, :class => "main_link category_detail" %>
 <% end -%>
 
+<%= hint "Select a parent category or leave it blank to create a parent category" %>
 <%= sidemenu %>
 
 <%= render :partial => 'form' %>

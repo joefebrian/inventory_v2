@@ -1,9 +1,18 @@
 var categories = [];
 
 $(function() {
-    set_autocomplete();
+    //set_autocomplete();
 });
 
+$('#category_parent_code').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/categories/search.js',
+    focus:  function(event, ui) { $(this).val(ui.item.category.name); return false; },
+  });
+});
+
+/*
 function set_autocomplete() {
   var category_parent_code = $('#category_parent_code');
   var category_parent_id = $('#category_parent_id');
@@ -17,6 +26,7 @@ function set_autocomplete() {
     else category_parent_id.val('');
   });
 }
+*/
 
 $('a.category_detail').live('click', function() {
   Boxy.load(this.href, {
@@ -27,6 +37,7 @@ $('a.category_detail').live('click', function() {
   return false;
 });
 
+/*
 $('a.new_category').click(function() {
   Boxy.load(this.href, {
     modal: true,
@@ -34,7 +45,7 @@ $('a.new_category').click(function() {
     closeText: "<img src='images/icons/cross.png' alt='close'/>",
     unloadOnHide: true,
     afterShow: function() {
-      set_autocomplete();
+      $('#category_parent_code').focus();
       $('form#category_form').live('submit', function() {
         var form = $("div#dialog_form");
         var button = form.find("button[type=submit]");
@@ -45,7 +56,7 @@ $('a.new_category').click(function() {
           success: function(response, status) {
             if(response.status == 'validation error') {
               form.replaceWith(response.form);
-              set_autocomplete();
+              //set_autocomplete();
             } else {
               window.location = response.location
             }
@@ -88,4 +99,4 @@ $('a.edit_category').live('click', function() {
   });
   return false;
 });
-
+*/

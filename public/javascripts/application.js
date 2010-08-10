@@ -362,6 +362,7 @@ function item_row(count) {
   return html;
 }
 
+/*
 function set_autocomplete() {
   $('.plu_code').autocomplete(plu, {
     formatItem: function(row, i) { return row.plu.code; },
@@ -379,6 +380,8 @@ function set_autocomplete() {
     // else input.next('input[type=hidden]').val('');
   });
 }
+*/
+
 $('#add_item').live('click', function() {
   $('body').data('type', 'customer_prices');
   Boxy.load(this.href, {
