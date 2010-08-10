@@ -1,30 +1,30 @@
-  <% title "Suppliers" %>
-  <% javascript "suppliers" %>
+<% title "Suppliers" %>
+<% javascript "suppliers" %>
 
-  <% content_for :breadcrumb do %>
-    <%= breadcrumb [ link_to("Administrations", administrations_path),
-                     link_to("Suppliers", suppliers_path) ] %>
-  <% end -%>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Suppliers", suppliers_path) ] %>
+<% end -%>
 
-  <% content_for :main_act do %>
-    <%= link_to "#{image_tag('icons/silk/add.png')} Create new supplier", new_supplier_path, :class => "main_link alter_record", :title => "Create new supplier" %>
-  <% end -%>
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/add.png')} Create new supplier", new_supplier_path, :class => "main_link alter_record", :title => "Create new supplier" %>
+<% end -%>
 
-  <%= sidemenu %>
+<%= sidemenu %>
 
-  <table class="list">
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Address</th>
-      <th class="actions">Actions</th>
-    </tr>
-    
-    <%= render @suppliers %>
+<table class="list">
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th class="actions">Actions</th>
+  </tr>
+  
+  <%= render @suppliers %>
 
-    <tr>
-      <td colspan="5"><%= will_paginate @suppliers %></td>
-    </tr>
+  <tr>
+    <td colspan="5"><%= will_paginate @suppliers %></td>
+  </tr>
 
-  </table>
+</table>

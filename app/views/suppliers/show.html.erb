@@ -1,20 +1,31 @@
-  <div id="dialog_form">
-    <% title "Supplier" %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Suppliers", suppliers_path),
+                   "#{@supplier.name}" ] %>
+<% end -%>
 
+<%= sidemenu %>
+
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit supplier", edit_supplier_path(@supplier), :class => "main_link alter_record", :title => "Create new supplier" %>
+<% end -%>
+
+<h3><%=h "#{@supplier.name}" %></h3>
+<div id="dialog_form">
+  <div class="two_columns">
     <p>
-      <strong>Company:</strong>
-      <%=h @supplier.company_id %>
+      <span class="light transaction_label">Code</span>
+      <strong><%= @supplier.code %></strong>
     </p>
     <p>
-      <strong>Code:</strong>
-      <%=h @supplier.code %>
-    </p>
-    <p>
-      <strong>Name:</strong>
-      <%=h @supplier.name %>
-    </p>
-    <p>
-      <strong>Description:</strong>
-      <%=h @supplier.description %>
+      <span class="light transaction_label">Name</span>
+      <strong><%= @supplier.name %></strong>
     </p>
   </div>
+  <div class="two_columns">
+    <p>
+      <span class="light transaction_label">Address</span>
+      <strong><%= @supplier.profile.address %></strong>
+    </p>
+  </div>
+</div>

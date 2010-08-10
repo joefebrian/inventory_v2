@@ -16,6 +16,7 @@ $('a.detail').live('click', function() {
   return false;
 });
 
+/*
 $(".alter_record").live('click', function() {
   Boxy.load(this.href, {
     modal: true,
@@ -43,4 +44,5 @@ $(".alter_record").live('click', function() {
     }
   });
   return false;
-}); 
+});
+*/
