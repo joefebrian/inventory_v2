@@ -1,20 +1,36 @@
-<% title "Plu" %>
+<% title "PLU #{@plu.code}" %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("PLU", plus_path),
+                   "#{@plu.code}" ] %>
+<% end -%>
 
-<p>
-  <strong>Item:</strong>
-  <%=h @plu.item_id %>
-</p>
-<p>
-  <strong>Supplier:</strong>
-  <%=h @plu.supplier_id %>
-</p>
-<p>
-  <strong>Payment Term:</strong>
-  <%=h @plu.payment_term %>
-</p>
+<%= sidemenu %>
 
-<p>
-  <%= link_to "Edit", edit_plu_path(@plu) %> |
-  <%= link_to "Destroy", @plu, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", plus_path %>
-</p>
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit PLU", edit_plu_path(@plu), :class => "main_link alter_record", :title => "Create new supplier" %>
+<% end -%>
+
+<h3><%=h "#{@plu.code}" %></h3>
+<div id="dialog_form">
+  <div class="two_columns">
+    <p>
+      <span class="light transaction_label">Code</span>
+      <strong><%= @plu.code %></strong>
+    </p>
+    <p>
+      <span class="light transaction_label">Supplier</span>
+      <strong><%= link_to @plu.supplier.name, @plu.supplier %></strong>
+    </p>
+  </div>
+  <div class="two_columns">
+    <p>
+      <span class="light transaction_label">Item</span>
+      <strong><%= link_to @plu.item.name, @plu.item %></strong>
+    </p>
+    <p>
+      <span class="light transaction_label">Payment Term</span>
+      <strong><%= @plu.payment_term %></strong>
+    </p>
+  </div>
+</div>

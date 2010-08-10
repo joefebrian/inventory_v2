@@ -13,7 +13,7 @@ class Plu < ActiveRecord::Base
   attr_accessor :item_name, :supplier_name
 
   def item_name
-    @item_name || item.try(:name_with_code)
+    @item_name || item.try(:name)
   end
 
   def supplier_name
