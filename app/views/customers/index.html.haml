@@ -10,21 +10,24 @@
   = link_to "#{image_tag('icons/silk/user_add.png')} Add New Customer", new_customer_path, :class => 'main_link'
   
 %table.list
-  %tr
-    %th Code
-    %th Full name
-    %th.actions Actions
-  - if @customers.blank?
+  %thead
     %tr
-      %td{ :colspan => 4 }
-        %div.no_record No customer recorded yet
-  - else
-    - for customer in @customers
+      %th Code
+      %th Full name
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 4 }= will_paginate @customers
+  %tbody
+    - if @customers.blank?
       %tr
-        %td= h customer.code
-        %td= link_to customer.profile.full_name, customer
-        %td.actions
-          = link_to image_tag('icons/silk/user_edit.png'), edit_customer_path(customer)
-          = link_to image_tag('icons/silk/delete.png'), customer, :confirm => 'Are you sure?', :method => :delete
-
-= will_paginate(@customers)
+        %td{ :colspan => 4 }
+          %div.no_record No customer recorded yet
+    - else
+      - for customer in @customers
+        %tr
+          %td= h customer.code
+          %td= link_to customer.profile.full_name, customer
+          %td.actions
+            = link_to image_tag('icons/silk/user_edit.png'), edit_customer_path(customer)
+            = link_to image_tag('icons/silk/delete.png'), customer, :confirm => 'Are you sure?', :method => :delete

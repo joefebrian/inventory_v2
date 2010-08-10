@@ -68,10 +68,6 @@ $("a.unit_remover").live('click', function() {
   $(this).parent('li').hide();
   return false;
 });
-$("#item_form").live("submit", function() {
-  $(this).find('button[type=submit]')
-  .replaceWith("<p><img src='/images/ui-anim.basic.16x16.gif' alt=''/> <span>Saving... please wait</span></p>");
-});
 
 $("a.item_detail").live('click', function() {
   Boxy.load(this.href, {

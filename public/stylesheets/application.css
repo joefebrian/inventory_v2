@@ -135,7 +135,7 @@ h6 { font-size:1.1em; }
 #sidemenu li a.current {
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/
   color:#fff;
-  margin-right:-21px;
+  margin-right:-20px;
   text-shadow:0 -1px rgba(0,0,0,1);
 }
 #sidemenu li a.current + div, #sidemenu li a:hover + div {
@@ -156,7 +156,7 @@ h6 { font-size:1.1em; }
 #sidemenu li a:hover {
   background:#9bfb9d;
   color:rgb(0, 0, 0);
-  margin-right:-21px;
+  margin-right:-20px;
 }
 #sidemenu li a.current:hover {
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/
@@ -291,6 +291,7 @@ td.subcategories_count span {
   text-shadow:0 -1px rgba(0, 0, 0, .9);
   width:40px;
 }
+.list tfoot tr td { background:#f5fff6 !important; }
 .actions { text-align:right !important; width:12%; }
 .boxy-wrapper {
   border-bottom: none;
@@ -416,7 +417,7 @@ td.index {
 }
 .transaction_label + p {
   margin-left:160px;
-
+  margin-bottom:10px;
 }
 td img { vertical-align:middle; }
 #hint {
@@ -547,6 +548,7 @@ tr.inactive td {
 }
 img.top_right_photo {
   float:right;
+  margin-left:10px;
 }
 .tag_yellow, .tag_green, .tag_pink { padding:2px; }
 .tag_yellow { background:#F2FF7F; }
@@ -640,6 +642,7 @@ fieldset.form_section legend {
 .top_align tr td { vertical-align:top; }
 .mid-align { vertical-align:middle !important; }
 input.subtle { background:none; border:none; color:#666; }
+input.subtle:hover, .input.subtle:active { background:#FFCFD5; }
 .ui-widget-header { padding:5px; }
 a#enhanced_previous { float:left; }
 a#enhanced_next { float:left; }
@@ -700,3 +703,6 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
 .pop_message h6 { font-size:1.5em; }
 .should_hidden { display:none; }
 .ui-multiselect-menu .ui-widget-header > .ui-helper-reset { display:inline; }
+ol.numbered-list {
+  list-style:decimal inside;
+}

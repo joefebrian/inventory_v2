@@ -1,5 +1,6 @@
+<% title "Item #{@item.name}" %>
+<h3><%=h "#{@item.name}" %></h3>
 <div id="dialog_form">
-  <% title "Item #{@item.name}" %>
 
   <% content_for :breadcrumb do %>
     <%= breadcrumb [ link_to("Administrations", administrations_path),
@@ -8,47 +9,61 @@
   <% end -%>
 
   <% content_for :main_act do %>
-    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit #{@item.code}", edit_item_path(@item), :class => "main_link edit_item", :title => "Edit Item #{@item.code}" %>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit this item", edit_item_path(@item), :class => "main_link edit_item", :title => "Edit Item #{@item.code}" %>
   <% end -%>
 
   <%= sidemenu %>
 
   <%= image_tag @item.photo.url(:medium), :class => 'top_right_photo' %>
 
-  <p>
-    <span class="light">Category:</span>
-    <strong><%= @item.category_tree %></strong>
-  </p>
-  <p>
-    <span class="light">Code:</span>
-    <strong><%= @item.code %></strong>
-  </p>
-  <p>
-    <span class="light">Name:</span>
-    <strong><%= @item.name %></strong>
-  </p>
-  <p>
-    <span class="light">Description:</span>
-    <strong><%= @item.description %></strong>
-  </p>
-  <div>
-    <strong>Units:</strong>
+  <fieldset class="form_section">
+    <legend>Item Attributes</legend>
+    <div class="two_columns">
+      <p>
+        <span class="light transaction_label">Code</span>
+        <strong><%= @item.code %></strong>
+      </p>
+        <span class="light transaction_label">Category</span>
+        <strong><%= link_to @item.category.name, @item.category %></strong>
+      <p>
+      </p>
+    </div>
+    <div class="two_columns">
+      <p>
+        <span class="light transaction_label">Name</span>
+        <strong><%= @item.name %></strong>
+      </p>
+    </div>
+    <div class="single_column">
+      <span class="light transaction_label">Description</span>
+      <p><%=h @item.description %></p>
+    </div>
+  </fieldset>
+
+  <fieldset class="form_section">
+    <legend>Item Units</legend>
     <% unless @item.units.blank? %>
-      <ol>
+      <ol class="numbered-list">
         <% @item.units.each do |unit| %>
-          <li><%=h unit.name %></li>
+          <li>
+            <strong><%=h unit.name %></strong>
+            <% unless unit.position == 1 %>
+              <span class="light">equals to </span> <%= unit.conversion_rate %> <%= @item.units.first.name %>
+            <% end -%>
+            @ <%= unit.value %>
+          </li>
         <% end -%>
       </ol>
     <% end -%>
-  </div>
+  </fieldset>
 
-  <div>
-    <strong>Stock</strong>
+  <fieldset class="form_section">
+    <legend>Stock</legend>
     <p>
       Overall : <%= @item.stock %>
     </p>
     <p>
       Per Plu : 
     </p>
-  </div>
+  </fieldset>
 </div>

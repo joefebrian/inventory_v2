@@ -12,23 +12,32 @@
   <%= sidemenu %>
 
   <table class="list">
-    <tr>
-      <th>Code</th>
-      <th>Item</th>
-      <th>Supplier</th>
-      <th>Payment Term</th>
-      <th class="actions">Actions</th>
-    </tr>
-    <% for plu in @plus %>
+    <thead>
       <tr>
-        <td><%= link_to plu.code, plu %></td>
-        <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
-        <td><%=h plu.supplier.name %></td>
-        <td><%=h plu.payment_term %></td>
-         <td class="actions">
-           <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_plu_path(plu), :title => 'Edit PLU' %>
-          <%= link_to image_tag('icons/silk/delete.png'), plu, :confirm => 'Are you sure?', :method => :delete, :title => 'Delete PLU' %>
-        </td>
+        <th>Code</th>
+        <th>Item</th>
+        <th>Supplier</th>
+        <th>Payment Term</th>
+        <th class="actions">Actions</th>
       </tr>
-    <% end %>
+    </thead>
+    <tfoot>
+      <tr>
+        <td colspan="5"><%= will_paginate @plus %></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% for plu in @plus %>
+        <tr>
+          <td><%= link_to plu.code, plu %></td>
+          <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
+          <td><%=h plu.supplier.name %></td>
+          <td><%=h plu.payment_term %></td>
+           <td class="actions">
+             <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_plu_path(plu), :title => 'Edit PLU' %>
+            <%= link_to image_tag('icons/silk/delete.png'), plu, :confirm => 'Are you sure?', :method => :delete, :title => 'Delete PLU' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>

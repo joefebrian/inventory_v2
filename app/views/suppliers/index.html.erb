@@ -13,18 +13,22 @@
 <%= sidemenu %>
 
 <table class="list">
-  <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Address</th>
-    <th class="actions">Actions</th>
-  </tr>
-  
-  <%= render @suppliers %>
-
-  <tr>
-    <td colspan="5"><%= will_paginate @suppliers %></td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th class="actions">Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5"><%= will_paginate @suppliers %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <%= render @suppliers %>
+  </tbody>
 
 </table>
