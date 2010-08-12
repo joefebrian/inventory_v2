@@ -7,4 +7,7 @@
 
 = hint "Select one of the transaction type first to show the transaction form"
 
+%h3
+  Create new transaction
+  = link_to "#{image_tag('icons/silk/arrow_left.png')} back to transactions list", general_transactions_path, :class => "back_link"
 = render :partial => 'form'

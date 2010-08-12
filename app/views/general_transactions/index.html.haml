@@ -11,26 +11,30 @@
   
 
 %table.list
-  %tr
-    %th Transaction Type
-    %th Number
-    %th Remark
-    %th.actions Actions
-  - if @general_transactions.blank?
+  %thead
     %tr
-      %td{ :colspan => 4 }
-        %div.no_record
-          %h4 No transaction recorded yet
-          - if current_company.transaction_types.blank?
-            #flash_notice
-              %h6 It seems that you don't have any transaction types yet, so you cannot create any transaction.
-              %h6= link_to "Click here to start create transaction type", new_transaction_type_path
-  - else
-    - for general_transaction in @general_transactions
+      %th Transaction Type
+      %th Number
+      %th Remark
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 4 }= will_paginate @general_transactions
+  %tbody
+    - if @general_transactions.blank?
       %tr
-        %td= general_transaction.transaction_type
-        %td= link_to general_transaction.number, general_transaction
-        %td= general_transaction.remark
-        %td.actions
-          = link_to image_tag('icons/silk/delete.png'), general_transaction, :confirm => 'Are you sure?', :method => :delete
-= will_paginate(@general_transactions)
+        %td{ :colspan => 4 }
+          %div.no_record
+            %h4 No transaction recorded yet
+            - if current_company.transaction_types.blank?
+              #flash_notice
+                %h6 It seems that you don't have any transaction types yet, so you cannot create any transaction.
+                %h6= link_to "Click here to start create transaction type", new_transaction_type_path
+    - else
+      - for general_transaction in @general_transactions
+        %tr
+          %td= general_transaction.transaction_type
+          %td= link_to general_transaction.number, general_transaction
+          %td= general_transaction.remark
+          %td.actions
+            = link_to image_tag('icons/silk/delete.png'), general_transaction, :confirm => 'Are you sure?', :method => :delete

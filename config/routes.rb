@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :transaction_types
   map.resources :begining_balances
   map.resources :placements
-  map.resources :plus
+  map.resources :plus, :collection => { :search => :get }
   map.resources :suppliers
   map.connect 'created_transactions', :controller => :transactions, :action => :created
   map.resources :warehouses, :member => { :plu_available => :get, :setdefault => :get, :setasdefault => :put } do |warehouse|

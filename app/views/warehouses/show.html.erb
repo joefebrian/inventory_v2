@@ -1,69 +1,86 @@
-  <% javascript 'location' %>
-  <div id="dialog_form">
-    <% title @warehouse.name %>
+<% title @warehouse.name %>
+<% javascript 'location' %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+    link_to("Warehouses", warehouses_path),
+    @warehouse.name ] %>
+<% end -%>
 
-    <% content_for :breadcrumb do %>
-      <%= breadcrumb [ link_to("Administrations", administrations_path),
-        link_to("Warehouses", warehouses_path),
-        @warehouse.name ] %>
+<% content_for :main_act do %>
+  <%= link_to "#{image_tag('icons/silk/add.png')} Add location", new_warehouse_location_path(@warehouse), :class => "main_link new_location", :title => "Create new location under #{@warehouse.name}" %>
+<% end -%>
+
+<%= sidemenu @tab %>
+
+<h3><%= @warehouse.name %></h3>
+
+<fieldset class="form_section">
+  <legend>Warehouse data</legend>
+  <div class="two_columns">
+    <p>
+      <span class="light transaction_label">Code</span>
+      <strong><%= @warehouse.code %></strong>
+    </p>
+    <p>
+      <span class="light transaction_label">Name</span>
+      <strong><%= @warehouse.name %></strong>
+    </p>
+  </div>
+  <div class="two_columns">
+    <p>
+      <span class="light transaction_label">Address</span>
+      <strong><%= @warehouse.address %></strong>
+    </p>
+  </div>
+</fieldset>
+
+<fieldset class="form_section">
+  <legend>Locations</legend>
+  <table class="list">
+    <tr>
+      <th>Code</th>
+      <th>Description</th>
+      <th class="actions">Actions</th>
+    </tr>
+    <% @warehouse.sorted_locations.each do |loc| %>
+      <tr>
+        <td class="lvl_<%= loc.level %>"><%=h loc.code %></td>
+        <td class="lvl_<%= loc.level %>"><%=h loc.description %></td>
+        <td class="actions">
+          <%= link_to image_tag("icons/silk/application_form_edit.png"), edit_warehouse_location_path(@warehouse, loc), :title => "Edit #{loc.code}" %>
+          <%= link_to image_tag('icons/silk/delete.png'), warehouse_location_path(@warehouse, loc), :method => :delete, :title => "Delete #{loc.code}" %>
+        </td>
+      </tr>
     <% end -%>
+  </table>
+</fieldset>
 
-    <% content_for :main_act do %>
-      <%= link_to "#{image_tag('icons/silk/add.png')} Add location", new_warehouse_location_path(@warehouse), :class => "main_link new_location", :title => "Create new location under #{@warehouse.name}" %>
-    <% end -%>
-
-    <%= sidemenu @tab %>
-
-    <p>
-      <strong>Code:</strong>
-      <%=h @warehouse.code %>
-    </p>
-    <p>
-      <strong>Name:</strong>
-      <%=h @warehouse.name %>
-    </p>
-    <p>
-      <strong>Address:</strong>
-      <%=h @warehouse.address %>
-    </p>
-
-    <div>
-      <p><strong>Locations:</strong></p>
-      <table class="list">
-        <tr>
-          <th>Code</th>
-          <th>Description</th>
-          <th class="actions">Actions</th>
-        </tr>
-        <% @warehouse.sorted_locations.each do |loc| %>
-          <tr>
-            <td class="lvl_<%= loc.level %>"><%=h loc.code %></td>
-            <td class="lvl_<%= loc.level %>"><%=h loc.description %></td>
-            <td class="actions">
-              <%= link_to image_tag("icons/silk/application_form_edit.png"), edit_warehouse_location_path(@warehouse, loc), :title => "Edit #{loc.code}" %>
-              <%= link_to image_tag('icons/silk/delete.png'), warehouse_location_path(@warehouse, loc), :method => :delete, :title => "Delete #{loc.code}" %>
-            </td>
-          </tr>
-        <% end -%>
-      </table>
-    </div>
-
-    <div>
-      <p><strong>Managed Items</strong></p>
-      <table class="list">
+<fieldset class="form_section">
+  <legend>Managed items</legend>
+  <% unless @managed_items.blank? %>
+    <table class="list">
+      <thead>
         <tr>
           <th>Item Code</th>
           <th>Item Name</th>
           <th>Quantity</th>
         </tr>
-        <% @warehouse.managed_items.each do |item| %>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="3"><%= will_paginate @managed_items %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @managed_items.each do |item| %>
           <tr>
             <td><%= link_to item.code, item %></td>
             <td><%=h item.name %></td>
             <td><%=h @warehouse.item_quantity(item) %></td>
           </tr>
         <% end -%>
-      </table>
-    </div>
+      </tbody>
+    </table>
+  <% end -%>
+</fieldset>
 
-  </div>

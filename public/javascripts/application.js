@@ -334,7 +334,7 @@ $('input.entries_quantity, input.entries_value').live('keypress', function(e) {
   if(e.keyCode == 13 && this.value != '') {
     $('#add_entries').click();
     $('#transaction_entries tbody tr:last td:first').children()[0].focus();
-    set_autocomplete();
+    // set_autocomplete();
     return false;
   }
 });
@@ -370,26 +370,6 @@ function item_row(count) {
   html += "</tr>";
   return html;
 }
-
-/*
-function set_autocomplete() {
-  $('.plu_code').autocomplete(plu, {
-    formatItem: function(row, i) { return row.plu.code; },
-    autoFill: true,
-    mustMatch: true }
-  )
-  .result(function(event, data) {
-    var input = $(this);
-    if(data) {
-      input.next('input[type=hidden]').val(data.plu.id);
-      input.parent().next().html(data.plu.item_name_with_code);
-      input.parent().next().next().children()[0].focus();
-      event.stopImmediatePropagation();
-    }
-    // else input.next('input[type=hidden]').val('');
-  });
-}
-*/
 
 $('#add_item').live('click', function() {
   $('body').data('type', 'customer_prices');
