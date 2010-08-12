@@ -28,10 +28,12 @@ class WarehousesController < ApplicationController
   
   def new
     @warehouse = current_company.warehouses.new
-    if params[:default] && params[:default] == 'true'
+    if @current_company.warehouses.blank? || (params[:default] && params[:default] == 'true')
       @warehouse.default = true
       @warehouse.code = 'DEFAULT'
       @warehouse.name = 'Default Warehouse'
+    else
+      @warehouse.default = false
     end
     @warehouse.locations.build
     render :layout => false if request.xhr?

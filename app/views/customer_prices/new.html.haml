@@ -23,6 +23,7 @@
         %tr
           %td &nbsp;
           %td{ :colspan => 2, :class => "tdr" }
+            = will_paginate @items
             = hidden_field_tag :step, @step.to_i + 1
             %button{ :type => "submit" }
               Continue

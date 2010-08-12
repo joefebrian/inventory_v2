@@ -11,21 +11,32 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   
   def new
     @purchase_order = current_company.purchase_orders.new
-    @suppliers = current_company.suppliers
+    @purchase_order.entries.build
+    @suppliers = current_company.suppliers.all(:include => :profile)
   end
   
   def create
     @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
+    if params[:get_mrs] && params[:get_mrs].to_i == 1
+      @suppliers = current_company.suppliers.all(:include => :profile)
+      @purchase_order.build_entries_from_mr
+      @purchase_order.entries.build
+      render("new", :layout => false) and return
+    end
     if @purchase_order.save
       flash[:notice] = "Successfully created purchase order."
       redirect_to [:purchasing, @purchase_order]
     else
+      @purchase_order.entries.build
+      @suppliers = current_company.suppliers.all(:include => :profile)
       render :action => 'new'
     end
   end
   
   def edit
     @purchase_order = current_company.purchase_orders.find(params[:id])
+    @purchase_order.entries.build
+    @suppliers = current_company.suppliers
   end
   
   def update
@@ -34,6 +45,8 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       flash[:notice] = "Successfully updated purchase order."
       redirect_to [:purchasing, @purchase_order]
     else
+      @purchase_order.entries.build
+      @suppliers = current_company.suppliers
       render :action => 'edit'
     end
   end

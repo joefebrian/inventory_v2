@@ -4,14 +4,16 @@ var supplier_name = $('input#plu_supplier_name');
 var supplier_id = $('input#plu_supplier_id');
 
 $(function() {
-  set_autocomplete();
+  //set_autocomplete();
 });
 
+/*
 $('form#plu_form').live('submit', function() {
   $(this).find('button[type=submit]')
   .replaceWith('<p><img src="/images/ajax-loader.gif" alt="" /> <span>saving... please wait</span></p>');
   return true;
 });
+*/
 
 function set_autocomplete() {
   item_name.autocomplete(items, {

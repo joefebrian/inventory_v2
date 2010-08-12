@@ -10,8 +10,8 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
  
-    = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
-    = f.input :customer_id, :as => :select, :collection => @customer.collect {|customer| [customer.profile.full_name,customer.id]}, :label => "Customer Name", :include_blank => "select Customer" 
+    = f.input :customer, :collection => @customer, :label => "Customer Name", :include_blank => "Select Customer", :input_html => { :class => "select" }
+    = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Effective Date"
     = f.input :day, :label => "Days"
     = f.input :hal, :label => "Subject"
     = f.input :penerima, :label => "Attention"
@@ -40,7 +40,7 @@
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
               %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
-              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "price"
+              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "price numbers"
               %td.tdr.td_5= ent.text_field :discount, :size => 5, :class => "numbers mr_qty"
               %td.tdr.td_15= ent.text_field :description, :size => 15, :class => "numbers mr_qty"
   %fieldset.buttons
@@ -50,7 +50,15 @@
 
 - content_for :javascripts do
   - javascript_tag do
-    var template = $('tbody tr:last-child').html();
-    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
-    var regexp2 = new RegExp("_(\\d+)_", "g");
-    var new_id = $('tbody tr').length;
+    :plain
+      var insert_fields = true;
+      var get_customer_price = true;
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('.select').bind('multiselectclick', function(event, ui) {
+          $(this).multiselect('close');
+        });
+      });

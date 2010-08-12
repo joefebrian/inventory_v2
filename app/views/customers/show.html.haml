@@ -29,15 +29,16 @@
       %p= "#{@customer.profile.phone} / #{@customer.profile.fax}"
   %fieldset#tax-profile.info
     %legend Tax Information
-    %div
-      %span.light.transaction_label Full Name
-      %p= @customer.tax_profile.full_name
-    %div
-      %span.light.transaction_label Address
-      %p= @customer.tax_profile.address
-    %div
-      %span.light.transaction_label NPWP
-      %p= @customer.tax_profile.npwp_number
+    - unless @customer.tax_profile.blank?
+      %div
+        %span.light.transaction_label Full Name
+        %p= @customer.tax_profile.full_name
+      %div
+        %span.light.transaction_label Address
+        %p= @customer.tax_profile.address
+      %div
+        %span.light.transaction_label NPWP
+        %p= @customer.tax_profile.npwp_number
   %fieldset#prices.info
     %legend= link_to "Special Prices", customer_customer_prices_path(@customer)
     = render 'special_prices'

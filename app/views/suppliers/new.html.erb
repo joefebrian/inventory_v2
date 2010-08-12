@@ -1,10 +1,13 @@
-  <% title "New Supplier" %>
-  <% content_for :breadcrumb do %>
-    <%= breadcrumb [ link_to("Administrations", administrations_path),
-                     link_to("Suppliers", suppliers_path),
-                     "Create New Supplier" ] %>
-  <% end -%>
+<% title "New Supplier" %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path),
+                   link_to("Suppliers", suppliers_path),
+                   "Create New Supplier" ] %>
+<% end -%>
 
-  <%= sidemenu %>
+<%= sidemenu %>
 
-  <%= render :partial => 'form' %>
+<%= hint "Both supplier code and name must be unique" %>
+
+<h3>Create new supplier</h3>
+<%= render :partial => 'form' %>

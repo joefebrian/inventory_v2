@@ -44,6 +44,7 @@
 
 - content_for :javascripts do
   - javascript_tag do
+    var insert_fields = true;
     var template = $('tbody tr:last-child').html();
     var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
     var regexp2 = new RegExp("_(\\d+)_", "g");

@@ -4,9 +4,10 @@ var categories;
 
 $(function() {
   unit_length = $('#units ol li').length;
+  $('#units ol li input[name*=conversion_rate]:first').attr('readonly', 'readonly');
   first_unit_value = $('#units ol li input[name*=value]')[0].value;
   $('#units ol li:first-child').find('a.unit_remover').remove();
-  set_autocomplete();
+  //set_autocomplete();
 
   $($('#units ol li input[name*=value]')[0]).blur(function() {
     first_unit_value = parseInt(this.value);
@@ -17,12 +18,12 @@ $(function() {
 
 $('#units ol li input[name*=conversion_rate]').live('keyup', function() {
   var value = this.value;
-  console.log(value);
   if($(this).parent('li').index() != 0) {
     $(this).parent('li').find('input[name*=value]').val(first_unit_value * parseInt(value));
   }
 });
 
+/*
 function set_autocomplete() {
   var item_category_code = $('#item_category_code');
   var item_category_id = $('#item_category_id');
@@ -40,6 +41,7 @@ function set_autocomplete() {
     else item_category_id.val('');
   });
 }
+*/
 
 $("a#add_unit").live('click', function() {
   $("#units ol").append(new_unit_fields(unit_length));
@@ -65,10 +67,6 @@ $("a.unit_remover").live('click', function() {
   $(this).prev('input[type=hidden]').val(1);
   $(this).parent('li').hide();
   return false;
-});
-$("#item_form").live("submit", function() {
-  $(this).find('button[type=submit]')
-  .replaceWith("<p><img src='/images/ui-anim.basic.16x16.gif' alt=''/> <span>Saving... please wait</span></p>");
 });
 
 $("a.item_detail").live('click', function() {

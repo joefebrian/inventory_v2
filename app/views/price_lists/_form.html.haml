@@ -19,25 +19,34 @@
   %table.report
     %thead
       %tr
-        %th #
-        %th Item
+        %th.td_5 #
+        %th.td_30 Item
         %th Prices
+        %th.td_5 &nbsp;
     %tfoot
       %tr
-        %td{ :colspan => 3 }
+        %td{ :colspan => 4 }
+          = label_tag :item, "Enter item code or name"
+          = text_field_tag "item_getter", nil, :class => "item_autocomplete", :id => "item", :style => "width:60% !important;"
     %tbody
       - f.semantic_fields_for :entries do |ent|
         - if current_item.nil? || current_item != ent.object.item.id
-          = "</td></tr>" unless current_item.nil?
+          - unless current_item.nil?
+            </td>
+            <td class='td_5 tdr'>
+            = link_to image_tag('icons/silk/cross.png'), '#', :class => "units_remover", :title => "remove this item from price list"
+            </td>
+            </tr>
           - current_item = ent.object.item.id
           <tr>
-          = "<td style='vertical-align:top;' class='index'>#{idx}</td>"
-          = "<td style='vertical-align:top;'>#{link_to h(ent.object.item.name), ent.object.item}</td>"
+          = "<td style='vertical-align:top;' class='index td_5'>#{idx}</td>"
+          = "<td style='vertical-align:top;' class='td_30''>#{link_to h(ent.object.item.name), ent.object.item}</td>"
           <td class="string">
           <div class="inline">
           = ent.text_field :value, :size => 10, :value => (ent.object.value || ent.object.unit.value || 0), :class => "numbers"
           = ent.hidden_field :item_id
           = ent.hidden_field :unit_id
+          = ent.hidden_field :_destroy
           = "<p class='inline-hints inline-labels'>#{h ent.object.unit.name} (#{number_to_currency(ent.object.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
           </div>
           - idx = idx + 1
@@ -46,11 +55,25 @@
           = ent.text_field :value, :size => 10, :value => (ent.object.value || ent.object.unit.value || 0), :class => "numbers"
           = ent.hidden_field :item_id
           = ent.hidden_field :unit_id
+          = ent.hidden_field :_destroy
           = "<p class='inline-hints inline-labels'>#{h ent.object.unit.name} (#{number_to_currency(ent.object.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
           </div>
-      </td></tr>
+      - unless @price_list.entries.blank?
+        </td>
+        <td class='td_5 tdr'>
+        = link_to image_tag('icons/silk/cross.png'), '#', :class => "units_remover", :title => "remove this item from price list"
+        </td>
+        </tr>
       
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
       Save price list
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = false;
+    var insert_units = true;
+    $(function() {
+    $('tbody tr input[type=text]:last').live('blur', function() { $('#item').focus() });
+    });

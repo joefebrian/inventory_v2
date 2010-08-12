@@ -1,6 +1,6 @@
 class PriceList < ActiveRecord::Base
   belongs_to :company
-  has_many :entries, :class_name => 'PriceListEntry'
+  has_many :entries, :class_name => 'PriceListEntry', :dependent => :destroy
 
   validates_presence_of :code
   validates_presence_of :name
@@ -11,9 +11,14 @@ class PriceList < ActiveRecord::Base
     :allow_destroy => true,
     :reject_if => lambda { |at| at['value'].blank? }
 
+  named_scope :active, :conditions => [ "active_from <= ? AND active_until >= ?", Time.now.to_date, Time.now.to_date]
 
   def currently_active?
-    now = Time.now
+    now = Time.now.to_date
     now >= active_from && now <= active_until
+  end
+
+  def active?
+    currently_active?
   end
 end

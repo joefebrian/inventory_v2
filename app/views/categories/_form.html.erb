@@ -7,11 +7,13 @@
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>
     <% f.inputs do %>
-      <%= f.input :parent_code,
-        :label => 'Parent Category',
-        :hint => 'parent category code, will be created if not exists'
+      <%= f.input :parent_id,
+        :as => :select,
+        :collection => @parents,
+        :include_blank => "Select a parent",
+        :input_html => { :class => "select" },
+        :label => "Parent Category"
       %>
-      <%= f.input :parent_id, :as => :hidden %>
       <%= f.input :code %>
       <%= f.input :name %>
       <%= f.input :description, :input_html => { :rows => 5 } %>

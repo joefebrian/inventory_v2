@@ -5,7 +5,7 @@ class PlusController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @plus = current_company.plus
+    @plus = current_company.plus.all.paginate(:page => params[:page])
   end
   
   def show
@@ -14,6 +14,7 @@ class PlusController < ApplicationController
   
   def new
     @plu = current_company.plus.new
+    @suppliers = current_company.suppliers.all(:order => :name)
   end
   
   def create
@@ -22,11 +23,13 @@ class PlusController < ApplicationController
       flash[:notice] = "Successfully created plu."
       redirect_to @plu
     else
+      @suppliers = current_company.suppliers.all(:order => :name)
       render :action => 'new'
     end
   end
   
   def edit
+    @suppliers = current_company.suppliers.all(:order => :name)
     @plu = Plu.find(params[:id])
   end
   
@@ -36,6 +39,7 @@ class PlusController < ApplicationController
       flash[:notice] = "Successfully updated plu."
       redirect_to @plu
     else
+      @suppliers = current_company.suppliers.all(:order => :name)
       render :action => 'edit'
     end
   end

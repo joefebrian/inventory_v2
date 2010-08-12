@@ -135,7 +135,7 @@ h6 { font-size:1.1em; }
 #sidemenu li a.current {
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/
   color:#fff;
-  margin-right:-21px;
+  margin-right:-20px;
   text-shadow:0 -1px rgba(0,0,0,1);
 }
 #sidemenu li a.current + div, #sidemenu li a:hover + div {
@@ -156,7 +156,7 @@ h6 { font-size:1.1em; }
 #sidemenu li a:hover {
   background:#9bfb9d;
   color:rgb(0, 0, 0);
-  margin-right:-21px;
+  margin-right:-20px;
 }
 #sidemenu li a.current:hover {
   background:rgb(35,95,38); /*url(/images/gradient.png) repeat-x scroll 0 -120px;*/
@@ -291,6 +291,7 @@ td.subcategories_count span {
   text-shadow:0 -1px rgba(0, 0, 0, .9);
   width:40px;
 }
+.list tfoot tr td { background:#f5fff6 !important; }
 .actions { text-align:right !important; width:12%; }
 .boxy-wrapper {
   border-bottom: none;
@@ -416,7 +417,7 @@ td.index {
 }
 .transaction_label + p {
   margin-left:160px;
-
+  margin-bottom:10px;
 }
 td img { vertical-align:middle; }
 #hint {
@@ -547,6 +548,7 @@ tr.inactive td {
 }
 img.top_right_photo {
   float:right;
+  margin-left:10px;
 }
 .tag_yellow, .tag_green, .tag_pink { padding:2px; }
 .tag_yellow { background:#F2FF7F; }
@@ -640,13 +642,13 @@ fieldset.form_section legend {
 .top_align tr td { vertical-align:top; }
 .mid-align { vertical-align:middle !important; }
 input.subtle { background:none; border:none; color:#666; }
+input.subtle:hover, .input.subtle:active { background:#FFCFD5; }
 .ui-widget-header { padding:5px; }
 a#enhanced_previous { float:left; }
 a#enhanced_next { float:left; }
 .boxy-wrapper .top, .boxy-wrapper .bottom { border:none; }
 .dataTables_wrapper { top:-150px; }
 .dataTables_info, .paging_full_numbers  { width:auto !important; }
-.ui-state-default { padding:3px !important; cursor:pointer; }
 .searchresults {
   list-style:outside decimal;
   margin-left:20px;
@@ -659,7 +661,7 @@ a#enhanced_next { float:left; }
 }
 .searchresults li:nth-child(2n+1) { background:#EFF3FF; }
 .searchresults li .actions { float:right; margin:6px 0; }
-div.inline { float:left; margin-right:1em; width:25%; }
+div.inline { float:left; margin-right:1em; min-width:100px; }
 input.item_autocomplete { width:98% !important; }
 form.formtastic .ui-multiselect-checkboxes label {
   width:auto;
@@ -694,10 +696,13 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
   top:1em;
   right:1em;
 }
-#pop_states {
-}
 .pop_input {
   width:98%;
   margin:5px 0;
 }
 .pop_message h6 { font-size:1.5em; }
+.should_hidden { display:none; }
+.ui-multiselect-menu .ui-widget-header > .ui-helper-reset { display:inline; }
+ol.numbered-list {
+  list-style:decimal inside;
+}

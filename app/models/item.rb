@@ -106,4 +106,12 @@ class Item < ActiveRecord::Base
   def lifo?
     count_method == 'lifo'
   end
+
+  def base_price_for(position = 1)
+    units.position_is(position).first.try(:value)
+  end
+
+  def base_price
+    base_price_for(1)
+  end
 end

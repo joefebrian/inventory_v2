@@ -24,7 +24,7 @@
           = p.text_field :fax
           %br
           %p.inline-hints.inline-labels fax
-      = f.input :price_list, :include_blank => "-- select price list --"
+      = f.input :price_list, :include_blank => "-- select price list --", :input_html => { :class => "select" }
   - f.inputs "Tax Information", :class => "form_section" do
     - f.semantic_fields_for :tax_profile do |tax|
       %li.string
@@ -41,6 +41,6 @@
       = tax.input :postal_code
       = tax.input :npwp_number, :label => "NPWP"
   %fieldset.buttons
-    %button{ :type => "submit" }
+    %button#primary-button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
       Save customer

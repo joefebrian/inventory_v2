@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     sales.resources :quotations
     sales.resources  :sales_orders
   end
-  map.resources :customers, :collection => {:price => :get} do |customer|
+  map.resources :customers, :collection => {:prices => :get}, :member => {:price => :get} do |customer|
     customer.resource :profile
     customer.resource :tax_profile
     customer.resources :customer_prices,
@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :user_sessions
   map.resources :items, :collection => { :lookup => :get, :search => :get, :picker => :get }, :member => { :customer_prices => :get }
-  map.resources :categories, :member => {:items_for_begining_balance => :get} do |category|
+  map.resources :categories, :member => {:items_for_begining_balance => :get}, :collection => {:search => :get} do |category|
     category.resources :items, :member => { :activate => :get, :deactivate => :get }
   end
   map.resources :companies

@@ -6,7 +6,13 @@ $(function() {
     return false;
   });
   attach_datepicker();
-  $('.multiselect').multiselect();
+  $("select.select").multiselect({
+    multiple: false,
+    header: "Select an option",
+    noneSelectedText: "Select an option",
+    selectedList: 1
+  });
+  $('.multiselect').multiselect().multiselectfilter();
   $('#from').change(function() {
     $('#notifier').show();
     $.get("/transactions/created",
@@ -63,13 +69,8 @@ $(function() {
     .result(function(event, data) {
       var input = $(this);
       if(data) {
-        // $.get('/items/'+data.item.id+'/customer_prices',
-        // input.next('input[type=hidden]').val(data.item.id);
-        // input.parent().next().html(data.item.name);
-        // input.parent().next().next().children()[0].focus();
         event.stopImmediatePropagation();
       }
-      // else input.next('input[type=hidden]').val('');
     });
   }
   $('#check_master').click(function() {
@@ -97,8 +98,80 @@ $(function() {
     });
     return false;
   });
-  mr_autocomplete();
+  // add the button replacer after the primary submit button
+  $('#primary-button').after('<p id="button-replacer" style="display:none;"><img src="/images/ajax-loader.gif" alt="" /> <span>Saving... please wait</span></p>');
 });
+
+// Hide the submit button during save and replace with something else to prevent double submit
+$('form').live('submit', function() {
+  $('#primary-button').hide();
+  $('#button-replacer').show();
+  return true;
+});
+
+$('input.item_autocomplete').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/items/search.js',
+    focus:  function(event, ui) { $(this).val(ui.item.item.name); return false; },
+    select: function(event, ui) {
+      $(this).val(ui.item.item.name);
+      $(this).next().val(ui.item.item.id);
+      var form = $(this).parents('form');
+      // run when you want to add new set of inputs
+      if(window.insert_fields) {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        input.parents('tr').after(elem);
+        $('.should_hidden').hide();
+        attach_datepicker();
+        new_id++;
+      }
+      // only used in price list form
+      if(window.insert_units) {
+        $.ajax({
+          url: form[0].action,
+          type: 'post',
+          data: form.serialize(),
+          success: function(response, status) {
+            var html = $(response);
+            var tbody = form.find('tbody');
+            html.find('tbody tr:last').appendTo(tbody);
+            tbody.find('tr:last').find('input[type=text]:first').select();
+            form.find('#item').val('');
+          }
+        });
+      }
+      // get the item price for the customer
+      if(window.get_customer_price) {
+        var cust_id = $('#quotation_customer_id').multiselect('getChecked');
+        if(typeof(cust_id) != 'undefined') {
+          $.ajax({
+            url: '/customers/'+cust_id[0].value+'/price.js',
+            data: 'item_id='+ui.item.item.id,
+            success: function(response, status) {
+              input.parents('td').next().next().children('input').val(response);
+            }
+          });
+        }
+      }
+      return false;
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, item) {
+    return $("<li></li>")
+    .data("item.autocomplete", item)
+    .append("<a>" + item.item.name + "</a>")
+    .appendTo(ul);
+  };
+});
+
+$('.units_remover').live('click', function() {
+  $(this).parents('tr').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
+  return false;
+})
 
 function attach_datepicker() {
   $('input.datepicker').datepicker({
@@ -108,6 +181,7 @@ function attach_datepicker() {
   });
 }
 
+/*
 function add_entry_fields(prev) {
   var elem = template.replace(regexp1, "[" + new_id + "]");
   elem = elem.replace(regexp2, "_" + new_id + "_");
@@ -118,6 +192,7 @@ function add_entry_fields(prev) {
   attach_datepicker();
   new_id++;
 }
+*/
 
 $('.price').live('focus', function(){
   var itemname=$(this).parent('td').prev().prev().children('input').val();
@@ -134,7 +209,8 @@ $('.price').live('focus', function(){
   });
 });
 
-function mr_autocomplete() {
+/*
+function xmr_autocomplete() {
   $('input.item_autocomplete').autocomplete('/items/search.js', {
     formatItem:   function(row, i) { return eval('('+row[0]+')').item.name; },
     formatResult: function(row, i) { return eval('('+row[0]+')').item.name; },
@@ -147,6 +223,7 @@ function mr_autocomplete() {
     }
   });
 }
+*/
 
 $('.plu_input').live('click', function() {
   var input_id = $(this).prevAll('input[type=text]').attr("id");
@@ -294,6 +371,7 @@ function item_row(count) {
   return html;
 }
 
+/*
 function set_autocomplete() {
   $('.plu_code').autocomplete(plu, {
     formatItem: function(row, i) { return row.plu.code; },
@@ -311,6 +389,8 @@ function set_autocomplete() {
     // else input.next('input[type=hidden]').val('');
   });
 }
+*/
+
 $('#add_item').live('click', function() {
   $('body').data('type', 'customer_prices');
   Boxy.load(this.href, {

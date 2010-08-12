@@ -41,4 +41,18 @@ class Customer < ActiveRecord::Base
   def item_code
     @item_code
   end
+
+  # get item price with this precedence, [1] special price or [2] price list or [3] purchase price
+  def price_for(item, unit_position = 1)
+    price = special_price_for(item, unit_position) || price_list_for(item, unit_position)
+    return (price || Item.find(item).base_price_for(unit_position))
+  end
+
+  def special_price_for(item, unit_position = 1)
+    special_prices.item_id_is(item).unit_position_is(unit_position).first.try(:price) # TODO consitent in attribute name (value x price)
+  end
+
+  def price_list_for(item, unit_position = 1)
+    price_list.entries.item_id_is(item).unit_position_is(unit_position).first.try(:value) if price_list.try(:active?)
+  end
 end
