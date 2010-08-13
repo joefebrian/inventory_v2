@@ -1,5 +1,5 @@
 class PlusController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, :except => [:search]
   before_filter :assign_tab
   before_filter :prepare_autocomplete, :only => [:new, :create, :edit, :update]
   load_and_authorize_resource
@@ -49,6 +49,15 @@ class PlusController < ApplicationController
     @plu.destroy
     flash[:notice] = "Successfully destroyed plu."
     redirect_to plus_url
+  end
+
+  def search
+    keyword = params[:term]
+    @plus = keyword.nil? ? {} : current_company.plus.code_or_item_name_or_item_code_like(keyword).all(:limit => 10)
+    respond_to do |format|
+      format.html
+      format.js { render :layout => false }
+    end
   end
 
   private

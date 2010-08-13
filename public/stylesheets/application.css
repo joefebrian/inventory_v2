@@ -672,6 +672,10 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
 .ui-multiselect-checkboxes { overflow:auto !important; }
 .ui-multiselect-checkboxes label input { margin-right:1em !important; }
 #top_right_link { float:right; }
+.back_link {
+  font-size:.5em;
+  float:right;
+}
 #pop_ {
   border-radius:1em 1em 1em 1em;
   -moz-border-radius:1em 1em 1em 1em;

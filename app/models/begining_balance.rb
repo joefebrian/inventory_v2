@@ -5,10 +5,23 @@ class BeginingBalance < Transaction
   accepts_nested_attributes_for :entries, :allow_destroy => true, :reject_if => proc { |a| a['quantity'].blank? }
   validates_presence_of :number
   attr_writer :category_name
+  attr_writer :categories
   before_save :assign_alter_stock
+
+  def categories
+    @categories
+  end
 
   def category_name
     @category_name || entries.first.try(:item).try(:category).try(:name)
+  end
+
+  def build_entries_from_categories(ids)
+    Category.id_in(ids).each do |cat|
+      cat.items.each do |item|
+        self.entries.build(:item_id => item.id)
+      end
+    end
   end
 
   def self.suggested_number(company)

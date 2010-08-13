@@ -9,6 +9,7 @@ class WarehousesController < ApplicationController
   
   def show
     @warehouse = Warehouse.find(params[:id])
+    @managed_items = @warehouse.managed_items.paginate(:page => params[:page])
   end
 
   def setdefault

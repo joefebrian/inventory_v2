@@ -8,28 +8,54 @@
   - semantic_form_for @begining_balance, :url => begining_balances_path do |f|
     - f.inputs do
       = f.input :number, :input_html => { :class => 'default' }
-      = f.input :category_name
+      = f.input :categories, :as => :select, :collection => @categories.collect {|cat| [cat.fullcode, cat.id]}.compact, :input_html => { :class => "multiselect", :name => "categories[]" }
       = f.input :remark, :input_html => { :rows => 3 }
 
       %li.string
         #items
           %table.list
-            %tr
-              %th.td_20 Code
-              %th.td_40 Name
-              %th.actions.td_10 Quantity
-              %th.actions.td_30 @ Value
-          - unless @begining_balance.entries.blank?
-            - f.semantic_fields_for :entries do |entry|
+            %thead
               %tr
-                %td= entry.object.item.code
-                %td= entry.object.item.name
-                %td.actions.td_10
-                  = entry.text_field :quantity, :size => 10, :input_html => { :class => 'numbers' }
-                  = entry.hidden_field :item_id
-                %td.actions.td_30= entry.text_field :value, :size => 30, :input_html => { :class => 'numbers' }
+                %th.td_20 Code
+                %th.td_40 Name
+                %th.actions.td_10 Quantity
+                %th.actions.td_30 @ Value
+            %tfoot
+              %tr
+                %td{ :colspan => 4 } &nbsp;
+            %tbody
+              - f.semantic_fields_for :entries do |entry|
+                %tr
+                  %td= entry.object.item.try(:code)
+                  %td= entry.object.item.try(:name)
+                  %td.actions.td_10
+                    = entry.text_field :quantity, :size => 10, :input_html => { :class => 'numbers' }
+                    = entry.hidden_field :item_id
+                  %td.actions.td_30= entry.text_field :value, :size => 30, :input_html => { :class => 'numbers' }
 
     %fieldset.buttons
-      %button{ :type => :submit }
+      %button#primary-button{ :type => :submit }
         = image_tag 'icons/silk/disk.png'
         Save Begining Balance
+
+- content_for :javascripts do
+  - javascript_tag do
+    :plain
+      $(function() {
+        $('#begining_balance_categories').bind('multiselectclose', function(event, ui) {
+          var mrs = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_mrs" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_mrs]').remove();
+            }
+          });
+          return false;
+        });
+      });

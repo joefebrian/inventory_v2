@@ -1,5 +1,5 @@
 $(function() {
-  set_autocomplete();
+  //set_autocomplete();
   $('.plu_source').change(function() {
     $.getJSON('/warehouses/' + $(this).val() + '/plu_available',
       function(json) {

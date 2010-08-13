@@ -5,27 +5,32 @@
 = sidemenu @tab
 
 - content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} Create new BB ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
+  = link_to "#{image_tag('icons/silk/add.png')} New Beginning Balance ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
 
 %table.list
-  %tr
-    %th Number
-    %th Created
-    %th Last Update
-    %th.actions Actions
-  - if @begining_balances.blank?
+  %thead
     %tr
-      %td{ :colspan => 4 }
-        %div.no_record
-          %h4 No transaction recorded yet
-          - if current_company.warehouses.blank?
-            #flash_notice
-              %h6 It seems that you don't have any warehouse yet, so you cannot create any beginning balance.
-              %h6= link_to "Click here to create default warehouse", new_warehouse_path(:default => true)
-  - else
-    - for begining_balance in @begining_balances
+      %th Number
+      %th Created
+      %th Last Update
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 4 }= will_paginate @begining_balances
+  %tbody
+    - if @begining_balances.blank?
       %tr
-        %td= link_to begining_balance.number, begining_balance
-        %td= begining_balance.created_at
-        %td= begining_balance.updated_at
-        %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_begining_balance_path(begining_balance)
+        %td{ :colspan => 4 }
+          %div.no_record
+            %h4 No transaction recorded yet
+            - if current_company.warehouses.blank?
+              #flash_notice
+                %h6 It seems that you don't have any warehouse yet, so you cannot create any beginning balance.
+                %h6= link_to "Click here to create default warehouse", new_warehouse_path(:default => true)
+    - else
+      - for begining_balance in @begining_balances
+        %tr
+          %td= link_to begining_balance.number, begining_balance
+          %td= begining_balance.created_at
+          %td= begining_balance.updated_at
+          %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_begining_balance_path(begining_balance)

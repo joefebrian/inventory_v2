@@ -2,7 +2,7 @@ var item_category = $('input#begining_balance_category_name');
 
 $(function() {
   $('#begining_balance_number').select();
-  set_autocomplete();
+  //set_autocomplete();
 });
 
 function set_autocomplete() {

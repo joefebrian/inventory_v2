@@ -7,10 +7,10 @@
     %div
     %ul.submenu
       %li
-        = link_to "General Transaction", general_transactions_path, :class => current['gt']
+        = link_to "Begining Balances", begining_balances_path, :class => current['bb']
         %div
       %li
-        = link_to "Begining Balances", begining_balances_path, :class => current['bb']
+        = link_to "General Transaction", general_transactions_path, :class => current['gt']
         %div
   - unless current_company.inventory_only?
     %li.submenu_handler

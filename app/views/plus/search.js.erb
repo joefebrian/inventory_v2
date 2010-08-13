@@ -1,0 +1,4 @@
+<% ActiveRecord::Base.include_root_in_json = false %>
+<%= @plus.to_json(:only => [:id, :code],
+                             :include => {:item => { :only => [:id, :code, :name],
+                                                     :methods => [:name_with_code] }}) %>
