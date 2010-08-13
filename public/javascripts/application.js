@@ -6,7 +6,7 @@ $(function() {
     return false;
   });
   attach_datepicker();
-  if(window.select) {
+  if($(".select").length || $('.multiselect').length) {
     $("select.select").multiselect({
       multiple: false,
       header: "Select an option",
