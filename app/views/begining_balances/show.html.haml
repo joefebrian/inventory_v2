@@ -7,32 +7,43 @@
 
 = sidemenu @tab
 
-%p 
-  %span.light Transaction Number : 
-  %strong= @begining_balance.number
-%p
-  %span.light Created :
-  %strong= @begining_balance.created_at.to_s(:long)
-%p
-  %span.light Last Update :
-  %strong= @begining_balance.updated_at.to_s(:long)
-%p
-  %strong Entries :
-%table.report
-  %tr
-    %th #
-    %th Item Code
-    %th Item Name
-    %th.actions Quantity
-    %th.actions Value
-  - @begining_balance.entries.each_with_index do |entry, n|
-    %tr{ :class => cycle('odd','even') }
-      %td.index= n+1
-      %td= entry.item.code
-      %td
-        %strong= entry.item.name
-        %span.description= "(#{truncate entry.item.description})"
-      %td.actions= entry.quantity
-      %td.actions
-        = number_to_currency(entry.total_value, :unit => '', :delimiter => '.', :separator => ',')
-        = "(@ #{number_to_currency(entry.value, :unit => '', :delimiter => '.', :separator => ',')})"
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Beginning Balance", edit_begining_balance_path(@begining_balance), :class => 'main_link'
+
+#dialog_form
+  %fieldset.form_section
+    %legend Transaction Data
+    .two_columns
+      %p 
+        %span.light.transaction_label Transaction Number : 
+        %strong= @begining_balance.number
+      %p
+        %span.light.transaction_label Created :
+        %strong= @begining_balance.created_at.to_s(:long)
+    .single_column
+      %p
+        %span.light.transaction_label Remark :
+        %strong= @begining_balance.remark
+
+  %fieldset.form_section
+    %legend Entries
+    %table.report
+      %thead
+        %tr
+          %th #
+          %th Item Code
+          %th Item Name
+          %th.actions Quantity
+          %th.actions Value
+      %tbody
+        - @begining_balance.entries.each_with_index do |entry, n|
+          %tr{ :class => cycle('odd','even') }
+            %td.index= n+1
+            %td= entry.item.code
+            %td
+              %strong= entry.item.name
+              %span.description= "(#{truncate entry.item.description})"
+            %td.actions= entry.quantity
+            %td.actions
+              = number_to_currency(entry.total_value, :unit => '', :delimiter => '.', :separator => ',')
+              = "(@ #{number_to_currency(entry.value, :unit => '', :delimiter => '.', :separator => ',')})"

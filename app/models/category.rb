@@ -4,6 +4,7 @@ class Category < ActiveRecord::Base
   belongs_to :company
   has_many :items
   validates_presence_of :name
+  has_and_belongs_to_many :begining_balances
   validates_presence_of :code
   validates_uniqueness_of :name, :scope => [:company_id, :parent_id]
   attr_writer :parent_code
@@ -14,7 +15,7 @@ class Category < ActiveRecord::Base
   end
 
   def fullcode
-    root? ? code : "#{code} (#{parent.code})"
+    root? ? code : "#{parent.code} :: #{code}"
   end
 
   def parent_code
