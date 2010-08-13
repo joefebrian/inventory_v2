@@ -17,6 +17,7 @@
         <%= f.check_box(:active) %> <%= f.label :active %> 
         <%= f.check_box(:is_stock) %> <%= f.label :is_stock %> 
       </li>
+      <%= f.input :purchase_price, :input_html => { :class => "numbers" } %>
       <li class="inline" id="dimension">
         <span class="label">Dimension (mm, kg)</span>
         <%= f.label :length %>
