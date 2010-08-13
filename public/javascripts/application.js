@@ -6,13 +6,15 @@ $(function() {
     return false;
   });
   attach_datepicker();
-  $("select.select").multiselect({
-    multiple: false,
-    header: "Select an option",
-    noneSelectedText: "Select an option",
-    selectedList: 1
-  });
-  $('.multiselect').multiselect().multiselectfilter();
+  if(window.select) {
+    $("select.select").multiselect({
+      multiple: false,
+      header: "Select an option",
+      noneSelectedText: "Select an option",
+      selectedList: 1
+    });
+    $('.multiselect').multiselect().multiselectfilter();
+  };
   $('#from').change(function() {
     $('#notifier').show();
     $.get("/transactions/created",
@@ -113,10 +115,10 @@ $('input.item_autocomplete').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/items/search.js',
-    focus:  function(event, ui) { $(this).val(ui.item.item.name); return false; },
+    focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
     select: function(event, ui) {
-      $(this).val(ui.item.item.name);
-      $(this).next().val(ui.item.item.id);
+      $(this).val(ui.item.name);
+      $(this).next().val(ui.item.id);
       var form = $(this).parents('form');
       // run when you want to add new set of inputs
       if(window.insert_fields) {
@@ -163,7 +165,7 @@ $('input.item_autocomplete').live('focus', function() {
   ._renderItem = function(ul, item) {
     return $("<li></li>")
     .data("item.autocomplete", item)
-    .append("<a>" + item.item.name + "</a>")
+    .append("<a>" + item.name + "</a>")
     .appendTo(ul);
   };
 });
