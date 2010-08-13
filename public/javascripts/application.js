@@ -148,14 +148,16 @@ $('input.item_autocomplete').live('focus', function() {
       // get the item price for the customer
       if(window.get_customer_price) {
         var cust_id = $('#quotation_customer_id').multiselect('getChecked');
-        if(typeof(cust_id) != 'undefined') {
+        if(typeof(cust_id[0]) != 'undefined') {
           $.ajax({
             url: '/customers/'+cust_id[0].value+'/price.js',
-            data: 'item_id='+ui.item.item.id,
+            data: 'item_id='+ui.item.id,
             success: function(response, status) {
               input.parents('td').next().next().children('input').val(response);
             }
           });
+        } else {
+          input.parents('td').next().next().children('input').val(0);
         }
       }
       return false;
