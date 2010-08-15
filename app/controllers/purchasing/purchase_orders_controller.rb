@@ -40,12 +40,17 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   
   def update
     @purchase_order = current_company.purchase_orders.find(params[:id])
+    @suppliers = current_company.suppliers
+    if params[:get_mrs] && params[:get_mrs].to_i == 1
+      @purchase_order.build_entries_from_mr
+      @purchase_order.entries.build
+      render("edit", :layout => false) and return
+    end
     if @purchase_order.update_attributes(params[:purchase_order])
       flash[:notice] = "Successfully updated purchase order."
       redirect_to [:purchasing, @purchase_order]
     else
       @purchase_order.entries.build
-      @suppliers = current_company.suppliers
       render :action => 'edit'
     end
   end

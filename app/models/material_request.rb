@@ -28,4 +28,5 @@ class MaterialRequest < ActiveRecord::Base
   def name
     number
   end
+
 end
