@@ -76,6 +76,7 @@
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
               $('input[name=get_mrs]').remove();
+              console.log(entries.html());
             }
           });
           return false;

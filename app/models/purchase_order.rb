@@ -29,6 +29,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def build_entries_from_mr
     unless material_requests.blank?
+      entries.clear
       items = MaterialRequestEntry.calculate(:sum,
                                              :quantity,
                                              :conditions => { :material_request_id => material_request_ids },

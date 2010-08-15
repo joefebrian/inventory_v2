@@ -17,8 +17,8 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   
   def create
     @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
+    @suppliers = current_company.suppliers.all(:include => :profile)
     if params[:get_mrs] && params[:get_mrs].to_i == 1
-      @suppliers = current_company.suppliers.all(:include => :profile)
       @purchase_order.build_entries_from_mr
       @purchase_order.entries.build
       render("new", :layout => false) and return
@@ -28,7 +28,6 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       redirect_to [:purchasing, @purchase_order]
     else
       @purchase_order.entries.build
-      @suppliers = current_company.suppliers.all(:include => :profile)
       render :action => 'new'
     end
   end
