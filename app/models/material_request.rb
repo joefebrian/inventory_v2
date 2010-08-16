@@ -3,7 +3,7 @@ class MaterialRequest < ActiveRecord::Base
   belongs_to :company
   has_many :entries, :class_name => "MaterialRequestEntry"
   has_many :trackers, :class_name => "PoMrTracker"
-  has_many :purchase_orders, :through => :trackers
+  has_and_belongs_to_many :purchase_orders
 
   validates_presence_of :number, :userdate, :reference, :requester
   validates_uniqueness_of :number, :scope => :company_id

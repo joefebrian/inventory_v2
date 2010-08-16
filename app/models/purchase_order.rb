@@ -3,7 +3,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :supplier
   has_many :entries, :class_name => "PurchaseOrderEntry", :dependent => :destroy
   has_many :trackers, :class_name => "PoMrTracker", :dependent => :destroy
-  has_many :material_requests, :through => :trackers, :group => "material_request_id"
+  has_and_belongs_to_many :material_requests
 
   validates_presence_of :number
   validates_uniqueness_of :number, :scope => :company_id
@@ -50,7 +50,6 @@ class PurchaseOrder < ActiveRecord::Base
 
   def populate_trackers
     ids = material_request_ids
-    self.trackers.clear
     MaterialRequest.id_in(ids).each do |mr|
       mr.entries.each do |ent|
         self.trackers.build(:purchase_order_id => id,
