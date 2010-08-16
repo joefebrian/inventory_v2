@@ -69,6 +69,7 @@ $("a.unit_remover").live('click', function() {
   return false;
 });
 
+/*
 $("a.item_detail").live('click', function() {
   Boxy.load(this.href, {
     modal: true,
@@ -78,7 +79,6 @@ $("a.item_detail").live('click', function() {
   return false;
 });
 
-/*
 $('td > a.item_detail').live('click', function() {
   $.ajax({
     url: this.href,

@@ -5,8 +5,8 @@
       = f.label :number, "Number <span class='required'>*</span>"
       .inline
         = f.text_field :number
-      .inline
-        = f.label :po_date, "PO Date <span class='required'>*</span>"
+      .inline{ :style => "min-width:190px;" }
+        = f.label :po_date, "PO Date <span class='required'>*</span>", :style => "width:60px;"
         = f.text_field :po_date, :class => "datepicker"
     = f.input :supplier, :include_blank => "Select supplier", :required => true, :input_html => { :class => "select"}
     = f.input :material_requests, :include_blank => "Select from MR", :input_html => { :class => "multiselect" }

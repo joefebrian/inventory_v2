@@ -6,32 +6,42 @@
     %h6= link_to "Click to add default warehouse", new_warehouse_path(:default => true)
 - else
   - semantic_form_for @begining_balance, :url => begining_balances_path do |f|
-    - f.inputs do
-      = f.input :number, :input_html => { :class => 'default' }
-      = f.input :categories, :as => :select, :collection => @categories.collect {|cat| [cat.fullcode, cat.id]}.compact, :input_html => { :class => "multiselect", :name => "categories[]" }
-      = f.input :remark, :input_html => { :rows => 3 }
+    %fieldset.form_section
+      %legend Transaction data
+      - f.inputs do
+        = f.input :number, :input_html => { :class => 'default' }
+        - if @begining_balance.new_record?
+          = f.input :categories, :as => :select, :collection => @categories.collect {|cat| [cat.fullcode, cat.id]}.compact, :input_html => { :class => "multiselect" }
+        - else
+          %li.string
+            = label_tag :categories
+            %strong{ :style => "font-weight:bold;" }= @begining_balance.categories.collect { |cat| link_to(cat.fullcode, cat) }.join(', ')
+        = f.input :remark, :input_html => { :rows => 3 }
 
-      %li.string
-        #items
-          %table.list
-            %thead
-              %tr
-                %th.td_20 Code
-                %th.td_40 Name
-                %th.actions.td_10 Quantity
-                %th.actions.td_30 @ Value
-            %tfoot
-              %tr
-                %td{ :colspan => 4 } &nbsp;
-            %tbody
-              - f.semantic_fields_for :entries do |entry|
+    %fieldset.form_section
+      %legend Items
+      %ol
+        %li.string
+          #items
+            %table.list
+              %thead
                 %tr
-                  %td= entry.object.item.try(:code)
-                  %td= entry.object.item.try(:name)
-                  %td.actions.td_10
-                    = entry.text_field :quantity, :size => 10, :input_html => { :class => 'numbers' }
-                    = entry.hidden_field :item_id
-                  %td.actions.td_30= entry.text_field :value, :size => 30, :input_html => { :class => 'numbers' }
+                  %th.td_20 Code
+                  %th.td_40 Name
+                  %th.actions.td_10 Quantity
+                  %th.actions.td_30 @ Value
+              %tfoot
+                %tr
+                  %td{ :colspan => 4 }
+              %tbody
+                - f.semantic_fields_for :entries do |entry|
+                  %tr
+                    %td= entry.object.item.try(:code)
+                    %td= entry.object.item.try(:name_with_category)
+                    %td.actions.td_10
+                      = entry.text_field :quantity, :size => 10, :class => 'numbers'
+                      = entry.hidden_field :item_id
+                    %td.actions.td_30= entry.text_field :value, :size => 30, :class => 'numbers'
 
     %fieldset.buttons
       %button#primary-button{ :type => :submit }
@@ -42,7 +52,7 @@
   - javascript_tag do
     :plain
       $(function() {
-        $('#begining_balance_categories').bind('multiselectclose', function(event, ui) {
+        $('#begining_balance_category_ids').bind('multiselectclose', function(event, ui) {
           var mrs = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
           form.append('<input type="hidden" name="get_mrs" value="1"/>');

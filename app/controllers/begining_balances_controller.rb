@@ -19,6 +19,7 @@ class BeginingBalancesController < ApplicationController
     @begining_balance = current_company.begining_balances.new(params[:begining_balance])
     @begining_balance.destination_warehouse = current_company.default_warehouse
     if params[:get_mrs] && params[:get_mrs].to_i == 1
+      @categories = current_company.leaf_categories
       @begining_balance.build_entries_from_categories(params[:categories])
       @begining_balance.entries.build
       render("new", :layout => false) and return
@@ -33,6 +34,7 @@ class BeginingBalancesController < ApplicationController
   end
   
   def edit
+    @categories = current_company.leaf_categories
     @begining_balance = BeginingBalance.find(params[:id])
   end
   
@@ -42,6 +44,7 @@ class BeginingBalancesController < ApplicationController
       flash[:notice] = "Successfully updated begining balance."
       redirect_to begining_balances_url
     else
+      @categories = current_company.leaf_categories
       render :action => 'edit'
     end
   end

@@ -35,12 +35,16 @@ class Item < ActiveRecord::Base
     "#{name} (#{code})"
   end
 
+  def name_with_category
+    "#{name} (#{category_tree})"
+  end
+
   def category_code=(catcode)
     self.category = Category.find_by_code(catcode.split.first) unless catcode.blank?
   end
 
   def category_tree
-    "#{category.ancestors.map(&:name).join(' &gt; ')} &gt; #{category.name}"
+    "#{category.ancestors.map(&:name).join(' :: ')} :: #{category.name}"
   end
 
   def stock
