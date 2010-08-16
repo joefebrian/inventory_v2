@@ -3,6 +3,7 @@ class Customer < ActiveRecord::Base
   belongs_to :company
   belongs_to :profile
   belongs_to :price_list
+  has_many :quotations
   has_one :tax_profile
   has_many :special_prices, :class_name => "CustomerPrice", :order => "units.position", :include => :unit
 

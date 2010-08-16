@@ -1,34 +1,35 @@
-<% title "Assembling" %>
-<% javascript "assemblies" %>
+  <% title "Assembling" %>
+  <% javascript "assemblies" %>
 
-<% content_for :breadcrumb do %>
-  <%= breadcrumb [ link_to("Administrations", administrations_path),
-                   link_to("Assembling", assemblies_path) ] %>
-<% end -%>
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/add.png')} Create new Assembling", new_assembly_path, :class => "main_link new_assemblies", :title => "Create New Assembling" %>
-<% end -%>  
-<%= sidemenu %>
+  <% content_for :breadcrumb do %>
+    <%= breadcrumb [ link_to("Administrations", administrations_path),
+                     link_to("Assembling", assemblies_path) ] %>
+  <% end -%>
+  <% content_for :main_act do %>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create new Assembling", new_assembly_path, :class => "main_link new_assemblies", :title => "Create New Assembling" %>
+  <% end -%>  
+  <%= sidemenu %>
 
-<table class="list">
-  <tr>
-    <th>Type</th>
-    <th>Number</th>
-    <th>Name</th>
-    <th>Code</th>
-    <th class="actions">Actions</th>
-  </tr>
-<% @assemblies.each do |assembly| %>
-<tr>
-  <td><%=h assembly.type %></td>
-  <td><%=h assembly.number %></td>
-  <td><%=h assembly.name %></td>
-  <td><%=h assembly.code %></td>
-  <td class="actions">
-  <%= link_to image_tag('icons/silk/eye.png'), assembly_path(assembly), :class => 'show_assembly', :title => "Show #{assembly.id}" %>  
-  <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_assembly_path(assembly), :class => 'new_edit_assembly', :title => "Edit #{assembly.id}" %>
-  <%= link_to image_tag('icons/silk/delete.png'), assembly, :confirm => 'Are you sure?', :method => :delete, :title => "Delete #{assembly.id}" %>
-  </td>
-</tr>
-<% end %>
+  <table class="list">
+    <tr>
+      <th>Type</th>
+      <th>Number</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th class="actions">Actions</th>
+    </tr>
+    <% @assemblies.each do |assembly| %>
+    <tr>
+      <td><%=h assembly.type %></td>
+      <td><%=h assembly.number %></td>
+      <td><%=h assembly.name %></td>
+      <td><%=h assembly.code %></td>
+      <td class="actions">
+        <%= link_to image_tag('icons/silk/eye.png'), assembly_path(assembly), :class => 'show_assembly', :title => "Show #{assembly.id}" %>  
+        <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_assembly_path(assembly), :class => 'new_edit_assembly', :title => "Edit #{assembly.id}" %>
+        <%= link_to image_tag('icons/silk/delete.png'), assembly, :confirm => 'Are you sure?', :method => :delete, :title => "Delete #{assembly.id}" %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
 

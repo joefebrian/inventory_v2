@@ -1,7 +1,7 @@
 - semantic_form_for @assembly do |f|
   = f.error_messages
   - f.inputs do
-    = f.input :tipe, :as => :select, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" 
+    = f.input :tipe, :as => :select, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" , :input_html => {:class => "select"} 
     %li#general_transaction_number_input.string.required
       %label{ :for => 'assembly_number' } Number <span class="required">*</span>
       %input{ :type => :text, :size => 50,
@@ -10,7 +10,7 @@
               :value => f.object.attributes['number'],
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
-    = f.input :category_id, :as => :select, :collection => @category, :label => "Category Name", :include_blank => "select Category" 
+    = f.input :category_id, :as => :select, :collection => @category, :label => "Category Name", :include_blank => "select Category", :input_html => {:class => "select"} 
     = f.input :code
     = f.input :name  
     = f.input :description, :input_html => { :rows => 3 }
