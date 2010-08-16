@@ -21,7 +21,6 @@ config/newrelic.yml
 nbproject/*
 db/schema.rb
 tags.orig
-tags
 *.orig
 */*.orig
 */**/*.orig
