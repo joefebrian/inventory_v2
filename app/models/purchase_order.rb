@@ -1,14 +1,16 @@
 class PurchaseOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :supplier
-  has_many :entries, :class_name => "PurchaseOrderEntry"
-  has_many :trackers, :class_name => "PoMrTracker"
+  has_many :entries, :class_name => "PurchaseOrderEntry", :dependent => :destroy
+  has_many :trackers, :class_name => "PoMrTracker", :dependent => :destroy
   has_many :material_requests, :through => :trackers, :group => "material_request_id"
 
   validates_presence_of :number
   validates_uniqueness_of :number, :scope => :company_id
   validates_presence_of :supplier_id
   validates_presence_of :po_date
+
+  before_save :populate_trackers
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
@@ -29,6 +31,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def build_entries_from_mr
     unless material_requests.blank?
+      entries.clear
       items = MaterialRequestEntry.calculate(:sum,
                                              :quantity,
                                              :conditions => { :material_request_id => material_request_ids },
@@ -43,5 +46,18 @@ class PurchaseOrder < ActiveRecord::Base
 
   def material_request_numbers
     material_requests.collect {|mr| mr.number}.join(', ')
+  end
+
+  def populate_trackers
+    ids = material_request_ids
+    self.trackers.clear
+    MaterialRequest.id_in(ids).each do |mr|
+      mr.entries.each do |ent|
+        self.trackers.build(:purchase_order_id => id,
+                            :material_request_id => mr.id,
+                            :quantity => ent.quantity,
+                            :item_id => ent.item_id)
+      end
+    end
   end
 end
