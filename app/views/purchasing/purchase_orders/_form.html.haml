@@ -57,10 +57,13 @@
       var regexp2 = new RegExp("_(\\d+)_", "g");
       var new_id = $('tbody tr').length;
       $(function() {
-        $('.select').parents('li').append('<span id="supplier_address" style="margin-left:10px;"></span>');
-        $('.select').bind('multiselectclick', function(event, ui) {
+        $('#purchase_order_supplier_id')
+        .parents('li')
+        .append('<span id="supplier_address" style="margin-left:10px;"></span>')
+        .andSelf()
+        .bind('multiselectclick', function(event, ui) {
           if(typeof(suppliers[ui.value]) != 'undefined') {
-            $('#supplier_address').html(suppliers[ui.value].supplier.address);
+            $('#supplier_address').html(suppliers[ui.value].address);
             $(this).multiselect('close');
           }
         });
@@ -76,7 +79,6 @@
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
               $('input[name=get_mrs]').remove();
-              console.log(entries.html());
             }
           });
           return false;
