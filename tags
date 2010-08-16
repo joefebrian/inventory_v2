@@ -1,4 +1,4 @@
-1280440010
+1281598641
 ACCOUNT_AGENT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_AGENT_RESOURCE_PATH =
 ACCOUNT_APPLICATION_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_APPLICATION_RESOURCE_PATH =
 ACCOUNT_RESOURCE_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic_api.rb	  ACCOUNT_RESOURCE_PATH =
@@ -48,6 +48,7 @@ AddCompanyIdToKursRate	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate
 AddCompanyIdToLocation	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100312091021_add_company_id_to_location.rb	class AddCompanyIdToLocation 
 AddCompanyIdToPlu	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100311063054_add_company_id_to_plu.rb	class AddCompanyIdToPlu 
 AddCompanyIdToQuotation	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100720055026_add_company_id_to_quotation.rb	class AddCompanyIdToQuotation 
+AddCompanyIdToRoles	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729090933_add_company_id_to_roles.rb	class AddCompanyIdToRoles 
 AddCompanyIdToTransactions	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100316175708_add_company_id_to_transactions.rb	class AddCompanyIdToTransactions 
 AddCompanyIdToUser	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100303084734_add_company_id_to_user.rb	class AddCompanyIdToUser 
 AddCompanyIdToWarehouse	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100309034039_add_company_id_to_warehouse.rb	class AddCompanyIdToWarehouse 
@@ -66,6 +67,7 @@ AddKursValueToSalesOrder	/home/ones006/ROR/inventory_first/inventory_v2/db/migra
 AddLftAndRgtAndParentIdToLocations	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100325024644_add_lft_and_rgt_and_parent_id_to_locations.rb	class AddLftAndRgtAndParentIdToLocations 
 AddNameToAssembly	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722091107_add_name_to_assembly.rb	class AddNameToAssembly 
 AddNameToTransactionTypes	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100414084539_add_name_to_transaction_types.rb	class AddNameToTransactionTypes 
+AddNoteToMaterialRequestEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100801133347_add_note_to_material_request_entries.rb	class AddNoteToMaterialRequestEntries 
 AddPositionToLocations	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100315041652_add_position_to_locations.rb	class AddPositionToLocations 
 AddPriceListIdToCustomers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100706084604_add_price_list_id_to_customers.rb	class AddPriceListIdToCustomers 
 AddPriceToCustomerPrices	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100623085530_add_price_to_customer_prices.rb	class AddPriceToCustomerPrices 
@@ -184,6 +186,7 @@ Bug	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/spec/
 BusyCalculator	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/busy_calculator.rb	    module BusyCalculator
 BusyCalculatorTest	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/busy_calculator_test.rb	class NewRelic::Agent::BusyCalculatorTest 
 COLLAPSE_SEGMENTS_THRESHOLD	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/transaction_sample.rb	  COLLAPSE_SEGMENTS_THRESHOLD =
+COMPANY_MODE	/home/ones006/ROR/inventory_first/inventory_v2/config/initializers/constants.rb	COMPANY_MODE =
 CONFIG_PATH	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/validation_reflection/lib/validation_reflection.rb	    CONFIG_PATH =
 CONTROLLER	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metrics.rb	    CONTROLLER =
 CORE_VALIDATONS	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/validation_reflection/lib/validation_reflection.rb	    CORE_VALIDATONS =
@@ -250,9 +253,11 @@ CreateMaterialRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate
 CreatePenawaranHargas	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100622050938_create_penawaran_hargas.rb	class CreatePenawaranHargas 
 CreatePlacements	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100315083256_create_placements.rb	class CreatePlacements 
 CreatePlus	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100310220944_create_plus.rb	class CreatePlus 
+CreatePoMrTrackers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100809030031_create_po_mr_trackers.rb	class CreatePoMrTrackers 
 CreatePriceListEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100701064324_create_price_list_entries.rb	class CreatePriceListEntries 
 CreatePriceLists	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100701063956_create_price_lists.rb	class CreatePriceLists 
 CreateProfiles	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100615075858_create_profiles.rb	class CreateProfiles 
+CreatePurchaseOrderEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100803094253_create_purchase_order_entries.rb	class CreatePurchaseOrderEntries 
 CreatePurchaseOrders	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100727074406_create_purchase_orders.rb	class CreatePurchaseOrders 
 CreateQuotationEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100716025527_create_quotation_entries.rb	class CreateQuotationEntries 
 CreateQuotationRequestEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722071312_create_quotation_request_entries.rb	class CreateQuotationRequestEntries 
@@ -260,6 +265,7 @@ CreateQuotationRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrat
 CreateQuotationRequestsSuppliers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722050848_create_quotation_requests_suppliers.rb	class CreateQuotationRequestsSuppliers 
 CreateQuotations	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100716024657_create_quotations.rb	class CreateQuotations 
 CreateRoles	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729083318_create_roles.rb	class CreateRoles 
+CreateRolesUsers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729091408_create_roles_users.rb	class CreateRolesUsers 
 CreateSalesOrderEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723005948_create_sales_order_entries.rb	class CreateSalesOrderEntries 
 CreateSalesOrders	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100722185052_create_sales_orders.rb	class CreateSalesOrders 
 CreateSalesmen	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100723043759_create_salesmen.rb	class CreateSalesmen 
@@ -567,6 +573,8 @@ PlacementsHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/plac
 Plu	/home/ones006/ROR/inventory_first/inventory_v2/app/models/plu.rb	class Plu 
 PlusController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/plus_controller.rb	class PlusController 
 PlusHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/plus_helper.rb	module PlusHelper
+PoMrTracker	/home/ones006/ROR/inventory_first/inventory_v2/app/models/po_mr_tracker.rb	class PoMrTracker 
+PoMrTrackerTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/po_mr_tracker_test.rb	class PoMrTrackerTest 
 PostTooBigException	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent.rb	    class PostTooBigException 
 Prawn	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table/cell.rb	module Prawn
 PrawnHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/prawn_helper.rb	module PrawnHelper
@@ -595,6 +603,8 @@ ProfilesHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/profil
 PrototypeHelper	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	    module PrototypeHelper
 ProxyServer	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/control.rb	    ProxyServer =
 PurchaseOrder	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	class PurchaseOrder 
+PurchaseOrderEntry	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order_entry.rb	class PurchaseOrderEntry 
+PurchaseOrderEntryTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/purchase_order_entry_test.rb	class PurchaseOrderEntryTest 
 PurchaseOrderTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/purchase_order_test.rb	class PurchaseOrderTest 
 PurchaseOrdersController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/purchase_orders_controller.rb	class Purchasing::PurchaseOrdersController 
 PurchaseOrdersHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/purchasing/purchase_orders_helper.rb	module Purchasing::PurchaseOrdersHelper
@@ -669,6 +679,7 @@ Raw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawnto/lib/pr
 RawTemplateHandlerTest	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawnto/test/raw_template_handler_test.rb	class RawTemplateHandlerTest 
 RedisPanel	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/redis_panel.rb	    class RedisPanel 
 RedisPanel	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/redis_panel/stats.rb	    class RedisPanel
+RemoveMaterialRequestIdFromPurchaseOrders	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100808181014_remove_material_request_id_from_purchase_orders.rb	class RemoveMaterialRequestIdFromPurchaseOrders 
 RemoveRoleFromUsers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729083409_remove_role_from_users.rb	class RemoveRoleFromUsers 
 RemoveTypeFromAssembly	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100720082748_remove_type_from_assembly.rb	class RemoveTypeFromAssembly 
 RenamedColumns	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/test/awesome_nested_set_test.rb	class RenamedColumns 
@@ -682,6 +693,7 @@ Response	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawnto/t
 Role	/home/ones006/ROR/inventory_first/inventory_v2/app/models/role.rb	class Role 
 RolesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/roles_controller.rb	class RolesController 
 RolesHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/roles_helper.rb	module RolesHelper
+RolesUsersTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/roles_users_test.rb	class RolesUsersTest 
 RpmAgentTest	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/rpm_agent_test.rb	class RpmAgentTest 
 Ruby	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/control/ruby.rb	class NewRelic::Control::Ruby 
 Running	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/callback_compatability.rb	      module Running
@@ -890,6 +902,7 @@ action_to_render	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/n
 action_with_before_filter_error	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/agent_test_controller.rb	  def action_with_before_filter_error
 action_with_error	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/agent_test_controller.rb	  def action_with_error
 activate	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def activate
+active?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/price_list.rb	  def active?
 acts_as_nested_set	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb	        def acts_as_nested_set
 add	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/log_panel/rails_extension.rb	    def add
 add	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/templates_panel/rendering.rb	        def add
@@ -915,8 +928,10 @@ address	/home/ones006/ROR/inventory_first/inventory_v2/app/models/supplier.rb	  
 after	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panel.rb	      def after
 after	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/memory_panel.rb	      def after
 after_	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/callback_compatability.rb	              def after_
+after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/material_request.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def after_initialize
+after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order_entry.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation_request.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def after_initialize
@@ -995,6 +1010,7 @@ assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purcha
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/reports/item_movements_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/reports/on_hands_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/reports/stock_cards_controller.rb	  def assign_tab
+assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/roles_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def assign_tab
@@ -1029,6 +1045,8 @@ bar	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawnto/test/r
 base_action	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/agent_test_controller.rb	  def base_action
 base_metric_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_parser.rb	    def base_metric_name
 base_metric_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_parser/controller_cpu.rb	  def base_metric_name
+base_price	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def base_price
+base_price_for	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def base_price_for
 basename	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/interpolations.rb	    def basename
 be	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/local_environment.rb	    attr_accessor :dispatcher_instance_id # used to distinguish instances of a dispatcher from each other, may be nil
 before	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panel.rb	      def before
@@ -1058,6 +1076,7 @@ breakdown_prawnto_options	/home/ones006/ROR/inventory_first/inventory_v2/vendor/
 bucket_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/storage.rb	      def bucket_name
 buckets	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/histogram.rb	  attr_reader :buckets
 build_callbacks	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def build_callbacks
+build_entries_from_mr	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def build_entries_from_mr
 build_insertion	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def build_insertion
 build_observer	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def build_observer
 build_segment	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/test/new_relic/agent/transaction_sample_builder_test.rb	  def build_segment
@@ -1484,6 +1503,12 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729033643_ad
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729074119_add_role_to_users.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729083318_create_roles.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729083409_remove_role_from_users.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729090933_add_company_id_to_roles.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729091408_create_roles_users.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100801133347_add_note_to_material_request_entries.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100803094253_create_purchase_order_entries.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100808181014_remove_material_request_id_from_purchase_orders.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100809030031_create_po_mr_trackers.rb	  def self.down
 draggable_element_js	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/jrails/lib/jrails.rb	      def draggable_element_js
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table.rb	  def draw
 draw	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/prawn-flexible-table/lib/prawn/flexible-table/cell.rb	      def draw
@@ -1667,6 +1692,7 @@ from_json	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic
 full_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/profile.rb	  def full_name
 full_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/tax_profile.rb	  def full_name
 fullcode	/home/ones006/ROR/inventory_first/inventory_v2/app/models/category.rb	  def fullcode
+fullname	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def fullname
 gateway_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_parser/active_merchant.rb	  def gateway_name
 gather_environment_info	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/local_environment.rb	    def gather_environment_info
 gem_version	/home/ones006/ROR/inventory_first/inventory_v2/config/boot.rb	      def gem_version
@@ -1951,6 +1977,7 @@ interpolate	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperc
 interpolate	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/interpolations.rb	    def self.interpolate
 interpolates	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip.rb	    def interpolates
 interpolations	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/attachment.rb	    def self.interpolations
+inventory_only?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/company.rb	  def inventory_only?
 invoke_remote	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/agent.rb	    def invoke_remote
 inward	/home/ones006/ROR/inventory_first/inventory_v2/app/models/transaction.rb	  def self.inward
 inward?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/transaction.rb	  def inward?
@@ -1992,6 +2019,8 @@ item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/material_req
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/material_request_entry.rb	  def item_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/plu.rb	  attr_accessor :item_name, :supplier_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/plu.rb	  def item_name
+item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order_entry.rb	  def item_name
+item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order_entry.rb	  def item_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation_entry.rb	  def item_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation_entry.rb	  def item_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation_request_entry.rb	  def item_name
@@ -2109,6 +2138,7 @@ matches?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip
 matches?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/matchers/validate_attachment_content_type_matcher.rb	        def matches?
 matches?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/matchers/validate_attachment_presence_matcher.rb	        def matches?
 matches?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/paperclip/lib/paperclip/matchers/validate_attachment_size_matcher.rb	        def matches?
+material_request_numbers	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def material_request_numbers
 max	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/histogram.rb	    attr_reader :min, :max, :stats
 max_call_time	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/stats.rb	    attr_accessor :max_call_time
 max_millis	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/histogram.rb	    def max_millis
@@ -2170,6 +2200,7 @@ move_to_root	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/aweso
 multi_threaded?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/control.rb	    def multi_threaded?
 multiply_by	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/stats.rb	    def multiply_by
 name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/material_request.rb	  def name
+name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation.rb	  def name
 name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/stats_engine/transactions.rb	      attr_reader :name, :deduct_call_time_from_parent
 name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_parser.rb	    attr_reader :name
 name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/metric_spec.rb	  attr_accessor   :name
@@ -2427,6 +2458,9 @@ prepare_to_send	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/ne
 prepend_with_rack_bug	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/cache_panel/memcache_extension.rb	    def prepend_with_rack_bug
 previous_step	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer_price.rb	  def previous_step
 price	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def price
+price_for	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def price_for
+price_list_for	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def price_list_for
+prices	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def prices
 print_mass_assignment_problems	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/limerick_rake/lib/find_mass_assignment.rb	  def self.print_mass_assignment_problems
 problem?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/limerick_rake/lib/find_mass_assignment.rb	  def problem?
 problem_model?	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/limerick_rake/lib/find_mass_assignment.rb	  def problem_model?
@@ -2588,7 +2622,7 @@ revision	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_
 right	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb	        def right
 right_column_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb	        def right_column_name
 right_sibling	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb	        def right_sibling
-role?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/user.rb	  def role?
+roles?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/user.rb	  def roles?
 root	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb	        def root
 root	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb	        def root
 root	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/control/merb.rb	  def root
@@ -2649,6 +2683,7 @@ scope_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newreli
 scope_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/stats_engine/transactions.rb	      def scope_name
 scope_name	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/stats_engine/transactions.rb	      def scope_name
 scope_stack	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/stats_engine/transactions.rb	      def scope_stack
+search	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def search
 search	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	    def search
 search	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def search
 secret_key	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/params_signature.rb	      def secret_key
@@ -2823,6 +2858,7 @@ spawn	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/irs_process_
 spawn_all	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/irs_process_scripts/lib/commands/process/spawner.rb	  def self.spawn_all
 spawn_sampler_thread	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/stats_engine/samplers.rb	      def spawn_sampler_thread
 spawn_sampler_thread	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/agent/stats_engine/samplers.rb	      def spawn_sampler_thread
+special_price_for	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def special_price_for
 special_prices_matrix	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def special_prices_matrix
 split	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/newrelic_rpm/lib/new_relic/stats.rb	    def split
 sql	/home/ones006/ROR/inventory_first/inventory_v2/vendor/plugins/rack-bug/lib/rack/bug/panels/sql_panel/query.rb	        attr_reader :sql
@@ -3525,6 +3561,12 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729033643_add_
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729074119_add_role_to_users.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729083318_create_roles.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729083409_remove_role_from_users.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729090933_add_company_id_to_roles.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100729091408_create_roles_users.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100801133347_add_note_to_material_request_entries.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100803094253_create_purchase_order_entries.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100808181014_remove_material_request_id_from_purchase_orders.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100809030031_create_po_mr_trackers.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/assemblies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update
@@ -3546,7 +3588,6 @@ update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/purchase_orders_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purchasing/quotation_requests_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/roles_controller.rb	  def update
-update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/salesmen_controller.rb	  def update

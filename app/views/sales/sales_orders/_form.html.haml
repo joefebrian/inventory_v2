@@ -12,10 +12,12 @@
     
     = f.input :order_ref, :label => "Order Ref"
     = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
-    = f.input :quotation, :collection => @quotation, :label => "Quotation Number", :include_blank => "select Quotation" 
-    = f.input :top, :label => "Top"
+    = f.input :quotation, :collection => @quotation, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
+    = f.input :salesman, :collection => @salesman, :label => "Salesman", :include_blank => "select Salesman", :input_html => { :class => "select"}
+    = f.input :top, :label => "Payment Terms"
     = f.input :retensi, :label => "Retensi"
-    = f.input :kurs_id, :label => "Currency", :as => :select, :collection => @currencies
+    = f.input :kurs_id, :label => "Currency", :as => :select, :collection => @currencies, :input_html => { :class => "select"}
+
     = f.input :kurs_value, :label => "Rate"
     = f.input :status, :label => "Status"
 
@@ -27,6 +29,7 @@
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
             %th Quantity
+            %th
         %tfoot
           %tr
             %td &nbsp;
@@ -39,6 +42,9 @@
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+              %td.tdr
+                = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+
   %fieldset.buttons
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
@@ -46,7 +52,27 @@
 
 - content_for :javascripts do
   - javascript_tag do
-    var template = $('tbody tr:last-child').html();
-    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
-    var regexp2 = new RegExp("_(\\d+)_", "g");
-    var new_id = $('tbody tr').length;
+    var insert_fields = true;
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('.multiselect').bind('multiselectclose', function(event, ui) {
+          var quot = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_quots" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_quots]').remove();
+            }
+          });
+          return false;
+        });
+      });

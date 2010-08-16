@@ -12,7 +12,6 @@
 %table.list
   %tr
     %th Number
-    %th Company
     %th Quotation
     %th Tanggal
     %th Status
@@ -20,7 +19,6 @@
   - for sales_order in @sales_orders
     %tr
       %td= link_to h(sales_order.number), [:sales, sales_order]
-      %td= h sales_order.company_id
       %td= h sales_order.quotation_id
       %td= h sales_order.tanggal
       %td= h sales_order.status
