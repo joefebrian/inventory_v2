@@ -8,10 +8,19 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Material Request", edit_purchasing_material_request_path(@material_request), :class => 'main_link'
+= hint 'Click "Edit" to edit material request'
 
-#dialog_form
+#subheader
+  %h3= "Material Request # #{@material_request.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_material_requests_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_material_request_path(@material_request)
+    &bull;
+    = link_to "#{image_tag('icons/silk/cross.png')} delete", purchasing_material_request_path(@material_request), :method => :delete, :confirm => "Are you sure"
+
+%fieldset.form_section
+  %legend Material Request
   .two_columns
     %p
       %span.light.transaction_label Number
@@ -25,24 +34,26 @@
     %p
       %span.light.transaction_label Requester
       %strong= @material_request.requester
-%p
-  %span.light.transaction_label Description
-%p{ :style => "overflow:hidden; margin-bottom:20px;" }
-  %strong= @material_request.description
+  %p
+    %span.light.transaction_label Description
+  %p{ :style => "overflow:hidden; margin-bottom:20px;" }
+    %strong= @material_request.description
 
-%table.report
-  %thead
-    %tr
-      %th No.
-      %th Item
-      %th Qty
-      %th Est. Delivery Date
-  %tbody
-  - @material_request.entries.each_with_index do |entry, i|
-    %tr
-      %td.tdr.td_5= (i+1)
-      %td
-        %p= link_to h(entry.item.name), entry.item
-        %p.inline-hints.inline-labels=h "Note: #{entry.note}" unless entry.note.blank?
-      %td.tdr= entry.quantity
-      %td.tdc= entry.estimated_delivery_date.to_s(:long)
+%fieldset.form_section
+  %legend Items
+  %table.report
+    %thead
+      %tr
+        %th No.
+        %th Item
+        %th Qty
+        %th Est. Delivery Date
+    %tbody
+    - @material_request.entries.each_with_index do |entry, i|
+      %tr
+        %td.tdr.td_5= (i+1)
+        %td
+          %p= link_to h(entry.item.name), entry.item
+          %p.inline-hints.inline-labels=h "Note: #{entry.note}" unless entry.note.blank?
+        %td.tdr= entry.quantity
+        %td.tdc= entry.estimated_delivery_date.to_s(:long)

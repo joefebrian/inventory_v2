@@ -701,7 +701,6 @@ form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
   float:right;
   line-height:26px;
 }
-#subheader #subheader-menu a { margin-left:1em; }
 #subheader #subheader-menu a.main_link {
   background:#1F1F1F url(/images/gradient.png) repeat-x scroll 0 -4px;
   border:1px solid lightgray;
@@ -710,6 +709,7 @@ form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
   text-shadow:0 1px #FFFFFF;
   border-radius:12px;
   margin-right:3px;
+  margin-left:1em;
   border-radius:12px;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;

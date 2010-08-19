@@ -9,7 +9,11 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/page_white_text.png')} Material Request Detail", purchasing_material_request_path(@material_request), :class => 'main_link'
+#subheader
+  %h3= "Edit Material Request # #{@material_request.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_material_requests_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_view_detail.png')} detail", purchasing_material_request_path(@material_request)
 
 = render :partial => 'form'

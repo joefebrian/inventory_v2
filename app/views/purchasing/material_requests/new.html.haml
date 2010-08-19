@@ -4,10 +4,15 @@
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Purchasing', |
     link_to('Material Request', purchasing_material_requests_path), |
-    'New Material Request' ] |
+    'Create Material Request' ] |
 
   = sidemenu @tab
 
 = hint "Select one of the transaction type first to show the transaction form"
+
+#subheader
+  %h3 Create Material Request
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_material_requests_path
 
 = render :partial => 'form'

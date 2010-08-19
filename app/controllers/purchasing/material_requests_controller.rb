@@ -2,7 +2,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
   def index
-    @material_requests = current_company.material_requests.all
+    @material_requests = current_company.material_requests.paginate(:page => params[:page])
   end
   
   def show
