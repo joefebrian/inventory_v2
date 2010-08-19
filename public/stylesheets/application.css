@@ -481,6 +481,7 @@ tr.total td { border-top:solid 1px #666; }
 .two_columns p {
   float:left;
   width:50%;
+  line-height:1.2em;
 }
 .two_columns p span {
   display:inline-block;

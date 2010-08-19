@@ -23,20 +23,20 @@
   %legend Material Request
   .two_columns
     %p
-      %span.light.transaction_label Number
+      %span.light Number
       %strong= @material_request.number
     %p
-      %span.light.transaction_label Date
+      %span.light Date
       %strong= @material_request.userdate.to_s(:long)
+  .two_columns
     %p
-      %span.light.transaction_label Reference
+      %span.light Reference
       %strong= @material_request.reference
     %p
-      %span.light.transaction_label Requester
+      %span.light Requester
       %strong= @material_request.requester
-  %p
-    %span.light.transaction_label Description
-  %p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %p.single-column
+    %span.light Description
     %strong= @material_request.description
 
 %fieldset.form_section
