@@ -6,9 +6,12 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} New Purchase Order", new_purchasing_purchase_order_path, :class => 'main_link'
 
+= hint 'Click "Create Purchase Order" button to add new Purchase Order (PO)'
+#subheader
+  %h3 Purchase Orders
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Purchase Order", new_purchasing_purchase_order_path, :class => 'main_link'
 %table.list
   %thead
     %tr
@@ -17,6 +20,9 @@
       %th Supplier
       %th Po date
       %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 5 }= will_paginate @purchase_orders
   %tbody
     - @purchase_orders.each_with_index do |purchase_order, i|
       %tr

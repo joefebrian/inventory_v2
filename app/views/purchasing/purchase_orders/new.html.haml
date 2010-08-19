@@ -10,4 +10,8 @@
 
 = hint "Select one of the transaction type first to show the transaction form"
 
+#subheader
+  %h3 Create new purchase order
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to purchase order list", purchasing_purchase_orders_path, :class => "back_link"
 = render :partial => 'form'

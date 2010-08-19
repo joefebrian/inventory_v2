@@ -1,6 +1,7 @@
 class Purchasing::PurchaseOrdersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  
   def index
     @purchase_orders = current_company.purchase_orders.paginate(:page => params[:page])
   end
@@ -10,48 +11,74 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   end
   
   def new
+    session[:po_params] ||= {}
     @purchase_order = current_company.purchase_orders.new
     @purchase_order.entries.build
+    @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
   end
   
   def create
-    @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
+    session[:po_params].deep_merge!(params[:purchase_order]) if params[:purchase_order]
+    @purchase_order = current_company.purchase_orders.new(session[:po_params])
     @suppliers = current_company.suppliers.all(:include => :profile)
-    if params[:get_mrs] && params[:get_mrs].to_i == 1
-      @purchase_order.build_entries_from_mr
-      @purchase_order.entries.build
-      render("new", :layout => false) and return
+    @purchase_order.current_step = session[:po_step]
+    if @purchase_order.valid?
+      if params[:back_button]
+        @purchase_order.previous_step
+      elsif @purchase_order.last_step?
+        @purchase_order.save
+      else
+        @purchase_order.next_step
+        @purchase_order.build_entries_from_mr
+        @purchase_order.entries.build
+      end
+      session[:po_step] = @purchase_order.current_step
     end
-    if @purchase_order.save
-      flash[:notice] = "Successfully created purchase order."
-      redirect_to [:purchasing, @purchase_order]
+
+    if @purchase_order.new_record?
+      render "new"
     else
-      @purchase_order.entries.build
-      render :action => 'new'
+      session[:po_params] = session[:po_step] = nil
+      flash[:success] = "Purchase Order saved"
+      redirect_to [:purchasing, @purchase_order]
     end
   end
   
   def edit
+    session[:po_params] ||= {}
     @purchase_order = current_company.purchase_orders.find(params[:id])
-    @purchase_order.entries.build
-    @suppliers = current_company.suppliers
+    @purchase_order.current_step = session[:po_step]
+    @suppliers = current_company.suppliers.all(:include => :profile)
   end
   
   def update
+    session[:po_params].deep_merge!(params[:purchase_order]) if params[:purchase_order]
     @purchase_order = current_company.purchase_orders.find(params[:id])
-    @suppliers = current_company.suppliers
-    if params[:get_mrs] && params[:get_mrs].to_i == 1
-      @purchase_order.build_entries_from_mr
-      @purchase_order.entries.build
-      render("edit", :layout => false) and return
+    @purchase_order.attributes = session[:po_params]
+    @purchase_order.current_step = session[:po_step]
+    @suppliers = current_company.suppliers.all(:include => :profile)
+
+    updated = nil
+    if @purchase_order.valid?
+      if params[:back_button]
+        @purchase_order.previous_step
+      elsif @purchase_order.last_step?
+        @purchase_order.entries.reject! { |e| e.id.nil? } # prevent double entries get saved when adding new entries
+        updated = @purchase_order.update_attributes(session[:po_params])
+      else
+        @purchase_order.next_step
+      end
+      session[:po_step] = @purchase_order.current_step
     end
-    if @purchase_order.update_attributes(params[:purchase_order])
-      flash[:notice] = "Successfully updated purchase order."
+
+    if updated
+      session[:po_params] = session[:po_step] = nil
+      flash[:success] = "Purchase Order updated"
       redirect_to [:purchasing, @purchase_order]
     else
       @purchase_order.entries.build
-      render :action => 'edit'
+      render "edit"
     end
   end
   

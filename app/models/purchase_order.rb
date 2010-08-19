@@ -4,21 +4,42 @@ class PurchaseOrder < ActiveRecord::Base
   has_many :entries, :class_name => "PurchaseOrderEntry", :dependent => :destroy
   has_many :trackers, :class_name => "PoMrTracker", :dependent => :destroy
   has_and_belongs_to_many :material_requests
+  attr_writer :current_step
 
-  validates_presence_of :number
-  validates_uniqueness_of :number, :scope => :company_id
-  validates_presence_of :supplier_id
-  validates_presence_of :po_date
+  validates_presence_of :number, :if => lambda {|o| o.current_step == 'po' }
+  validates_uniqueness_of :number, :scope => :company_id, :if => lambda {|o| o.current_step == 'po' }
+  validates_presence_of :supplier_id, :if => lambda {|o| o.current_step == 'po' }
+  validates_presence_of :po_date, :if => lambda {|o| o.current_step == 'po' }
 
-  before_save :populate_trackers
+  # before_save :populate_trackers
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda { |att| att[:quantity].blank? || att[:quantity].to_i.zero? || att[:purchase_price].blank? || att[:purchase_price].to_i.zero? }
 
+  def current_step
+    @current_step || steps.first
+  end
+
+  def next_step
+    self.current_step = steps[steps.index(current_step)+1]
+  end
+
+  def previous_step
+    self.current_step = steps[steps.index(current_step)-1]
+  end
+
+  def last_step?
+    current_step == steps.last
+  end
+
+  def steps
+    %w[po items]
+  end
+  
   def after_initialize
     self.number = suggested_number if new_record?
-    self.po_date = Time.now.to_date.to_s(:long) if new_record?
+    self.po_date = Time.now.to_date.to_s(:long) if self.po_date.blank?
   end
 
   def suggested_number
@@ -30,17 +51,15 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def build_entries_from_mr
-    unless material_requests.blank?
-      entries.clear
-      items = MaterialRequestEntry.calculate(:sum,
-                                             :quantity,
-                                             :conditions => { :material_request_id => material_request_ids },
-                                             :group => :item_id)
-      items.each do |item_id, qty|
-        self.entries.build(:item_id => item_id,
-                           :quantity => qty,
-                           :purchase_price => Item.find(item_id).base_price)
-      end
+    entries.clear
+    items = MaterialRequestEntry.calculate(:sum,
+                                           :quantity,
+                                           :conditions => { :material_request_id => material_request_ids },
+                                           :group => :item_id)
+    items.each do |item_id, qty|
+      self.entries.build(:item_id => item_id,
+                         :quantity => qty,
+                         :purchase_price => Item.find(item_id).base_price)
     end
   end
 
@@ -49,13 +68,15 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def populate_trackers
-    ids = material_request_ids
-    MaterialRequest.id_in(ids).each do |mr|
-      mr.entries.each do |ent|
-        self.trackers.build(:purchase_order_id => id,
-                            :material_request_id => mr.id,
-                            :quantity => ent.quantity,
-                            :item_id => ent.item_id)
+    unless material_requests.blank?
+      ids = material_request_ids
+      MaterialRequest.id_in(ids).each do |mr|
+        mr.entries.each do |ent|
+          self.trackers.build(:purchase_order_id => id,
+                              :material_request_id => mr.id,
+                              :quantity => ent.quantity,
+                              :item_id => ent.item_id)
+        end
       end
     end
   end

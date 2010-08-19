@@ -1,0 +1,32 @@
+- f.inputs 'Items', :class => "form_section" do
+  %li
+    %table.report
+      %thead
+        %tr
+          %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+          %th Item
+          %th Qty
+          %th @ Price
+          %th Disc. (%)
+          %th
+      %tfoot
+        %tr
+          %td &nbsp;
+          %td{ :colspan => 5 } &nbsp;
+      %tbody
+        - f.semantic_fields_for :entries do |ent|
+          %tr
+            %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+            %td.item
+              = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+              = ent.hidden_field :item_id
+            %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
+            %td.tdr.td_10= ent.text_field :purchase_price, :size => 10, :class => "numbers"
+            %td.tdr= ent.text_field :discount, :size => 5, :class => "numbers"
+            %td.tdr
+              = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+%fieldset.buttons
+  %button{ :name => "back_button", :type => :submit } Back
+  %button#primary-button{ :type => "submit" }
+    = image_tag 'icons/silk/disk.png'
+    Save Purchase Order

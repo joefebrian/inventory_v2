@@ -25,3 +25,5 @@ tags.orig
 */*.orig
 */**/*.orig
 *.sql
+.project
+.settings

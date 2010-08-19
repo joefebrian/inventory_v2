@@ -101,12 +101,20 @@ $(function() {
     return false;
   });
   // add the button replacer after the primary submit button
-  $('#primary-button, .primary-button').after('<p id="button-replacer" style="display:none;"><img src="/images/ajax-loader.gif" alt="" /> <span>Saving... please wait</span></p>');
+  $('#primary-button, .primary-button').after('<span id="button-replacer" style="display:none;"><img src="/images/ajax-loader.gif" alt="" /> <span>Saving... please wait</span></span>');
 });
 
 // Hide the submit button during save and replace with something else to prevent double submit
+/*
 $('form').live('submit', function() {
   $('#primary-button, .primary-button').hide();
+  $('#button-replacer').show();
+  return true;
+});
+*/
+
+$('#primary-button, .primary-button').click(function() {
+  $(this).hide();
   $('#button-replacer').show();
   return true;
 });

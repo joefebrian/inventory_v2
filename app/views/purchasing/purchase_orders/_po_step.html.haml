@@ -1,0 +1,20 @@
+- f.inputs "Purchase Order", :class => "form_section" do
+  %li.string
+    = f.label :number, "Number", :class => "required"
+    .inline
+      - if @purchase_order.new_record?
+        = f.text_field :number
+      - else
+        %span.uneditable= @purchase_order.number 
+    .inline{ :style => "min-width:190px;" }
+      = f.label :po_date, "PO Date", :style => "width:60px;", :class => "required"
+      = f.text_field :po_date, :class => "datepicker"
+  = f.input :supplier, :include_blank => "Select supplier", :required => true, :input_html => { :class => "select"}
+  = f.input :material_requests, :include_blank => "Select from MR", :input_html => { :class => "multiselect" }
+  = f.input :attention
+  = f.input :term_of_payment, :input_html => { :rows => 2 }
+  = f.input :notes, :input_html => { :rows => 2 }
+- f.buttons do
+  %li
+    %button{ :type => "submit", :name => "step2" }
+      Continue

@@ -216,33 +216,6 @@ h6 { font-size:1.1em; }
   text-decoration: none;
 }
 #footer a:hover { color:#235f26; }
-a.main_link {
-  background:#1F1F1F url(/images/gradient.png) repeat-x scroll 0 -4px;
-  border:1px solid lightgray;
-  display:inline-block;
-  font-size:1.08em;
-  font-weight:bold;
-  padding:4px 10px 4px 8px;
-  text-shadow:0 1px #FFFFFF;
-  border-radius:12px;
-  -moz-border-radius:12px;
-  -webkit-border-radius:12px;
-  box-shadow:0 0 2px rgba(0, 0, 0, .3);
-  -moz-box-shadow:0 0 2px rgba(0, 0, 0, .3);
-  -webkit-box-shadow:0 0 2px rgba(0, 0, 0, .3);
-}
-a.main_link:hover {
-  background:#7f7f7f url(/images/gradient.png) repeat-x scroll 0 -4px;
-  color:rgb(23, 63, 25);
-}
-a.main_link:active {
-  box-shadow:none;
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-}
-a.main_link + ul#sidemenu {
-  margin-top:20px;
-}
 table.list {
   border-collapse:collapse;
   border-bottom:solid 1px #5fbf63;
@@ -291,7 +264,7 @@ td.subcategories_count span {
   text-shadow:0 -1px rgba(0, 0, 0, .9);
   width:40px;
 }
-.list tfoot tr td { background:#f5fff6 !important; }
+.list tfoot tr td { background:#f5fff6 !important; border-top:solid 1px #5fbf63; }
 .actions { text-align:right !important; width:12%; }
 .boxy-wrapper {
   border-bottom: none;
@@ -672,10 +645,6 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
 .ui-multiselect-checkboxes { overflow:auto !important; }
 .ui-multiselect-checkboxes label input { margin-right:1em !important; }
 #top_right_link { float:right; }
-.back_link {
-  font-size:.5em;
-  float:right;
-}
 #pop_ {
   border-radius:1em 1em 1em 1em;
   -moz-border-radius:1em 1em 1em 1em;
@@ -709,4 +678,54 @@ form.formtastic .ui-multiselect-menu { width:auto !important; }
 .ui-multiselect-menu .ui-widget-header > .ui-helper-reset { display:inline; }
 ol.numbered-list {
   list-style:decimal inside;
+}
+label.required:after {
+  content: " *";
+  color:#ce371e;
+  font-weight:bold;
+}
+#button-replacer {
+  font-style:italic;
+  color:#235f26;
+  margin-left:10px;
+}
+#button-replacer img { vertical-align:middle; }
+form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
+
+#subheader { margin-bottom:15px; overflow:hidden; padding:5px 0; }
+#subheader h3 {
+  float:left;
+  margin-bottom:0;
+}
+#subheader #subheader-menu {
+  float:right;
+  line-height:26px;
+}
+#subheader #subheader-menu a { margin-left:1em; }
+#subheader #subheader-menu a.main_link {
+  background:#1F1F1F url(/images/gradient.png) repeat-x scroll 0 -4px;
+  border:1px solid lightgray;
+  font-weight:bold;
+  padding:4px 10px 4px 8px;
+  text-shadow:0 1px #FFFFFF;
+  border-radius:12px;
+  margin-right:3px;
+  border-radius:12px;
+  -moz-border-radius:12px;
+  -webkit-border-radius:12px;
+  box-shadow:0 0 2px rgba(0, 0, 0, .3);
+  -moz-box-shadow:0 0 2px rgba(0, 0, 0, .3);
+  -webkit-box-shadow:0 0 2px rgba(0, 0, 0, .3);
+}
+a.main_link:hover {
+  background:#7f7f7f url(/images/gradient.png) repeat-x scroll 0 -4px;
+  color:rgb(23, 63, 25);
+}
+a.main_link:active {
+  box-shadow:none;
+  -moz-box-shadow:none;
+  -webkit-box-shadow:none;
+}
+a.main_link + ul#sidemenu {
+  margin-top:20px;
 }

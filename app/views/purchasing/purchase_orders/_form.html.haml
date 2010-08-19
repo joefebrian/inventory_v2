@@ -1,54 +1,12 @@
 - semantic_form_for [:purchasing, @purchase_order] do |f|
   = f.error_messages
-  - f.inputs "Purchase Order", :class => "form_section" do
-    %li.string
-      = f.label :number, "Number <span class='required'>*</span>"
-      .inline
-        = f.text_field :number
-      .inline{ :style => "min-width:190px;" }
-        = f.label :po_date, "PO Date <span class='required'>*</span>", :style => "width:60px;"
-        = f.text_field :po_date, :class => "datepicker"
-    = f.input :supplier, :include_blank => "Select supplier", :required => true, :input_html => { :class => "select"}
-    = f.input :material_requests, :include_blank => "Select from MR", :input_html => { :class => "multiselect" }
-    = f.input :attention
-    = f.input :term_of_payment, :input_html => { :rows => 2 }
-    = f.input :notes, :input_html => { :rows => 2 }
-  - f.inputs 'Items', :class => "form_section" do
-    %li
-      %table.report
-        %thead
-          %tr
-            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
-            %th Item
-            %th Qty
-            %th @ Price
-            %th Disc. (%)
-            %th
-        %tfoot
-          %tr
-            %td &nbsp;
-            %td{ :colspan => 5 } &nbsp;
-        %tbody
-          - f.semantic_fields_for :entries do |ent|
-            %tr
-              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
-              %td.item
-                = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
-                = ent.hidden_field :item_id
-              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
-              %td.tdr.td_10= ent.text_field :purchase_price, :size => 10, :class => "numbers"
-              %td.tdr= ent.text_field :discount, :size => 5, :class => "numbers"
-              %td.tdr
-                = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
-  %fieldset.buttons
-    %button#primary-button{ :type => "submit" }
-      = image_tag 'icons/silk/disk.png'
-      Save Purchase Order
+  = render "#{@purchase_order.current_step}_step", :f => f
 
 - content_for :javascripts do
   - javascript_tag do
     var insert_fields = true;
     var suppliers = [];
+    - ActiveRecord::Base.include_root_in_json = false
     - for supplier in @suppliers
       = "suppliers[#{supplier.id}] = #{supplier.to_json(:only => [:id, :name], :methods => [:address])};"
     :plain
@@ -57,16 +15,20 @@
       var regexp2 = new RegExp("_(\\d+)_", "g");
       var new_id = $('tbody tr').length;
       $(function() {
+        $('.ui-multiselect-menu')
+        .after('<span id="supplier_address" style="margin-left:10px;"></span>')
+        var selected_supplier = $('#purchase_order_supplier_id').multiselect('getChecked');
+        if(selected_supplier.length) {
+          $('#supplier_address').html(suppliers[selected_supplier[0].value].address);
+        }
         $('#purchase_order_supplier_id')
-        .parents('li')
-        .append('<span id="supplier_address" style="margin-left:10px;"></span>')
-        .andSelf()
         .bind('multiselectclick', function(event, ui) {
           if(typeof(suppliers[ui.value]) != 'undefined') {
             $('#supplier_address').html(suppliers[ui.value].address);
             $(this).multiselect('close');
           }
         });
+        /*
         $('.multiselect').bind('multiselectclose', function(event, ui) {
           var mrs = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
@@ -83,4 +45,5 @@
           });
           return false;
         });
+        */
       });
