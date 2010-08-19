@@ -3,11 +3,19 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Purchasing', |
-    link_to('Quotation Request', purchasing_quotation_requests_path), |
-    "Edit Quotation Request # #{link_to @quotation_request.number, [:purchasing, @quotation_request]}" ] |
+    link_to('Quotation Requests', purchasing_quotation_requests_path), |
+    "#{link_to @quotation_request.number, [:purchasing, @quotation_request]}", |
+    'Edit' ] |
 
   = sidemenu @tab
 
-= hint "Select one of the transaction type first to show the transaction form"
+= hint "Number and Request Date cannot be empty"
+
+#subheader
+  %h3= "Edit Quotation Request # #{@quotation_request.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_quotation_requests_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_view_detail.png')} detail", [:purchasing, @quotation_request]
 
 = render :partial => 'form'

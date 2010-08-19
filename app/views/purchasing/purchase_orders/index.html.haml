@@ -27,7 +27,8 @@
     - @purchase_orders.each_with_index do |purchase_order, i|
       %tr
         %td.td_5.tdr= (i+1)
-        %td= link_to h(purchase_order.number), [:purchasing, purchase_order]
+        %td
+          %strong= link_to h(purchase_order.number), [:purchasing, purchase_order]
         %td= h purchase_order.supplier.name
         %td= h purchase_order.po_date.to_s(:long)
         %td.actions

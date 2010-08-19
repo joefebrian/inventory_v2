@@ -4,8 +4,8 @@
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Purchasing', |
     link_to('Purchase Orders', purchasing_purchase_orders_path), |
-    "Purchasing Order # #{link_to h(@purchase_order.number), [:purchasing, @purchase_order]}", |
-    'Edit Purchase Order' ] |
+    "#{link_to h(@purchase_order.number), [:purchasing, @purchase_order]}", |
+    'Edit' ] |
 
   = sidemenu @tab
 
@@ -14,6 +14,8 @@
 #subheader
   %h3= "Edit purchase order # #{@purchase_order.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to purchase order list", purchasing_purchase_orders_path, :class => "back_link"
-    = link_to "Purchase Order detail", [:purchasing, @purchase_order], :class => "back_link"
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_purchase_orders_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_view_detail.png')} detail", [:purchasing, @purchase_order]
+
 = render :partial => 'form'

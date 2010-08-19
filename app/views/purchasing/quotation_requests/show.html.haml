@@ -3,8 +3,8 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Purchasing', |
-    link_to('Quotation Request', purchasing_quotation_requests_path), |
-    "Quotation Request # #{@quotation_request.number}" ] |
+    link_to('Quotation Requests', purchasing_quotation_requests_path), |
+    "#{@quotation_request.number}" ] |
 
 - content_for :top_right_link do
   = link_to image_tag('icons/silk/page_white_acrobat.png'), '#', :title => "Download quotation request in PDF format"
@@ -12,37 +12,46 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Quotation Request", edit_purchasing_quotation_request_path(@quotation_request), :class => 'main_link'
+= hint ""
 
-#dialog_form
+#subheader
+  %h3= "Quotation Request # #{@quotation_request.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_quotation_requests_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_purchasing_quotation_request_path(@quotation_request)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", [:purchasing, @quotation_request], :method => :delete, :confirm => "Are you sure?"
+
+%fieldset.form_section
+  %legend Quotation request
   .two_columns
     %p
-      %span.light.transaction_label Number
+      %span.light Number
       %strong= @quotation_request.number
     %p
-      %span.light.transaction_label Date
+      %span.light Date
       %strong= @quotation_request.request_date.to_s(:long)
-%p
-  %span.light.transaction_label Description
-%p{ :style => "overflow:hidden; margin-bottom:20px;" }
-  %strong= @quotation_request.description
-%p
-  %span.light.transaction_label Intended Suppliers
-%p{ :style => "overflow:hidden; margin-bottom:20px;" }
-  %strong= @quotation_request.suppliers.collect { |supp| link_to(supp.name, supp) }.join(', ')
+  %p.single-column
+    %span.light Description
+    %strong= @quotation_request.description
+  %p.single-column
+    %span.light Intended Suppliers
+    %strong= @quotation_request.suppliers.collect { |supp| link_to(supp.name, supp) }.join(', ')
 
-%table.list
-  %thead
-    %tr
-      %th.td_5 No.
-      %th Item
-      %th Qty
-  %tbody
-    - @quotation_request.entries.each_with_index do |entry, i|
+%fieldset.form_section
+  %legend Items
+  %table.list
+    %thead
       %tr
-        %td.tdr.td_5= (i+1)
-        %td
-          %p= link_to h(entry.item.name), entry.item
-          %p.inline-hints.inline-labels=h "Note: #{entry.note}" unless entry.note.blank?
-        %td.tdr= entry.quantity
+        %th.td_5 No.
+        %th Item
+        %th Qty
+    %tbody
+      - @quotation_request.entries.each_with_index do |entry, i|
+        %tr
+          %td.tdr.td_5= (i+1)
+          %td
+            %p= link_to h(entry.item.name), entry.item
+            %p.inline-hints.inline-labels=h "Note: #{entry.note}" unless entry.note.blank?
+          %td.tdr= entry.quantity

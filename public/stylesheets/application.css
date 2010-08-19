@@ -477,10 +477,15 @@ div.no_record {
   padding:2px 5px;
 }
 tr.total td { border-top:solid 1px #666; }
-.two_columns { margin-bottom:0 !important; }
+.two_columns { margin-bottom:10px; overflow:hidden; }
 .two_columns p {
   float:left;
   width:50%;
+}
+.two_columns p span {
+  display:inline-block;
+  float:left;
+  width:160px;
 }
 tr.special td { background:#EFE259 !important; }
 fieldset.plain {
@@ -726,6 +731,13 @@ a.main_link:active {
   -moz-box-shadow:none;
   -webkit-box-shadow:none;
 }
-a.main_link + ul#sidemenu {
-  margin-top:20px;
+p.single-column > span {
+  left:-160px;
+  overflow:hidden;
+  position:absolute;
+}
+p.single-column {
+  margin-bottom:10px;
+  margin-left:160px;
+  position:relative;
 }

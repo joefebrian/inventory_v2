@@ -2,28 +2,36 @@
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Purchasing', 'Quotation Request' ] |
+    'Purchasing', 'Quotation Requests' ] |
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} New Quotation Request", new_purchasing_quotation_request_path, :class => 'main_link'
+= hint 'Click "Create Quotation Request" to add new Quotation Request'
+
+#subheader
+  %h3 Quotation Requests
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Quotation Request", new_purchasing_quotation_request_path, :class => 'main_link'
 
 %table.list
-  %tr
-    %th.td_5 No.
-    %th Number
-    %th Request date
-    %th Description
-    %th.actions Actions
-  - @quotation_requests.each_with_index do |quotation_request, i|
+  %thead
     %tr
-      %td.td_r.numbers= (i+1)
-      %td= link_to h(quotation_request.number), [:purchasing, quotation_request]
-      %td.tdc= h quotation_request.request_date.to_s(:long)
-      %td= h truncate(quotation_request.description, :length => 60)
-      %td.actions
-        = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_quotation_request_path(quotation_request)
-        = link_to image_tag('icons/silk/delete.png'), [:purchasing, quotation_request], :confirm => 'Are you sure?', :method => :delete
-
-  = will_paginate @quotation_requests
+      %th.td_5 No.
+      %th Number
+      %th Request date
+      %th Description
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 5 }= will_paginate @quotation_requests
+  %tbody
+    - @quotation_requests.each_with_index do |quotation_request, i|
+      %tr
+        %td.td_r.numbers= (i+1)
+        %td
+          %strong= link_to h(quotation_request.number), [:purchasing, quotation_request]
+        %td.tdc= h quotation_request.request_date.to_s(:long)
+        %td= h truncate(quotation_request.description, :length => 60)
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_quotation_request_path(quotation_request)
+          = link_to image_tag('icons/silk/delete.png'), [:purchasing, quotation_request], :confirm => 'Are you sure?', :method => :delete
