@@ -707,7 +707,7 @@ form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
   float:right;
   line-height:26px;
 }
-#subheader #subheader-menu a.main_link {
+.main_link, #subheader #subheader-menu a.main_link {
   background:#1F1F1F url(/images/gradient.png) repeat-x scroll 0 -4px;
   border:1px solid lightgray;
   font-weight:bold;
@@ -717,11 +717,18 @@ form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
   margin-right:3px;
   margin-left:1em;
   border-radius:12px;
+  display:inline;
   -moz-border-radius:12px;
   -webkit-border-radius:12px;
   box-shadow:0 0 2px rgba(0, 0, 0, .3);
   -moz-box-shadow:0 0 2px rgba(0, 0, 0, .3);
   -webkit-box-shadow:0 0 2px rgba(0, 0, 0, .3);
+}
+a.main_link {
+  display:inline-block;
+  margin-bottom:20px;
+  margin-left:0;
+  margin-right:0;
 }
 a.main_link:hover {
   background:#7f7f7f url(/images/gradient.png) repeat-x scroll 0 -4px;

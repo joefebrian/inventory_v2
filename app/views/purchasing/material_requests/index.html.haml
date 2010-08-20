@@ -7,11 +7,13 @@
   = sidemenu @tab
 
 = hint 'Click "Create Material Request" to add new Material Request'
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} Create Material Request", new_purchasing_material_request_path, :class => 'main_link'
 
 #subheader
   %h3 Material Requests
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/add.png')} Create Material Request", new_purchasing_material_request_path, :class => 'main_link'
+    -# = link_to "#{image_tag('icons/silk/add.png')} Create Material Request", new_purchasing_material_request_path, :class => 'main_link'
 
 %table.list
   %thead

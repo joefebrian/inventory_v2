@@ -4,8 +4,14 @@
 
 = sidemenu @tab
 
+= hint 'Click "Create Beginning Balance" to add new beginning balance'
 - content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} New Beginning Balance ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
+  = link_to "#{image_tag('icons/silk/add.png')} Create Beginning Balance ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
+
+#subheader
+  %h3 Beginning Balances
+  #subheader-menu
+    -# = link_to "#{image_tag('icons/silk/add.png')} Create Beginning Balance ", new_begining_balance_path, :class => "main_link new_bb", :title => "Create New Begining Balance"
 
 %table.list
   %thead
