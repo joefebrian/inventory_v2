@@ -2,7 +2,13 @@ class Purchasing::MaterialRequestsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
   def index
-    @material_requests = current_company.material_requests.paginate(:page => params[:page])
+    if params[:state] == 'closed'
+      @material_requests = current_company.material_requests.closed.paginate(:page => params[:page])
+    elsif params[:state] == 'open'
+      @material_requests = current_company.material_requests.not_closed.paginate(:page => params[:page])
+    else
+      @material_requests = current_company.material_requests.paginate(:page => params[:page])
+    end
   end
   
   def show

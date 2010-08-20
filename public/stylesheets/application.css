@@ -749,3 +749,12 @@ p.single-column {
   margin-left:160px;
   position:relative;
 }
+.red-tag {
+  display:inline-block;
+  background:#ff6f6f;
+  border-right:solid 1px #8f1111;
+  border-bottom:solid 1px #8f1111;
+  border-top:solid 1px #ff6f6f;
+  border-left:solid 1px #ff6f6f;
+  padding:1px 2px 0 2px;
+}

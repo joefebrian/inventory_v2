@@ -11,7 +11,8 @@ class PurchaseOrder < ActiveRecord::Base
   validates_presence_of :supplier_id, :if => lambda {|o| o.current_step == 'po' }
   validates_presence_of :po_date, :if => lambda {|o| o.current_step == 'po' }
 
-  # before_save :populate_trackers
+  before_save :populate_mr_trackers
+  after_save :close_material_requests
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
@@ -67,17 +68,21 @@ class PurchaseOrder < ActiveRecord::Base
     material_requests.collect {|mr| mr.number}.join(', ')
   end
 
-  def populate_trackers
-    unless material_requests.blank?
-      ids = material_request_ids
-      MaterialRequest.id_in(ids).each do |mr|
+  def populate_mr_trackers
+    unless material_request_ids.blank?
+      MaterialRequest.id_in(material_request_ids).each do |mr|
         mr.entries.each do |ent|
+          entry_qty_left = mr.quantity_left_for(ent.item_id)
           self.trackers.build(:purchase_order_id => id,
                               :material_request_id => mr.id,
-                              :quantity => ent.quantity,
+                              :quantity => entry_qty_left,
                               :item_id => ent.item_id)
         end
       end
     end
+  end
+
+  def close_material_requests
+    material_requests.each { |mr| mr.close }
   end
 end

@@ -13,6 +13,11 @@
 #subheader
   %h3 Material Requests
   #subheader-menu
+    = link_to_if (params[:state] && params[:state] != 'all'), "all", purchasing_material_requests_path(:state => "all")
+    &bull;
+    = link_to_if (params[:state] != 'closed'), "closed", purchasing_material_requests_path(:state => "closed")
+    &bull;
+    = link_to_if (params[:state] != 'open'), "open", purchasing_material_requests_path(:state => "open")
     -# = link_to "#{image_tag('icons/silk/add.png')} Create Material Request", new_purchasing_material_request_path, :class => 'main_link'
 
 %table.list
@@ -32,6 +37,8 @@
         %td.td_5.numbers= (i+1)
         %td
           %strong= link_to h(material_request.number), [:purchasing, material_request]
+          - if material_request.closed?
+            %span.red-tag closed
         %td= h material_request.reference
         %td
           = truncate(h(material_request.description), :length => 60)

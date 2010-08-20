@@ -14,7 +14,8 @@ class MaterialRequest < ActiveRecord::Base
 
   def after_initialize
     self.number = suggested_number if new_record?
-    self.userdate = Time.now.to_s(:long) if new_record?
+    self.userdate = Time.now.to_s(:long) if self.userdate.blank?
+    self.closed = false if self.closed.nil?
   end
 
   def suggested_number
@@ -27,6 +28,23 @@ class MaterialRequest < ActiveRecord::Base
 
   def name
     number
+  end
+
+  def quantity_left_for(item)
+    if closed
+      0
+    else
+      entries.item_id_is(item).first.quantity - trackers.item_id_is(item).sum(:quantity)
+    end
+  end
+
+  # mark this MR as closed if all of the entries quantity left is zero (spent on PO)
+  def close
+    quantity_left = entries.collect { |ent| quantity_left_for(ent.item_id) }.sum
+    if quantity_left.zero?
+      self.closed = true
+      save
+    end
   end
 
 end

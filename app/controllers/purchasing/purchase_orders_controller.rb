@@ -16,6 +16,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @purchase_order.entries.build
     @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
+    @material_requests = current_company.material_requests.not_closed
   end
   
   def create
