@@ -723,6 +723,7 @@ form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
   box-shadow:0 0 2px rgba(0, 0, 0, .3);
   -moz-box-shadow:0 0 2px rgba(0, 0, 0, .3);
   -webkit-box-shadow:0 0 2px rgba(0, 0, 0, .3);
+  -webkit-background-clip:padding-box;
 }
 a.main_link {
   display:inline-block;
@@ -748,6 +749,7 @@ p.single-column {
   margin-bottom:10px;
   margin-left:160px;
   position:relative;
+  min-height:1em;
 }
 .red-tag {
   display:inline-block;
@@ -757,4 +759,16 @@ p.single-column {
   border-top:solid 1px #ff6f6f;
   border-left:solid 1px #ff6f6f;
   padding:1px 2px 0 2px;
+}
+.ui-corner-all { border-radius:0; -moz-border-radius:0; -webkit-border-radius:0; }
+.dijitValidationIconText, .dijitValidationIcon { display:none; }
+input.dijitReset,
+input.dijitReset:focus,
+form.formtastic input.dijitReset,
+form.formtastic input.dijitReset:focus,
+form.formtastic textarea.dijitReset,
+form.formtastic textarea.dijitReset:focus,
+form.formtastic select.dijitReset {
+  border:none !important;
+  padding:2px;
 }

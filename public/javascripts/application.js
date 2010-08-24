@@ -11,9 +11,11 @@ $(function() {
       multiple: false,
       header: "Select an option",
       noneSelectedText: "Select an option",
-      selectedList: 1
+      selectedList: 1,
+      show: 'blind',
+      hide: 'blind'
     });
-    $('.multiselect').multiselect().multiselectfilter();
+    $('.multiselect').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
   };
   $('#from').change(function() {
     $('#notifier').show();
@@ -425,7 +427,21 @@ $('.popup_handle').live('click', function() {
 
 $('.row_remover').live('click', function() {
   var tr = $(this).parents('tr');
-  tr.find('input[name*="_destroy"][type=checkbox]').attr('checked', 'checked');
-  tr.hide();
+  $(tr).find('input[name*="_destroy"][type=checkbox]').attr('checked', 'checked').andSelf().hide();
+  return false;
+});
+
+$('.tracker_remover').live('click', function() {
+  var li = $(this).parents('li');
+  li = $(li[0]);
+  li.find('input[name*="_destroy"]').val(1);
+  li.hide();
+  var tr = li.parents('tr');
+  var tracker_quantities = tr.find('.tracker_quantity:visible');
+  var total = 0;
+  tracker_quantities.each(function() {
+    total += parseInt(this.value);
+  });
+  tr.find('.mr_qty').val(total);
   return false;
 });

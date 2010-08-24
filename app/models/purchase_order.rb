@@ -2,7 +2,6 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :supplier
   has_many :entries, :class_name => "PurchaseOrderEntry", :dependent => :destroy
-  has_many :trackers, :class_name => "PoMrTracker", :dependent => :destroy
   has_and_belongs_to_many :material_requests
   attr_writer :current_step
 
@@ -11,7 +10,6 @@ class PurchaseOrder < ActiveRecord::Base
   validates_presence_of :supplier_id, :if => lambda {|o| o.current_step == 'po' }
   validates_presence_of :po_date, :if => lambda {|o| o.current_step == 'po' }
 
-  before_save :populate_mr_trackers
   after_save :close_material_requests
 
   accepts_nested_attributes_for :entries,
@@ -53,33 +51,36 @@ class PurchaseOrder < ActiveRecord::Base
 
   def build_entries_from_mr
     entries.clear
-    items = MaterialRequestEntry.calculate(:sum,
-                                           :quantity,
-                                           :conditions => { :material_request_id => material_request_ids },
-                                           :group => :item_id)
-    items.each do |item_id, qty|
-      self.entries.build(:item_id => item_id,
-                         :quantity => qty,
-                         :purchase_price => Item.find(item_id).base_price)
+    mr_entries = MaterialRequestEntry.all(:conditions => { :material_request_id => material_request_ids },
+                                     :group => :item_id)
+    mr_entries.each do |entry|
+      item = entry.item
+      quantity = item.total_quantity_in_mr(material_request_ids)
+      if quantity > 0
+        self.entries.build(:item_id => item.id,
+                           :quantity => quantity,
+                           :purchase_price => item.base_price)
+      end
+    end
+  end
+
+  def build_mr_trackers
+    entries.each do |entry|
+      mr = MaterialRequest.id_in(material_request_ids).entries_item_id_is(entry.item_id)
+      mr.each do |m|
+        mr_entry_qty_left = m.quantity_left_for(entry.item_id)
+        if mr_entry_qty_left > 0
+          entry.trackers.build(:purchase_order_entry_id => entry.id,
+                              :material_request_id => m.id,
+                              :quantity => mr_entry_qty_left,
+                              :item_id => entry.item_id)
+        end
+      end
     end
   end
 
   def material_request_numbers
     material_requests.collect {|mr| mr.number}.join(', ')
-  end
-
-  def populate_mr_trackers
-    unless material_request_ids.blank?
-      MaterialRequest.id_in(material_request_ids).each do |mr|
-        mr.entries.each do |ent|
-          entry_qty_left = mr.quantity_left_for(ent.item_id)
-          self.trackers.build(:purchase_order_id => id,
-                              :material_request_id => mr.id,
-                              :quantity => entry_qty_left,
-                              :item_id => ent.item_id)
-        end
-      end
-    end
   end
 
   def close_material_requests

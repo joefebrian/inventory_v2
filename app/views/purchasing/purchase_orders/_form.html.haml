@@ -1,6 +1,62 @@
 - semantic_form_for [:purchasing, @purchase_order] do |f|
   = f.error_messages
-  = render "#{@purchase_order.current_step}_step", :f => f
+  - f.inputs "Purchase Order", :class => "form_section" do
+    %li.string
+      = f.label :number, "Number", :class => "required"
+      .inline
+        - if @purchase_order.new_record?
+          = f.text_field :number
+        - else
+          %span.uneditable= @purchase_order.number 
+      .inline{ :style => "min-width:190px;" }
+        = f.label :po_date, "PO Date", :style => "width:60px;", :class => "required"
+        = f.text_field :po_date, :class => "datepicker"
+    = f.input :supplier, :include_blank => "Select supplier", :required => true, :input_html => { :class => "select"}
+    = f.input :material_requests, :collection => @material_requests, :input_html => { :class => "multiselect" }
+    = f.input :attention
+    = f.input :term_of_payment, :input_html => { :rows => 2 }
+    = f.input :notes, :input_html => { :rows => 2 }, :label => "Remark"
+  - f.inputs 'Items', :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th{ :style => "width:63%;" } Item
+            %th{ :style => "width:8%;" } Qty
+            %th{ :style => "width:10%;" } @ Price
+            %th{ :style => "width:8%;" } Disc. (%)
+            %th
+        %tfoot
+          %tr
+            %td &nbsp;
+            %td{ :colspan => 5 } &nbsp;
+        %tbody
+          - f.semantic_fields_for :entries do |ent|
+            %tr
+              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+              %td{ :colspan => 5 }
+                %ul
+                  %li
+                    = ent.text_field :item_name, :class => "item_autocomplete", :style => "width:66% !important"
+                    = ent.hidden_field :item_id
+                    = ent.text_field :quantity, :class => "numbers mr_qty", :style => "width:7%"
+                    = ent.text_field :purchase_price, :class => "numbers", :style => "width:10%"
+                    = ent.text_field :discount, :class => "numbers", :style => "width:7%"
+                    = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+                  - unless ent.object.trackers.blank?
+                    - ent.semantic_fields_for :trackers do |trc|
+                      %li.trackers
+                        = "<span class='light' style='width:66%; display:inline-block; padding:3px;'>Quantity taken from <strong>#{trc.object.material_request.number}</strong></span> "
+                        = trc.text_field :quantity, :class => "numbers tracker_quantity", :style => "width:7%"
+                        = trc.hidden_field :material_request_id
+                        = trc.hidden_field :item_id
+                        = trc.hidden_field :_destroy
+                        = link_to "remove", '#', :class => "tracker_remover"
+  %fieldset.buttons
+    %button#primary-button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Purchase Order
 
 - content_for :javascripts do
   - javascript_tag do
@@ -28,7 +84,6 @@
             $(this).multiselect('close');
           }
         });
-        /*
         $('.multiselect').bind('multiselectclose', function(event, ui) {
           var mrs = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
@@ -45,5 +100,4 @@
           });
           return false;
         });
-        */
       });

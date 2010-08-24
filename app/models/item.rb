@@ -4,6 +4,8 @@ class Item < ActiveRecord::Base
   has_many :units
   has_many :plus
   has_many :customer_prices
+  has_many :material_request_entries
+  has_many :material_requests, :through => :material_request_entries
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"
   validates_presence_of :category_code, :message => "category can't be blank"
@@ -117,5 +119,11 @@ class Item < ActiveRecord::Base
 
   def base_price
     base_price_for(1)
+  end
+
+  def total_quantity_in_mr(mrs)
+    total = MaterialRequestEntry.material_request_not_closed.material_request_id_in(mrs).item_id_is(id).sum(:quantity)
+    spent = PoMrTracker.material_request_id_in(mrs).item_id_is(id).sum(:quantity)
+    mrs.blank? ? 0 : (total - spent)
   end
 end

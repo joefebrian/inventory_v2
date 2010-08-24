@@ -2,7 +2,6 @@ class MaterialRequest < ActiveRecord::Base
   attr_accessible :company_id, :number, :userdate, :reference, :requester, :description, :entries_attributes
   belongs_to :company
   has_many :entries, :class_name => "MaterialRequestEntry"
-  has_many :trackers, :class_name => "PoMrTracker"
   has_and_belongs_to_many :purchase_orders
 
   validates_presence_of :number, :userdate, :reference, :requester
@@ -34,7 +33,7 @@ class MaterialRequest < ActiveRecord::Base
     if closed
       0
     else
-      entries.item_id_is(item).first.quantity - trackers.item_id_is(item).sum(:quantity)
+      entries.find_by_item_id(item).quantity - PoMrTracker.material_request_id_is(id).item_id_is(item).sum(:quantity)
     end
   end
 

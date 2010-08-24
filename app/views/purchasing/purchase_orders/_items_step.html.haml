@@ -25,6 +25,21 @@
             %td.tdr= ent.text_field :discount, :size => 5, :class => "numbers"
             %td.tdr
               = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+          - unless ent.object.trackers.blank?
+            %tr
+              %td &nbsp;
+              %td{ :colspan => 5 }
+                %ul
+                - ent.semantic_fields_for :trackers do |trc|
+                  %li
+                    = trc.object.material_request.number
+                    = trc.text_field :quantity,
+                      :dojoType => "dijit.form.NumberTextBox",
+                      :constraints => "{min:5, max:10, places:0}",
+                      :required => true,
+                      :invalidMessage => "Invalid elevation."
+                    = trc.hidden_field :material_request_id
+                    = trc.hidden_field :item_id
 %fieldset.buttons
   %button{ :name => "back_button", :type => :submit } Back
   %button#primary-button{ :type => "submit" }

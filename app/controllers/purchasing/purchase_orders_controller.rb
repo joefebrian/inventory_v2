@@ -11,38 +11,27 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   end
   
   def new
-    session[:po_params] ||= {}
     @purchase_order = current_company.purchase_orders.new
     @purchase_order.entries.build
-    @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
     @material_requests = current_company.material_requests.not_closed
   end
   
   def create
-    session[:po_params].deep_merge!(params[:purchase_order]) if params[:purchase_order]
-    @purchase_order = current_company.purchase_orders.new(session[:po_params])
+    @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
     @suppliers = current_company.suppliers.all(:include => :profile)
-    @purchase_order.current_step = session[:po_step]
-    if @purchase_order.valid?
-      if params[:back_button]
-        @purchase_order.previous_step
-      elsif @purchase_order.last_step?
-        @purchase_order.save
-      else
-        @purchase_order.next_step
+    @material_requests = current_company.material_requests.not_closed
+    if params[:get_mrs] && params[:get_mrs] == '1'
         @purchase_order.build_entries_from_mr
+        @purchase_order.build_mr_trackers
         @purchase_order.entries.build
-      end
-      session[:po_step] = @purchase_order.current_step
+      render('new') and return
     end
-
-    if @purchase_order.new_record?
-      render "new"
-    else
-      session[:po_params] = session[:po_step] = nil
+    if @purchase_order.save
       flash[:success] = "Purchase Order saved"
       redirect_to [:purchasing, @purchase_order]
+    else
+      render 'new'
     end
   end
   
@@ -51,6 +40,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @purchase_order = current_company.purchase_orders.find(params[:id])
     @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
+    @material_requests = current_company.material_requests.not_closed
   end
   
   def update
@@ -59,6 +49,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @purchase_order.attributes = session[:po_params]
     @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
+    @material_requests = current_company.material_requests.not_closed
 
     updated = nil
     if @purchase_order.valid?
