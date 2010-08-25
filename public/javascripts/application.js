@@ -436,12 +436,9 @@ $('.tracker_remover').live('click', function() {
   li = $(li[0]);
   li.find('input[name*="_destroy"]').val(1);
   li.hide();
-  var tr = li.parents('tr');
-  var tracker_quantities = tr.find('.tracker_quantity:visible');
-  var total = 0;
-  tracker_quantities.each(function() {
-    total += parseInt(this.value);
-  });
-  tr.find('.mr_qty').val(total);
+  var input = li.parents('tr').find('.mr_qty');
+  var total_value = parseInt(input.val());
+  var tracker_value = parseInt(li.find('.tracker_quantity').val());
+  input.val((total_value >= tracker_value) ? (total_value - tracker_value) : 0);
   return false;
 });
