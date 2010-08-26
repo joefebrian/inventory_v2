@@ -2,8 +2,10 @@ class Assembly < ActiveRecord::Base
   attr_accessible :company_id, :category_id, :tipe, :number, :code, :name, :description, :entries_attributes
   belongs_to :company
   belongs_to :category
+  has_many :trans_assemblies
+  
   has_many :entries, :class_name => "AssemblyEntry"
-  validates_presence_of :number, :tipe, :code, :name, :category
+  validates_presence_of :number, :tipe, :code, :name, :category_id
   validates_uniqueness_of :number, :scope => :company_id
   validates_uniqueness_of :name, :scope => :company_id
 

@@ -29,6 +29,7 @@ class Company < ActiveRecord::Base
   has_many :currencies
   has_many :exchange_rates
   has_many :roles
+  has_many :trans_assemblies
 
   default_scope :order => :created_at
 

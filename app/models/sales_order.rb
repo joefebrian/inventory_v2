@@ -18,6 +18,7 @@ class SalesOrder < ActiveRecord::Base
   def tgl_active
    tanggal = Chronic.parse(tanggal_berlaku)
   end
+
   accepts_nested_attributes_for :entries, 
     :allow_destroy => true, 
     :reject_if => lambda {|a| a['quantity'].blank? }

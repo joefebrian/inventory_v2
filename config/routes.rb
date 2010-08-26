@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :roles
+  map.resources :trans_assemblies
 
+  map.resources :roles
   map.resources :exchange_rates
   map.resources :currencies
   map.resources :salesmen

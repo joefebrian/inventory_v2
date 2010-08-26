@@ -1,6 +1,7 @@
 class Warehouse < ActiveRecord::Base
   attr_accessible :code, :name, :address, :company_id, :default
   belongs_to :company
+  has_many :trans_assemblies
   has_many :locations
   accepts_nested_attributes_for :locations
   validates_presence_of :code, :message => "code can't be blank"

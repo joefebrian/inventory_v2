@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  trans_assembly_id: 1
+  item_id: 1
+  quantity: 1
+
+two:
+  trans_assembly_id: 1
+  item_id: 1
+  quantity: 1

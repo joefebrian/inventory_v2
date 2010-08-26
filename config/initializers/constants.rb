@@ -7,5 +7,7 @@ TRANS_PREFIX = { :item_transfer => 'TRF',
                  :quotation_request => "QRQ",
                  :purchase_orders => "PO",
                  :quotation => 'QUO',
-                 :sales_order => 'SO' }
+                 :sales_order => 'SO',
+                 :trans_diassemblies => 'TRAN-DISS',
+                 :trans_assemblies => 'TRAN-ASS' }
 COMPANY_MODE = { :inventory => false, :ca => false, :foobar => true, :rai => true }

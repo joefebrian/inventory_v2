@@ -1,0 +1,48 @@
+- title "Transaction Assemblies"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Transaction Assemblies', trans_assemblies_path), |
+    "Transaction Assemblies ##{@trans_assembly.number}" ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Transaction Assembling", edit_trans_assembly_path(@trans_assembly), :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Number
+      %strong= @trans_assembly.number
+    %p
+      %span.light.transaction_label Warehouse
+      %strong= @trans_assembly.warehouse.name
+    %p
+      %span.light.transaction_label Code Assemblies
+      %strong
+        = @trans_assembly.assembly.name 
+        = link_to ("(#{@trans_assembly.assembly.number})"), @trans_assembly.assembly 
+    %p
+      %span.light.transaction_label Quantity
+      %strong= @trans_assembly.quantity
+%p
+  %span.light.transaction_label Description
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @trans_assembly.description
+
+
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qauntity
+  %tbody
+  - @trans_assembly.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdl.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdc= entry.quantity
+
