@@ -113,15 +113,6 @@ $(function() {
   });
 });
 
-// Hide the submit button during save and replace with something else to prevent double submit
-/*
-$('form').live('submit', function() {
-  $('#primary-button, .primary-button').hide();
-  $('#button-replacer').show();
-  return true;
-});
-*/
-
 $('#primary-button, .primary-button').click(function() {
   $(this).hide();
   $('#button-replacer').show();
@@ -202,19 +193,6 @@ function attach_datepicker() {
   });
 }
 
-/*
-function add_entry_fields(prev) {
-  var elem = template.replace(regexp1, "[" + new_id + "]");
-  elem = elem.replace(regexp2, "_" + new_id + "_");
-  elem = "<tr>" + elem + "</tr>";
-  prev.after(elem);
-  $('.should_hidden').hide();
-  mr_autocomplete();
-  attach_datepicker();
-  new_id++;
-}
-*/
-
 $('.price').live('focus', function(){
   var itemname=$(this).parent('td').prev().prev().children('input').val();
   var customerid=$('#quotation_customer_id').val();
@@ -229,22 +207,6 @@ $('.price').live('focus', function(){
     }
   });
 });
-
-/*
-function xmr_autocomplete() {
-  $('input.item_autocomplete').autocomplete('/items/search.js', {
-    formatItem:   function(row, i) { return eval('('+row[0]+')').item.name; },
-    formatResult: function(row, i) { return eval('('+row[0]+')').item.name; },
-    mustMatch:    true
-  })
-  .result(function(event, data) {
-    if(data) {
-      $(this).next().val(eval('('+data[0]+')').item.id);
-      add_entry_fields($(this).parents('tr'));
-    }
-  });
-}
-*/
 
 $('.plu_input').live('click', function() {
   var input_id = $(this).prevAll('input[type=text]').attr("id");
