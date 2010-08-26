@@ -104,6 +104,13 @@ $(function() {
   });
   // add the button replacer after the primary submit button
   $('#primary-button, .primary-button').after('<span id="button-replacer" style="display:none;"><img src="/images/ajax-loader.gif" alt="" /> <span>Saving... please wait</span></span>');
+  // validate for PO tracker max quantity
+  $('form').validity(function() {
+    $('.tracker_quantity')
+    .require()
+    .match('number')
+    .range(0, $(this).attr('data-max'));
+  });
 });
 
 // Hide the submit button during save and replace with something else to prevent double submit

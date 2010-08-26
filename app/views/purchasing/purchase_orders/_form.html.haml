@@ -48,7 +48,7 @@
                     - ent.semantic_fields_for :trackers do |trc|
                       %li.trackers
                         = "<span class='light' style='width:66%; display:inline-block; padding:3px;'>Quantity taken from <strong>#{trc.object.material_request.number}</strong></span> "
-                        = trc.text_field :quantity, :class => "numbers tracker_quantity", :style => "width:7%"
+                        = trc.text_field :quantity, :class => "numbers tracker_quantity", :style => "width:7%", "data-max" => trc.object.quantity
                         = trc.hidden_field :material_request_id
                         = trc.hidden_field :item_id
                         = trc.hidden_field :_destroy
