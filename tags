@@ -1,4 +1,4 @@
-1282666872
+1282805734
 AddClosedToMaterialRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	class AddClosedToMaterialRequests 
 AddItemIdToPoMrRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100815094304_add_item_id_to_po_mr_requests.rb	class AddItemIdToPoMrRequests 
 AddPurchasePriceToItems	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100813073711_add_purchase_price_to_items.rb	class AddPurchasePriceToItems 
@@ -11,6 +11,7 @@ BeginingBalancesController	/home/ones006/ROR/inventory_first/inventory_v2/app/co
 COMPANY_MODE	/home/ones006/ROR/inventory_first/inventory_v2/config/initializers/constants.rb	COMPANY_MODE =
 CategoriesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	class CategoriesController 
 Category	/home/ones006/ROR/inventory_first/inventory_v2/app/models/category.rb	class Category 
+ChangePoMrTrackers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820073302_change_po_mr_trackers.rb	class ChangePoMrTrackers 
 Company	/home/ones006/ROR/inventory_first/inventory_v2/app/models/company.rb	class Company 
 CreateBeginingBalancesCategories	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100813071230_create_begining_balances_categories.rb	class CreateBeginingBalancesCategories 
 CreateMaterialRequestsPurchaseOrders	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100816072437_create_material_requests_purchase_orders.rb	class CreateMaterialRequestsPurchaseOrders 
@@ -77,10 +78,11 @@ average?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def
 base_price	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def base_price
 base_price_for	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def base_price_for
 before_save	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def before_save
-build_entries_from_as	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	  def build_entries_from_as
 build_entries_from_categories	/home/ones006/ROR/inventory_first/inventory_v2/app/models/begining_balance.rb	  def build_entries_from_categories
 build_entries_from_mr	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def build_entries_from_mr
+build_entries_from_one	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	  def build_entries_from_one
 build_entries_from_quot	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def build_entries_from_quot
+build_mr_trackers	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def build_mr_trackers
 categories_list	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def categories_list
 categories_list	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def categories_list
 category_code	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def category_code
@@ -139,6 +141,7 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100816072437_cr
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818052436_create_trans_assemblies.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818100551_create_trans_assemblies_entries.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820073302_change_po_mr_trackers.rb	  def self.down
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def edit
@@ -219,7 +222,6 @@ parent_code	/home/ones006/ROR/inventory_first/inventory_v2/app/models/category.r
 picker	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def picker
 picker	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def picker
 plu_available	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def plu_available
-populate_mr_trackers	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def populate_mr_trackers
 prepare_autocomplete	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/plus_controller.rb	  def prepare_autocomplete
 previous_step	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def previous_step
 price	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def price
@@ -279,6 +281,7 @@ to_s	/home/ones006/ROR/inventory_first/inventory_v2/app/models/salesman.rb	  def
 total_begining_balance_between	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def total_begining_balance_between
 total_quantity_for_transaction	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def total_quantity_for_transaction
 total_quantity_for_transactions	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def total_quantity_for_transactions
+total_quantity_in_mr	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def total_quantity_in_mr
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100803094253_create_purchase_order_entries.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100808181014_remove_material_request_id_from_purchase_orders.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100809030031_create_po_mr_trackers.rb	  def self.up
@@ -293,6 +296,7 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100816072437_crea
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818052436_create_trans_assemblies.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818100551_create_trans_assemblies_entries.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820073302_change_po_mr_trackers.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def update

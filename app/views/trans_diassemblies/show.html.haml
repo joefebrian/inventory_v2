@@ -1,0 +1,27 @@
+- title "Trans Diassembly"
+
+%p
+  %strong Company:
+  =h @trans_diassembly.company_id
+%p
+  %strong Warehouse:
+  =h @trans_diassembly.warehouse_id
+%p
+  %strong Trans Assembly:
+  =h @trans_diassembly.trans_assembly_id
+%p
+  %strong Number:
+  =h @trans_diassembly.number
+%p
+  %strong Quantity:
+  =h @trans_diassembly.quantity
+%p
+  %strong Description:
+  =h @trans_diassembly.description
+
+%p
+  = link_to "Edit", edit_trans_diassembly_path(@trans_diassembly)
+  |
+  = link_to "Destroy", @trans_diassembly, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", trans_diassemblies_path

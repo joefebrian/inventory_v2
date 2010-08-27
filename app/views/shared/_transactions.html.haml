@@ -1,5 +1,5 @@
 - current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil,
-  'po' => nil, 'prod' => nil, 'trass' => nil}
+  'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil}
 - current[@current] = 'current'
 %ul#sidemenu
   %li.submenu_handler
@@ -78,7 +78,7 @@
     %li
       =link_to "Transaction Assembling", trans_assemblies_path, :class => current['trass'] 
     %li
-      =link_to "Transaction Diassembling", '#'  
+      =link_to "Transaction Diassembling", trans_diassemblies_path, :class => current['tradis']  
     %li.submenu_handler
       =link_to "Production", '#', :class => current['prod']
       %div

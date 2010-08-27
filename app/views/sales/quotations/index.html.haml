@@ -6,8 +6,12 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} New Quotations", new_sales_quotation_path, :class => 'main_link'
+= hint 'Click "Create Quotation" button to add new Quotation'
+
+#subheader
+  %h3 Transaction Quotation
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Quotation", new_sales_quotation_path, :class => 'main_link'
 
 %table.list
   %thead

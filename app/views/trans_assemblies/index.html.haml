@@ -6,8 +6,12 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} New Transaction Assembling", new_trans_assembly_path, :class => 'main_link'
+= hint 'Click "Create Assembling" button to add new Assembling'
+
+#subheader
+  %h3 Transaction Assembling
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Assembling", new_trans_assembly_path, :class => 'main_link'
 
 %table.list
   %tr

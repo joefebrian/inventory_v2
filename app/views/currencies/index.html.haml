@@ -5,8 +5,12 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} New Currencies", new_currency_path, :class => 'main_link'
+= hint 'Click "Create Currency" button to add new Currency'
+
+#subheader
+  %h3 Transaction Currency
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Currency", new_currency_path, :class => 'main_link'
 
 %table.list
   %tr

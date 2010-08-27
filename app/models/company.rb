@@ -30,6 +30,7 @@ class Company < ActiveRecord::Base
   has_many :exchange_rates
   has_many :roles
   has_many :trans_assemblies
+  has_many :trans_diassemblies
 
   default_scope :order => :created_at
 

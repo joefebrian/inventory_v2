@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :trans_diassemblies
+
   map.resources :trans_assemblies
 
   map.resources :roles
