@@ -13,7 +13,7 @@ class MaterialRequest < ActiveRecord::Base
 
   def after_initialize
     self.number = suggested_number if new_record?
-    self.userdate = Time.now.to_s(:long) if self.userdate.blank?
+    self.userdate = Time.now.strftime("%d/%m/%Y") if self.userdate.blank?
     self.closed = false if self.closed.nil?
   end
 

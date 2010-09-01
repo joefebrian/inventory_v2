@@ -1,0 +1,94 @@
+- semantic_form_for [:purchasing, @item_receive] do |f|
+  = f.error_messages
+  - f.inputs "Item Receive", :class => "form_section" do
+    %li.string
+      = f.label :number, "Number", :class => "required"
+      .inline
+        - if @item_receive.new_record?
+          = f.text_field :number
+        - else
+          %span.uneditable= @item_receive.number 
+      .inline{ :style => "min-width:190px;" }
+        = f.label :user_date, "Date", :style => "width:60px;", :class => "required"
+        = f.text_field :user_date, :class => "datepicker"
+    = f.input :purchase_order, :include_blank => "Select PO", :collection => @purchase_orders, :required => true, :input_html => { :class => "select"}
+    = f.input :warehouse, :include_blank => "Select Warehouse", :collection => @warehouses, :required => true, :input_html => { :class => "select"}
+    = f.input :remark
+  - f.inputs 'Items', :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th Item
+            %th.td_10 Quantity
+            %th
+        %tbody
+          - unless @item_receive.entries.blank?
+            - f.semantic_fields_for :entries do |ent|
+              %tr
+                %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+                %td.item
+                  = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                  = ent.hidden_field :item_id
+                %td.tdr.td_5= ent.text_field :quantity, :size => 10, :class => "numbers mr_qty"
+                %td.tdr= link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+  %fieldset.buttons
+    %button#primary-button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Purchase Order
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    var warehouses = [];
+    - ActiveRecord::Base.include_root_in_json = false
+    - for warehouse in @warehouses
+      = "warehouses[#{warehouse.id}] = #{warehouse.to_json(:only => [:id, :name], :methods => [:address])};"
+    var pos = [];
+    - for po in @purchase_orders
+      = "pos[#{po.id}] = #{po.to_json(:only => [:id, :name], :include => { :supplier => { :methods => :name_and_address }})};"
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('#item_receive_warehouse_id').parent('li')
+        .append('<span id="warehouse_address" style="margin-left:10px;"></span>')
+        $('#item_receive_purchase_order_id').parent('li')
+        .append('<span id="supplier_info" style="margin-left:10px;"></span>')
+        var selected_warehouse = $('#item_receive_warehouse_id').multiselect('getChecked');
+        if(selected_warehouse.length) {
+          $('#warehouse_address').html(warehouses[selected_warehouse[0].value].address);
+        }
+        var selected_po = $('#item_receive_purchase_order_id').multiselect('getChecked');
+        if(selected_po.length) {
+          $('#supplier_info').html("Supplier: " + pos[selected_po[0].value].supplier.name_and_address);
+        }
+        $('#item_receive_warehouse_id')
+        .bind('multiselectclick', function(event, ui) {
+          if(typeof(warehouses[ui.value]) != 'undefined') {
+            $('#warehouse_address').html(warehouses[ui.value].address);
+            $(this).multiselect('close');
+          }
+        });
+        $('#item_receive_purchase_order_id').bind('multiselectclick', function(event, ui) {
+          if(typeof(pos[ui.value]) != 'undefined') {
+            $('#supplier_info').html("Supplier: " + pos[ui.value].supplier.name_and_address);
+          }
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_pos" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_pos]').remove();
+            }
+          });
+          $(this).multiselect('close');
+        });
+      });

@@ -38,7 +38,7 @@ class PurchaseOrder < ActiveRecord::Base
   
   def after_initialize
     self.number = suggested_number if new_record?
-    self.po_date = Time.now.to_date.to_s(:long) if self.po_date.blank?
+    self.po_date = Time.now.strftime("%d/%m/%Y") if self.po_date.blank?
   end
 
   def suggested_number
@@ -85,5 +85,9 @@ class PurchaseOrder < ActiveRecord::Base
 
   def close_material_requests
     material_requests.each { |mr| mr.close }
+  end
+
+  def name
+    number
   end
 end
