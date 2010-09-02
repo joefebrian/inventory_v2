@@ -25,14 +25,14 @@
       %th.actions Actions
   %tfoot
     %tr
-      %td{ :colspan => 4 }= will_paginate @item_receives
+      %td{ :colspan => 5 }= will_paginate @item_receives
   %tbody
     - for item_receive in @item_receives
       %tr
-        %td= link_to h(item_receive.number), item_receive
+        %td= link_to h(item_receive.number), purchasing_item_receife_path(item_receive)
         %td= h item_receive.purchase_order.number
         %td= h item_receive.user_date
         %td= h item_receive.remark
         %td.actions
-          = link_to 'Edit', edit_item_receive_path(item_receive)
-          = link_to 'Destroy', item_receive, :confirm => 'Are you sure?', :method => :delete
+          = link_to 'Edit', edit_purchasing_item_receife_path(item_receive)
+          = link_to 'Destroy', purchasing_item_receife_path(item_receive), :confirm => 'Are you sure?', :method => :delete

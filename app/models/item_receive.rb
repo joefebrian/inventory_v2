@@ -1,9 +1,14 @@
 class ItemReceive < ActiveRecord::Base
-  attr_accessible :purchase_order_id, :number, :user_date, :remark, :entries
+  attr_accessible :purchase_order_id, :number, :user_date, :remark, :warehouse_id, :entries_attributes
   belongs_to :company
   belongs_to :purchase_order
   belongs_to :warehouse
   has_many :entries, :class_name => "ItemReceiveEntry"
+
+  validates_presence_of :number
+  validates_presence_of :user_date
+  validates_presence_of :purchase_order_id
+  validates_presence_of :warehouse_id
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
@@ -26,7 +31,7 @@ class ItemReceive < ActiveRecord::Base
     entries.clear
     po_entries = PurchaseOrderEntry.all(:conditions => { :purchase_order_id => purchase_order_id }, :group => :item_id)
     po_entries.each do |entry|
-      self.entries.build(:item_id => entry.item.id, :quantity => entry.quantity)
+      self.entries.build(:item_id => entry.item.id, :quantity => entry.purchase_order.quantity_left(entry.item))
     end
   end
 

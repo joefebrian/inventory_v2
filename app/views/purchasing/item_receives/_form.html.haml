@@ -29,7 +29,7 @@
               %tr
                 %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
                 %td.item
-                  = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                  = ent.object.item.name
                   = ent.hidden_field :item_id
                 %td.tdr.td_5= ent.text_field :quantity, :size => 10, :class => "numbers mr_qty"
                 %td.tdr= link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"

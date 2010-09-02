@@ -126,4 +126,8 @@ class Item < ActiveRecord::Base
     spent = PoMrTracker.material_request_id_in(mrs).item_id_is(id).sum(:quantity)
     mrs.blank? ? 0 : (total - spent)
   end
+
+  def plu_for(supplier)
+    plus.find(:conditions => { :Item_id => id, :supplier_id => supplier })
+  end
 end

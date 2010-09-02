@@ -1,8 +1,21 @@
 - title "Edit Item Receive"
 
-= render :partial => 'form'
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Item Receipt', purchasing_item_receives_path), |
+    link_to("#{@item_receive.number}",purchasing_item_receife_path(@item_receive)), |
+    'Edit' ] |
 
-%p
-  = link_to "Show", item_receive_path(@item_receive)
-  |
-  = link_to "View All", item_receives_path
+  = sidemenu @tab
+
+= hint "Select one of the transaction type first to show the transaction form"
+
+#subheader
+  %h3 Edit item receipt
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_item_receives_path, :class => "back_link"
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_view_detail.png')} detail", purchasing_item_receife_path(@item_receive)
+
+= render :partial => 'form'

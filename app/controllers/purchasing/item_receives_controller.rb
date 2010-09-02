@@ -22,12 +22,11 @@ class Purchasing::ItemReceivesController < ApplicationController
     @warehouses = current_company.warehouses
     if params[:get_pos] && params[:get_pos] == '1'
         @item_receive.build_entries_from_po
-        # @item_receive.entries.build
       render('new', :layout => false) and return
     end
     if @item_receive.save
       flash[:notice] = "Successfully created item receive."
-      redirect_to @item_receive
+      redirect_to purchasing_item_receife_path(@item_receive)
     else
       render :action => 'new'
     end
@@ -35,13 +34,15 @@ class Purchasing::ItemReceivesController < ApplicationController
   
   def edit
     @item_receive = current_company.item_receives.find(params[:id])
+    @purchase_orders = current_company.purchase_orders
+    @warehouses = current_company.warehouses
   end
   
   def update
     @item_receive = current_company.item_receives.find(params[:id])
     if @item_receive.update_attributes(params[:item_receive])
       flash[:notice] = "Successfully updated item receive."
-      redirect_to @item_receive
+      redirect_to purchasing_item_receife_path(@item_receive)
     else
       render :action => 'edit'
     end
@@ -51,7 +52,7 @@ class Purchasing::ItemReceivesController < ApplicationController
     @item_receive = current_company.item_receives.find(params[:id])
     @item_receive.destroy
     flash[:notice] = "Successfully destroyed item receive."
-    redirect_to item_receives_url
+    redirect_to purchasing_item_receives_url
   end
 
   private

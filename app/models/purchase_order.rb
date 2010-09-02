@@ -90,4 +90,10 @@ class PurchaseOrder < ActiveRecord::Base
   def name
     number
   end
+
+  def quantity_left(item)
+    total = entries.find_by_item_id(item).quantity
+    used = ItemReceiveEntry.item_receive_purchase_order_id_is(id).item_id_is(item).sum(:quantity)
+    total - used
+  end
 end
