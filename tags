@@ -1,4 +1,4 @@
-1282805734
+1283184706
 AddClosedToMaterialRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	class AddClosedToMaterialRequests 
 AddItemIdToPoMrRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100815094304_add_item_id_to_po_mr_requests.rb	class AddItemIdToPoMrRequests 
 AddPurchasePriceToItems	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100813073711_add_purchase_price_to_items.rb	class AddPurchasePriceToItems 
@@ -19,6 +19,8 @@ CreatePoMrTrackers	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/201
 CreatePurchaseOrderEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100803094253_create_purchase_order_entries.rb	class CreatePurchaseOrderEntries 
 CreateTransAssemblies	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818052436_create_trans_assemblies.rb	class CreateTransAssemblies 
 CreateTransAssembliesEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818100551_create_trans_assemblies_entries.rb	class CreateTransAssembliesEntries 
+CreateTransDiassemblies	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100827024622_create_trans_diassemblies.rb	class CreateTransDiassemblies 
+CreateTransDiassembliesEntries	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100827025304_create_trans_diassemblies_entries.rb	class CreateTransDiassembliesEntries 
 Customer	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	class Customer 
 CustomersController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	class CustomersController 
 GeneralTransactionsController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	class GeneralTransactionsController 
@@ -50,6 +52,11 @@ TransAssembliesEntry	/home/ones006/ROR/inventory_first/inventory_v2/app/models/t
 TransAssembliesEntryTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/trans_assemblies_entry_test.rb	class TransAssembliesEntryTest 
 TransAssembliesHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/trans_assemblies_helper.rb	module TransAssembliesHelper
 TransAssembly	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	class TransAssembly 
+TransDiassembliesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	class TransDiassembliesController 
+TransDiassembliesEntry	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassemblies_entry.rb	class TransDiassembliesEntry 
+TransDiassembliesEntryTest	/home/ones006/ROR/inventory_first/inventory_v2/test/unit/trans_diassemblies_entry_test.rb	class TransDiassembliesEntryTest 
+TransDiassembliesHelper	/home/ones006/ROR/inventory_first/inventory_v2/app/helpers/trans_diassemblies_helper.rb	module TransDiassembliesHelper
+TransDiassembly	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassembly.rb	class TransDiassembly 
 Warehouse	/home/ones006/ROR/inventory_first/inventory_v2/app/models/warehouse.rb	class Warehouse 
 WarehousesController	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	class WarehousesController 
 activate	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def activate
@@ -61,6 +68,7 @@ after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purch
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation_request.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def after_initialize
 after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	  def after_initialize
+after_initialize	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassembly.rb	  def after_initialize
 after_save	/home/ones006/ROR/inventory_first/inventory_v2/app/models/assembly.rb	 def after_save
 assign_alter_stock	/home/ones006/ROR/inventory_first/inventory_v2/app/models/begining_balance.rb	  def assign_alter_stock
 assign_parent	/home/ones006/ROR/inventory_first/inventory_v2/app/models/category.rb	  def assign_parent
@@ -73,6 +81,7 @@ assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/purcha
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotations_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def assign_tab
 assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def assign_tab
+assign_tab	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def assign_tab
 available_tracker	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def available_tracker
 average?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def average?
 base_price	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def base_price
@@ -82,6 +91,7 @@ build_entries_from_categories	/home/ones006/ROR/inventory_first/inventory_v2/app
 build_entries_from_mr	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def build_entries_from_mr
 build_entries_from_one	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	  def build_entries_from_one
 build_entries_from_quot	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def build_entries_from_quot
+build_entries_from_tras	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassembly.rb	  def build_entries_from_tras
 build_mr_trackers	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def build_mr_trackers
 categories_list	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def categories_list
 categories_list	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/items_controller.rb	  def categories_list
@@ -106,6 +116,7 @@ create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quot
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def create
+create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def create
 create	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def create
 current_step	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  attr_writer :current_step
 current_step	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def current_step
@@ -125,6 +136,7 @@ destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quo
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def destroy
+destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def destroy
 destroy	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def destroy
 detail	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/general_transactions_controller.rb	  def detail
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100803094253_create_purchase_order_entries.rb	  def self.down
@@ -142,6 +154,8 @@ down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818052436_cr
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818100551_create_trans_assemblies_entries.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	  def self.down
 down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820073302_change_po_mr_trackers.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100827024622_create_trans_diassemblies.rb	  def self.down
+down	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100827025304_create_trans_diassemblies_entries.rb	  def self.down
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def edit
@@ -155,6 +169,7 @@ edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotat
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def edit
+edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def edit
 edit	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def edit
 fifo?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def fifo?
 first_transaction_date	/home/ones006/ROR/inventory_first/inventory_v2/app/models/company.rb	  def first_transaction_date
@@ -174,6 +189,7 @@ index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quota
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def index
+index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	 def index
 index	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def index
 inventory_only?	/home/ones006/ROR/inventory_first/inventory_v2/app/models/company.rb	  def inventory_only?
 item_code	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def item_code
@@ -184,6 +200,8 @@ item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_ord
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order_entry.rb	  def item_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assemblies_entry.rb	  def item_name
 item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assemblies_entry.rb	  def item_name
+item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassemblies_entry.rb	  def item_name
+item_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassemblies_entry.rb	  def item_name
 item_name_with_code	/home/ones006/ROR/inventory_first/inventory_v2/app/models/plu.rb	  def item_name_with_code
 item_quantity	/home/ones006/ROR/inventory_first/inventory_v2/app/models/warehouse.rb	  def item_quantity
 items_for_begining_balance	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def items_for_begining_balance
@@ -211,6 +229,7 @@ new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotati
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def new
+new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def new
 new	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def new
 next_step	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purchase_order.rb	  def next_step
 next_stock	/home/ones006/ROR/inventory_first/inventory_v2/app/models/company.rb	  def next_stock
@@ -255,6 +274,7 @@ show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quotat
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def show
+show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def show
 show	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def show
 sorted	/home/ones006/ROR/inventory_first/inventory_v2/app/models/category.rb	  def self.sorted
 sorted_categories	/home/ones006/ROR/inventory_first/inventory_v2/app/models/company.rb	  def sorted_categories
@@ -271,11 +291,13 @@ suggested_number	/home/ones006/ROR/inventory_first/inventory_v2/app/models/purch
 suggested_number	/home/ones006/ROR/inventory_first/inventory_v2/app/models/quotation_request.rb	  def suggested_number
 suggested_number	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def suggested_number
 suggested_number	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	  def suggested_number
+suggested_number	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassembly.rb	  def suggested_number
 sum_on_hand_between	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def sum_on_hand_between
 supplier_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/plu.rb	  attr_accessor :item_name, :supplier_name
 supplier_name	/home/ones006/ROR/inventory_first/inventory_v2/app/models/plu.rb	  def supplier_name
 tgl_active	/home/ones006/ROR/inventory_first/inventory_v2/app/models/sales_order.rb	  def tgl_active
 tgl_active	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_assembly.rb	  def tgl_active
+tgl_active	/home/ones006/ROR/inventory_first/inventory_v2/app/models/trans_diassembly.rb	  def tgl_active
 to_s	/home/ones006/ROR/inventory_first/inventory_v2/app/models/customer.rb	  def to_s
 to_s	/home/ones006/ROR/inventory_first/inventory_v2/app/models/salesman.rb	  def to_s
 total_begining_balance_between	/home/ones006/ROR/inventory_first/inventory_v2/app/models/item.rb	  def total_begining_balance_between
@@ -297,6 +319,8 @@ up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818052436_crea
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100818100551_create_trans_assemblies_entries.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	  def self.up
 up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820073302_change_po_mr_trackers.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100827024622_create_trans_diassemblies.rb	  def self.up
+up	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100827025304_create_trans_diassemblies_entries.rb	  def self.up
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/begining_balances_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/categories_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/customers_controller.rb	  def update
@@ -310,6 +334,7 @@ update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/quot
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/sales/sales_orders_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_assemblies_controller.rb	  def update
+update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/trans_diassemblies_controller.rb	  def update
 update	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def update
 xhr_fail_response	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/suppliers_controller.rb	  def xhr_fail_response
 xhr_fail_response	/home/ones006/ROR/inventory_first/inventory_v2/app/controllers/warehouses_controller.rb	  def xhr_fail_response

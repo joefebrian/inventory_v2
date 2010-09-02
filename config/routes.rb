@@ -1,8 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :trans_diassemblies
+  map.resources :item_receives
 
   map.resources :trans_assemblies
-
+  map.resources :trans_diassemblies
   map.resources :roles
   map.resources :exchange_rates
   map.resources :currencies

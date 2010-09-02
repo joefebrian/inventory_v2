@@ -1,0 +1,19 @@
+- title "Item Receives"
+
+%table
+  %tr
+    %th Purchase order
+    %th Number
+    %th User date
+    %th Remark
+  - for item_receive in @item_receives
+    %tr
+      %td= h item_receive.purchase_order_id
+      %td= h item_receive.number
+      %td= h item_receive.user_date
+      %td= h item_receive.remark
+      %td= link_to 'Show', item_receive
+      %td= link_to 'Edit', edit_item_receive_path(item_receive)
+      %td= link_to 'Destroy', item_receive, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Item Receive", new_item_receive_path
