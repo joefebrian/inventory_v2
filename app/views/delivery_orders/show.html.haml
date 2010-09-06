@@ -1,0 +1,27 @@
+- title "Delivery Order"
+
+%p
+  %strong Company:
+  =h @delivery_order.company_id
+%p
+  %strong Sales Order:
+  =h @delivery_order.sales_order_id
+%p
+  %strong Number:
+  =h @delivery_order.number
+%p
+  %strong Date:
+  =h @delivery_order.date
+%p
+  %strong Reference:
+  =h @delivery_order.reference
+%p
+  %strong Description:
+  =h @delivery_order.description
+
+%p
+  = link_to "Edit", edit_delivery_order_path(@delivery_order)
+  |
+  = link_to "Destroy", @delivery_order, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", delivery_orders_path

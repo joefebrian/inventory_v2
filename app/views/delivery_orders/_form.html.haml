@@ -1,0 +1,28 @@
+- form_for @delivery_order do |f|
+  = f.error_messages
+  %p
+    = f.label :company_id
+    %br
+    = f.text_field :company_id
+  %p
+    = f.label :sales_order_id
+    %br
+    = f.text_field :sales_order_id
+  %p
+    = f.label :number
+    %br
+    = f.text_field :number
+  %p
+    = f.label :date
+    %br
+    = f.date_select :date
+  %p
+    = f.label :reference
+    %br
+    = f.text_field :reference
+  %p
+    = f.label :description
+    %br
+    = f.text_area :description
+  %p
+    = f.submit

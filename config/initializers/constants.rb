@@ -8,6 +8,8 @@ TRANS_PREFIX = { :item_transfer => 'TRF',
                  :purchase_orders => "PO",
                  :quotation => 'QUO',
                  :sales_order => 'SO',
+                 :sales_invoices => 'INVO',
+                 :delivery_orders => 'DO',
                  :trans_diassemblies => 'TRAN-DISS',
                  :trans_assemblies => 'TRAN-ASS' }
 COMPANY_MODE = { :inventory => false, :ca => false, :foobar => true, :rai => true }

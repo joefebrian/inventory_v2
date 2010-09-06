@@ -1,0 +1,27 @@
+- title "Sales Invoice"
+
+%p
+  %strong Company:
+  =h @sales_invoice.company_id
+%p
+  %strong Delivery Order:
+  =h @sales_invoice.delivery_order_id
+%p
+  %strong Number:
+  =h @sales_invoice.number
+%p
+  %strong Ppn:
+  =h @sales_invoice.ppn
+%p
+  %strong Due Date:
+  =h @sales_invoice.due_date
+%p
+  %strong Top:
+  =h @sales_invoice.top
+
+%p
+  = link_to "Edit", edit_sales_invoice_path(@sales_invoice)
+  |
+  = link_to "Destroy", @sales_invoice, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", sales_invoices_path

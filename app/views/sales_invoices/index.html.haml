@@ -1,0 +1,31 @@
+- title "Sales Invoices"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', 'Sales Invoices' ] |
+
+  = sidemenu @tab
+
+= hint 'Click "Create Sales Invoice" button to add new Invoice'
+
+#subheader
+  %h3 Sales Invoices
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Invoice", new_sales_invoice_path, :class => 'main_link'
+
+
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Code DO
+      %th Due date
+  %tbody
+    - for sales_invoice in @sales_invoices
+      %tr
+        %td= h sales_invoice.number
+        %td= h sales_invoice.delivery_order_id
+        %td= h sales_invoice.due_date
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_invoice_path(sales_invoice)
+          = link_to image_tag('icons/silk/delete.png'), sales_invoice_path(sales_invoice), :confirm => 'Are you sure?', :method => :delete

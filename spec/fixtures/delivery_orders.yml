@@ -1,0 +1,15 @@
+one:
+  company_id: 1
+  sales_order_id: 1
+  number: MyString
+  date: 2010-09-03
+  reference: MyString
+  description: MyText
+
+two:
+  company_id: 1
+  sales_order_id: 1
+  number: MyString
+  date: 2010-09-03
+  reference: MyString
+  description: MyText

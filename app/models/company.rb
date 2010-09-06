@@ -29,6 +29,8 @@ class Company < ActiveRecord::Base
   has_many :currencies
   has_many :exchange_rates
   has_many :roles
+  has_many :delivery_orders
+  has_many :sales_invoices
   has_many :trans_assemblies
   has_many :trans_diassemblies
 

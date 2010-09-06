@@ -1,0 +1,31 @@
+- title "Delivery Orders"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', 'Delivery Orders' ] |
+
+  = sidemenu @tab
+
+= hint 'Click "Create Delivery Order" button to add new Delivery Order'
+
+#subheader
+  %h3 Delivery Order
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Delivery Order", new_delivery_order_path, :class => 'main_link'
+
+
+%table.list
+  %thead
+    %tr
+      %th NUmber
+      %th Code SO
+      %th Date
+  %tbody
+    - for delivery_order in @delivery_orders
+      %tr
+        %td= h delivery_order.number
+        %td= h delivery_order.sales_order_id
+        %td= h delivery_order.date
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_delivery_order_path(delivery_order)
+          = link_to image_tag('icons/silk/delete.png'), delivery_order_path(delivery_order), :confirm => 'Are you sure?', :method => :delete
