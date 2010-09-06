@@ -36,6 +36,7 @@ class SalesOrder < ActiveRecord::Base
   end
 
   def build_entries_from_quot
+    entries.clear
     unless quotation.blank?
       items = QuotationEntry.calculate(:sum,
                                              :quantity,

@@ -1,0 +1,14 @@
+- title "Edit Transaction Diassembling"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Transaction Diassembling', trans_diassembly_path), |
+    link_to(@trans_diassembly.number, trans_diassembly_path(@trans_diassembly)), |
+    'Edit Transaction Diassembling' ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/page_white_text.png')} Transaction Diassembling Detail", trans_diassembly_path(@trans_assembly), :class => 'main_link'
+
+= render :partial => 'form'

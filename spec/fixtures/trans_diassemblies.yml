@@ -1,0 +1,15 @@
+one:
+  company_id: 1
+  warehouse_id: 1
+  trans_assembly_id: 1
+  number: MyString
+  quantity: 1
+  description: MyText
+
+two:
+  company_id: 1
+  warehouse_id: 1
+  trans_assembly_id: 1
+  number: MyString
+  quantity: 1
+  description: MyText

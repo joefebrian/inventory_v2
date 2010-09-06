@@ -31,6 +31,7 @@ class Company < ActiveRecord::Base
   has_many :roles
   has_many :trans_assemblies
   has_many :item_receives, :class_name => "ItemReceive"
+  has_many :trans_diassemblies
 
   default_scope :order => :created_at
 

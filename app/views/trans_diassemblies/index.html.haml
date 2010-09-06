@@ -1,0 +1,36 @@
+- title "Transaction Diassembling"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+   'Diassembling' ] |
+
+  = sidemenu @tab
+
+= hint 'Click "Create Diassembling" button to add new Diassembling'
+
+#subheader
+  %h3 Transaction Diassembling
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Diassembling", new_trans_diassembly_path, :class => 'main_link'
+
+%table.list
+  %thead
+    %tr
+      %th.td_5 No.
+      %th Number
+      %th Warehouse
+      %th Quantity
+      %th.actions Actions 
+  
+  - for trans_diassembly in @trans_diassemblies
+    
+    %tbody  
+    %tr
+      %td= h trans_diassembly.number
+      %td= h trans_diassembly.warehouse_id
+      %td= h trans_diassembly.quantity
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_trans_diassembly_path(trans_diassembly)
+        = link_to image_tag('icons/silk/delete.png'), trans_diassembly_path(trans_diassembly), :confirm => 'Are you sure?', :method => :delete
+
+ 

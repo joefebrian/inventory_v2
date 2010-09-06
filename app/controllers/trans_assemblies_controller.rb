@@ -37,6 +37,9 @@ class TransAssembliesController < ApplicationController
   
   def edit
     @trans_assembly = current_company.trans_assemblies.find(params[:id])
+    @trans_assembly.entries.build
+    @warehouses = current_company.warehouses
+    @assemblies = current_company.assemblies
   end
   
   def update
@@ -45,6 +48,9 @@ class TransAssembliesController < ApplicationController
       flash[:notice] = "Successfully updated trans assembly."
       redirect_to @trans_assembly
     else
+      @trans_assembly.entries.build
+      @warehouses = current_company.warehouses
+      @assemblies = current_company.assemblies
       render :action => 'edit'
     end
   end
