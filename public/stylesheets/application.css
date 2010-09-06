@@ -696,7 +696,7 @@ label.required:after {
   margin-left:10px;
 }
 #button-replacer img { vertical-align:middle; }
-form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
+form.formtastic .uneditable { font-weight:bold; line-height:1.4em; display:inline-block; margin-bottom:5px; }
 
 #subheader { margin-bottom:15px; overflow:hidden; padding:5px 0; }
 #subheader h3 {

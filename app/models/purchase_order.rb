@@ -2,6 +2,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :supplier
   has_many :entries, :class_name => "PurchaseOrderEntry", :dependent => :destroy
+  has_many :item_receives, :class_name => "ItemReceive"
   has_and_belongs_to_many :material_requests
   attr_writer :current_step
 
@@ -91,9 +92,19 @@ class PurchaseOrder < ActiveRecord::Base
     number
   end
 
+  def items
+    company.items.all(:conditions => { :id => entries.collect { |e| e.item_id }}, :group => :id )
+  end
+
   def quantity_left(item)
     total = entries.find_by_item_id(item).quantity
     used = ItemReceiveEntry.item_receive_purchase_order_id_is(id).item_id_is(item).sum(:quantity)
     total - used
+  end
+
+  def close
+    quantity_left = items.collect { |item| quantity_left(item) }.sum
+    self.closed = quantity_left.zero? ? true : false
+    save
   end
 end

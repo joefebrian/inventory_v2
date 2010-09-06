@@ -11,7 +11,15 @@
       .inline{ :style => "min-width:190px;" }
         = f.label :user_date, "Date", :style => "width:60px;", :class => "required"
         = f.text_field :user_date, :class => "datepicker"
-    = f.input :purchase_order, :include_blank => "Select PO", :collection => @purchase_orders, :required => true, :input_html => { :class => "select"}
+    - if @item_receive.new_record?
+      = f.input :purchase_order, :include_blank => "Select PO", :collection => @purchase_orders, :required => true, :input_html => { :class => "select"}
+    - else
+      %li.string
+        %label Purchase Order
+        %span.uneditable
+          = link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
+          &bull; Supplier:
+          = link_to @item_receive.purchase_order.supplier.name_and_address, @item_receive.purchase_order.supplier
     = f.input :warehouse, :include_blank => "Select Warehouse", :collection => @warehouses, :required => true, :input_html => { :class => "select"}
     = f.input :remark
   - f.inputs 'Items', :class => "form_section" do
@@ -21,8 +29,9 @@
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
-            %th.td_10 Quantity
-            %th
+            %th.td_15 Quantity @ PO
+            %th.td_15 Received Quantity
+            %th.td_5
         %tbody
           - unless @item_receive.entries.blank?
             - f.semantic_fields_for :entries do |ent|
@@ -31,8 +40,9 @@
                 %td.item
                   = ent.object.item.name
                   = ent.hidden_field :item_id
-                %td.tdr.td_5= ent.text_field :quantity, :size => 10, :class => "numbers mr_qty"
-                %td.tdr= link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+                %td.tdr.td_15= ent.object.quantity
+                %td.tdr.td_15= ent.text_field :quantity, :size => 10, :class => "numbers mr_qty"
+                %td.td_5.tdr= link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
   %fieldset.buttons
     %button#primary-button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'

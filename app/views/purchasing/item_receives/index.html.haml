@@ -34,5 +34,5 @@
         %td= h item_receive.user_date
         %td= h item_receive.remark
         %td.actions
-          = link_to 'Edit', edit_purchasing_item_receife_path(item_receive)
-          = link_to 'Destroy', purchasing_item_receife_path(item_receive), :confirm => 'Are you sure?', :method => :delete
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_item_receife_path(item_receive)
+          = link_to image_tag('icons/silk/delete.png'), purchasing_item_receife_path(item_receive), :confirm => 'Are you sure?', :method => :delete

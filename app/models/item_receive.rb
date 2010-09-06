@@ -3,12 +3,14 @@ class ItemReceive < ActiveRecord::Base
   belongs_to :company
   belongs_to :purchase_order
   belongs_to :warehouse
-  has_many :entries, :class_name => "ItemReceiveEntry"
+  has_many :entries, :class_name => "ItemReceiveEntry", :dependent => :destroy
 
   validates_presence_of :number
   validates_presence_of :user_date
   validates_presence_of :purchase_order_id
   validates_presence_of :warehouse_id
+
+  after_save :close_purchase_order
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
@@ -33,6 +35,10 @@ class ItemReceive < ActiveRecord::Base
     po_entries.each do |entry|
       self.entries.build(:item_id => entry.item.id, :quantity => entry.purchase_order.quantity_left(entry.item))
     end
+  end
+
+  def close_purchase_order
+    purchase_order.close
   end
 
 end

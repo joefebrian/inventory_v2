@@ -12,7 +12,7 @@ class Purchasing::ItemReceivesController < ApplicationController
   
   def new
     @item_receive = current_company.item_receives.new
-    @purchase_orders = current_company.purchase_orders
+    @purchase_orders = current_company.purchase_orders.not_closed
     @warehouses = current_company.warehouses
   end
   
@@ -34,7 +34,7 @@ class Purchasing::ItemReceivesController < ApplicationController
   
   def edit
     @item_receive = current_company.item_receives.find(params[:id])
-    @purchase_orders = current_company.purchase_orders
+    @purchase_orders = current_company.purchase_orders.all(:conditions => ["closed = 0 OR id = ?", @item_receive.purchase_order])
     @warehouses = current_company.warehouses
   end
   

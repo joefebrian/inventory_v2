@@ -40,7 +40,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @purchase_order = current_company.purchase_orders.find(params[:id])
     @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
-    @material_requests = current_company.material_requests.not_closed
+    @material_requests = current_company.material_requests.all(:conditions => ["closed = 0 OR id IN (?)", @purchase_order.material_requests.collect { |mr| mr.id }])
   end
   
   def update
