@@ -1,0 +1,119 @@
+- semantic_form_for [:purchasing, @purchase_return] do |f|
+  = f.error_messages
+  #ajax_error
+  - f.inputs "Purchase Return", :class => "form_section" do
+    %li.string
+      = f.label :number, "Number", :class => "required"
+      .inline
+        - if @purchase_return.new_record?
+          = f.text_field :number
+        - else
+          %span.uneditable= @purchase_return.number 
+      .inline{ :style => "min-width:190px;" }
+        = f.label :user_date, "Date", :style => "width:60px;", :class => "required"
+        = f.text_field :user_date, :class => "datepicker"
+    = f.input :supplier, :collection => @suppliers, :required => true, :input_html => { :class => "select"}
+    = f.input :purchase_order, :collection => @purchase_orders, :input_html => { :class => "select"}
+    = f.input :remark, :label => "Remark"
+  - f.inputs "Items", :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th.td_15 PLU Code
+            %th Item
+            %th Qty
+            %th
+        %tfoot
+          %tr
+            %td &nbsp;
+            %td{ :colspan => 4 } &nbsp;
+        %tbody
+          - f.semantic_fields_for :entries do |ent|
+            %tr
+              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+              %td.td_15
+                = ent.text_field :plu_code, :class => "plu_code"
+                = ent.hidden_field :plu_id
+              %td.item_name
+              %td.tdr.td_10= ent.text_field :quantity, :class => "numbers mr_qty"
+              %td.tdc.td_5= link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+  %fieldset.buttons
+    %button#primary-button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Purchase Return
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    var suppliers = [];
+    - ActiveRecord::Base.include_root_in_json = false
+    - for supplier in @suppliers
+      = "suppliers[#{supplier.id}] = #{supplier.to_json(:only => [:id, :name], :methods => [:address])};"
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('#purchase_return_supplier_id').parent('li')
+        .append('<span id="supplier_info" style="margin-left:10px;"></span>')
+        var selected_supplier = $('#purchase_return_supplier_id').multiselect('getChecked');
+        if(selected_supplier.length) {
+          $('#supplier_info').html(suppliers[selected_supplier[0].value].address);
+        }
+        $('#purchase_return_supplier_id')
+        .bind('multiselectclick', function(event, ui) {
+          if(typeof(suppliers[ui.value]) != 'undefined') {
+            $('#supplier_info').html(suppliers[ui.value].address);
+            $(this).multiselect('close');
+            $('#ajax_error').removeClass('flash_error').html('');
+          }
+        });
+        $('#purchase_return_purchase_order_id').bind('multiselectclick', function(event, ui) {
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_pos" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_pos]').remove();
+            }
+          });
+          $(this).multiselect('close');
+        });
+      });
+      $('.plu_code').live('focus', function() {
+        var selected_supplier = $('#purchase_return_supplier_id').multiselect('getChecked');
+        if(selected_supplier.length) {
+          var input = $(this);
+          input.autocomplete({
+            source: '/plus/search.js?supplier_required=1&supplier_id=' + selected_supplier[0].value,
+            focus: function(event, ui) { input.val(ui.item.code); },
+            select: function(event, ui) {
+              var elem = template.replace(regexp1, "[" + new_id + "]");
+              elem = elem.replace(regexp2, "_" + new_id + "_");
+              input.parents('tr').after("<tr>" + elem + "</tr>");
+              new_id++;
+              input.val(ui.item.code);
+              input.next('input[type=hidden]').val(ui.item.id);
+              input.parent().next().html(ui.item.item.name_with_code);
+              input.parent().next().next().children().val(0).select();
+              return true;
+            }
+          })
+          .data("autocomplete")
+          ._renderItem = function(ul, item) {
+            return $("<li></li>")
+            .data("item.autocomplete", item)
+            .append("<a>" + item.item.name_with_code + "</a>")
+            .appendTo(ul);
+          };
+        } else {
+          $('#ajax_error').addClass('flash_error').html('Please select a supplier');
+        }
+      });

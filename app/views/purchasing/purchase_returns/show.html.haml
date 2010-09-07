@@ -1,0 +1,57 @@
+- title "Purchasing :: Purchase Order"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Purchase Returns', purchasing_purchase_returns_path), |
+    "#{@purchase_return.number}" ] |
+
+  = sidemenu @tab
+
+= hint "Click 'Edit Purchase Return' button to edit this Purchase Return"
+
+#subheader
+  %h3= "Purchase Return # #{@purchase_return.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_purchase_returns_path, :class => "back_link"
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_purchasing_purchase_return_path(@purchase_return)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", purchasing_purchase_return_path(@purchase_return), :method => :delete, :confirm => "Are you sure?"
+
+%fieldset.form_section
+  %legend Purchase Return
+  .two_columns
+    %div
+      %p
+        %span.light Number
+        %strong= @purchase_return.number
+      %p
+        %span.light Supplier
+        %strong= @purchase_return.supplier.name_and_address
+    %div
+      %p
+        %span.light Date
+        %strong= @purchase_return.user_date.to_s(:long)
+      %p
+        %span.light Purchase Order
+        %strong= @purchase_return.purchase_order.nil? ? '-' : @purchase_return.purchase_order.number
+  %p.single-column
+    %span.light Remark
+    %strong= @purchase_return.remark
+
+%fieldset.form_section
+  %legend Items
+
+  %table.list
+    %thead
+      %tr
+        %th.td_5 No.
+        %th Item
+        %th Qty
+    %tbody
+      - @purchase_return.entries.each_with_index do |entry, i|
+        %tr
+          %td.tdr.td_5= (i+1)
+          %td= link_to h(entry.plu.item.name), entry.plu
+          %td.tdr= entry.quantity

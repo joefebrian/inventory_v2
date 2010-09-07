@@ -1,0 +1,13 @@
+one:
+  company_id: 1
+  number: MyString
+  supplier_id: 1
+  purchase_order_id: 1
+  remark: MyString
+
+two:
+  company_id: 1
+  number: MyString
+  supplier_id: 1
+  purchase_order_id: 1
+  remark: MyString
