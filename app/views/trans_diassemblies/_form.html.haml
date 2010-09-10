@@ -10,8 +10,8 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
  
-    = f.input :warehouse, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"} 
-    = f.input :trans_assembly_id, :as => :select, :label => "Trans Assembling", :collection => @trans_assemblies.collect{ |t| [t.number, t.id] }, :include_blank => "select Code Assembling", :input_html => {:class => "select"} 
+    = f.input :warehouse, :collection => @warehouses, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"} 
+    = f.input :trans_assembly_id, :as => :select, :label => "Trans Assembling", :collection => @trans_assemblies.collect{ |t| [t.number, t.id] }, :include_blank => "select Code Assembling", :input_html => {:class => "multiselect"} 
     = f.input :quantity  
     = f.input :description, :input_html => { :rows => 3 }
 
@@ -44,3 +44,30 @@
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
       Save Diassembling
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('.multiselect').bind('multiselectclose', function(event, ui) {
+          var tras = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_trass" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_trass]').remove();
+            }
+          });
+          return false;
+        });
+      });

@@ -11,7 +11,7 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
     = f.input :category_id, :as => :select, :collection => @category, :label => "Category Name", :include_blank => "select Category", :input_html => {:class => "select"} 
-    = f.input :code, :input_html => {:id => 'default', :class => 'item_autocomplete'}
+    = f.input :code, :input_html => {:id => 'default', :class => 'item_autocomplete', :style => 'width:320px !important'}
     = f.input :name  
     = f.input :description, :input_html => { :rows => 3 }
 
@@ -21,7 +21,7 @@
         %thead
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
-            %th Item
+            %th Itemh
             %th Quantity
             %th &nbsp;
         %tfoot

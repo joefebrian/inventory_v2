@@ -13,4 +13,8 @@ class Supplier < ActiveRecord::Base
   def address
     profile.address
   end
+
+  def name_and_address
+    "#{name}, #{address}"
+  end
 end

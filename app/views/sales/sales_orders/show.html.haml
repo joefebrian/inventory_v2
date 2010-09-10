@@ -15,11 +15,8 @@
 #dialog_form
   .two_columns
     %p
-      %strong.light.transaction_label Company:
-      =h @sales_order.company_id
-    %p
-      %strong.light.transaction_label Quotation:
-      =h @sales_order.quotation_id
+      %strong.light.transaction_label Quotation Number:
+      =h @sales_order.quotation.number
     %p
       %strong.light.transaction_label Number:
       =h @sales_order.number
@@ -27,11 +24,8 @@
       %strong.light.transaction_label Date:
       =h @sales_order.tanggal
     %p
-      %strong.light.transaction_label Top:
+      %strong.light.transaction_label Payment Terms:
       =h @sales_order.top
-    %p
-      %strong.light.transaction_label Advance:
-      =h @sales_order.advance
     %p
       %strong.light.transaction_label Status:
       =h @sales_order.status

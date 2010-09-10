@@ -696,7 +696,7 @@ label.required:after {
   margin-left:10px;
 }
 #button-replacer img { vertical-align:middle; }
-form.formtastic .uneditable { font-weight:bold; line-height:1.4em; }
+form.formtastic .uneditable { font-weight:bold; line-height:1.4em; display:inline-block; margin-bottom:5px; }
 
 #subheader { margin-bottom:15px; overflow:hidden; padding:5px 0; }
 #subheader h3 {
@@ -735,9 +735,9 @@ a.main_link:hover {
   background:#7f7f7f url(/images/gradient.png) repeat-x scroll 0 -4px;
   color:rgb(23, 63, 25);
 }
-a.main_link:active {
+a.main_link:active, #subheader #subheader-menu a.main_link:active {
   box-shadow:none;
-  -moz-box-shadow:none;
+  -moz-box-shadow:inset 0px 0px 5px rgba(0,0,0,.9);
   -webkit-box-shadow:none;
 }
 p.single-column > span {

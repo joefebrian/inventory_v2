@@ -1,0 +1,38 @@
+- title "Item Receipt"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', 'Item Receipts' ] |
+
+  = sidemenu @tab
+
+= hint 'Click "Create Item Receipt" to add new Item Receipt'
+-#- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/add.png')} Create Item Receive", new_purchasing_item_receive_path, :class => 'main_link'
+
+#subheader
+  %h3 Item Receives
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Item Receipt", new_purchasing_item_receife_path, :class => "main_link"
+
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Purchase order
+      %th User date
+      %th Remark
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 5 }= will_paginate @item_receives
+  %tbody
+    - for item_receive in @item_receives
+      %tr
+        %td= link_to h(item_receive.number), purchasing_item_receife_path(item_receive)
+        %td= h item_receive.purchase_order.number
+        %td= h item_receive.user_date
+        %td= h item_receive.remark
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_item_receife_path(item_receive)
+          = link_to image_tag('icons/silk/delete.png'), purchasing_item_receife_path(item_receive), :confirm => 'Are you sure?', :method => :delete

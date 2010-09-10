@@ -12,6 +12,7 @@ class SalesInvoicesController < ApplicationController
   
   def new
     @sales_invoice = current_company.sales_invoices.new
+    @delivery_orders = current_company.delivery_orders
   end
   
   def create

@@ -1,28 +1,46 @@
-- form_for @delivery_order do |f|
-  = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :sales_order_id
-    %br
-    = f.text_field :sales_order_id
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :date
-    %br
-    = f.date_select :date
-  %p
-    = f.label :reference
-    %br
-    = f.text_field :reference
-  %p
-    = f.label :description
-    %br
-    = f.text_area :description
-  %p
-    = f.submit
+- semantic_form_for @delivery_order do |f|
+  =f.error_messages
+  -f.inputs do
+    %li#general_transaction_number_input.string.required
+      %label{ :for => 'delivery_order_number' } Number <span class="required">*</span>
+      %input{ :type => :text, :size => 50,
+              :name => 'delivery_order[number]',
+              :id => 'delivery_order_number',
+              :value => f.object.attributes['number'],
+              :class => 'default' }
+      %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
+   
+    = f.input :sales_order_id, :as => :select, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => {:class => "select"} 
+    = f.input :date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    = f.input :reference
+    = f.input :description, :input_html => { :rows => 3 }
+
+  - f.inputs 'Items', :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th Item
+            %th Quantity
+            %th
+        %tfoot
+          %tr
+            %td &nbsp;
+            %td{ :colspan => 3 } &nbsp;
+        %tbody
+          - f.semantic_fields_for :entries do |ent|
+            %tr
+              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+              %td.item
+                = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                = ent.hidden_field :item_id
+              %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+              %td.tdr
+                = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+
+
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Delivery Order

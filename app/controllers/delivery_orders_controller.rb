@@ -12,6 +12,7 @@ class DeliveryOrdersController < ApplicationController
   
   def new
     @delivery_order = current_company.delivery_orders.new
+    @sales_orders = current_company.sales_orders
   end
   
   def create

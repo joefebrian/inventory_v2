@@ -32,6 +32,7 @@ class Company < ActiveRecord::Base
   has_many :delivery_orders
   has_many :sales_invoices
   has_many :trans_assemblies
+  has_many :item_receives, :class_name => "ItemReceive"
   has_many :trans_diassemblies
 
   default_scope :order => :created_at

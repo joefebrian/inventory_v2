@@ -2,7 +2,7 @@ class TransDiassembliesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
 
- def index
+  def index
     @trans_diassemblies = current_company.trans_diassemblies.all
   end
   
@@ -19,6 +19,11 @@ class TransDiassembliesController < ApplicationController
   
   def create
     @trans_diassembly = current_company.trans_diassemblies.new(params[:trans_diassembly])
+    if params[:get_trass] && params[:get_trass].to_i == 1
+      @trans_diassembly.build_entries_from_tras
+      @trans_diassembly.entries.build
+      render("new", :layout => false) and return
+    end
     if @trans_diassembly.save
       flash[:notice] = "Successfully created trans diassembly."
       redirect_to @trans_diassembly

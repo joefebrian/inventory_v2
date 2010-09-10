@@ -7,6 +7,7 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :currency
   belongs_to :quotation
   belongs_to :salesman
+  belongs_to :delivery_order
   validates_presence_of :number, :kurs_id
   validates_uniqueness_of :number, :scope => :company_id
 

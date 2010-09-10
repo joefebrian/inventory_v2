@@ -3,6 +3,8 @@ class Warehouse < ActiveRecord::Base
   belongs_to :company
   has_many :trans_assemblies
   has_many :locations
+  has_many :item_receives, :class_name => "ItemReceive"
+
   accepts_nested_attributes_for :locations
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"

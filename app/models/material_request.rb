@@ -12,9 +12,11 @@ class MaterialRequest < ActiveRecord::Base
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
 
   def after_initialize
-    self.number = suggested_number if new_record?
-    self.userdate = Time.now.to_s(:long) if self.userdate.blank?
-    self.closed = false if self.closed.nil?
+    if new_record?
+      self.number = suggested_number
+      self.userdate = Time.now.strftime("%d/%m/%Y")
+      self.closed = false
+    end
   end
 
   def suggested_number

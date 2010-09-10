@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }
     purchase.resources :purchase_orders
+    purchase.resources :item_receives
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations

@@ -1,5 +1,7 @@
 - current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil,
+
   'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil}
+
 - current[@current] = 'current'
 %ul#sidemenu
   %li.submenu_handler
@@ -27,7 +29,7 @@
           = link_to "Purchase Order", purchasing_purchase_orders_path, :class => current['po']
           %div
         %li
-          = link_to "Goods Receive Proof", '#'
+          = link_to "Item Receive", purchasing_item_receives_path, :class => current['ir']
           %div
         %li
           = link_to "Purchase Retur", '#'

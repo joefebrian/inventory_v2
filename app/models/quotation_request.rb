@@ -12,7 +12,7 @@ class QuotationRequest < ActiveRecord::Base
 
   def after_initialize
     self.number = suggested_number if new_record?
-    self.request_date = Time.now.to_date.to_s(:long) if self.request_date.blank?
+    self.request_date = Time.now.strftime("%d/%m/%Y") if self.request_date.blank?
   end
 
   def suggested_number

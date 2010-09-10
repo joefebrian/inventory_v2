@@ -14,6 +14,7 @@ class DeliveryOrder < ActiveRecord::Base
   def date
    date = Chronic.parse(date)
   end
+
   accepts_nested_attributes_for :entries, 
     :allow_destroy => true, 
     :reject_if => lambda {|a| a['quantity'].blank? }
@@ -22,7 +23,7 @@ class DeliveryOrder < ActiveRecord::Base
     self.number = suggested_number if new_record?
   end
 
-def suggested_number
+  def suggested_number
     last_number = company.delivery_orders.last.try(:number)
     next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
     time = Time.now
