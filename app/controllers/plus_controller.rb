@@ -53,7 +53,13 @@ class PlusController < ApplicationController
 
   def search
     keyword = params[:term]
-    @plus = keyword.nil? ? {} : current_company.plus.code_or_item_name_or_item_code_like(keyword).all(:limit => 10)
+    if keyword.nil?
+      {}
+    else
+      @plus = current_company.plus.code_or_item_name_or_item_code_like(keyword)
+      @plus = @plus.supplier_id_is(params[:supplier_id]) if params[:supplier_id]
+      @plus = @plus.all(:limit => 10)
+    end
     respond_to do |format|
       format.html
       format.js { render :layout => false }

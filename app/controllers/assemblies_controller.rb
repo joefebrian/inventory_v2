@@ -25,6 +25,8 @@ class AssembliesController < ApplicationController
       flash[:notice] = "Successfully created assembling."
       redirect_to assembly_path(@assembly)
     else
+      @assembly.entries.build
+      @category = current_company.categories.collect {|category| [category.name,category.id] if category.leaf?}.compact
       render :action => 'new'
     end
   end
@@ -42,6 +44,7 @@ class AssembliesController < ApplicationController
       redirect_to assembly_path(@assembly)
     else
       render :action => 'edit'
+      @category = current_company.categories.collect {|category| [category.name,category.id] if category.leaf?}.compact
     end
   end
   

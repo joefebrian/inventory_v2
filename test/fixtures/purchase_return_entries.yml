@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  purchase_return_id: 1
+  plu_id: 1
+  quantity: 1
+  note: MyString
+
+two:
+  purchase_return_id: 1
+  plu_id: 1
+  quantity: 1
+  note: MyString

@@ -121,7 +121,6 @@ class ItemsController < ApplicationController
       format.html { render :layout => false }
       format.js { 
         @html = render_to_string :partial => "items_result"
-        # render :layout => false
       }
     end
   end
