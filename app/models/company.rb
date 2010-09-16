@@ -36,6 +36,8 @@ class Company < ActiveRecord::Base
 
   default_scope :order => :created_at
 
+  after_create :create_default_transactions
+
   def next_stock
     available = trackers.available_transaction
     available.blank? ? transactions.inward.first : available
@@ -89,5 +91,17 @@ class Company < ActiveRecord::Base
 
   def inventory_only?
     COMPANY_MODE[subdomain.to_sym]
+  end
+
+  def create_default_transactions
+    # untuk transaksi terima barang (BTB)
+    TransactionType.new(:company_id => id,
+                        :code => "AUTO-ITR",
+                        :name => "Auto-generated from Item Receive",
+                        :direction => 0,
+                        :negate => false,
+                        :alter_date => false,
+                        :alter_stock => true,
+                        :editable => false).save(false)
   end
 end
