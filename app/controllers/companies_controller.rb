@@ -1,4 +1,7 @@
 class CompaniesController < ApplicationController
+  before_filter :authenticate
+  before_filter :assign_tab
+
   # GET /companies
   # GET /companies.xml
   def index
@@ -81,5 +84,11 @@ class CompaniesController < ApplicationController
       format.html { redirect_to(companies_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+  def assign_tab
+    @tab = 'administrations'
+    @current = 'company'
   end
 end

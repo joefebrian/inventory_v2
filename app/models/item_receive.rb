@@ -20,8 +20,8 @@ class ItemReceive < ActiveRecord::Base
   def after_initialize
     if new_record?
       self.number = suggested_number
-      self.warehouse_id = company.default_warehouse.id
-      self.user_date = Time.now.strftime("%d/%m/%Y")
+      self.warehouse_id = company.default_warehouse.id if warehouse_id.blank?
+      self.user_date = Time.now.strftime("%m/%d/%Y") if user_date.blank?
     end
   end
 

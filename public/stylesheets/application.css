@@ -742,7 +742,7 @@ a.main_link:hover {
 }
 a.main_link:active, #subheader #subheader-menu a.main_link:active {
   box-shadow:none;
-  -moz-box-shadow:inset 0px 0px 5px rgba(0,0,0,.9);
+  -moz-box-shadow:inset 0px 0px 2px rgba(0,0,0,.3);
   -webkit-box-shadow:none;
 }
 p.single-column > span {
