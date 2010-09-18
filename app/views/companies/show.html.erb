@@ -1,18 +1,36 @@
-<p>
-  <b>Name:</b>
-  <%=h @company.name %>
-</p>
+<% title "Account :: Company" -%>
+<% content_for :breadcrumb do -%>
+  <%= 
+    breadcrumb [ link_to('Administrations', administrations_path),
+    'Company', "#{current_company.name}" ]
+  %>
+<% end %>
 
-<p>
-  <b>Address:</b>
-  <%=h @company.address %>
-</p>
+<%= sidemenu @tab %>
 
-<p>
-  <b>Phone:</b>
-  <%=h @company.phone %>
-</p>
+<%= hint "Click 'Edit Purchase Order' button to edit this Purchase Order (PO)" %>
 
+<div id="subheader">
+  <h3><%= current_company.name %></h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_company_path(current_company) %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+<fieldset class='form_section'>
+  <legend>Company</legend>
+  <p class="single-column">
+    <span class="light">Name</span>
+    <strong><%=h @company.name %></strong>
+  </p>
+
+  <p class="single-column">
+    <span class="light">Address</span>
+    <strong><%=h @company.address %></strong>
+  </p>
+
+  <p class="single-column">
+    <span class="light">Phone</span>
+    <strong><%=h @company.phone %></strong>
+  </p>
+</legend>

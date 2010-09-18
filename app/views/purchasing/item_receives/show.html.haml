@@ -22,16 +22,17 @@
 %fieldset.form_section
   %legend Material Request
   .two_columns
-    %p
-      %span.light Number
-      %strong= @item_receive.number
-    %p
-      %span.light Date
-      %strong= @item_receive.user_date.to_s(:long)
-  .two_columns
-    %p
-      %span.light Purchase Order
-      %strong= link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
+    %div
+      %p
+        %span.light Number
+        %strong= @item_receive.number
+      %p
+        %span.light Purchase Order
+        %strong= link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
+    %div
+      %p
+        %span.light Date
+        %strong= @item_receive.user_date.to_s(:long)
   %p.single-column
     %span.light Remark
     %strong= @item_receive.remark

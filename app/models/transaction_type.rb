@@ -1,5 +1,5 @@
 class TransactionType < ActiveRecord::Base
-  attr_accessible :company_id, :code, :description, :direction, :negate, :alter_date, :name, :alter_stock
+  attr_accessible :company_id, :code, :description, :direction, :negate, :alter_date, :name, :alter_stock, :editable
   belongs_to :company
   has_many :general_transactions
   validates_presence_of :code

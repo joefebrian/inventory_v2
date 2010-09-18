@@ -11,14 +11,18 @@ class ItemReceive < ActiveRecord::Base
   validates_presence_of :warehouse_id
 
   after_save :close_purchase_order
+  after_save :alter_stock
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
 
   def after_initialize
-    self.number = suggested_number if new_record?
-    self.user_date = Time.now.strftime("%d/%m/%Y") if self.user_date.blank?
+    if new_record?
+      self.number = suggested_number
+      self.warehouse_id = company.default_warehouse.id if warehouse_id.blank?
+      self.user_date = Time.now.strftime("%m/%d/%Y") if user_date.blank?
+    end
   end
 
   def suggested_number
@@ -41,4 +45,18 @@ class ItemReceive < ActiveRecord::Base
     purchase_order.close
   end
 
+  def alter_stock
+    ttype = TransactionType.first(:conditions => { :company_id => company.id, :code => "AUTO-ITR" })
+    trans = GeneralTransaction.new
+    trans.transaction_type = ttype
+    trans.number = GeneralTransaction.next_number(company, ttype)
+    trans.destination_id = warehouse_id
+    trans.alter_stock = true
+    trans.remark = "Auto-generated from Item Receive # #{number} date #{created_at.to_s(:long)}"
+    entries.each do |entry|
+      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier.id })
+      trans.entries.build(:plu_id => plu, :quantity => entry.quantity)
+    end
+    trans.save
+  end
 end
