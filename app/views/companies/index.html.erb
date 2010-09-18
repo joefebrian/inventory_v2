@@ -1,24 +1,43 @@
-<h1>Listing companies</h1>
+<% title 'Companies' %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path), "Companies" ] %>
+<% end -%>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Address</th>
-    <th>Phone</th>
-  </tr>
+<div id='subheader'>
+  <h3>Companies</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create Company", new_company_path, :class => 'main_link' %>
+  </div>
+</div>
 
-<% @companies.each do |company| %>
-  <tr>
-    <td><%=h company.name %></td>
-    <td><%=h company.address %></td>
-    <td><%=h company.phone %></td>
-    <td><%= link_to 'Show', company %></td>
-    <td><%= link_to 'Edit', edit_company_path(company) %></td>
-    <td><%= link_to 'Destroy', company, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
+<%= sidemenu %>
+
+<table class='list'>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Subdomain</th>
+      <th>Address</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan='5'><%= will_paginate @companies %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @companies.each_with_index do |company, i| %>
+      <tr>
+        <td class='td_5 tdr'><%= (i+1) %></td>
+        <td class='td_20'><%=h link_to company.name, company %></td>
+        <td class='td_20'><%=h company.subdomain %> ( <%= link_to "http://#{company.subdomain}.#{request.domain }", '#' %> )</td>
+        <td><%= "#{h company.address}<br/>#{h company.phone}" %></td>
+        <td class='actions'>
+          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_company_path(company) %>
+          <%= link_to image_tag('icons/silk/delete.png'), company, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New company', new_company_path %>

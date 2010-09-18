@@ -2,7 +2,7 @@
 <% content_for :breadcrumb do -%>
   <%= 
     breadcrumb [ link_to('Administrations', administrations_path),
-    'Company', "#{current_company.name}" ]
+    'Company', "#{@company.name}" ]
   %>
 <% end %>
 
@@ -11,9 +11,9 @@
 <%= hint "Click 'Edit Purchase Order' button to edit this Purchase Order (PO)" %>
 
 <div id="subheader">
-  <h3><%= current_company.name %></h3>
+  <h3><%= @company.name %></h3>
   <div id="subheader-menu">
-    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_company_path(current_company) %>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_company_path(@company) %>
   </div>
 </div>
 

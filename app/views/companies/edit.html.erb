@@ -17,17 +17,4 @@
   </div>
 </div>
 
-<% semantic_form_for(@company) do |f| %>
-  <%= f.error_messages %>
-  <% f.inputs 'Company', :class => 'form_section' do %>
-    <%= f.input :name %>
-    <%= f.input :address, :input_html => { :rows => 3 } %>
-    <%= f.input :phone %>
-  <% end %>
-  <fieldset class='buttons'>
-    <button id='primary-button' type='submit'>
-      <%= image_tag 'icons/silk/disk.png' %>
-      Save Company
-    </button>
-  </fieldset>
-<% end %>
+<%= render 'form' %>
