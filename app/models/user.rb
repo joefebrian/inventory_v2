@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_authentic
-  attr_accessible :username, :email, :password, :password_confirmation, :role
+  attr_accessible :username, :email, :password, :password_confirmation, :role_ids
   belongs_to :company
   has_and_belongs_to_many :roles
 

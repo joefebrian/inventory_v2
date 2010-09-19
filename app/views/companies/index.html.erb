@@ -31,8 +31,8 @@
     <% @companies.each_with_index do |company, i| %>
       <tr>
         <td class='td_5 tdr'><%= (i+1) %></td>
-        <td class='td_20'><%=h link_to company.name, company %></td>
-        <td class='td_20'><%=h company.subdomain %> ( <%= link_to "http://#{company.subdomain}.#{request.domain }", '#' %> )</td>
+        <td class='td_25'><%=h link_to company.name, company %></td>
+        <td class='td_25'><%=h company.subdomain %> ( <%= link_to "http://#{company.subdomain}.#{request.domain }", '#' %> )</td>
         <td><%= "#{h company.address}<br/>#{h company.phone}" %></td>
         <td class='actions'>
           <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_company_path(company) %>

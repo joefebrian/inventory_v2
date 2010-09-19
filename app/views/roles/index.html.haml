@@ -1,13 +1,31 @@
 - title "Roles"
 
-%table
-  %tr
-    %th Name
-  - for role in @roles
-    %tr
-      %td= h role.name
-      %td= link_to 'Show', role
-      %td= link_to 'Edit', edit_role_path(role)
-      %td= link_to 'Destroy', role, :confirm => 'Are you sure?', :method => :delete
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    'Account', 'Roles' ] |
 
-%p= link_to "New Role", new_role_path
+  = sidemenu @tab
+
+= hint 'Click "Create role" button to add new role'
+#subheader
+  %h3 Roles
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create role", new_role_path, :class => 'main_link'
+%table.list
+  %thead
+    %tr
+      %th.td_5 No.
+      %th Name
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 3 }= will_paginate @roles
+  %tbody
+    - @roles.each_with_index do |role, i|
+      %tr
+        %td.td_5.tdr= (i+1)
+        %td
+          %strong= link_to h(role.name), role
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_role_path(role)
+          = link_to image_tag('icons/silk/delete.png'), role, :confirm => 'Are you sure?', :method => :delete

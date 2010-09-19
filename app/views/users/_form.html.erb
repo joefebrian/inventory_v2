@@ -1,11 +1,17 @@
 <% semantic_form_for @user do |f| %>
-  <% f.inputs do %>
+  <% f.inputs 'User account', :class => 'form_section' do %>
     <%= f.input :username, :required => true %>
     <%= f.input :email, :required => true %>
     <%= f.input :password, :required => true %>
     <%= f.input :password_confirmation, :required => true %>
   <% end -%>
-  <fieldset class="buttons">
-    <button type="submit">Sign me up</button>
+  <% f.inputs 'Roles', :class => 'form_section' do %>
+    <%= f.input :roles, :as => :check_boxes, :collection => current_company.roles %>
+  <% end %>
+  <fieldset class='buttons'>
+    <button id='primary-button' type='submit'>
+      <%= image_tag 'icons/silk/disk.png' %>
+      Save User
+    </button>
   </fieldset>
 <% end %>

@@ -1,21 +1,39 @@
-<% title "User" %>
+<% title "Account :: #{ @user.username }" %>
+<% content_for :breadcrumb do -%>
+  <%= 
+    breadcrumb [ link_to('Administrations', administrations_path),
+      link_to('Users', users_path), "#{ @user.username }" ]
+  %>
+<% end %>
 
-<h1>Welcome <%=h @user.username %></h1>
-<p>
-  <strong>Username:</strong>
-  <%=h @user.username %>
-</p>
-<p>
-  <strong>Email:</strong>
-  <%=h @user.email %>
-</p>
-<p>
-  <strong>Password:</strong>
-  <%=h @user.password %>
-</p>
+<%= sidemenu @tab %>
 
-<p>
-  <%= link_to "Edit", edit_user_path(@user) %> |
-  <%= link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", users_path %>
-</p>
+<%= hint "Click 'Edit Purchase Order' button to edit this Purchase Order (PO)" %>
+
+<div id="subheader">
+  <h3><%= @user.username %></h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", users_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_user_path(@user) %>
+  </div>
+</div>
+
+<fieldset class='form_section'>
+  <legend>User account</legend>
+  <p class="single-column">
+    <span class="light">Username</span>
+    <strong><%=h @user.username %></strong>
+  </p>
+  <p class="single-column">
+    <span class="light">Email</span>
+    <strong><%=h @user.email %></strong>
+  </p>
+</fieldset>
+
+<fieldset class='form_section'>
+  <legend>Roles</legend>
+  <p class="single-column">
+    <span class="light">Roles</span>
+    <strong><%=h @user.roles.collect { |r| r.name.titleize }.join(', ') %></strong>
+  </p>
+</fieldset>

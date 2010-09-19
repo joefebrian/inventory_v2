@@ -4,7 +4,7 @@ class RolesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @roles = current_company.roles.all
+    @roles = current_company.roles.all.paginate(:page => params[:page])
   end
   
   def show

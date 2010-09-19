@@ -1,30 +1,45 @@
-<% title "Users" %>
+<% title 'Companies' %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path), "Users"] %>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Users of <%= current_company.name %></h3>
+  <div id='subheader-menu'>
+  <%= link_to "#{image_tag('icons/silk/add.png')} Add new user", new_user_path, :class => "main_link new_item", :title => "Add New User" %>
+  </div>
+</div>
+
+<%= sidemenu %>
+<%= hint "Click on 'Add new user' to create a new user" %>
 
 <table class="list">
-  <tr>
-    <th class="td_5 tdr">No.</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th class="actions">Actions</th>
-  </tr>
-  <% @users.each_with_index do |user, i| %>
+  <thead>
     <tr>
-      <td class="td_5 tdr"><%=h (i+1) %></td>
-      <td><%=h user.username %></td>
-      <td><%=h user.email %></td>
-      <td class="actions">
-        <%= link_to "Edit", edit_user_path(user) %> &bull;
-        <%= link_to "Destroy", user, :confirm => 'Are you sure?', :method => :delete %>
-      </td>
+      <th class="td_5 tdr">No.</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th class="actions">Actions</th>
     </tr>
-  <% end %>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan='5'><%= will_paginate @users %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @users.each_with_index do |user, i| %>
+      <tr>
+        <td class="td_5 tdr"><%=h (i+1) %></td>
+        <td><%=h link_to user.username, user %></td>
+        <td><%=h user.email %></td>
+        <td><%=h user.roles.collect { |r| r.name.titleize }.join(', ') %></td>
+        <td class="actions">
+          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_user_path(user) %>
+          <%= link_to image_tag('icons/silk/delete.png'), user, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
-
-<% content_for :breadcrumb do %>
-  <%= breadcrumb [ link_to("Administrations", administrations_path),
-                   link_to("Users", users_path) ] %>
-<% end -%>
-
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/add.png')} Add new user", new_user_path, :class => "main_link new_item", :title => "Add New User" %>
-<% end -%>

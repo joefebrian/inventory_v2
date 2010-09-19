@@ -1,8 +1,16 @@
 - title "Edit Role"
 
-= render :partial => 'form'
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    'Account', link_to('Roles', roles_path), link_to(@role.name, @role), 'Edit' ] |
 
-%p
-  = link_to "Show", role_path(@role)
-  |
-  = link_to "View All", roles_path
+  = sidemenu @tab
+
+= hint 'Role name must be unique'
+
+#subheader
+  %h3= "Edit #{@role.name}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", @role
+
+= render :partial => 'form'
