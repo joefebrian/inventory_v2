@@ -17,3 +17,6 @@
 
 %fieldset.form_section
   %legend Privileges
+  %p.single-column
+    %span.light Privileges
+    = @role.privileges.collect { |p| p.resource.titleize }.join(', ')

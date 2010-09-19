@@ -25,7 +25,7 @@
       %tr
         %td.td_5.tdr= (i+1)
         %td
-          %strong= link_to h(role.name), role
+          %strong= link_to h(role.name.titleize), role
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_role_path(role)
           = link_to image_tag('icons/silk/delete.png'), role, :confirm => 'Are you sure?', :method => :delete
