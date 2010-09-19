@@ -2,12 +2,17 @@
 <% content_for :breadcrumb do %>
   <%= breadcrumb [ link_to("Administrations", administrations_path),
                    link_to("Suppliers", suppliers_path),
-                   "Create New Supplier" ] %>
+                   "New" ] %>
 <% end -%>
 
-<%= sidemenu %>
+<div id='subheader'>
+  <h3>Create new supplier</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", suppliers_path %>
+  </div>
+</div>
 
+<%= sidemenu %>
 <%= hint "Both supplier code and name must be unique" %>
 
-<h3>Create new supplier</h3>
 <%= render :partial => 'form' %>

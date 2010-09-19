@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
       if request.xhr?
         render :json => { 'location' => items_path}.to_json, :layout => false
       else
-        redirect_to items_path
+        redirect_to @item
       end
     else
       if request.xhr?
