@@ -13,7 +13,7 @@ class PlusController < ApplicationController
   end
   
   def new
-    @plu = current_company.plus.new
+    @plu = current_company.plus.new(:item_id => params[:item_id])
     @suppliers = current_company.suppliers.all(:order => :name)
   end
   
