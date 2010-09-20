@@ -1,0 +1,16 @@
+%table
+  %tbody
+    %tr
+      %td{ :colspan => 5 }
+        .flash_error
+          %p
+            One or more of the items doesn't have a PLU yet, you cannot save the transaction before
+            all of the item have at least 1 PLU for this supplier.
+          %ol
+            - for entry in @item_receive.purchase_order.entries
+              %li
+                = entry.item.name
+                - if entry.item.plu_for(@item_receive.purchase_order.supplier).blank?
+                  = ", this item doesn't have any PLU associated with #{ @item_receive.purchase_order.supplier.name }"
+                  = link_to "create PLU for this item", new_plu_path(:item_id => entry.item_id, :supplier_id => @item_receive.purchase_order.supplier_id)
+                  

@@ -21,8 +21,12 @@ class Purchasing::ItemReceivesController < ApplicationController
     @purchase_orders = current_company.purchase_orders
     @warehouses = current_company.warehouses
     if params[:get_pos] && params[:get_pos] == '1'
+      if @item_receive.check_plu
         @item_receive.build_entries_from_po
-      render('new', :layout => false) and return
+        render('new', :layout => false) and return
+      else
+        render('no_plu', :layout => false) and return
+      end
     end
     if @item_receive.save
       flash[:notice] = "Successfully created item receive."

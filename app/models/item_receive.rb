@@ -17,6 +17,10 @@ class ItemReceive < ActiveRecord::Base
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
 
+  def validate
+    errors.add_to_base('Transaction items cannot be empty') if entries.blank?
+  end
+
   def after_initialize
     if new_record?
       self.number = suggested_number
@@ -41,6 +45,10 @@ class ItemReceive < ActiveRecord::Base
     end
   end
 
+  def check_plu
+    purchase_order.entries_plu_satisfied?    
+  end
+
   def close_purchase_order
     purchase_order.close
   end
@@ -54,8 +62,8 @@ class ItemReceive < ActiveRecord::Base
     trans.alter_stock = true
     trans.remark = "Auto-generated from Item Receive # #{number} date #{created_at.to_s(:long)}"
     entries.each do |entry|
-      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier.id })
-      trans.entries.build(:plu_id => plu, :quantity => entry.quantity)
+      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
+      trans.entries.build(:plu_id => plu.id, :quantity => entry.quantity)
     end
     trans.save
   end
