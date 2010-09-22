@@ -1,0 +1,42 @@
+- title "Item Receive Confirmation"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Item Receipt', purchasing_item_receives_path), |
+    'Confirmation' ] |
+
+  = sidemenu @tab
+
+= hint "Item receive must be confirmed before it actually altering the items stock"
+
+#subheader
+  %h3= "Confirming Item Receive # #{@item_receive.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_item_receives_path, :class => "back_link"
+
+%fieldset.form_section
+  %legend Transaction Data
+  %p.single-column
+    %span.light Purchase Order
+    %strong= link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
+  %p.single-column
+    %span.light Supplier
+    %strong= link_to @item_receive.purchase_order.supplier.name, @item_receive.purchase_order.supplier
+  %p.single-column
+    %span.light Warehouse
+    %strong= link_to @item_receive.warehouse.name, @item_receive.warehouse
+  %p.single-column
+    %span.light Remark
+    %strong= @item_receive.remark
+
+- semantic_form_for [:purchasing, @item_receive], :url => { :action => :confirm } do |f|
+  - f.inputs 'Items', :class => 'form_section' do
+    - f.semantic_fields_for :entries do |ent|
+      = ent.input :plu, :as => :select, :collection => Plu.all(:conditions => { :supplier_id => @item_receive.purchase_order.supplier_id, :item_id => ent.object.item_id }).collect { |plu| [plu.code, plu.id] }, :label => ent.object.item.name_with_code, :include_blank => false 
+
+  %fieldset.buttons
+    %button{ :type => 'submit', :id => 'primary-button' }
+      = image_tag "icons/silk/disk.png"
+      Confirm
+

@@ -3,7 +3,7 @@ class Purchasing::ItemReceivesController < ApplicationController
   before_filter :assign_tab
   
   def index
-    @item_receives = current_company.item_receives.all.paginate(:page => params[:page])
+    @item_receives = current_company.item_receives.paginate(:page => params[:page])
   end
   
   def show
@@ -57,6 +57,14 @@ class Purchasing::ItemReceivesController < ApplicationController
     @item_receive.destroy
     flash[:notice] = "Successfully destroyed item receive."
     redirect_to purchasing_item_receives_url
+  end
+
+  def confirmation
+    @item_receive = current_company.item_receives.find(params[:id])
+  end
+
+  def confirm
+    @item_receive = current_company.item_receives.find(params[:id])
   end
 
   private
