@@ -4,13 +4,10 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :name
       t.text :address
       t.string :phone
+      t.string :sudomain
 
       t.timestamps
     end
-
-    default_company       = Company.new
-    default_company.name  = 'Monster Inc.'
-    default_company.save
   end
 
   def self.down
