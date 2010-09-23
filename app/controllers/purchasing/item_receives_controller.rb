@@ -18,6 +18,7 @@ class Purchasing::ItemReceivesController < ApplicationController
   
   def create
     @item_receive = current_company.item_receives.new(params[:item_receive])
+    @item_receive.confirmed = false
     @purchase_orders = current_company.purchase_orders
     @warehouses = current_company.warehouses
     if params[:get_pos] && params[:get_pos] == '1'
@@ -65,6 +66,11 @@ class Purchasing::ItemReceivesController < ApplicationController
 
   def confirm
     @item_receive = current_company.item_receives.find(params[:id])
+    @item_receive.confirmed = true
+    if @item_receive.update_attributes(params[:item_receive])
+      flash[:success] = 'Successfully confirmed Item Receipt'
+      redirect_to purchasing_item_receives_url
+    end
   end
 
   private
