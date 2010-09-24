@@ -777,3 +777,16 @@ form.formtastic select.dijitReset {
   border:none !important;
   padding:2px;
 }
+.group {
+  padding-left:25%;
+}
+.group input[type=checkbox] {
+  margin-bottom:.5em;
+}
+form.formtastic div.flash_error p {
+  margin-bottom:1em;
+  font-weight:bold;
+}
+form.formtastic div.flash_error ol {
+  list-style:inside decimal;
+}

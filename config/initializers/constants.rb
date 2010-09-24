@@ -15,3 +15,4 @@ TRANS_PREFIX = { :item_transfer => 'TRF',
                  :trans_diassemblies => 'TRAN-DISS',
                  :trans_assemblies => 'TRAN-ASS' }
 COMPANY_MODE = { :inventory => false, :ca => false, :foobar => true, :rai => true }
+PRIVILEGES = YAML::load_file("#{RAILS_ROOT}/config/privileges.yml")['privileges']

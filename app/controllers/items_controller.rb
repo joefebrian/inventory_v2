@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
       if request.xhr?
         render :json => { 'location' => items_path}.to_json, :layout => false
       else
-        redirect_to items_path
+        redirect_to @item
       end
     else
       if request.xhr?
@@ -73,11 +73,11 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update_attributes(params[:item])
-      flash[:notice] = "Successfully updated item."
+      flash[:success] = "Successfully updated item."
       if request.xhr?
         render :json => { 'location' => items_path}.to_json, :layout => false
       else
-        redirect_to items_path
+        redirect_to @item
       end
     else
       if request.xhr?

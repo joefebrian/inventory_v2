@@ -128,6 +128,6 @@ class Item < ActiveRecord::Base
   end
 
   def plu_for(supplier)
-    plus.find(:conditions => { :Item_id => id, :supplier_id => supplier })
+    plus.all(:conditions => { :Item_id => id, :supplier_id => supplier })
   end
 end

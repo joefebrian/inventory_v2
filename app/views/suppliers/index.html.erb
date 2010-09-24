@@ -6,11 +6,15 @@
                    link_to("Suppliers", suppliers_path) ] %>
 <% end -%>
 
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/add.png')} Create new supplier", new_supplier_path, :class => "main_link alter_record", :title => "Create new supplier" %>
-<% end -%>
+<div id='subheader'>
+  <h3>Suppliers</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create new supplier", new_supplier_path, :class => "main_link alter_record", :title => "Create new supplier" %>
+  </div>
+</div>
 
 <%= sidemenu %>
+<%= hint "click 'Create new supplier' to add new supplier" %>
 
 <table class="list">
   <thead>

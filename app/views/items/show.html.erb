@@ -1,6 +1,19 @@
 <% title "Item #{@item.name}" %>
-<h3><%=h "#{@item.name}" %></h3>
-<div id="dialog_form">
+
+<% if @item.plus.blank? %>
+  <div class="flash_notice">
+    This item doesn't have any PLU. Item without PLU won't be selectable on most transactions.
+    <%= link_to "Add PLU for this item", new_plu_path(:item_id => @item.id) %>
+  </div>
+<% end %>
+
+<div id='subheader'>
+  <h3><%=h "#{@item.code} :: #{@item.name}" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", items_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_item_path(@item), :title => "Edit Item #{@item.code}" %>
+  </div>
+</div>
 
   <% content_for :breadcrumb do %>
     <%= breadcrumb [ link_to("Administrations", administrations_path),
@@ -8,37 +21,30 @@
       @item.name ] %>
   <% end -%>
 
-  <% content_for :main_act do %>
-    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit this item", edit_item_path(@item), :class => "main_link edit_item", :title => "Edit Item #{@item.code}" %>
-  <% end -%>
-
   <%= sidemenu %>
+  <%= hint "Click 'edit' to edit this item" %>
 
   <%= image_tag @item.photo.url(:medium), :class => 'top_right_photo' %>
 
   <fieldset class="form_section">
     <legend>Item Attributes</legend>
-    <div class="two_columns">
-      <p>
-        <span class="light transaction_label">Code</span>
-        <strong><%= @item.code %></strong>
-      </p>
-      <p>
-        <span class="light transaction_label">Category</span>
-        <strong><%= link_to @item.category.name, @item.category %></strong>
-      </p>
-    </div>
-    <div class="two_columns">
-      <p>
-        <span class="light transaction_label">Name</span>
-        <strong><%= @item.name %></strong>
-      </p>
-      <p>
-        <span class="light transaction_label">Purchase Price</span>
-        <strong><%= @item.purchase_price %></strong>
-      </p>
-    </div>
-    <div class="single_column">
+    <p class="single-column">
+      <span class="light transaction_label">Code</span>
+      <strong><%= @item.code %></strong>
+    </p>
+    <p class="single-column">
+      <span class="light transaction_label">Category</span>
+      <strong><%= link_to @item.category.name, @item.category %></strong>
+    </p>
+    <p class="single-column">
+      <span class="light transaction_label">Name</span>
+      <strong><%= @item.name %></strong>
+    </p>
+    <p class="single-column">
+      <span class="light transaction_label">Purchase Price</span>
+      <strong><%= @item.purchase_price %></strong>
+    </p>
+    <div class="single-column">
       <span class="light transaction_label">Description</span>
       <p><%=h @item.description %></p>
     </div>
@@ -63,11 +69,12 @@
 
   <fieldset class="form_section">
     <legend>Stock</legend>
-    <p>
-      Overall : <%= @item.stock %>
+    <p class="single-column">
+      <span class="light transaction_label">Overall</span>
+      <strong><%= @item.stock %></strong>
     </p>
-    <p>
-      Per Plu : 
+    <p class="single-column">
+      <span class="light transaction_label">Per PLU</span>
+      <strong></strong>
     </p>
   </fieldset>
-</div>

@@ -1,8 +1,17 @@
-- form_for @role do |f|
+- semantic_form_for @role do |f|
   = f.error_messages
-  %p
-    = f.label :name
-    %br
-    = f.text_field :name
-  %p
-    = f.submit
+  - f.inputs 'Role', :class => 'form_section' do
+    = f.input :name
+  - f.inputs 'Privileges', :class => 'form_section' do
+    %li
+      %label Privileges
+      .group
+        - for priv in PRIVILEGES
+          %label{ :for => "#{priv}_resource" }
+            = check_box_tag 'role[privilege_resources][]', priv, @role.has_privilege?(priv), :id => "#{priv}_resource"
+            &nbsp;
+            = priv.titleize
+  %fieldset.buttons
+    %button{ :type => :submit, :id => 'primary-button' }
+      = image_tag 'icons/silk/disk.png'
+      Save role

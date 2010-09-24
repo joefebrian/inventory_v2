@@ -8,7 +8,6 @@ class Entry < ActiveRecord::Base
   before_save :assign_item_id
   before_save :assign_company_id
   before_save :assign_value
-  # has_many :trackers, :foreign_key => :consumer_entry_id, :dependent => :destroy
   has_many :details, :class_name => 'EntryDetail', :dependent => :destroy
 
   named_scope :for_transactions, lambda { |ids|
@@ -61,7 +60,7 @@ class Entry < ActiveRecord::Base
   end
 
   def assign_item_id
-    self.item_id = Plu.find(self.plu_id).item_id unless self.plu_id.blank?
+    self.item_id = Plu.find(plu_id).item_id unless plu_id.blank?
   end
 
   def assign_company_id
@@ -70,7 +69,7 @@ class Entry < ActiveRecord::Base
 
   def assign_value
     if transaction.inward? && value.blank?
-      last_entry = Entry.item_id_is(item_id).transaction_origin_id_is_null.transaction_destination_id_not_null.transaction_alter_stock_is(true).last
+      last_entry = Entry.item_id_is(item_id).transaction_origin_id_null.transaction_destination_id_not_null.transaction_alter_stock_is(true).last
       self.value = last_entry.blank? ? 0 : last_entry.value
     end
   end

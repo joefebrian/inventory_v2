@@ -21,7 +21,7 @@ class SuppliersController < ApplicationController
   def create
     @supplier = current_company.suppliers.new(params[:supplier])
     if @supplier.save
-      flash[:notice] = "Successfully created supplier."
+      flash[:success] = "Successfully created supplier."
       xhr_success_response
     else
       xhr_fail_response
@@ -37,7 +37,7 @@ class SuppliersController < ApplicationController
   def update
     @supplier = Supplier.find(params[:id])
     if @supplier.update_attributes(params[:supplier])
-      flash[:notice] = "Successfully updated supplier."
+      flash[:success] = "Successfully updated supplier."
       xhr_success_response
     else
       xhr_fail_response

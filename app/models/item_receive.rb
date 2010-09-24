@@ -11,11 +11,15 @@ class ItemReceive < ActiveRecord::Base
   validates_presence_of :warehouse_id
 
   after_save :close_purchase_order
-  after_save :alter_stock
+  after_update :confirmed_and_alter_stock
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
+
+  def validate
+    errors.add_to_base('Transaction items cannot be empty') if entries.blank?
+  end
 
   def after_initialize
     if new_record?
@@ -41,22 +45,32 @@ class ItemReceive < ActiveRecord::Base
     end
   end
 
+  def check_plu
+    purchase_order.entries_plu_satisfied?    
+  end
+
   def close_purchase_order
     purchase_order.close
   end
 
   def alter_stock
     ttype = TransactionType.first(:conditions => { :company_id => company.id, :code => "AUTO-ITR" })
-    trans = GeneralTransaction.new
+    trans = company.general_transactions.new
     trans.transaction_type = ttype
     trans.number = GeneralTransaction.next_number(company, ttype)
     trans.destination_id = warehouse_id
     trans.alter_stock = true
     trans.remark = "Auto-generated from Item Receive # #{number} date #{created_at.to_s(:long)}"
-    entries.each do |entry|
-      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier.id })
-      trans.entries.build(:plu_id => plu, :quantity => entry.quantity)
-    end
     trans.save
+    entries.each do |entry|
+      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
+      trans.entries.create(:plu_id => plu.id, :quantity => entry.quantity)
+    end
+  end
+
+  def confirmed_and_alter_stock
+    if confirmed?
+      alter_stock
+    end
   end
 end

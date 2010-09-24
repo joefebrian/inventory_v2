@@ -6,10 +6,10 @@ class PurchaseOrder < ActiveRecord::Base
   has_and_belongs_to_many :material_requests
   attr_writer :current_step
 
-  validates_presence_of :number, :if => lambda {|o| o.current_step == 'po' }
-  validates_uniqueness_of :number, :scope => :company_id, :if => lambda {|o| o.current_step == 'po' }
-  validates_presence_of :supplier_id, :if => lambda {|o| o.current_step == 'po' }
-  validates_presence_of :po_date, :if => lambda {|o| o.current_step == 'po' }
+  validates_presence_of :number
+  validates_uniqueness_of :number, :scope => :company_id
+  validates_presence_of :supplier_id
+  validates_presence_of :po_date
 
   after_save :close_material_requests
 
@@ -17,29 +17,9 @@ class PurchaseOrder < ActiveRecord::Base
     :allow_destroy => true,
     :reject_if => lambda { |att| att[:quantity].blank? || att[:quantity].to_i.zero? || att[:purchase_price].blank? || att[:purchase_price].to_i.zero? }
 
-  def current_step
-    @current_step || steps.first
-  end
-
-  def next_step
-    self.current_step = steps[steps.index(current_step)+1]
-  end
-
-  def previous_step
-    self.current_step = steps[steps.index(current_step)-1]
-  end
-
-  def last_step?
-    current_step == steps.last
-  end
-
-  def steps
-    %w[po items]
-  end
-  
   def after_initialize
     self.number = suggested_number if new_record?
-    self.po_date = Time.now.strftime("%d/%m/%Y") if self.po_date.blank?
+    self.po_date = Time.now.strftime("%m/%d/%Y") if new_record?
   end
 
   def suggested_number
@@ -106,5 +86,12 @@ class PurchaseOrder < ActiveRecord::Base
     quantity_left = items.collect { |item| quantity_left(item) }.sum
     self.closed = quantity_left.zero? ? true : false
     save
+  end
+
+  def entries_plu_satisfied?
+    entries.each do |entry|
+      return false if !(quantity_left(entry.item) > 0 && !entry.item.plu_for(supplier).blank?)
+    end
+    true
   end
 end
