@@ -4,6 +4,7 @@ class CreateSalesOrders < ActiveRecord::Migration
       t.integer :company_id
       t.integer :quotation_id
       t.string :number
+      t.string :customer_id
       t.date :tanggal
       t.integer :top
       t.integer :advance

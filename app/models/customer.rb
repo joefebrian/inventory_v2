@@ -39,6 +39,10 @@ class Customer < ActiveRecord::Base
     profile.full_name
   end
 
+  def fullname
+    profile.full_name
+  end
+
   def item_code
     @item_code
   end

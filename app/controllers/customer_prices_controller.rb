@@ -3,6 +3,7 @@ class CustomerPricesController < ApplicationController
   before_filter :authenticate
   def index
     @customer = Customer.find(params[:customer_id])
+    @customers = Customer.find(:all, :conditions => ['name LIKE ?', "%#{params[:search]}%"])
     @customer_prices = @customer.special_prices_matrix
   end
   

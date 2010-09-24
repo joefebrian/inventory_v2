@@ -9,15 +9,15 @@
               :value => f.object.attributes['number'],
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
-    
+
     = f.input :order_ref, :label => "Order Ref"
     = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    = f.input :customer, :label => "Customer Name", :as => :string
     = f.input :quotation, :collection => @quotation, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
     = f.input :salesman, :collection => @salesman, :label => "Salesman", :include_blank => "select Salesman", :input_html => { :class => "select"}
     = f.input :top, :label => "Payment Terms"
     = f.input :retensi, :label => "Retensi"
     = f.input :kurs_id, :label => "Currency", :as => :select, :collection => @currencies, :input_html => { :class => "select"}
-
     = f.input :kurs_value, :label => "Rate"
     = f.input :status, :label => "Status"
 
@@ -76,3 +76,4 @@
           return false;
         });
       });
+

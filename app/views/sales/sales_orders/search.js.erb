@@ -1,0 +1,3 @@
+<% ActiveRecord::Base.include_root_in_json = false %>
+<%= @customers.to_json(:methods => [:fullname, :quotation_ids]) %>
+

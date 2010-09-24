@@ -1,44 +1,50 @@
 class Company < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
-  has_many :users
-  has_many :categories
-  has_many :items
-  has_many :suppliers
-  has_many :plus
-  has_many :warehouses
-  has_many :locations
-  has_many :begining_balances
-  has_many :item_transfers
-  has_many :item_ins
-  has_many :item_outs
-  has_many :transaction_types
-  has_many :general_transactions
-  has_many :trackers
-  has_many :transactions
-  has_many :entries
-  has_many :assemblies
-  has_many :customers
-  has_many :price_lists
-  has_many :material_requests
-  has_many :quotation_requests
-  has_many :purchase_orders
-  has_many :purchase_returns
-  has_many :quotations
-  has_many :sales_orders
-  has_many :salesmen
-  has_many :currencies
-  has_many :exchange_rates
-  has_many :roles
-  has_many :delivery_orders
-  has_many :sales_invoices
-  has_many :trans_assemblies
-  has_many :item_receives, :class_name => "ItemReceive"
-  has_many :trans_diassemblies
+
+  #has_many :item_transfers
+  #has_many :item_ins
+  #has_many :item_outs
+  #has_many :sales_orders
+  has_many :delivery_orders, :dependent => :destroy
+  has_many :sales_invoices, :dependent => :destroy
+  #has_many :item_receives, :class_name => "ItemReceive"
+
+  validates_presence_of :subdomain
+  validates_uniqueness_of :subdomain
+  validates_format_of :subdomain, :with => /^[a-zA-Z0-9\-]*?$/, :message => 'only accepts letters, numbers, and hypens'
+  has_many :users, :dependent => :destroy
+  has_many :categories, :dependent => :destroy
+  has_many :items, :dependent => :destroy
+  has_many :suppliers, :dependent => :destroy
+  has_many :plus, :dependent => :destroy
+  has_many :warehouses, :dependent => :destroy
+  has_many :locations, :dependent => :destroy
+  has_many :begining_balances, :dependent => :destroy
+  has_many :transaction_types, :dependent => :destroy
+  has_many :general_transactions, :dependent => :destroy
+  has_many :trackers, :dependent => :destroy
+  has_many :transactions, :dependent => :destroy
+  has_many :entries, :dependent => :destroy
+  has_many :assemblies, :dependent => :destroy
+  has_many :customers, :dependent => :destroy
+  has_many :price_lists, :dependent => :destroy
+  has_many :material_requests, :dependent => :destroy
+  has_many :quotation_requests, :dependent => :destroy
+  has_many :purchase_orders, :dependent => :destroy
+  has_many :purchase_returns, :dependent => :destroy
+  has_many :quotations, :dependent => :destroy
+  has_many :sales_orders, :dependent => :destroy
+  has_many :salesmen, :dependent => :destroy
+  has_many :currencies, :dependent => :destroy
+  has_many :exchange_rates, :dependent => :destroy
+  has_many :roles, :dependent => :destroy
+  has_many :trans_assemblies, :dependent => :destroy
+  has_many :item_receives, :class_name => "ItemReceive", :dependent => :destroy
+  has_many :trans_diassemblies, :dependent => :destroy
 
   default_scope :order => :created_at
-
-  after_create :create_default_transactions
+  after_create :create_defaults
 
   def next_stock
     available = trackers.available_transaction
@@ -105,5 +111,14 @@ class Company < ActiveRecord::Base
                         :alter_date => false,
                         :alter_stock => true,
                         :editable => false).save(false)
+  end
+
+  def create_default_warehouse
+    warehouses.create(:code => 'Default', :name => 'Default warehouse', :default => true)
+  end
+
+  def create_defaults
+    create_default_transactions
+    create_default_warehouse
   end
 end

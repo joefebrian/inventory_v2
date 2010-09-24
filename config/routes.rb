@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     sales.resources :quotations
     sales.resources  :sales_orders
   end
-  map.resources :customers, :collection => {:prices => :get}, :member => {:price => :get} do |customer|
+  map.resources :customers, :collection => {:prices => :get, :search => :get }, :member => {:price => :get} do |customer|
     customer.resource :profile
     customer.resource :tax_profile
     customer.resources :customer_prices,

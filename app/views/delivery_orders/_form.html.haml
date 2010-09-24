@@ -1,6 +1,6 @@
 - semantic_form_for @delivery_order do |f|
-  =f.error_messages
-  -f.inputs do
+  = f.error_messages
+  - f.inputs 'Delivery Order', :class => "form_section" do
     %li#general_transaction_number_input.string.required
       %label{ :for => 'delivery_order_number' } Number <span class="required">*</span>
       %input{ :type => :text, :size => 50,
@@ -10,7 +10,7 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
    
-    = f.input :sales_order_id, :as => :select, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => {:class => "select"} 
+    = f.input :sales_order_id, :collection => @sales_orders, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => { :class => "multiselect"}
     = f.input :date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :reference
     = f.input :description, :input_html => { :rows => 3 }
@@ -44,3 +44,30 @@
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
       Save Delivery Order
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      $(function() {
+        $('.multiselect').bind('multiselectclose', function(event, ui) {
+          var so = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_sos" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_sos]').remove();
+            }
+          });
+          return false;
+        });
+      });

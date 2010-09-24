@@ -12,18 +12,27 @@ class DeliveryOrdersController < ApplicationController
   
   def new
     @delivery_order = current_company.delivery_orders.new
+    @delivery_order.entries.build
     @sales_orders = current_company.sales_orders
   end
   
   def create
     @delivery_order = current_company.delivery_orders.new(params[:delivery_order])
+    if params[:get_sos] && params[:get_sos].to_i == 1
+      @delivery_order.build_entries_from_so
+      @delivery_order.entries.build
+      render("new", :layout => false) and return
+    end
     if @delivery_order.save
-      flash[:notice] = "Successfully created delivery order."
-      redirect_to @delivery_order
+      flash[:notice] = "Successfully created sales order."
+      redirect_to [:sales, @delivery_order]
     else
+      @delivery_order.entries.build
+      @sales_orders = current_company.sales_orders
       render :action => 'new'
     end
   end
+
   
   def edit
     @delivery_order = current_company.delivery_orders.find(params[:id])

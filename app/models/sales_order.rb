@@ -7,7 +7,6 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :currency
   belongs_to :quotation
   belongs_to :salesman
-  belongs_to :delivery_order
   validates_presence_of :number, :kurs_id
   validates_uniqueness_of :number, :scope => :company_id
 
@@ -19,10 +18,6 @@ class SalesOrder < ActiveRecord::Base
   def tgl_active
    tanggal = Chronic.parse(tanggal_berlaku)
   end
-
-  accepts_nested_attributes_for :entries, 
-    :allow_destroy => true, 
-    :reject_if => lambda {|a| a['quantity'].blank? }
 
   def after_initialize
     self.number = suggested_number if new_record?
@@ -50,6 +45,9 @@ class SalesOrder < ActiveRecord::Base
     end
   end
 
+  def name
+    number
+  end
 
   def before_save
     unless customer_id.blank?

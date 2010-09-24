@@ -1,0 +1,8 @@
+- form_tag picker_items_path, :method => :get, :id => 'item_picker' do
+  %ol.searchresults
+    - for customer in @customers
+      %li
+        %span.actions= check_box_tag 'customers[]', customer.id
+        %strong=h customer.profile.first_name
+        %br
+

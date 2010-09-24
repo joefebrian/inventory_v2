@@ -323,9 +323,9 @@ function entry_row(count) {
     "<a class=\"plu_input\" href=\"/items/lookup.js\"><img src=\"/images/icons/silk/magnifier.png\" alt=\"Magnifier\"></a></td> " +
     "<td class=\"td_50\"></td> <td class=\"actions td_10\">" +
     "<input type=\"text\" size=\"10\" name=\""+model+"[entries_attributes]["+idx+"][quantity]\" id=\""+model+"_entries_attributes_"+idx+"_quantity\" class=\"numbers entries_quantity\">" +
-    "<input type=\"hidden\" name=\""+model+"[entries_attributes]["+idx+"][item_id]\" id=\""+model+"_entries_attributes_"+idx+"_item_id\"></td>"; 
+    "<input type=\"hidden\" name=\""+model+"[entries_attributes]["+idx+"][item_id]\" id=\""+model+"_entries_attributes_"+idx+"_item_id\"></td>";
   if(window.with_value == true) {
-    html += "<td class=\"actions td_20\"><input type=\"text\" size=\"30\" name=\""+model+"[entries_attributes]["+idx+"][value]\" id=\""+model+"_entries_attributes_"+idx+"_value\" class=\"numbers entries_value\"></td>"; 
+    html += "<td class=\"actions td_20\"><input type=\"text\" size=\"30\" name=\""+model+"[entries_attributes]["+idx+"][value]\" id=\""+model+"_entries_attributes_"+idx+"_value\" class=\"numbers entries_value\"></td>";
   }
   html += "</tr>";
   return html;
@@ -339,9 +339,9 @@ function item_row(count) {
     "<a class=\"plu_input\" href=\"/items/lookup2.js\"><img src=\"/images/icons/silk/magnifier.png\" alt=\"Magnifier\"></a></td> " +
     "<td class=\"td_50\"></td> <td class=\"actions td_10\">" +
     "<input type=\"text\" size=\"10\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][quantity]\" id=\""+model+"_detail-assemblies_attributes_"+idx+"_quantity\" class=\"numbers detail_assemblies_quantity\">" +
-    "<input type=\"hidden\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][item_id]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_item_id\"></td>"; 
+    "<input type=\"hidden\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][item_id]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_item_id\"></td>";
   if(window.with_value == true) {
-    html += "<td class=\"actions td_20\"><input type=\"text\" size=\"30\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][value]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_value\" class=\"numbers detail_assemblies_value\"></td>"; 
+    html += "<td class=\"actions td_20\"><input type=\"text\" size=\"30\" name=\""+model+"[detail_assemblies_attributes]["+idx+"][value]\" id=\""+model+"_detail_assemblies_attributes_"+idx+"_value\" class=\"numbers detail_assemblies_value\"></td>";
   }
   html += "</tr>";
   return html;
@@ -404,3 +404,34 @@ $('.tracker_remover').live('click', function() {
   input.val((total_value >= tracker_value) ? (total_value - tracker_value) : 0);
   return false;
 });
+
+//customer auto_complete
+$('#sales_order_customer').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/customers/search.js',
+    focus:  function(event, ui) { console.log(ui); $(this).val(ui.item.fullname); return false;},
+
+    select: function(event, ui) {
+      $(this).val(ui.fullname);
+      $(this).next().val(ui.id);
+      var form = $(this).parents('form');
+        $('#sales_order_quotation_id+button+div ul li').each(function(){
+            console.log($(this).children().find('input')[0]);
+           if (jQuery.inArray($(this).children().find('input').value, ui.item.quotation_ids) == -1) {
+        $(this).children().find('input').attr('disabled', 'disabled');
+    }
+            });
+      return false;
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, customers) {
+    //console.log(customer);
+    return $("<li></li>")
+    .data("item.autocomplete", customers)
+    .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+

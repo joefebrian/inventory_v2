@@ -33,7 +33,7 @@ class DeliveryOrder < ActiveRecord::Base
 
   def build_entries_from_so
     entries.clear
-    unless sales_order.blank?
+    unless sales_order_id.blank?
       items = SalesOrderEntry.calculate(:sum,
                                              :quantity,
                                              :conditions => { :sales_order_id => sales_order_id },

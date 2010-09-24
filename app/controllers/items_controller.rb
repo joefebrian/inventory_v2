@@ -120,7 +120,7 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html { render :layout => false }
       format.js { 
-        @html = render_to_string :partial => "items_result"
+      #  @html = render_to_string :partial => "items_result"
       }
     end
   end
