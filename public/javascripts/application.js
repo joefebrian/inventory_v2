@@ -410,16 +410,17 @@ $('#sales_order_customer').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
-    focus:  function(event, ui) { console.log(ui); $(this).val(ui.item.fullname); return false;},
+    focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
 
     select: function(event, ui) {
       $(this).val(ui.fullname);
       $(this).next().val(ui.id);
       var form = $(this).parents('form');
-        $('#sales_order_quotation_id+button+div ul li').each(function(){
-            console.log($(this).children().find('input')[0]);
-           if (jQuery.inArray($(this).children().find('input').value, ui.item.quotation_ids) == -1) {
-        $(this).children().find('input').attr('disabled', 'disabled');
+        $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
+            /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
+           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != 1) {
+        //$(this).children().find('input').attr('disabled', 'disabled');
+        ("#sales_order_quotation_id").multiselect("setOption");
     }
             });
       return false;
