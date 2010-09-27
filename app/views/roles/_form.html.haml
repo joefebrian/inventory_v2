@@ -3,14 +3,15 @@
   - f.inputs 'Role', :class => 'form_section' do
     = f.input :name
   - f.inputs 'Privileges', :class => 'form_section' do
-    %li
-      %label Privileges
-      .group
-        - for priv in PRIVILEGES
-          %label{ :for => "#{priv}_resource" }
-            = check_box_tag 'role[privilege_resources][]', priv, @role.has_privilege?(priv), :id => "#{priv}_resource"
-            &nbsp;
-            = priv.titleize
+    - PRIVILEGES.each do |key, val|
+      %li
+        %label= key.titleize
+        .group
+          - val.each do |priv|
+            %label{ :for => "#{priv}_resource" }
+              = check_box_tag 'role[privilege_resources][]', priv, @role.has_privilege?(priv), :id => "#{priv}_resource"
+              &nbsp;
+              = priv.titleize
   %fieldset.buttons
     %button{ :type => :submit, :id => 'primary-button' }
       = image_tag 'icons/silk/disk.png'

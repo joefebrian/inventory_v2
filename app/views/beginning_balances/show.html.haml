@@ -1,14 +1,14 @@
-- title "Begining Balance #{@begining_balance.number}"
+- title "Begining Balance #{@beginning_balance.number}"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
-    link_to('Begining Balances', begining_balances_path), |
-    @begining_balance.number ] |
+    link_to('Begining Balances', beginning_balances_path), |
+    @beginning_balance.number ] |
 
 = sidemenu @tab
 
 - content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Beginning Balance", edit_begining_balance_path(@begining_balance), :class => 'main_link'
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Beginning Balance", edit_beginning_balance_path(@beginning_balance), :class => 'main_link'
 
 #dialog_form
   %fieldset.form_section
@@ -16,14 +16,14 @@
     .two_columns
       %p 
         %span.light.transaction_label Transaction Number : 
-        %strong= @begining_balance.number
+        %strong= @beginning_balance.number
       %p
         %span.light.transaction_label Created :
-        %strong= @begining_balance.created_at.to_s(:long)
+        %strong= @beginning_balance.created_at.to_s(:long)
     .single_column
       %p
         %span.light.transaction_label Remark :
-        %strong= @begining_balance.remark
+        %strong= @beginning_balance.remark
 
   %fieldset.form_section
     %legend Entries
@@ -36,7 +36,7 @@
           %th.actions Quantity
           %th.actions Value
       %tbody
-        - @begining_balance.entries.each_with_index do |entry, n|
+        - @beginning_balance.entries.each_with_index do |entry, n|
           %tr{ :class => cycle('odd','even') }
             %td.index= n+1
             %td= entry.item.code

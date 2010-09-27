@@ -15,4 +15,12 @@ class Role < ActiveRecord::Base
       privileges << Privilege.new(:company => company, :resource => res)
     end
   end
+
+  def sorted_privileges
+    priv = {}
+    PRIVILEGES.each do |key, val|
+      priv[key] = (privileges.collect { |p| p.resource } & val)
+    end
+    priv
+  end
 end

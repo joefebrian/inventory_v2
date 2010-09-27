@@ -31,6 +31,7 @@ class RolesController < ApplicationController
   
   def update
     @role = current_company.roles.find(params[:id])
+    @role.privileges.delete_all
     if @role.update_attributes(params[:role])
       flash[:notice] = "Successfully updated role."
       redirect_to @role

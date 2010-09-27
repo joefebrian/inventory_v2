@@ -17,6 +17,8 @@
 
 %fieldset.form_section
   %legend Privileges
-  %p.single-column
-    %span.light Privileges
-    = @role.privileges.collect { |p| p.resource.titleize }.join(', ')
+  - @role.sorted_privileges.each do |key, val|
+    .single-column
+      %span.light= key.titleize
+      .group
+        = val.collect { |p| p.titleize }.join(', ')

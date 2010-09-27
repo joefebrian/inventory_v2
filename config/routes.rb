@@ -34,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :price_lists
   map.resources :general_transactions, :member => { :detail => :get }
   map.resources :transaction_types
-  map.resources :begining_balances
+  map.resources :beginning_balances
   map.resources :placements
   map.resources :plus, :collection => { :search => :get }
   map.resources :suppliers
