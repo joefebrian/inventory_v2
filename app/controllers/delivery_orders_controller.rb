@@ -11,6 +11,7 @@ class DeliveryOrdersController < ApplicationController
   end
   
   def new
+    @customer = current_company.customers.all(:include => :profile)
     @delivery_order = current_company.delivery_orders.new
     @delivery_order.entries.build
     @sales_orders = current_company.sales_orders
@@ -29,6 +30,7 @@ class DeliveryOrdersController < ApplicationController
     else
       @delivery_order.entries.build
       @sales_orders = current_company.sales_orders
+      @customer = current_company.customers.all(:include => :profile)
       render :action => 'new'
     end
   end
@@ -36,6 +38,7 @@ class DeliveryOrdersController < ApplicationController
   
   def edit
     @delivery_order = current_company.delivery_orders.find(params[:id])
+    @customer = current_company.customers.all(:include => :profile)
   end
   
   def update
@@ -44,6 +47,8 @@ class DeliveryOrdersController < ApplicationController
       flash[:notice] = "Successfully updated delivery order."
       redirect_to @delivery_order
     else
+      @delivery_order.entries.build
+      @customer = current_company.customers.all(:include => :profile)
       render :action => 'edit'
     end
   end

@@ -418,9 +418,73 @@ $('#sales_order_customer').live('focus', function() {
       var form = $(this).parents('form');
         $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
             /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
-           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != 1) {
-        //$(this).children().find('input').attr('disabled', 'disabled');
-        ("#sales_order_quotation_id").multiselect("setOption");
+           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != -1) {
+            //$(this).children().find('input').attr('disabled', 'disabled');
+
+    }
+            });
+      return false;
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, customers) {
+    //console.log(customer);
+    return $("<li></li>")
+    .data("item.autocomplete", customers)
+    .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+
+//customer auto_complete  for quotations
+$('#quotation_customer').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/customers/search.js',
+    focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
+
+    select: function(event, ui) {
+      $(this).val(ui.fullname);
+      $(this).next().val(ui.id);
+      var form = $(this).parents('form');
+        $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
+            /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
+           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != -1) {
+            //$(this).children().find('input').attr('disabled', 'disabled');
+
+    }
+            });
+      return false;
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, customers) {
+    //console.log(customer);
+    return $("<li></li>")
+    .data("item.autocomplete", customers)
+    .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+
+
+
+//customer auto_complete  for form delivery orders
+$('#delivery_order_customers').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/customers/search.js',
+    focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
+
+    select: function(event, ui) {
+      $(this).val(ui.fullname);
+      $(this).next().val(ui.id);
+      var form = $(this).parents('form');
+        $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
+            /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
+           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != -1) {
+            //$(this).children().find('input').attr('disabled', 'disabled');
+
     }
             });
       return false;

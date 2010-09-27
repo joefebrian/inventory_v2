@@ -1,7 +1,8 @@
 class DeliveryOrder < ActiveRecord::Base
-  attr_accessible :company_id, :sales_order_id, :number, :date, :reference, :description, :entries_attributes
+  attr_accessible :company_id, :customer_id, :sales_order_id, :number, :date, :reference, :description, :entries_attributes
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
+  has_many :customers
   has_many :sales_orders
   belongs_to :company
   validates_presence_of :number
