@@ -1,16 +1,27 @@
 privileges:
-  - item
-  - category
-  - warehouse
-  - supplier
-  - plu
-  - salesman
-  - customer
-  - currency
-  - exchange_rate
-  - transaction_type
-  - price_list
-  - assy_formulae
-  - user
-  - role
-  - company
+  masters:
+    - item
+    - category
+    - warehouse
+    - supplier
+    - plu
+    - salesman
+    - customer
+    - currency
+    - exchange_rate
+    - transaction_type
+    - price_list
+    - assy_formulae
+    - user
+    - role
+    - company
+  transactions:
+    - beginning_balance
+    - general_transaction
+    - material_request
+    - quotation_request
+    - purchase_order
+    - item_receive
+    - purchase_retur
+    - quotation
+    - sales_order

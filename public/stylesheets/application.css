@@ -755,6 +755,7 @@ p.single-column {
   margin-left:160px;
   position:relative;
   min-height:1em;
+  line-height:2em;
 }
 .red-tag {
   display:inline-block;
