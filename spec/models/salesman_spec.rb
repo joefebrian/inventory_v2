@@ -1,7 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Salesman do
+  let(:salesman) { Factory(:salesman) }
   it "should be valid" do
-    Salesman.new.should be_valid
+    salesman.should be_valid
   end
 end

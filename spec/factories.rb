@@ -9,6 +9,7 @@ Factory.define :company do |c|
   c.sequence(:name) { |n| "Monster ##{n} Inc."}
   c.sequence(:address) { |n| "Disneyland ##{n} Cikarang" }
   c.sequence(:phone) { |n| "+6221 9424645#{n}" }
+  c.sequence(:subdomain) { |n| "monsterinc#{n}" }
 end
 
 Factory.define :category do |cat|
@@ -56,6 +57,7 @@ Factory.define :location do |loc|
 end
 
 Factory.define :entry do |entry|
+  entry.association(:company)
   entry.association(:item)
   entry.quantity 10
 end
@@ -63,12 +65,13 @@ end
 Factory.define :begining_balance do |trans|
   trans.sequence(:number) {|n| "BB#{n}" }
   trans.association(:company)
-  trans.entries { |entries| [entries.association(:entry)] }
+  # trans.entries { |entries| [ Factory(:entry)] }
 end
 
 Factory.define :transaction_type do |tt|
   tt.association(:company)
   tt.sequence(:code) { |n| "TT#{n}" }
+  tt.sequence(:name) { |n| "TransactionType #{n}" }
   tt.sequence(:description) { |n| "TransactionType#{n}" }
 end
 
@@ -77,4 +80,26 @@ Factory.define(:item_transfer) do |it|
   it.sequence(:number) { |n| "ItemTransfer#{n}" }
   it.origin_id { |warehouse| warehouse.association(:warehouse) }
   it.destination_id { |warehouse| warehouse.association(:warehouse) }
+end
+
+Factory.define(:profile) do |p|
+  p.first_name "Foo"
+  p.last_name "Bar"
+end
+
+Factory.define(:customer) do |c|
+  c.association(:company)
+  c.association(:profile)
+  c.sequence(:code) { |n| "Customer #{n}" }
+end
+
+Factory.define(:salesman) do |s|
+  s.association(:company)
+  s.association(:profile)
+  s.sequence(:code) { |n| "Salesman #{n}" }
+end
+
+Factory.define(:material_request) do |mr|
+  mr.association(:company)
+  mr.sequence(:number) { |n| "MR #{n}" }
 end
