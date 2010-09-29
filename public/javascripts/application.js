@@ -7,15 +7,7 @@ $(function() {
   });
   attach_datepicker();
   if($(".select").length || $('.multiselect').length) {
-    $("select.select").multiselect({
-      multiple: false,
-      header: "Select an option",
-      noneSelectedText: "Select an option",
-      selectedList: 1,
-      show: 'blind',
-      hide: 'blind'
-    });
-    $('.multiselect').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
+    run_multiselect();
   };
   $('#from').change(function() {
     $('#notifier').show();
@@ -406,29 +398,29 @@ $('.tracker_remover').live('click', function() {
 });
 
 //customer auto_complete
-$('#sales_order_customer').live('focus', function() {
+$('#sales_order_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
-    focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
-
+    focus:  function(event, ui) { $(this).val(ui.item.fullname); return false; },
     select: function(event, ui) {
-      $(this).val(ui.fullname);
-      $(this).next().val(ui.id);
-      var form = $(this).parents('form');
-        $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
-            /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
-           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != -1) {
-            //$(this).children().find('input').attr('disabled', 'disabled');
-
-    }
-            });
-      return false;
+      $(this).parents('form').find('#sales_order_customer_id').val(ui.item.id);
+      var form = $(this).parents('form')
+      $.ajax({
+        source: form[0].action,
+        data: form.serialize(),
+        success: function(response, status) {
+          var form_html = $(response).find('form').html();
+          form.replaceWith(response);
+          run_multiselect();
+          attach_datepicker();
+          multiselect_response();
+        }
+      });
     }
   })
   .data("autocomplete")
   ._renderItem = function(ul, customers) {
-    //console.log(customer);
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")
@@ -474,25 +466,12 @@ $('#delivery_order_customers').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
-    focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
-
+    focus:  function(event, ui) { $(this).val(ui.item.fullname); return false; },
     select: function(event, ui) {
-      $(this).val(ui.fullname);
-      $(this).next().val(ui.id);
-      var form = $(this).parents('form');
-        $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
-            /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
-           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != -1) {
-            //$(this).children().find('input').attr('disabled', 'disabled');
-
-    }
-            });
-      return false;
     }
   })
   .data("autocomplete")
   ._renderItem = function(ul, customers) {
-    //console.log(customer);
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")
@@ -500,3 +479,14 @@ $('#delivery_order_customers').live('focus', function() {
   };
  });
 
+function run_multiselect() {
+  $("select.select").multiselect({
+    multiple: false,
+    header: "Select an option",
+    noneSelectedText: "Select an option",
+    selectedList: 1,
+    show: 'blind',
+    hide: 'blind'
+  });
+  $('.multiselect').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
+}

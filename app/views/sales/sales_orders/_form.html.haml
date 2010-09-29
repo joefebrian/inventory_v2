@@ -12,14 +12,14 @@
 
     = f.input :order_ref, :label => "Order Ref"
     = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
-    = f.input :customer, :label => "Customer Name", :as => :string
-    = f.input :quotation, :collection => @quotation, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
+    = f.input :customer_id, :as => :hidden
+    = f.input :customer_name, :label => "Customer Name", :as => :string
+    = f.input :quotation, :collection => @quotations, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
     = f.input :salesman, :collection => @salesman, :label => "Salesman", :include_blank => "select Salesman", :input_html => { :class => "select"}
     = f.input :top, :label => "Payment Terms"
     = f.input :retensi, :label => "Retensi"
-    = f.input :kurs_id, :label => "Currency", :as => :select, :collection => @currencies, :input_html => { :class => "select"}
-    = f.input :kurs_value, :label => "Rate"
-    = f.input :status, :label => "Status"
+    = f.input :currency_id, :label => "Currency", :as => :select, :collection => @currencies, :input_html => { :class => "select"}
+    = f.input :currency_rate, :label => "Rate"
 
   - f.inputs 'Items', :class => "form_section" do
     %li
@@ -46,7 +46,7 @@
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
 
   %fieldset.buttons
-    %button{ :type => "submit" }
+    %button{ :type => "submit", :id => 'primary-button' }
       = image_tag 'icons/silk/disk.png'
       Save Sales Order
 
@@ -58,9 +58,9 @@
       var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
       var regexp2 = new RegExp("_(\\d+)_", "g");
       var new_id = $('tbody tr').length;
-      $(function() {
+      function multiselect_response() {
         $('.multiselect').bind('multiselectclose', function(event, ui) {
-          var quot = $(this).multiselect('getChecked');
+          var quots = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
           form.append('<input type="hidden" name="get_quots" value="1"/>');
           $.ajax({
@@ -71,9 +71,12 @@
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
               $('input[name=get_quots]').remove();
+              $('.tracker_quantity').validate({ required: true, max: 12 });
             }
           });
           return false;
         });
+      }
+      $(function() {
+        multiselect_response();
       });
-

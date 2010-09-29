@@ -1,5 +1,5 @@
 class SalesOrder < ActiveRecord::Base
-  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :kurs_id, :kurs_value, :order_ref, :salesman_id, :entries_attributes
+  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :currency_id, :currency_rate, :order_ref, :salesman_id, :entries_attributes, :customer_name
   has_many :entries, :class_name => "SalesOrderEntry"
   belongs_to :company
   belongs_to :assembly
@@ -7,13 +7,12 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :currency
   belongs_to :quotation
   belongs_to :salesman
-  validates_presence_of :number, :kurs_id
+  validates_presence_of :number, :currency_id, :currency_rate
   validates_uniqueness_of :number, :scope => :company_id
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda {|at| at['quantity'].blank? || at['quantity'].to_i == 0}
-  
 
   def tgl_active
    tanggal = Chronic.parse(tanggal_berlaku)
@@ -52,5 +51,14 @@ class SalesOrder < ActiveRecord::Base
   def before_save
     unless customer_id.blank?
     end
+  end
+
+  def customer_name
+    customer.try(:profile).try(:full_name)
+  end
+
+  def customer_name=(name)
+    first, last = name.split(' ', 2)
+    customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
   end
 end

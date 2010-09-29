@@ -12,17 +12,27 @@ class Sales::SalesOrdersController < ApplicationController
   
   def new
     @sales_order = current_company.sales_orders.new
+    @sales_order.attributes = params[:sales_order] if params[:sales_order]
+    if params[:sales_order]
+      @quotations = current_company.quotations.customer_id_is(params[:sales_order][:customer_id])
+    else
+      @quotations = current_company.quotations
+    end
+    @sales_order.entries.clear
     @sales_order.entries.build
     @customer = current_company.customers
-    @quotation = current_company.quotations
     @assembly = current_company.assemblies
     @currencies = current_company.currencies
     @exchange_rate = current_company.exchange_rates
     @salesman = current_company.salesmen
+    if request.xhr?
+      render :layout => false
+    end
   end
   
   def create
-    @sales_order = current_company.sales_orders.new(params[:sales_order])
+    @sales_order = current_company.sales_orders.new
+    @sales_order.attributes = params[:sales_order]
     if params[:get_quots] && params[:get_quots].to_i == 1
       @sales_order.build_entries_from_quot
       @sales_order.entries.build
@@ -38,7 +48,7 @@ class Sales::SalesOrdersController < ApplicationController
       @assembly = current_company.assemblies
       @currencies = current_company.currencies
       @exchange_rate = current_company.exchange_rates
-      @salesman = current_company.salesmesn
+      @salesman = current_company.salesmen
       render :action => 'new'
     end
   end
@@ -67,7 +77,7 @@ class Sales::SalesOrdersController < ApplicationController
     @sales_order = current_company.sales_orders.find(params[:id])
     @sales_order.destroy
     flash[:notice] = "Successfully destroyed sales order."
-    redirect_to sales_orders_url
+    redirect_to sales_sales_orders_url
   end
   
   private
