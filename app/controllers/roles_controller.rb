@@ -27,23 +27,33 @@ class RolesController < ApplicationController
   
   def edit
     @role = current_company.roles.find(params[:id])
+    if @role.name.downcase == 'admin'
+      flash[:error] = "Admin role cannot be edited"
+      redirect_to roles_path
+    end
   end
   
   def update
     @role = current_company.roles.find(params[:id])
-    @role.privileges.delete_all
-    if @role.update_attributes(params[:role])
-      flash[:notice] = "Successfully updated role."
-      redirect_to @role
-    else
-      render :action => 'edit'
+    unless @role.name.downcase == 'admin'
+      @role.privileges.delete_all
+      if @role.update_attributes(params[:role])
+        flash[:notice] = "Successfully updated role."
+      else
+        render :action => 'edit' and return
+      end
     end
+    redirect_to @role
   end
   
   def destroy
     @role = current_company.roles.find(params[:id])
-    @role.destroy
-    flash[:notice] = "Successfully destroyed role."
+    if @role.name.downcase == "admin"
+      flash[:error] = "Admin role cannot be deleted"
+    else
+      @role.destroy
+      flash[:notice] = "Successfully destroyed role."
+    end
     redirect_to roles_url
   end
   private

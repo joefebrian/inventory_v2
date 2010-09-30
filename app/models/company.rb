@@ -101,6 +101,13 @@ class Company < ActiveRecord::Base
     COMPANY_MODE[subdomain.to_sym]
   end
 
+  def create_defaults
+    create_default_transactions
+    create_default_warehouse
+    create_default_roles
+  end
+
+  private
   def create_default_transactions
     # untuk transaksi terima barang (BTB)
     TransactionType.new(:company_id => id,
@@ -117,8 +124,7 @@ class Company < ActiveRecord::Base
     warehouses.create(:code => 'Default', :name => 'Default warehouse', :default => true)
   end
 
-  def create_defaults
-    create_default_transactions
-    create_default_warehouse
+  def create_default_roles
+    roles.create(:name => 'admin')
   end
 end
