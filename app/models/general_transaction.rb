@@ -44,7 +44,7 @@ class GeneralTransaction < Transaction
 
   def self.next_number(company, type)
     last = GeneralTransaction.first(:conditions => { :company_id => company, :transaction_type_id => type }, :limit => 1, :order => "number DESC")
-    next_available = last.nil? ? '00001' : sprintf('%05d', last.split('.').last.to_i + 1)
+    next_available = last.nil? ? '00001' : sprintf('%05d', last.number.split('.').last.to_i + 1)
     time = Time.now
     prefix = "#{type.code}.#{time.strftime('%Y%m')}"
     "#{prefix}.#{next_available}"
