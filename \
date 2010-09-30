@@ -34,14 +34,13 @@ class SalesOrder < ActiveRecord::Base
   def build_entries_from_quot
     entries.clear
     unless quotation.blank?
-      items = QuotationEntry.all(:conditions => { :quotation_id => quotation_id },
-                                 :group => :item_id)
-      items.each do |entry|
-        self.entries.build(:item_id => entry.item_id,
-                           :quantity => entry.quantity,
-                           :price => entry.price,
-                           :diskon => entry.discount,
-                           :total_price => entry.total_price)
+      items = QuotationEntry.calculate(:sum,
+                                             :quantity,
+                                             :conditions => { :quotation_id => quotation_id },
+                                             :group => :item_id)
+      items.each do |item_id, qty|
+        self.entries.build(:item_id => item_id,
+                           :quantity => qty)
       end
     end
   end
@@ -63,5 +62,4 @@ class SalesOrder < ActiveRecord::Base
     first, last = name.split(' ', 2)
     customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
   end
-
 end

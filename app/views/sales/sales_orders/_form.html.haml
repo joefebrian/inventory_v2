@@ -28,12 +28,16 @@
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
-            %th Quantity
-            %th
+            %th.td_5 Qty
+            %th Unit Price
+            %th.td_5 Disc (%)
+            %th Total Price
+            %th Description
         %tfoot
           %tr
             %td &nbsp;
-            %td{ :colspan => 3 } &nbsp;
+            %td.tdr{ :colspan => 4 } Summary Total = 
+            %td.tdr{ :colspan => 2 } &nbsp;
         %tbody
           - f.semantic_fields_for :entries do |ent|
             %tr
@@ -41,10 +45,19 @@
               %td.item
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
-              %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
+              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
+              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "price numbers"
+              %td.tdr.td_5= ent.text_field :diskon, :size => 5, :class => "numbers mr_qty"
+              %td.tdr.td_5= ent.text_field :total_price, :size => 15, :class => "number total_price"
               %td.tdr
+                - if ent.object.description.blank?
+                  = link_to image_tag('icons/silk/comment.png'), '#', :class => "popup_handle"
+                - else
+                  = link_to image_tag('icons/silk/comment_filled.png'), '#', :class => "popup_handle"
+                %p.popup_note.should_hidden= ent.text_field :description, :class => "pop_input default"
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
-
+           
+ 
   %fieldset.buttons
     %button{ :type => "submit", :id => 'primary-button' }
       = image_tag 'icons/silk/disk.png'

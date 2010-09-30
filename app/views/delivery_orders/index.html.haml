@@ -17,15 +17,16 @@
 %table.list
   %thead
     %tr
-      %th NUmber
+      %th Number
       %th Code SO
       %th Date
+      %th.action Action
   %tbody
     - for delivery_order in @delivery_orders
       %tr
-        %td= h delivery_order.number
+        %td= link_to h(delivery_order.number), [delivery_order]
         %td= h delivery_order.sales_order_id
-        %td= h delivery_order.date
+        %td= h delivery_order.created_at
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_delivery_order_path(delivery_order)
           = link_to image_tag('icons/silk/delete.png'), delivery_order_path(delivery_order), :confirm => 'Are you sure?', :method => :delete

@@ -17,7 +17,8 @@ class Sales::QuotationsController < ApplicationController
   end
   
   def create
-    @quotation = current_company.quotations.new(params[:quotation])
+    @quotation = current_company.quotations.new
+    @quotation.attributes = params[:quotation]
     if @quotation.save
       flash[:notice] = "Successfully created quotation."
       redirect_to sales_quotation_path(@quotation)

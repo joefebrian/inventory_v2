@@ -429,24 +429,25 @@ $('#sales_order_customer_name').live('focus', function() {
  });
 
 //customer auto_complete  for quotations
-$('#quotation_customer').live('focus', function() {
+$('#quotation_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
     focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
-
     select: function(event, ui) {
-      $(this).val(ui.fullname);
-      $(this).next().val(ui.id);
-      var form = $(this).parents('form');
-        $('#sales_order_quotation_id+button+div ul.ui-multiselect-checkboxes li').each(function(){
-            /*console.log($(this).children().find('input[type=checkbox]')[0].value);*/
-           if (jQuery.inArray($(this).children().find('input[type=checkbox]')[0].value, ui.item.quotation_ids) != -1) {
-            //$(this).children().find('input').attr('disabled', 'disabled');
-
-    }
-            });
-      return false;
+      $(this).parents('form').find('#quotation_customer_id').val(ui.item.id);
+      /*var form = $(this).parents('form')
+      $.ajax({
+        source: form[0].action,
+        data: form.serialize(),
+        success: function(response, status) {
+          var form_html = $(response).find('form').html();
+          form.replaceWith(response);
+          run_multiselect();
+          attach_datepicker();
+          multiselect_response();
+        }
+      });*/
     }
   })
   .data("autocomplete")
@@ -462,7 +463,7 @@ $('#quotation_customer').live('focus', function() {
 
 
 //customer auto_complete  for form delivery orders
-$('#delivery_order_customers').live('focus', function() {
+$('#delivery_order_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',

@@ -1,19 +1,19 @@
 class DeliveryOrder < ActiveRecord::Base
-  attr_accessible :company_id, :customer_id, :sales_order_id, :number, :date, :reference, :description, :entries_attributes
+  attr_accessible :company_id, :customer_id, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
   has_many :customers
   has_many :sales_orders
   belongs_to :company
-  validates_presence_of :number
+  validates_presence_of :number, :customer_id, :do_date
   validates_uniqueness_of :number, :scope => :company_id
   
   def name
     number
   end
 
-  def date
-   date = Chronic.parse(date)
+  def creat_date
+   do_date = Chronic.parse(date)
   end
 
   accepts_nested_attributes_for :entries, 
@@ -46,9 +46,17 @@ class DeliveryOrder < ActiveRecord::Base
     end
   end
 
-
   def before_save
     unless customer_id.blank?
     end
+  end
+
+  def customer_name
+    customer.try(:profile).try(:full_name)
+  end
+
+  def customer_name=(name)
+    first, last = name.split(' ', 2)
+    customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
   end
 end

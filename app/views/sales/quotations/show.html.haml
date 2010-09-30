@@ -23,7 +23,7 @@
       %strong= @quotation.tanggal_berlaku
     %p
       %span.light.transaction_label Customer Name
-      %strong= @quotation.customer_id
+      %strong= @quotation.customer
     %p
       %span.light.transaction_label Subject
       %strong= @quotation.hal
@@ -44,9 +44,15 @@
       %th No.
       %th Item
       %th Qty
+      %th Unit Price
+      %th Disc (%)
+      %th Total Price
   %tbody
   - @quotation.entries.each_with_index do |entry, i|
     %tr
       %td.tdr.td_5= (i+1)
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
+      %td.tdr= entry.price
+      %td.tdr= entry.discount
+      %td.tdr= entry.total_price

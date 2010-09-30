@@ -1,27 +1,45 @@
 - title "Delivery Order"
 
-%p
-  %strong Company:
-  =h @delivery_order.company_id
-%p
-  %strong Sales Order:
-  =h @delivery_order.sales_order_id
-%p
-  %strong Number:
-  =h @delivery_order.number
-%p
-  %strong Date:
-  =h @delivery_order.date
-%p
-  %strong Reference:
-  =h @delivery_order.reference
-%p
-  %strong Description:
-  =h @delivery_order.description
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Delivery Order', delivery_orders_path), |
+    "Delivery Orders ##{@delivery_order.number}" ] |
 
-%p
-  = link_to "Edit", edit_delivery_order_path(@delivery_order)
-  |
-  = link_to "Destroy", @delivery_order, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", delivery_orders_path
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit delivery Order", edit_delivery_order_path(@delivery_order), :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %strong.light.transaction_label Sales Order Number:
+      =h @delivery_order.sales_order_id
+    %p
+      %strong.light.transaction_label DO Number:
+      =h @delivery_order.number
+    %p
+      %strong.light.transaction_label Customer Name:
+      =h @delivery_order.customer_id
+    %p
+      %strong.light.transaction_label Date:
+      =h @delivery_order.date
+    %p
+      %strong.light.transaction_label reference:
+      =h @delivery_order.reference
+    %p
+      %strong.light.transaction_label Description:
+      =h @delivery_order.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @delivery_order.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity

@@ -8,11 +8,12 @@ class Quotation < ActiveRecord::Base
     :penerima,
     :nama_proyek_customer,
     :keterangan,
+    :customer_name,
     :entries_attributes
   has_many :entries, :class_name => "QuotationEntry"
   belongs_to :company
   belongs_to :customer
-  validates_presence_of :number
+  validates_presence_of :number, :customer_id
   validates_uniqueness_of :number, :scope => :company_id
   
   def name
@@ -41,5 +42,14 @@ class Quotation < ActiveRecord::Base
   def before_save
     unless customer_id.blank?
     end
+  end
+
+  def customer_name
+    customer.try(:profile).try(:full_name)
+  end
+
+  def customer_name=(name)
+    first, last = name.split(' ', 2)
+    customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
   end
 end

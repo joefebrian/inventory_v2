@@ -26,7 +26,7 @@ class DeliveryOrdersController < ApplicationController
     end
     if @delivery_order.save
       flash[:notice] = "Successfully created sales order."
-      redirect_to [:sales, @delivery_order]
+      redirect_to @delivery_order
     else
       @delivery_order.entries.build
       @sales_orders = current_company.sales_orders
