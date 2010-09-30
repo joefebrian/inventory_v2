@@ -21,6 +21,8 @@ class ItemReceive < ActiveRecord::Base
     errors.add_to_base('Transaction items cannot be empty') if entries.blank?
   end
 
+  named_scope :unconfirmed, :conditions => { :confirmed => false }
+
   def after_initialize
     if new_record?
       self.number = suggested_number

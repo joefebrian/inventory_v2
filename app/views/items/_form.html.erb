@@ -6,7 +6,7 @@
     <ul class="form_info">
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>
-    <% f.inputs do %>
+    <% f.inputs "Item data", :class => 'form_section' do %>
       <%= f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select" } %>
       <%= f.input :count_method, :as => :radio, :collection => [['Average', 'avg'],['FIFO','fifo'],['LIFO','lifo']], :wrapper_html => { :class => "inline" } %>
       <%= f.input :code %>
@@ -30,26 +30,21 @@
         <%= f.text_field :weight, :size => 5, :class => 'number' %>
       </li>
     <% end -%>
-    <fieldset id="units">
-      <legend>
-        <label for="item_units_attributes_0_name">Units <span class="required">*</span></label>
-      </legend>
-      <ol>
-        <% f.fields_for :units do |unit| %>
-          <li>
-            <%= unit.label :name %>
-            <%= unit.text_field :name, :size => 20 %>
-            <%= unit.label :conversion_rate %>
-            <%= unit.text_field :conversion_rate, :size => 5, :class => 'number' %>
-            <%= unit.label :value %>
-            <%= unit.text_field :value, :size => 13, :class => 'number' %>
-            <%= unit.hidden_field :_destroy %>
-            <a href="#" title="remove unit" class="unit_remover"><%= image_tag 'icons/silk/cross.png' %></a>
-          </li>
-        <% end -%>
-      </ol>
-      <a href="#" id="add_unit"><%= image_tag 'icons/silk/add.png' %> add more unit</a>
-    </fieldset>
+    <% f.inputs "Units", :class => 'form_section', :id => 'units' do %>
+      <% f.fields_for :units do |unit| %>
+        <li>
+          <%= unit.label :name %>
+          <%= unit.text_field :name, :size => 20 %>
+          <%= unit.label :conversion_rate %>
+          <%= unit.text_field :conversion_rate, :size => 5, :class => 'number' %>
+          <%= unit.label :value %>
+          <%= unit.text_field :value, :size => 13, :class => 'number' %>
+          <%= unit.hidden_field :_destroy %>
+          <a href="#" title="remove unit" class="unit_remover"><%= image_tag 'icons/silk/cross.png' %></a>
+        </li>
+      <% end -%>
+      <li><a href="#" id="add_unit"><%= image_tag 'icons/silk/add.png' %> add more unit</a></li>
+    <% end %>
     <fieldset class="inputs" id="photo_input">
       <ol>
         <li>

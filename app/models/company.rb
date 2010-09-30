@@ -2,17 +2,11 @@ class Company < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  #has_many :item_transfers
-  #has_many :item_ins
-  #has_many :item_outs
-  #has_many :sales_orders
-  has_many :delivery_orders, :dependent => :destroy
-  has_many :sales_invoices, :dependent => :destroy
-  #has_many :item_receives, :class_name => "ItemReceive"
-
   validates_presence_of :subdomain
   validates_uniqueness_of :subdomain
   validates_format_of :subdomain, :with => /^[a-zA-Z0-9\-]*?$/, :message => 'only accepts letters, numbers, and hypens'
+  has_many :delivery_orders, :dependent => :destroy
+  has_many :sales_invoices, :dependent => :destroy
   has_many :users, :dependent => :destroy
   has_many :categories, :dependent => :destroy
   has_many :items, :dependent => :destroy

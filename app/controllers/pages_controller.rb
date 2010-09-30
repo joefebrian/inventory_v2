@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   def index
     redirect_to signin_path unless current_user
     @tab = 'dashboard'
+    @unconfirmed_item_receives = current_company.item_receives.unconfirmed
   end
 
   def show
