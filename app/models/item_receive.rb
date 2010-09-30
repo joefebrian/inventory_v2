@@ -43,7 +43,7 @@ class ItemReceive < ActiveRecord::Base
     entries.clear
     po_entries = PurchaseOrderEntry.all(:conditions => { :purchase_order_id => purchase_order_id }, :group => :item_id)
     po_entries.each do |entry|
-      self.entries.build(:item_id => entry.item.id, :quantity => entry.purchase_order.quantity_left(entry.item))
+      self.entries.build(:item_id => entry.item.id, :quantity => entry.purchase_order.quantity_left(entry.item)) if entry.purchase_order.quantity_left(entry.item) > 0
     end
   end
 
