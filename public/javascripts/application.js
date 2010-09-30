@@ -165,8 +165,8 @@ $('input.item_autocomplete').live('focus', function() {
   };
 });
 
-$('.units_remover').live('click', function() {
-  $(this).parents('tr').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
+$('.unit_remover').live('click', function() {
+  $(this).parents('li').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
   return false;
 })
 
