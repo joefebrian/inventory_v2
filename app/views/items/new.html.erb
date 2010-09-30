@@ -3,9 +3,16 @@
 <% content_for :breadcrumb do %>
   <%= breadcrumb [ link_to("Administrations", administrations_path),
                    link_to("Items",items_path),
-                   'Create New Item' ] %>
+                   'New' ] %>
 <% end -%>
 
 <%= sidemenu %>
+<%= hint 'Code and name must be present and unique' %>
 
+<div id="subheader">
+  <h3>Crate new item</h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", items_path %>
+  </div>
+</div>
 <%= render :partial => 'form' %>

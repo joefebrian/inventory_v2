@@ -2,11 +2,11 @@ class Company < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
-  has_many :delivery_orders, :dependent => :destroy
-  has_many :sales_invoices, :dependent => :destroy
   validates_presence_of :subdomain
   validates_uniqueness_of :subdomain
   validates_format_of :subdomain, :with => /^[a-zA-Z0-9\-]*?$/, :message => 'only accepts letters, numbers, and hypens'
+  has_many :delivery_orders, :dependent => :destroy
+  has_many :sales_invoices, :dependent => :destroy
   has_many :users, :dependent => :destroy
   has_many :categories, :dependent => :destroy
   has_many :items, :dependent => :destroy
@@ -36,6 +36,8 @@ class Company < ActiveRecord::Base
   has_many :trans_assemblies, :dependent => :destroy
   has_many :item_receives, :class_name => "ItemReceive", :dependent => :destroy
   has_many :trans_diassemblies, :dependent => :destroy
+  has_many :delivery_orders, :dependent => :destroy
+  has_many :sales_invoices, :dependent => :destroy
 
   default_scope :order => :created_at
   after_create :create_defaults
@@ -95,6 +97,13 @@ class Company < ActiveRecord::Base
     COMPANY_MODE[subdomain.to_sym]
   end
 
+  def create_defaults
+    create_default_transactions
+    create_default_warehouse
+    create_default_roles
+  end
+
+  private
   def create_default_transactions
     # untuk transaksi terima barang (BTB)
     TransactionType.new(:company_id => id,
@@ -111,8 +120,7 @@ class Company < ActiveRecord::Base
     warehouses.create(:code => 'Default', :name => 'Default warehouse', :default => true)
   end
 
-  def create_defaults
-    create_default_transactions
-    create_default_warehouse
+  def create_default_roles
+    roles.create(:name => 'admin')
   end
 end

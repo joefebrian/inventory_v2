@@ -32,8 +32,22 @@
 
 - semantic_form_for [:purchasing, @item_receive], :url => { :action => :confirm } do |f|
   - f.inputs 'Items', :class => 'form_section' do
-    - f.semantic_fields_for :entries do |ent|
-      = ent.input :plu, :as => :select, :collection => Plu.all(:conditions => { :supplier_id => @item_receive.purchase_order.supplier_id, :item_id => ent.object.item_id }).collect { |plu| [plu.code, plu.id] }, :label => ent.object.item.name_with_code, :include_blank => false 
+    - idx = 0
+    %table.list
+      %thead
+        %tr
+          %th No.
+          %th Items name and code
+          %th Quatity
+          %th PLU
+      - f.semantic_fields_for :entries do |ent|
+        - idx = idx + 1
+        %tbody
+          %tr
+            %td.numbers.td_5= idx 
+            %td= link_to ent.object.item.name_with_code, item_path(ent.object.item)
+            %td.numbers= ent.object.quantity
+            %td.tdr= ent.input :plu, :as => :select, :collection => Plu.all(:conditions => { :supplier_id => @item_receive.purchase_order.supplier_id, :item_id => ent.object.item_id }).collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
 
   %fieldset.buttons
     %button{ :type => 'submit', :id => 'primary-button' }

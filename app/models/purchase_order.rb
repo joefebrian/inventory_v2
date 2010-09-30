@@ -90,7 +90,8 @@ class PurchaseOrder < ActiveRecord::Base
 
   def entries_plu_satisfied?
     entries.each do |entry|
-      return false if !(quantity_left(entry.item) > 0 && !entry.item.plu_for(supplier).blank?)
+      # false if the quantity left for this entry's item is 
+      return false unless entry.item.plu_for(supplier).present?
     end
     true
   end

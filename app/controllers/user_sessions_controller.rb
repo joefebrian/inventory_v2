@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
         flash[:error] = "Invalid username or password"
         redirect_to signin_path
       else
-        flash[:success] = "Login success"
+        flash[:success] = "Welcome #{current_user.username}"
         redirect_to root_url
       end
     else

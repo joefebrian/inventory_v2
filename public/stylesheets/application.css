@@ -792,3 +792,5 @@ form.formtastic div.flash_error ol {
   list-style:inside decimal;
 }
 div.single-column div.group { padding-left:0; }
+ol, ul { list-style-position:inside; }
+ol { list-style-type:decimal; }

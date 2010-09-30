@@ -30,7 +30,7 @@ class Purchasing::ItemReceivesController < ApplicationController
       end
     end
     if @item_receive.save
-      flash[:notice] = "Successfully created item receive."
+      flash[:notice] = "Item receive created, but is not confirmed yet. Unconfirmed Item receive transaction is not affecting item stock"
       redirect_to purchasing_item_receife_path(@item_receive)
     else
       render :action => 'new'
