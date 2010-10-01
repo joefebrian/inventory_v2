@@ -1,10 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :sales_invoices
-
   map.resources :delivery_orders
-
   map.resources :item_receives
-
   map.resources :trans_assemblies
   map.resources :trans_diassemblies
   map.resources :roles

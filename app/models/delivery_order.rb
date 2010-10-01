@@ -1,8 +1,8 @@
 class DeliveryOrder < ActiveRecord::Base
-  attr_accessible :company_id, :customer_id, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes
+  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
-  has_many :customers
+  belongs_to :customer
   has_many :sales_orders
   belongs_to :company
   validates_presence_of :number, :customer_id, :do_date
@@ -50,7 +50,7 @@ class DeliveryOrder < ActiveRecord::Base
     unless customer_id.blank?
     end
   end
-
+ 
   def customer_name
     customer.try(:profile).try(:full_name)
   end
@@ -59,4 +59,5 @@ class DeliveryOrder < ActiveRecord::Base
     first, last = name.split(' ', 2)
     customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
   end
+
 end

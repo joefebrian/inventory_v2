@@ -397,7 +397,7 @@ $('.tracker_remover').live('click', function() {
   return false;
 });
 
-//customer auto_complete
+//customer auto_complete  for form create sales order
 $('#sales_order_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
@@ -469,6 +469,19 @@ $('#delivery_order_customer_name').live('focus', function() {
     source: '/customers/search.js',
     focus:  function(event, ui) { $(this).val(ui.item.fullname); return false; },
     select: function(event, ui) {
+      $(this).parents('form').find('#delivery_order_customer_id').val(ui.item.id);
+      var form = $(this).parents('form')
+      $.ajax({
+        source: form[0].action,
+        data: form.serialize(),
+        success: function(response, status) {
+          var form_html = $(response).find('form').html();
+          form.replaceWith(response);
+          run_multiselect();
+          attach_datepicker();
+          multiselect_response();
+        }
+      });
     }
   })
   .data("autocomplete")

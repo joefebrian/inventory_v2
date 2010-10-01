@@ -15,10 +15,14 @@ class DeliveryOrdersController < ApplicationController
     @delivery_order = current_company.delivery_orders.new
     @delivery_order.entries.build
     @sales_orders = current_company.sales_orders
+    if request.xhr?
+      render :layout => false
+    end
   end
   
   def create
-    @delivery_order = current_company.delivery_orders.new(params[:delivery_order])
+    @delivery_order = current_company.delivery_orders.new
+    @delivery_order.attributes = params[:delivery_order]
     if params[:get_sos] && params[:get_sos].to_i == 1
       @delivery_order.build_entries_from_so
       @delivery_order.entries.build
