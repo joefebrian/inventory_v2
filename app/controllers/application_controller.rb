@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
     with_pound ? "##{color}" : color
   end
 
-  private
   def current_company
     return @current_company if defined?(@current_company)
     # @current_company = current_user.company if current_user
@@ -44,7 +43,7 @@ class ApplicationController < ActionController::Base
   def authenticate
     unless current_user && current_company.users.include?(current_user)
       flash[:error] = "Sorry, you have to log in first."
-      redirect_to root_url and return
+      redirect_to signin_path and return
     end
   end
 
