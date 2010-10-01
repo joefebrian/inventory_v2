@@ -15,7 +15,7 @@ class Company < ActiveRecord::Base
   has_many :plus, :dependent => :destroy
   has_many :warehouses, :dependent => :destroy
   has_many :locations, :dependent => :destroy
-  has_many :begining_balances, :dependent => :destroy
+  has_many :beginning_balances, :dependent => :destroy
   has_many :transaction_types, :dependent => :destroy
   has_many :general_transactions, :dependent => :destroy
   has_many :trackers, :dependent => :destroy
