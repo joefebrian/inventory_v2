@@ -2,8 +2,13 @@
 <% javascript "suppliers" %>
 
 <% content_for :breadcrumb do %>
-  <%= breadcrumb [ link_to("Administrations", administrations_path),
-                   link_to("Suppliers", suppliers_path) ] %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path), link_to("Suppliers", suppliers_path) ] %>
+  <div id="top_right_link">
+    <% form_for @search do |f| %>
+      <%= f.text_field :code_or_name_like %>
+      <%= f.submit 'search' %>
+    <% end %>
+  </div>
 <% end -%>
 
 <div id='subheader'>

@@ -4,7 +4,8 @@ class SuppliersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @suppliers = current_company.suppliers.all(:order => :name).paginate(:page => params[:page])
+    @search = current_company.suppliers.search(params[:search])
+    @suppliers = @search.all(:order => :name).paginate(:page => params[:page])
   end
   
   def show
