@@ -5,7 +5,12 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @categories = current_company.categories.sorted.paginate(:page => params[:page])
+    @search = current_company.categories.search(params[:search])
+    if params[:search]
+      @categories = @search.paginate(:page => params[:page])
+    else
+      @categories = current_company.categories.sorted.paginate(:page => params[:page])
+    end
     @category = Category.new
   end
   
