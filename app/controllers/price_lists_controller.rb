@@ -5,7 +5,8 @@ class PriceListsController < ApplicationController
   # GET /price_lists
   # GET /price_lists.xml
   def index
-    @price_lists = current_company.price_lists.all
+    @search = current_company.price_lists.search(params[:search])
+    @price_lists = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
