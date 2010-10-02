@@ -4,7 +4,8 @@ class SalesmenController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @salesman = current_company.salesmen.paginate(:page => params[:page])
+    @search = current_company.salesmen.search(params[:search])
+    @salesman = @search.paginate(:page => params[:page])
   end
   
   def show
