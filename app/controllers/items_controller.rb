@@ -5,10 +5,15 @@ class ItemsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    if params[:category_id]
-      @items = current_company.categories.id_is(params[:category_id]).first.items.searchlogic
+    @search = current_company.items.search(params[:search])
+    if params[:search]
+      @items = @search
     else
-      @items = current_company.items.searchlogic
+      if params[:category_id]
+        @items = current_company.categories.id_is(params[:category_id]).first.items.searchlogic
+      else
+        @items = current_company.items.searchlogic
+      end
     end
     @active = params[:active] || 1
     @items = @items.active_is(@active) unless (@active.blank? || @active == 'all')
