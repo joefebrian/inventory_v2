@@ -2,6 +2,10 @@
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to("Administrations", administrations_path), link_to("Currencies", currencies_path) ]
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :code_or_name_or_symbol_like
+      = f.submit 'search'
 
   = sidemenu @tab
 

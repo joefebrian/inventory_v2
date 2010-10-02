@@ -4,7 +4,8 @@ class CurrenciesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @currencies = current_company.currencies.paginate(:page => params[:page])
+    @search = current_company.currencies.search(params[:search])
+    @currencies = @search.paginate(:page => params[:page])
   end
   
   def show
