@@ -5,7 +5,8 @@ class PlusController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @plus = current_company.plus.all.paginate(:page => params[:page])
+    @search = current_company.plus.search(params[:search])
+    @plus = @search.paginate(:page => params[:page])
   end
   
   def show
