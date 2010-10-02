@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = current_company.users.paginate(:page => params[:page])
+    @search = current_company.users.search(params[:search])
+    @users = @search.paginate(:page => params[:page])
   end
   
   def show
