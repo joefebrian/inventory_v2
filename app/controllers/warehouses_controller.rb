@@ -4,7 +4,8 @@ class WarehousesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @warehouses = current_company.warehouses
+    @search = current_company.warehouses.search(params[:search])
+    @warehouses = @search.paginate(:page => params[:page])
   end
   
   def show
