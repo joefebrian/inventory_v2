@@ -4,7 +4,8 @@ class TransactionTypesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @transaction_types = current_company.transaction_types.all
+    @search = current_company.transaction_types.search(params[:search])
+    @transaction_types = @search.all
   end
   
   def show
