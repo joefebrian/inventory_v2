@@ -4,7 +4,8 @@ class CustomersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @customers = current_company.customers.paginate(:page => params[:page])
+    @search = current_company.customers.search(params[:search])
+    @customers = @search.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html
