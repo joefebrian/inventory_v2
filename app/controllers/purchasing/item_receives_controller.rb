@@ -3,7 +3,8 @@ class Purchasing::ItemReceivesController < ApplicationController
   before_filter :assign_tab
   
   def index
-    @item_receives = current_company.item_receives.paginate(:page => params[:page])
+    @search = current_company.item_receives.search(params[:search])
+    @item_receives = @search.paginate(:page => params[:page])
   end
   
   def show
