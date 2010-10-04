@@ -5,7 +5,8 @@ class AssembliesController < ApplicationController
   load_and_authorize_resource
 
   def index 
-    @assemblies = current_company.assemblies.paginate(:page => params[:page])
+    @search = current_company.assemblies.search(params[:search])
+    @assemblies = @search.paginate(:page => params[:page])
   end
 
    def show

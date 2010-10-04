@@ -2,7 +2,7 @@
 <% content_for :breadcrumb do %>
   <%= breadcrumb [ link_to("Administrations", administrations_path), "Users"] %>
   <div id='top_right_link'>
-    <%- form_for @search do |f| %>
+    <% form_for @search do |f| %>
       <%= f.text_field :username_or_email_like %>
       <%= f.submit 'search' %>
     <% end %>
