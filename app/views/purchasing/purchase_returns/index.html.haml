@@ -3,6 +3,10 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Purchasing', 'Purchase Returns' ] |
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :number_or_supplier_name_like
+      = f.submit 'search'
 
   = sidemenu @tab
 

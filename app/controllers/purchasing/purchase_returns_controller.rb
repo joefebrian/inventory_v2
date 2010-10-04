@@ -3,7 +3,8 @@ class Purchasing::PurchaseReturnsController < ApplicationController
   before_filter :assign_tab
 
   def index
-    @purchase_returns = current_company.purchase_returns.paginate(:page => params[:page])
+    @search = current_company.purchase_returns.search(params[:search])
+    @purchase_returns = @search.paginate(:page => params[:page])
   end
   
   def show
