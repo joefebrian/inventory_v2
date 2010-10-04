@@ -4,7 +4,8 @@ class ExchangeRatesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @exchange_rates = current_company.exchange_rates.paginate(:page => params[:page])
+    @search = current_company.exchange_rates.search(params[:search])
+    @exchange_rates = @search.paginate(:page => params[:page])
   end
   
   def show
