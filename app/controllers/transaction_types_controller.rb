@@ -5,7 +5,7 @@ class TransactionTypesController < ApplicationController
 
   def index
     @search = current_company.transaction_types.search(params[:search])
-    @transaction_types = @search.all
+    @transaction_types = @search.editable_is(true).paginate(:page => params[:page])
   end
   
   def show

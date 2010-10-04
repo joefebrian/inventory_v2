@@ -2,7 +2,8 @@ class BeginningBalancesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
   def index
-    @beginning_balances = current_company.beginning_balances.paginate(:page => params[:page])
+    @search = current_company.beginning_balances.search(params[:search])
+    @beginning_balances = @search.paginate(:page => params[:page])
   end
 
   def show

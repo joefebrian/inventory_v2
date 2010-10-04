@@ -3,7 +3,9 @@ class GeneralTransactionsController < ApplicationController
   before_filter :assign_tab
 
   def index
-    @general_transactions = current_company.general_transactions.all.paginate(:page => params[:page])
+    @search = current_company.general_transactions.search(params[:search])
+    @search = @search.transaction_type_editable_is(true)
+    @general_transactions = @search.paginate(:page => params[:page])
   end
   
   def show
