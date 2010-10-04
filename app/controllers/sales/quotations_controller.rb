@@ -3,7 +3,8 @@ class Sales::QuotationsController < ApplicationController
   before_filter :assign_tab
   
   def index
-    @quotations = current_company.quotations.paginate(:page => params[:page])
+    @search = current_company.quotations.search(params[:search])
+    @quotations = @search.paginate(:page => params[:page])
   end
   
   def show
