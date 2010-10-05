@@ -13,8 +13,13 @@ class DeliveryOrdersController < ApplicationController
   def new
     @customer = current_company.customers.all(:include => :profile)
     @delivery_order = current_company.delivery_orders.new
+    @delivery_order.attributes = params[:delivery_order] if params[:delivery_order]
+    if params[:delivery_order]
+      @sales_orders = current_company.sales_orders.customer_id_is(params[:delivery_order][:customer_id])
+    else
+      @sales_orders = current_company.sales_orders
+    end
     @delivery_order.entries.build
-    @sales_orders = current_company.sales_orders
     if request.xhr?
       render :layout => false
     end
