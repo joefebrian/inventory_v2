@@ -9,6 +9,9 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:company_id, :parent_id]
   attr_writer :parent_code
   after_save :assign_parent
+  
+  named_scope :services, :conditions => { :service => true }
+  named_scope :non_services, :conditions => { :service => false }
 
   def self.sorted
     roots.collect { |root| root.self_and_descendants }.flatten

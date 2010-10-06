@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
   end
   
   def show
-    @item = Item.find(params[:id])
+    @item = current_company.items.find(params[:id])
     respond_to do |format|
       format.html { render :layout => false if request.xhr? }
       format.xml { render :xml => @item.to_xml(:include  => :units) }
@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
   end
   
   def new
-    @item = Item.new
+    @item = current_company.items.new
     @item.is_stock = true
     @item.units.build(:name => 'unit', :conversion_rate => 1)
     @item.units.build
@@ -46,7 +46,7 @@ class ItemsController < ApplicationController
   end
   
   def create
-    @item = Item.new(params[:item])
+    @item = current_company.items.new(params[:item])
     @item.company = current_company
     if @item.save
       flash[:notice] = "Successfully created item."
@@ -69,14 +69,14 @@ class ItemsController < ApplicationController
   end
   
   def edit
-    @item = Item.find(params[:id])
+    @item = current_company.items.find(params[:id])
     @item.units.build(:name => 'unit', :conversion_rate => 1) if @item.units.length < 1
     @categories = current_company.leaf_categories.collect { |cat| [cat.fullcode, cat.id] }.compact
     render :layout => false if request.xhr?
   end
   
   def update
-    @item = Item.find(params[:id])
+    @item = current_company.items.find(params[:id])
     if @item.update_attributes(params[:item])
       flash[:success] = "Successfully updated item."
       if request.xhr?
@@ -98,7 +98,7 @@ class ItemsController < ApplicationController
   end
   
   def destroy
-    @item = Item.find(params[:id])
+    @item = current_company.items.find(params[:id])
     @item.destroy
     flash[:notice] = "Successfully destroyed item."
     redirect_to items_url
@@ -131,7 +131,7 @@ class ItemsController < ApplicationController
   end
   
   def picker
-    @items = Item.id_in(params[:items])
+    @items = current_company.items.id_in(params[:items])
     respond_to do |format|
       format.html
       format.js
@@ -139,13 +139,13 @@ class ItemsController < ApplicationController
   end
 
   def activate
-    item = Item.find(params[:id])
+    item = current_company.items.find(params[:id])
     item.update_attributes(:active => true)
     redirect_to :back
   end
 
   def deactivate
-    item = Item.find(params[:id])
+    item = current_company.items.find(params[:id])
     item.update_attributes(:active => false)
     redirect_to :back
   end

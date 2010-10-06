@@ -17,11 +17,16 @@
     = link_to "#{image_tag('icons/silk/add.png')} Create Service", new_service_path, :class => 'main_link'
 
 %table.list
-  %tr
-    %th Code
-    %th Name
-    %th Description
-    %th.actions Actions
+  %thead
+    %tr
+      %th Code
+      %th Name
+      %th Description
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 4 }= will_paginate @services
+  %tbody
   - for service in @services
     %tr
       %td= link_to h(service.code), service

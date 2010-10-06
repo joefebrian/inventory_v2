@@ -1,6 +1,5 @@
 #dialog_form
-  = javascript_tag "var categories = #{@categories_list.to_json(:only => :id, :methods => [:formatted_code, :code_for_item])};"
-  - semantic_form_for @service, {}, :html => { :multipart => true, :id => "item_form" } do |f|
+  - semantic_form_for @service, :url => service_path(@service) do |f|
     %ul.form_info
       %li
         Fields marked
@@ -19,4 +18,4 @@
     %fieldset.buttons
       %button{ :type => "submit", :id => "primary-button" }
         = image_tag 'icons/silk/disk.png'
-        Save Item
+        Save Service

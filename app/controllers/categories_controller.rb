@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
     if params[:search]
       @categories = @search.paginate(:page => params[:page])
     else
-      @categories = current_company.categories.sorted.paginate(:page => params[:page])
+      @categories = @search.sorted.paginate(:page => params[:page])
     end
     @category = Category.new
   end
