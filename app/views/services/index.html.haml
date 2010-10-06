@@ -1,0 +1,32 @@
+- title "Services"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Services", services_path) ]
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :code_or_name_or_description_like
+      = f.submit 'search'
+
+  = sidemenu @tab
+
+= hint 'Click "Create Service" button to add new Service'
+
+#subheader
+  %h3 Services
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Service", new_service_path, :class => 'main_link'
+
+%table.list
+  %tr
+    %th Code
+    %th Name
+    %th Description
+    %th.actions Actions
+  - for service in @services
+    %tr
+      %td= link_to h(service.code), service
+      %td= h service.name
+      %td= h service.description
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_service_path(service)
+        = link_to image_tag('icons/silk/delete.png'), service_path(service), :confirm => 'Are you sure?', :method => :delete

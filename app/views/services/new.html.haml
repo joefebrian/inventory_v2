@@ -1,0 +1,10 @@
+- title "New Service"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), |
+    link_to("Services", services_path), |
+    "New" ] |
+
+= sidemenu @tab
+
+= render :partial => 'form'

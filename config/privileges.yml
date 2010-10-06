@@ -1,6 +1,7 @@
 privileges:
   masters:
     - item
+    - service
     - category
     - warehouse
     - supplier

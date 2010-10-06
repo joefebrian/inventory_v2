@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :currencies
   map.resources :salesmen
   map.resources :assemblies
+  map.resources :services
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }

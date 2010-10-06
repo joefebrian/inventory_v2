@@ -36,7 +36,7 @@ class Category < ActiveRecord::Base
 
   private
   def assign_parent
-    unless @parent_code.blank?
+    unless parent_id.blank?
       my_parent = company.categories.find(parent_id)
       move_to_child_of my_parent
     else

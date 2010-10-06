@@ -14,6 +14,8 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :company_id, :message => "name has already been taken"
   accepts_nested_attributes_for :units, :allow_destroy => true, :reject_if => lambda {|a| a['name'].blank? }
 
+  named_scope :services, :conditions => { :is_stock => false }
+
   has_attached_file :photo,
     :styles => { :medium => "150x150>", :thumb => "60x60>" },
     :url => "/system/items/:id/:style/:basename.:extension",

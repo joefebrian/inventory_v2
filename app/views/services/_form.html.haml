@@ -1,0 +1,22 @@
+#dialog_form
+  = javascript_tag "var categories = #{@categories_list.to_json(:only => :id, :methods => [:formatted_code, :code_for_item])};"
+  - semantic_form_for @service, {}, :html => { :multipart => true, :id => "item_form" } do |f|
+    %ul.form_info
+      %li
+        Fields marked
+        %span.required 
+          *
+        are required
+    - f.inputs "Item data", :class => 'form_section' do
+      = f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select" }
+      = f.input :code
+      = f.input :name
+      = f.input :description, :input_html => { :rows => 1 }
+      %li.inline
+        %span.label Status
+        = f.check_box(:active)
+        = f.label :active 
+    %fieldset.buttons
+      %button{ :type => "submit", :id => "primary-button" }
+        = image_tag 'icons/silk/disk.png'
+        Save Item
