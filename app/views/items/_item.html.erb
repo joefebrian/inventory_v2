@@ -1,12 +1,19 @@
 <tr class="<%= item.active? ? '' : 'inactive' %>">
-  <td><%= link_to item.category.name, category_items_path(item.category) %></td>
+  <td>
+    <% unless item.category.nil? %>
+      <%= link_to item.category.name, category_items_path(item.category) %>
+    <% else %>
+      <strong>NO CATEGORY</strong>
+    <% end %>
+  </td>
   <td><%= link_to item.code, item, :class => "item_detail" %></td>
   <td><%=h item.name %></td>
   <td class="tdc"><%=h item.stock %></td>
   <td class="actions">
-    <%=
-        link_to_if(item.active?, image_tag('icons/silk/lock.png'), deactivate_category_item_path(item.category, item)) do
-          link_to image_tag('icons/silk/lock_open.png'), activate_category_item_path(item.category, item)
+    <%= unless item.category.nil?
+          link_to_if(item.active?, image_tag('icons/silk/lock.png'), deactivate_category_item_path(item.category, item)) do
+            link_to image_tag('icons/silk/lock_open.png'), activate_category_item_path(item.category, item)
+          end
         end
     -%>
     <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_item_path(item), :class => "edit_item", :title => "Edit #{item.name}" %>
