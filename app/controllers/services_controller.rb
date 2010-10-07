@@ -1,7 +1,6 @@
 class ServicesController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
-  #before_filter :categories_list
 
   def index
     @search = current_company.items.services.search(params[:search])
@@ -23,12 +22,13 @@ class ServicesController < ApplicationController
       flash[:notice] = "Service created successfuly"
       redirect_to service_path(@service)
     else
+      @categories = current_company.categories.services.sorted
       render :action => 'new'
     end
   end
 
   def edit
-    @service = current_company.items.services.find(params[:id])
+    @service = current_company.items.find(params[:id])
   end
 
   def update
@@ -37,6 +37,7 @@ class ServicesController < ApplicationController
       flash[:success] = "Servive updated successfully"
       redirect_to service_path(@service)
     else
+      @categories = current_company.categories.services.sorted
       render :action => 'edit'
     end
   end
@@ -56,9 +57,5 @@ class ServicesController < ApplicationController
   def set_tab
     @tab = 'administrations'
     @current = 'svc'
-  end
-
-  def categories_list
-    @categories_list = leaf_categories
   end
 end
