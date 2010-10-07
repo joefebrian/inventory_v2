@@ -14,9 +14,9 @@
   <h3>Items</h3>
   <div id='subheader-menu'>
     <strong>Showing items:</strong>
-    <%= link_to_if (!@active || @active != 'all'), "All", items_path(:active => 'all') %> |
-    <%= link_to_if (!@active || @active == 'all' || @active.to_i == 0), "Active", items_path(:active => 1) %> |
-    <%= link_to_if (!@active || @active == 'all' || @active.to_i == 1), "Inactive", items_path(:active => 0) %> |
+    <%= link_to_if (!@active || @active != 'all'), "All", items_path(request.query_parameters.merge!(:active => 'all')) %> |
+    <%= link_to_if (!@active || @active == 'all' || @active.to_i == 0), "Active", items_path(request.query_parameters.merge!(:active => 1)) %> |
+    <%= link_to_if (!@active || @active == 'all' || @active.to_i == 1), "Inactive", items_path(request.query_parameters.merge!(:active => 0)) %> |
     <%= link_to "#{image_tag('icons/silk/add.png')} Create new item", new_item_path, :class => "main_link new_item", :title => "Create New Item" %>
   </div>
 </div>

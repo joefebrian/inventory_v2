@@ -156,7 +156,7 @@ form.formtastic fieldset ol li.inline > input {
 form.formtastic fieldset ol li.inline > span.label {
   width:25%;
   float:left;
-  line-height:2.1em;
+  /*line-height:2.1em;*/
 }
 form.formtastic fieldset ol li.inline input[type=checkbox] {
   float:left;

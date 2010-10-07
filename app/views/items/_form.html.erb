@@ -15,7 +15,6 @@
       <li class="inline">
         <span class="label">Status</span>
         <%= f.check_box(:active) %> <%= f.label :active %> 
-        <%= f.check_box(:is_stock) %> <%= f.label :is_stock %> 
       </li>
       <%= f.input :purchase_price, :input_html => { :class => "numbers" } %>
       <li class="inline" id="dimension">
@@ -61,11 +60,8 @@
 <% content_for :javascripts do %>
   <% javascript_tag do %>
     $(function() {
-      if(!$('#item_is_stock')[0].checked) $('#dimension, #units, #photo_input').hide();
-      $('#item_is_stock').click(function() {
-        $('#dimension, #units, #photo_input').toggle();
-      });
-      $('.select').bind('multiselectclick', function(event, ui) {
+      $('#item_category_id')
+      .bind('multiselectclick', function(event, ui) {
         $(this).multiselect('close');
       });
     });
