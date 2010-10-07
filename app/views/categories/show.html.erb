@@ -1,7 +1,3 @@
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit category", edit_category_path(@item), :class => "main_link category_detail" %>
-<% end -%>
-
 <% content_for :breadcrumb do %>
   <%= breadcrumb [ link_to('Administrations', administrations_path),
     link_to('Categories', categories_path),
@@ -10,6 +6,15 @@
 
   <%= sidemenu @tab %>
 <% end -%>
+
+<%= hint "Click 'Create Category' to add new category" %>
+<div id="subheader">
+  <h3>Categories</h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", categories_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_category_path(@category) %>
+  </div>
+</div>
 
 <div id="dialog_form">
   <% title "Category" %>

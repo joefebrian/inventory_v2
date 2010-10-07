@@ -8,13 +8,17 @@ class Item < ActiveRecord::Base
   has_many :material_requests, :through => :material_request_entries
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"
-  validates_presence_of :category_code, :message => "category can't be blank"
+  validates_presence_of :category_id, :message => "category can't be blank"
   validates_presence_of :count_method
   validates_uniqueness_of :code, :scope => :company_id, :message => "code has already been taken"
   validates_uniqueness_of :name, :scope => :company_id, :message => "name has already been taken"
   accepts_nested_attributes_for :units, :allow_destroy => true, :reject_if => lambda {|a| a['name'].blank? }
 
   named_scope :services, :conditions => { :is_stock => false }
+
+  def validate
+    errors.add_to_base("All specified unit must have proper value") if units.detect { |u| u.value.present? && u.conversion_rate.present? && (u.value.to_i <= 0 || u.conversion_rate.to_i <= 0) }
+  end
 
   has_attached_file :photo,
     :styles => { :medium => "150x150>", :thumb => "60x60>" },

@@ -502,5 +502,5 @@ function run_multiselect() {
     show: 'blind',
     hide: 'blind'
   });
-  $('.multiselect').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
+  $('.multiselect, .filter').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
 }

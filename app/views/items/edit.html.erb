@@ -6,10 +6,13 @@
                    'Edit Item' ] %>
 <% end -%>
 
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/zoom_in.png')} Show item detail", @item, :class => "main_link item_detail" %>
-<% end -%>
-
+<%= hint "Fileds marked with asterix are required" %>
+<div id="subheader">
+  <h3>Edit <%= @item.name %></h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", item_path(@item) %>
+  </div>
+</div>
 <%= sidemenu %>
 
 <%= render :partial => 'form' %>

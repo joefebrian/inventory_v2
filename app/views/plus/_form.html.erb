@@ -11,7 +11,7 @@
           <%= f.text_field :item_name, :class => "item_autocomplete", :style => "width:35% !important" %>
           <%= f.hidden_field :item_id %>
         </li>
-        <%= f.input :supplier, :collection => @suppliers, :input_html => { :class => "select" }, :required => true %>
+        <%= f.input :supplier, :collection => @suppliers, :input_html => { :class => "select filter" }, :required => true %>
         <%= f.input :payment_term %>
       <% end -%>
       <fieldset class="buttons">

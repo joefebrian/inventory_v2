@@ -34,7 +34,11 @@
     </p>
     <p class="single-column">
       <span class="light transaction_label">Category</span>
-      <strong><%= link_to @item.category.name, @item.category %></strong>
+      <% if @item.category.nil? %>
+        <strong>NO CATEGORY</strong>
+      <% else %>
+        <strong><%= link_to @item.category.name, @item.category %></strong>
+      <% end %>
     </p>
     <p class="single-column">
       <span class="light transaction_label">Name</span>

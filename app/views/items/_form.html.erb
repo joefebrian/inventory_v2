@@ -3,6 +3,7 @@
 <div id="dialog_form">
   <%= javascript_tag "var categories = #{@categories_list.to_json(:only => :id, :methods => [:formatted_code, :code_for_item])};" %>
   <% semantic_form_for @item, {}, :html => { :multipart => true, :id => "item_form" } do |f| %>
+    <%= f.error_messages %>
     <ul class="form_info">
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>

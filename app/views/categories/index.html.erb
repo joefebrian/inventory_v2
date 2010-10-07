@@ -11,21 +11,30 @@
   </div>
 <% end -%>
 
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/add.png')} Create new category", new_category_path, :class => "main_link new_category" %>
-<% end -%>
-<%= sidemenu %>
+<%= hint "Click 'Create Category' to add new category" %>
+<div id="subheader">
+  <h3>Categories</h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create Category", new_category_path, :class => 'main_link' %>
+  </div>
+</div>
 
 <table id="categories_list" class="list">
-  <tr>
-    <th></th>
-    <th>Code</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th class="actions">Actions</th>
-  </tr>
-  <%= render @categories %>
-  <tr>
-    <td colspan="5"><%= will_paginate @categories %></td>
-  </tr>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th class="actions">Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5"><%= will_paginate @categories %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <%= render @categories %>
+  </tbody>
 </table>
