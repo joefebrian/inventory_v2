@@ -3,10 +3,7 @@
   <%= javascript_tag "categories = #{@categories_list.to_json(:only => :id, :methods => :fullcode)};" %>
   
   <% semantic_form_for @category, {}, :html => { :id => 'category_form' } do |f| %>
-    <ul class="form_info">
-      <li>Fields marked <span class="required">*</span> are required</li>
-    </ul>
-    <% f.inputs do %>
+    <% f.inputs "Category data", :class => "form_section" do %>
       <%= f.input :parent_id,
         :as => :select,
         :collection => @parents,

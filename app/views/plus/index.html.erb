@@ -1,48 +1,52 @@
-  <% title "Plus" %>
+<% title "Plus" %>
 
-  <% content_for :breadcrumb do %>
-    <%= breadcrumb [ link_to("Administrations", administrations_path), link_to("PLU", plus_path) ] %>
-    <div id='top_right_link'>
-      <% form_for @search do |f| %>
-        <%= f.text_field :code_or_item_code_or_item_name_or_supplier_code_or_supplier_name_like %>
-        <%= f.submit 'search' %>
-      <% end %>
-    </div>
-  <% end -%>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Administrations", administrations_path), link_to("PLU", plus_path) ] %>
+  <div id='top_right_link'>
+    <% form_for @search do |f| %>
+      <%= f.text_field :code_or_item_code_or_item_name_or_supplier_code_or_supplier_name_like %>
+      <%= f.submit 'search' %>
+    <% end %>
+  </div>
+<% end -%>
 
-  <% content_for :main_act do %>
-    <%= link_to "#{image_tag('icons/silk/add.png')} Create new PLU", new_plu_path, :class => "main_link new_plu", :title => "Create New PLU" %>
-  <% end -%>
+<%= hint "Click 'Create PLU' to add new PLU" %>
+<div id="subheader">
+  <h3>PLU</h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create PLU", new_plu_path, :class => 'main_link' %>
+  </div>
+</div>
 
-  <%= sidemenu %>
+<%= sidemenu %>
 
-  <table class="list">
-    <thead>
+<table class="list">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Item</th>
+      <th>Supplier</th>
+      <th>Payment Term</th>
+      <th class="actions">Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5"><%= will_paginate @plus %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% for plu in @plus %>
       <tr>
-        <th>Code</th>
-        <th>Item</th>
-        <th>Supplier</th>
-        <th>Payment Term</th>
-        <th class="actions">Actions</th>
+        <td><%= link_to plu.code, plu %></td>
+        <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
+        <td><%=h plu.supplier.name %></td>
+        <td><%=h plu.payment_term %></td>
+         <td class="actions">
+           <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_plu_path(plu), :title => 'Edit PLU' %>
+          <%= link_to image_tag('icons/silk/delete.png'), plu, :confirm => 'Are you sure?', :method => :delete, :title => 'Delete PLU' %>
+        </td>
       </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <td colspan="5"><%= will_paginate @plus %></td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <% for plu in @plus %>
-        <tr>
-          <td><%= link_to plu.code, plu %></td>
-          <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
-          <td><%=h plu.supplier.name %></td>
-          <td><%=h plu.payment_term %></td>
-           <td class="actions">
-             <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_plu_path(plu), :title => 'Edit PLU' %>
-            <%= link_to image_tag('icons/silk/delete.png'), plu, :confirm => 'Are you sure?', :method => :delete, :title => 'Delete PLU' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>

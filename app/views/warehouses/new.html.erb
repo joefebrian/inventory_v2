@@ -6,9 +6,14 @@
                    "Create New Warehouse" ] %>
 <% end -%>
 
-<%= hint "Both warehouse code and name must be unique throughout your company" %>
+<%= hint "Fields marked with asterix are required" %>
+<div id="subheader">
+  <h3>Crate new warehouse</h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", warehouses_path %>
+  </div>
+</div>
 
 <%= sidemenu %>
 
-<h3>Create new warehouse</h3>
 <%= render :partial => 'form' %>

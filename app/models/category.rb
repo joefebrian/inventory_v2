@@ -21,6 +21,10 @@ class Category < ActiveRecord::Base
     root? ? code : "#{parent.code} :: #{code}"
   end
 
+  def fullname
+    root? ? name : "#{parent.fullname} :: #{name}"
+  end
+
   def parent_code
     @parent_code || parent.try(:fullcode)
   end

@@ -7,6 +7,10 @@
   
   = sidemenu @tab
   
-= hint "Select Type for Production or Assembling"
+= hint "Fields marked with asterix are required"
+#subheader
+  %h3 Create new assembly formula
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", assemblies_path
 
 = render :partial => 'form'

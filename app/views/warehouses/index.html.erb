@@ -10,9 +10,13 @@
   </div>
 <% end -%>
 
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/add.png')} Create new warehouse", new_warehouse_path, :class => "main_link new_edit_warehouse", :title => "Create new warehouse" %>
-<% end -%>
+<%= hint "Click 'Create Warehouse' to add new warehouse" %>
+<div id="subheader">
+  <h3>Warehouses</h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create Warehouse", new_warehouse_path, :class => 'main_link' %>
+  </div>
+</div>
 
 <%= sidemenu %>
 

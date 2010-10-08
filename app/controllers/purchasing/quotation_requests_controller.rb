@@ -15,6 +15,7 @@ class Purchasing::QuotationRequestsController < ApplicationController
   def new
     @quotation_request = current_company.quotation_requests.new
     @quotation_request.entries.build
+    @suppliers = current_company.suppliers.all(:order => :name)
   end
   
   def create

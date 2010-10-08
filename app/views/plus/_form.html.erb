@@ -1,10 +1,10 @@
   <div id="dialog_form">
     <%= javascript_tag "
       var items = #{@items.to_json(:only => [:id, :name], :methods => :name_with_code)};
-      var suppliers = #{@suppliers.to_json(:only => [:id, :name])};"
+     // var suppliers = #{@suppliers.to_json(:only => [:id, :name])};"
     %>
     <% semantic_form_for @plu, {}, :html => { :id => 'plu_form' } do |f| %>
-      <% f.inputs do %>
+      <% f.inputs "PLU data", :class => "form_section" do %>
         <%= f.input :code, :input_html => { :class => 'default' } %>
         <li class="string required">
           <label for="plu_item_name">Item name<span class="required"> *</span></label>

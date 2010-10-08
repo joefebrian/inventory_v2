@@ -75,6 +75,6 @@ class PlusController < ApplicationController
 
   def prepare_autocomplete
     @items = current_company.items
-    @suppliers = current_company.suppliers
+    #@suppliers = current_company.suppliers
   end
 end

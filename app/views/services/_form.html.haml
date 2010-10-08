@@ -1,15 +1,12 @@
 #dialog_form
   - semantic_form_for @service, :url => (@service.new_record? ? services_path : service_path(@service)) do |f|
     = f.error_messages
-    - f.inputs "Item data", :class => 'form_section' do
+    - f.inputs "Service data", :class => 'form_section' do
       = f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select" }
       = f.input :code
       = f.input :name
       = f.input :description, :input_html => { :rows => 1 }
-      %li.inline
-        %span.label Status
-        = f.check_box(:active)
-        = f.label :active 
+      = f.input :active, :label => "Set as active"
     %fieldset.buttons
       %button{ :type => "submit", :id => "primary-button" }
         = image_tag 'icons/silk/disk.png'

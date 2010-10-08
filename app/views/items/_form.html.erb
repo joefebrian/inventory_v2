@@ -8,7 +8,7 @@
       <li>Fields marked <span class="required">*</span> are required</li>
     </ul>
     <% f.inputs "Item data", :class => 'form_section' do %>
-      <%= f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select" } %>
+      <%= f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select filter" } %>
       <%= f.input :count_method, :as => :radio, :collection => [['Average', 'avg'],['FIFO','fifo'],['LIFO','lifo']], :wrapper_html => { :class => "inline" } %>
       <%= f.input :code %>
       <%= f.input :name %>
@@ -63,7 +63,7 @@
     $(function() {
       $('#item_category_id')
       .bind('multiselectclick', function(event, ui) {
-        $(this).multiselect('close');
+        // $(this).multiselect('close');
       });
     });
   <% end -%>

@@ -17,7 +17,7 @@ class AssembliesController < ApplicationController
     @assembly = current_company.assemblies.new
     @assembly.entries.build
     @assembly.number = Assembly.suggested_number(current_company)
-    @category = current_company.categories.collect {|category| [category.name,category.id] if category.leaf?}.compact
+    @category = current_company.categories.collect {|category| ["#{category.fullname}",category.id] if category.leaf?}.compact
   end  
   
   def create

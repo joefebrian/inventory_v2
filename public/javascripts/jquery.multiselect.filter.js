@@ -63,7 +63,7 @@
 						
 				$inputs.not( selector ).attr('checked', (flag ? 'checked' : '')); 
 				this.update();
-				this.optiontags.not('disabled').attr('selected', (flag ? 'selected' : ''));
+				this.element.children().not('disabled').attr('selected', (flag ? 'selected' : ''));
 			};
 		},
 		
@@ -78,9 +78,10 @@
 				rows.show();
 			} else {
 				rows.hide();
-		
+
+				var regex = new RegExp('\\b' + term, 'i');
 				this._trigger( "filter", e, $.map(cache, function(v,i){
-					if ( v.indexOf(term) !== -1 ){
+					if( v.search(regex) !== -1 ){
 						rows.eq(i).show();
 						return inputs.get(i);
 					}
@@ -91,18 +92,24 @@
 		},
 		
 		updateCache: function(){
-			var isOptgroup = this.instance.optiontags[0].tagName === "OPTGROUP" || false;
+			var optiontags = this.element.children(),
+				isOptgroup = optiontags[0].tagName === "OPTGROUP" || false;
 			
-			this.cache = this.instance.optiontags.map(function(){
+			this.cache = optiontags.map(function(){
 				var self = $(this), nodes = self;
-				
+
+				// see _create() in jquery.multiselect.js around line 96
+				if( !self.val().length ){
+					return null;
+				}
+
 				// account for optgroups
 				if( isOptgroup ){
 					nodes = self.children();
 				}
 				
 				return nodes.map(function(){
-					return this.innerHTML.toLowerCase();	
+					return this.innerHTML.toLowerCase();
 				}).get();
 			}).get();
 		},
@@ -114,7 +121,7 @@
 		destroy: function(){
 			$.Widget.prototype.destroy.call( this );
 			this.input.val('').trigger("keyup");
-			this.wrapper.remove();			
+			this.wrapper.remove();
 		}
 	});
 })(jQuery);

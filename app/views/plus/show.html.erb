@@ -7,11 +7,15 @@
 
 <%= sidemenu %>
 
-<% content_for :main_act do %>
-  <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit PLU", edit_plu_path(@plu), :class => "main_link alter_record", :title => "Create new supplier" %>
-<% end -%>
+<%= hint "Fields marked with asterix are required" %>
+<div id='subheader'>
+  <h3><%=h "#{@plu.code}" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", plus_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_plu_path(@plu) %>
+  </div>
+</div>
 
-<h3><%=h "#{@plu.code}" %></h3>
 <div id="dialog_form">
   <div class="two_columns">
     <p>
