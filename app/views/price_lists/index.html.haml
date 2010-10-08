@@ -9,8 +9,11 @@
 
 = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} Add New Price List", new_price_list_path, :class => 'main_link'
+= hint "Click 'Add new price list' button to create new price list"
+#subheader
+  %h3 Price Lists
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Add new price list", new_price_list_path, :class => 'main_link'
 
 %table.list
   %thead

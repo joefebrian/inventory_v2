@@ -9,8 +9,11 @@
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/user_add.png')} Add New Customer", new_customer_path, :class => 'main_link'
+= hint "Click 'Add new customer' button to create new customer"
+#subheader
+  %h3 Customers
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/user_add.png')} Add New Customer", new_customer_path, :class => 'main_link'
   
 %table.list
   %thead

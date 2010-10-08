@@ -4,9 +4,6 @@
   <%= javascript_tag "var categories = #{@categories_list.to_json(:only => :id, :methods => [:formatted_code, :code_for_item])};" %>
   <% semantic_form_for @item, {}, :html => { :multipart => true, :id => "item_form" } do |f| %>
     <%= f.error_messages %>
-    <ul class="form_info">
-      <li>Fields marked <span class="required">*</span> are required</li>
-    </ul>
     <% f.inputs "Item data", :class => 'form_section' do %>
       <%= f.input :category, :collection => @categories, :include_blank => "Select category", :input_html => { :class => "select filter" } %>
       <%= f.input :count_method, :as => :radio, :collection => [['Average', 'avg'],['FIFO','fifo'],['LIFO','lifo']], :wrapper_html => { :class => "inline" } %>
@@ -15,7 +12,7 @@
       <%= f.input :description, :input_html => { :rows => 1 } %>
       <li class="inline">
         <span class="label">Status</span>
-        <%= f.check_box(:active) %> <%= f.label :active %> 
+        <%= f.check_box(:active) %> <%= f.label :active, "Set as active" %> 
       </li>
       <%= f.input :purchase_price, :input_html => { :class => "numbers" } %>
       <li class="inline" id="dimension">

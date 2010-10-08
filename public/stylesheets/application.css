@@ -631,8 +631,9 @@ input.subtle:hover, .input.subtle:active { background:#FFCFD5; }
 .ui-widget-header { padding:5px; }
 a#enhanced_previous { float:left; }
 a#enhanced_next { float:left; }
+#enhanced { margin:0; border-bottom:none; }
 .boxy-wrapper .top, .boxy-wrapper .bottom { border:none; }
-.dataTables_wrapper { top:-150px; }
+.dataTables_wrapper { top:-280px; }
 .dataTables_info, .paging_full_numbers  { width:auto !important; }
 .searchresults {
   list-style:outside decimal;
@@ -782,6 +783,7 @@ form.formtastic select.dijitReset {
 .group {
   padding-left:25%;
 }
+.group label { width:33% !important; }
 .group input[type=checkbox] {
   margin-bottom:.5em;
 }

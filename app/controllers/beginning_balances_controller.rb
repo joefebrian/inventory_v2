@@ -12,7 +12,7 @@ class BeginningBalancesController < ApplicationController
   
   def new
     @categories = current_company.leaf_categories
-    @beginning_balance = current_company.begining_balances.new
+    @beginning_balance = current_company.beginning_balances.new
     @beginning_balance.number = BeginningBalance.suggested_number(current_company)
   end
   
@@ -26,7 +26,7 @@ class BeginningBalancesController < ApplicationController
       render("new", :layout => false) and return
     end
     if @beginning_balance.save
-      flash[:notice] = "Successfully created begining balance."
+      flash[:notice] = "Successfully created beginning balance."
       redirect_to beginning_balances_url
     else
       @categories = current_company.leaf_categories

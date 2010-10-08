@@ -11,7 +11,7 @@
       - f.inputs do
         = f.input :number, :input_html => { :class => 'default' }
         - if @beginning_balance.new_record?
-          = f.input :categories, :as => :select, :collection => @categories.collect {|cat| [cat.fullcode, cat.id]}.compact, :input_html => { :class => "multiselect" }
+          = f.input :categories, :as => :select, :collection => @categories.collect {|cat| [cat.fullname, cat.id]}.compact, :input_html => { :class => "multiselect" }
         - else
           %li.string
             = label_tag :categories

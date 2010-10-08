@@ -6,11 +6,15 @@
       link_to('Customers', customers_path), |
       "#{@customer.code} &bull; #{@customer.profile.full_name}" ] |
 
-  - content_for :main_act do
-    = link_to "#{image_tag('icons/silk/user_edit.png')} Edit Customer", edit_customer_path(@customer), :class => 'main_link'
-    %ul#secondary_actions
-      %li= link_to "#{image_tag('icons/silk/add.png')} Add special Prices", new_customer_customer_price_path(@customer)
-    
+  #subheader
+    %h3= "#{@customer.profile.full_name}"
+    #subheader-menu
+      = link_to "#{image_tag('icons/silk/arrow_left.png')} back", customers_path
+      &bull;
+      = link_to "#{image_tag('icons/silk/add.png')} Add special Prices", new_customer_customer_price_path(@customer)
+      &bull;
+      = link_to "#{image_tag('icons/silk/user_edit.png')} edit", edit_customer_path(@customer)
+
   = hint ""
 
   %fieldset#profile.info
