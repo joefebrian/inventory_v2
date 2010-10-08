@@ -3,33 +3,38 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
     link_to('Delivery Order', delivery_orders_path), |
-    "Delivery Orders ##{@delivery_order.number}" ] |
+    "Delivery Order # #{@delivery_order.number}" ] |
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit delivery Order", edit_delivery_order_path(@delivery_order), :class => 'main_link'
+= hint "Click 'edit' to edit"
 
-#dialog_form
-  .two_columns
-    %p
-      %strong.light.transaction_label Sales Order Number:
-      =h @delivery_order.sales_order.number
-    %p
-      %strong.light.transaction_label DO Number:
-      =h @delivery_order.number
-    %p
-      %strong.light.transaction_label Customer Name:
-      =h @delivery_order.customer_id
-    %p
-      %strong.light.transaction_label Date:
-      =h @delivery_order.do_date
-    %p
-      %strong.light.transaction_label reference:
-      =h @delivery_order.reference
-    %p
-      %strong.light.transaction_label Description:
-      =h @delivery_order.description
+#subheader
+  %h3= "Delivery Order # #{@delivery_order.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_delivery_order_path(@delivery_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", delivery_order_path(@delivery_order), :method => :delete, :confirm => "Are you sure"
+
+.two_columns
+  %p
+    %span.light Sales Order Number:
+    =h @delivery_order.sales_order.number
+  %p
+    %span.light DO Number:
+    =h @delivery_order.number
+  %p
+    %span.light Customer Name:
+    =h @delivery_order.customer_id
+  %p
+    %span.light Date:
+    =h @delivery_order.do_date
+  %p
+    %span.light reference:
+    =h @delivery_order.reference
+  %p
+    %span.light Description:
+    =h @delivery_order.description
 
 %table.report
   %thead

@@ -37,11 +37,7 @@ class DeliveryOrdersController < ApplicationController
     end
     if @delivery_order.save
       flash[:notice] = "Successfully created sales order."
-<<<<<<< Updated upstream
       redirect_to @delivery_order
-=======
-      redirect_to [:sales, @delivery_orders]
->>>>>>> Stashed changes
     else
       @delivery_order.entries.build
       @sales_orders = current_company.sales_orders

@@ -4,10 +4,14 @@
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Sales', |
     link_to('Sales Orders', sales_sales_orders_path), |
-    'New Sales Orders' ] |
+    'New' ] |
 
   = sidemenu @tab
 
 = hint "Sales => Sales Order"
+#subheader
+  %h3 Create new sales order
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", sales_sales_orders_path
 
 = render :partial => 'form'

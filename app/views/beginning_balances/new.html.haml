@@ -3,11 +3,14 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to("Transactions", transactions_path), |
     link_to('Begining Balances', beginning_balances_path), |
-    'Create new beginning balance' ]                          |
+    'New' ]                          |
 
 = sidemenu @tab
 
 = hint "Select one or several categories in which the items are going to be added to the transaction"
 
-<h3>Create Beginning Balance</h3>
+#subheader
+  %h3 Create new beginning balance
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", beginning_balances_path
 = render :partial => 'form'
