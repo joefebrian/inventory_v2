@@ -12,7 +12,7 @@ class DeliveryOrder < ActiveRecord::Base
     number
   end
 
-  def tanggal_do
+  def tgl_do_active
    do_date = Chronic.parse(date_do)
   end
 
@@ -74,4 +74,3 @@ class DeliveryOrder < ActiveRecord::Base
   end
 
 end
-
