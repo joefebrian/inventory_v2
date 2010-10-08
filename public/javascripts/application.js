@@ -397,12 +397,12 @@ $('.tracker_remover').live('click', function() {
   return false;
 });
 
-//customer auto_complete  for form create sales order
+//customer auto_complete for form create sales order
 $('#sales_order_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
-    focus:  function(event, ui) { $(this).val(ui.item.fullname); return false; },
+    focus: function(event, ui) { $(this).val(ui.item.fullname); return false; },
     select: function(event, ui) {
       $(this).parents('form').find('#sales_order_customer_id').val(ui.item.id);
       var form = $(this).parents('form')
@@ -428,26 +428,26 @@ $('#sales_order_customer_name').live('focus', function() {
   };
  });
 
-//customer auto_complete  for quotations
+//customer auto_complete for quotations
 $('#quotation_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
-    focus:  function(event, ui) {$(this).val(ui.item.fullname); return false;},
+    focus: function(event, ui) {$(this).val(ui.item.fullname); return false;},
     select: function(event, ui) {
       $(this).parents('form').find('#quotation_customer_id').val(ui.item.id);
       /*var form = $(this).parents('form')
-      $.ajax({
-        source: form[0].action,
-        data: form.serialize(),
-        success: function(response, status) {
-          var form_html = $(response).find('form').html();
-          form.replaceWith(response);
-          run_multiselect();
-          attach_datepicker();
-          multiselect_response();
-        }
-      });*/
+$.ajax({
+source: form[0].action,
+data: form.serialize(),
+success: function(response, status) {
+var form_html = $(response).find('form').html();
+form.replaceWith(response);
+run_multiselect();
+attach_datepicker();
+multiselect_response();
+}
+});*/
     }
   })
   .data("autocomplete")
@@ -462,12 +462,12 @@ $('#quotation_customer_name').live('focus', function() {
 
 
 
-//customer auto_complete  for form delivery orders
+//customer auto_complete for form delivery orders
 $('#delivery_order_customer_name').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/customers/search.js',
-    focus:  function(event, ui) { $(this).val(ui.item.fullname); return false; },
+    focus: function(event, ui) { $(this).val(ui.item.fullname); return false; },
     select: function(event, ui) {
       $(this).parents('form').find('#delivery_order_customer_id').val(ui.item.id);
       var form = $(this).parents('form')
@@ -504,3 +504,4 @@ function run_multiselect() {
   });
   $('.multiselect, .filter').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
 }
+
