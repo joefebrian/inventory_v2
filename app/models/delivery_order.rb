@@ -3,21 +3,21 @@ class DeliveryOrder < ActiveRecord::Base
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
   belongs_to :customer
-  has_many :sales_orders
+  belongs_to :sales_order
   belongs_to :company
   validates_presence_of :number, :customer_id, :do_date
   validates_uniqueness_of :number, :scope => :company_id
-  
+
   def name
     number
   end
 
-  def creat_date
-   do_date = Chronic.parse(date)
+  def tanggal_do
+   do_date = Chronic.parse(date_do)
   end
 
-  accepts_nested_attributes_for :entries, 
-    :allow_destroy => true, 
+  accepts_nested_attributes_for :entries,
+    :allow_destroy => true,
     :reject_if => lambda {|a| a['quantity'].blank? }
 
   def after_initialize
@@ -50,7 +50,7 @@ class DeliveryOrder < ActiveRecord::Base
     unless customer_id.blank?
     end
   end
- 
+
   def customer_name
     customer.try(:profile).try(:full_name)
   end
@@ -61,3 +61,4 @@ class DeliveryOrder < ActiveRecord::Base
   end
 
 end
+

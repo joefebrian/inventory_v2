@@ -13,32 +13,10 @@
     = f.input :due_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Due Date"  
     = f.input :ppn
     = f.input :top, :label => "Term of Payment"
- 
-- form_for @sales_invoice do |f|
-  = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :delivery_order_id
-    %br
-    = f.text_field :delivery_order_id
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :ppn
-    %br
-    = f.text_field :ppn
-  %p
-    = f.label :due_date
-    %br
-    = f.date_select :due_date
-  %p
-    = f.label :top
-    %br
-    = f.text_field :top
-  %p
-    = f.submit
+
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Sales Invoices
+
+
