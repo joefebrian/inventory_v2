@@ -27,6 +27,7 @@
         %td= link_to h(delivery_order.number), [delivery_order]
         %td= h delivery_order.sales_order.number
         %td= h delivery_order.do_date
+        %td= h delivery_order.created_at
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_delivery_order_path(delivery_order)
           = link_to image_tag('icons/silk/delete.png'), delivery_order_path(delivery_order), :confirm => 'Are you sure?', :method => :delete
