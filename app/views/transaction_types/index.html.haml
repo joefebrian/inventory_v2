@@ -9,8 +9,11 @@
 
 = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/add.png')} Add Transaction Type", new_transaction_type_path, :class => 'main_link', :title => 'add new transaction type'
+= hint "Click 'Add Transaction Type' button to create new customer"
+#subheader
+  %h3 Transaction Types
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Add Transaction Type", new_transaction_type_path, :class => 'main_link', :title => 'add new transaction type'
 
 %table.list
   %tr

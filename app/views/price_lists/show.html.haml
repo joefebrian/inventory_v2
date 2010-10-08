@@ -7,10 +7,17 @@
 
 = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Price List", edit_price_list_path(@price_list), :class => 'main_link'
+#subheader
+  %h3= "#{@price_list.code} :: #{@price_list.name}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", customers_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_price_list_path(@price_list)
 
-#dialog_form
+= hint ""
+
+%fieldset.form_section
+  %legend Purchase Order
   .two_columns
     %p
       %span.light.transaction_label Code
@@ -22,35 +29,35 @@
     %span.light.transaction_label Active in
     %strong= "#{@price_list.active_from.to_s(:long)} - #{@price_list.active_until.to_s(:long)}"
 
-  %table#enhanced.list
-    %thead
-      %tr
-        %th.index No
-        %th Item
-        %th Prices
-    %tfoot
-      %tr
-        %td{ :colspan => 3 } &nbsp;
-    %tbody
-      - idx = 1
-      - current_item = nil
-      - for entry in @price_list.entries
-        - if current_item.nil? || current_item != entry.item.id
-          = "</td></tr>" unless current_item.nil?
-          - current_item = entry.item.id
-          <tr>
-          = "<td style='vertical-align:top;'>#{idx}</td>"
-          = "<td style='vertical-align:top;'>#{link_to h(entry.item.name), entry.item}</td>"
-          <td class="string">
-          <div class="inline">
-          = entry.value || entry.unit.value || 0
-          = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
-          </div>
-          - idx = idx + 1
-        - else
-          <div class="inline">
-          = entry.value || entry.unit.value || 0
-          = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
-          </div>
-      </td></tr>
+%table#enhanced.list
+  %thead
+    %tr
+      %th.index No
+      %th Item
+      %th Prices
+  %tfoot
+    %tr
+      %td{ :colspan => 3 } &nbsp;
+  %tbody
+    - idx = 1
+    - current_item = nil
+    - for entry in @price_list.entries
+      - if current_item.nil? || current_item != entry.item.id
+        = "</td></tr>" unless current_item.nil?
+        - current_item = entry.item.id
+        <tr>
+        = "<td style='vertical-align:top;'>#{idx}</td>"
+        = "<td style='vertical-align:top;'>#{link_to h(entry.item.name), entry.item}</td>"
+        <td class="string">
+        <div class="inline">
+        = entry.value || entry.unit.value || 0
+        = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
+        </div>
+        - idx = idx + 1
+      - else
+        <div class="inline">
+        = entry.value || entry.unit.value || 0
+        = "<p class='inline-hints inline-labels'>#{h entry.unit.name} (#{number_to_currency(entry.unit.value, :unit => 'Rp. ', :precision => 0, :delimiter => '.')})</p>"
+        </div>
+    </td></tr>
 

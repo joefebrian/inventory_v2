@@ -2,7 +2,7 @@
   = f.error_messages
   -f.inputs "Excange Rates", :class => "form_section" do
     = f.input :effective_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Due Date"
-    = f.input :currency_id, :as => :select, :collection => @currency.collect {|currency| [currency.name,currency.id]}, :label => "Currency", :include_blank => "select Currency", :input_html => { :class => "select" } 
+    = f.input :currency_id, :as => :select, :collection => @currency.collect {|currency| [currency.name,currency.id]}, :label => "Currency", :include_blank => "select Currency", :input_html => { :class => "select filter" } 
     = f.input :value, :label => "value"
   %fieldset.buttons
     %button#primary-button{ :type => "submit" }

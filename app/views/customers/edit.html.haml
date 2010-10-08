@@ -7,6 +7,11 @@
     link_to("#{h @customer.code} &bull; #{h @customer.profile.full_name}", customer_path(@customer)), |
     "Edit" ] |
 
+= hint "Fields marked with asterix are required"
+#subheader
+  %h3= "Edit #{@customer.profile.full_name}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", customer_path(@customer)
 = sidemenu @tab
 
 = render :partial => 'form'

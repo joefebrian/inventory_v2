@@ -177,3 +177,8 @@ ol#transaction_types li {
 #units ol {
   padding-left:25%;
 }
+form.formtastic fieldset ol li fieldset legend.label {
+  font-size:1em;
+  font-weight:normal;
+}
+form.formtastic fieldset ol li.boolean.one_checkbox label { width:75%; }

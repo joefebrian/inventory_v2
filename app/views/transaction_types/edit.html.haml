@@ -5,6 +5,11 @@
     link_to("Transaction Types", transaction_types_path), |
     "Edit transaction type #{link_to(@transaction_type.code, @transaction_type)}" ] |
 
+= hint "Fields marked with asterix are required"
+#subheader
+  %h3= "Edit transaction type #{@transaction_type.code}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", transaction_type_path(@transaction_type)
 = sidemenu @tab
 
 = render :partial => 'form'

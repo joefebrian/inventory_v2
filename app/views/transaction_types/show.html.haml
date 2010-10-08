@@ -5,7 +5,15 @@
     link_to('Transaction types', transaction_types_path), |
     "#{@transaction_type.code}" ] |
 
-  = sidemenu @tab
+#subheader
+  %h3= "Transaction Type #{@transaction_type.code}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", transaction_types_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/user_edit.png')} edit", edit_transaction_type_path(@transaction_type)
+
+= hint ""
+= sidemenu @tab
 
 %p 
   Code:

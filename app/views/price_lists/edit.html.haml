@@ -3,8 +3,13 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Administrations', administrations_path), |
     link_to('Price Lists', price_lists_path), |
-    "Edit #{@price_list.name}" ] |
+    "Edit" ] |
 
+= hint "Fields marked with asterix are required"
+#subheader
+  %h3= "Edit #{@price_list.name}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", price_lists_path
 = sidemenu @tab
 
 = render 'form'
