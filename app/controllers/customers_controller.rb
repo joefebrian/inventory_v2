@@ -68,6 +68,16 @@ class CustomersController < ApplicationController
     end
   end
 
+  def search2
+    @keyword = params[:term]
+    @customers = @keyword.nil? ? {} : current_company.customers.profile_first_name_or_code_like(@keyword).all(:limit => 10)
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.js {
+        @html = render_to_string :partial => "customers_result"
+      }
+    end
+  end
 
   def picker
     @customers = Customer.id_in(params[:customers])

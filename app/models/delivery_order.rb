@@ -35,13 +35,26 @@ class DeliveryOrder < ActiveRecord::Base
   def build_entries_from_so
     entries.clear
     unless sales_order_id.blank?
+     
+      data_do = DeliveryOrder.all(:conditions => {:sales_order_id => sales_order_id}).collect{|d| d.id}
+      item_do = DeliveryOrderEntry.calculate(:sum, 
+                                           :quantity,
+                                           :conditions => {:delivery_order_id => data_do},
+                                           :group => :item_id)
+
+=begin
       items = SalesOrderEntry.calculate(:sum,
                                              :quantity,
                                              :conditions => { :sales_order_id => sales_order_id },
                                              :group => :item_id)
-      items.each do |item_id, qty|
-        self.entries.build(:item_id => item_id,
-                           :quantity => qty)
+=end
+
+      sales_order.entries.each do |so_data|
+        debugger
+        item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
+        self.entries.build(:item_id => so_data.item_id,
+                           :quantity => so_data.quantity - item_dos[1].to_i) 
+ 
       end
     end
   end

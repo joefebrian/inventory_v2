@@ -3,7 +3,9 @@ class DeliveryOrdersController < ApplicationController
   before_filter :assign_tab
   
   def index
-    @delivery_orders = current_company.delivery_orders.all
+    @search = current_company.delivery_orders.search(params[:search])
+    @delivery_orders = @search.paginate(:page => params[:page])
+    #@delivery_orders = current_company.delivery_orders.all
   end
   
   def show
