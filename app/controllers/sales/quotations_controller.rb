@@ -55,6 +55,18 @@ class Sales::QuotationsController < ApplicationController
     redirect_to sales_quotation_path
   end  
   
+  def send_request
+=begin
+    @quotation = current_company.quotations.find(params[:id])
+    for customer in @quotation.costumer
+      PurchasingMailer.deliver_quotation(@quotation, customer)
+    end
+    flash[:notice] = "Quotation request sent"
+    redirect_to [:purchasing, @quotation_request]
+=end
+      redirect_to sales_quotation_path(@quotation)
+  end
+
   private
   def assign_tab
     @tab = 'transactions'
