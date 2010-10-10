@@ -12,7 +12,7 @@
         = f.label :user_date, "Date", :style => "width:60px;", :class => "required"
         = f.text_field :user_date, :class => "datepicker"
     - if @item_receive.new_record?
-      = f.input :purchase_order, :include_blank => "Select PO", :collection => @purchase_orders, :required => true, :input_html => { :class => "select"}
+      = f.input :purchase_order, :include_blank => "Select PO", :collection => @purchase_orders, :required => true, :input_html => { :class => "select filter"}
     - else
       %li.string
         %label Purchase Order
@@ -20,7 +20,7 @@
           = link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
           &bull; Supplier:
           = link_to @item_receive.purchase_order.supplier.name_and_address, @item_receive.purchase_order.supplier
-    = f.input :warehouse, :include_blank => "Select Warehouse", :collection => @warehouses, :required => true, :input_html => { :class => "select"}
+    = f.input :warehouse, :include_blank => "Select Warehouse", :collection => @warehouses, :required => true, :input_html => { :class => "select filter"}
     = f.input :remark
   - f.inputs 'Items', :class => "form_section" do
     %li

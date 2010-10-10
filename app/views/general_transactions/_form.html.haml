@@ -5,8 +5,8 @@
 - else
   - semantic_form_for @general_transaction do |f|
     = f.error_messages
-    - f.inputs do
-      = f.input :transaction_type, :collection => @transaction_types, :include_blank => "Select the transaction type", :input_html => { :class => "select" }
+    - f.inputs 'Transaction Data', :class => 'form_section' do
+      = f.input :transaction_type, :collection => @transaction_types, :include_blank => "Select the transaction type", :input_html => { :class => "select filter" }
       %li#general_transaction_number_input.string.required
         %label{ :for => 'general_transaction_number' } Number <span class="required">*</span>
         %input{ :type => :text, :size => 50,
@@ -16,35 +16,35 @@
                 :class => 'default' }
         %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggestion}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
 
-      = f.input :originator_warehouse, :include_blank => false, :input_html => { :class => 'select plu_source' }, :collection => @warehouses
-      = f.input :destination_warehouse, :include_blank => false, :input_html => { :class => 'select' }, :collection => @warehouses
+      = f.input :originator_warehouse, :include_blank => false, :input_html => { :class => 'select filter plu_source' }, :collection => @warehouses
+      = f.input :destination_warehouse, :include_blank => false, :input_html => { :class => 'select filter' }, :collection => @warehouses
       = f.input :remark, :input_html => { :rows => 2 }
 
-      %li.string
-        #items
-          %table#transaction_entries.list
-            %thead
-              %tr
-                %th.td_20 PLU Code
-                %th.td_50 Item
-                %th.actions.td_10 Quantity
-                %th.actions.td_20 @ Value
-            %tfoot
-              %tr
-                %td{ :colspan => 4 }
-                  %a{:href => '#', :id => 'add_entries'}
-                    = "#{image_tag('icons/silk/add.png')} add transaction entries"
-            %tbody
-              - f.semantic_fields_for :entries do |entry|
-                %tr
-                  %td.td_20
-                    = entry.text_field :plu_code, :class => 'plu_code'
-                    = entry.hidden_field :plu_id
-                    = link_to image_tag('icons/silk/magnifier.png'), lookup_items_path(:format => :js), :class => 'plu_input'
-                  %td= entry.object.plu.try(:item).try(:name_with_code)
-                  %td.actions.td_10
-                    = entry.text_field :quantity, :size => 10, :class => 'numbers entries_quantity'
-                  %td.actions.td_20= entry.text_field :value, :size => 30, :class => 'numbers entries_value'
+    %fieldset.form_section
+      %legend Items
+      %table#transaction_entries.list
+        %thead
+          %tr
+            %th.td_20 PLU Code
+            %th.td_50 Item
+            %th.actions.td_10 Quantity
+            %th.actions.td_20 @ Value
+        %tfoot
+          %tr
+            %td{ :colspan => 4 }
+              %a{:href => '#', :id => 'add_entries'}
+                = "#{image_tag('icons/silk/add.png')} add transaction entries"
+        %tbody
+          - f.semantic_fields_for :entries do |entry|
+            %tr
+              %td.td_20
+                = entry.text_field :plu_code, :class => 'plu_code'
+                = entry.hidden_field :plu_id
+                = link_to image_tag('icons/silk/magnifier.png'), lookup_items_path(:format => :js), :class => 'plu_input'
+              %td= entry.object.plu.try(:item).try(:name_with_code)
+              %td.actions.td_10
+                = entry.text_field :quantity, :size => 10, :class => 'numbers entries_quantity'
+              %td.actions.td_20= entry.text_field :value, :size => 30, :class => 'numbers entries_value'
 
 
       %fieldset.buttons

@@ -60,7 +60,7 @@ class Company < ActiveRecord::Base
   end
 
   def leaf_categories
-    categories.all(:order => :name).reject { |cat| !cat.leaf? }
+    categories.all(:order => "lft, name").reject { |cat| !cat.leaf? }
   end
 
   def first_transaction_date
@@ -72,7 +72,7 @@ class Company < ActiveRecord::Base
   end
 
   def item_movement_report(from, to, category, warehouse, types)
-    # assume every par ams has value(s)
+    # assume every params has value(s)
     entries = Entry.transaction_created_at_gte(from.to_s( :db)).transaction_created_at_lte(to.to_s(:db)).transaction_type_not('BeginingBalance')
     entries = entries.transaction_origin_id_or_transaction_destination_id_is(warehouse) unless warehouse.blank?
     if category

@@ -4,11 +4,11 @@ class Purchasing::MaterialRequestsController < ApplicationController
   def index
     @search = current_company.material_requests.search(params[:search])
     if params[:state] == 'closed'
-      @material_requests = @search.closed.paginate(:page => params[:page])
-    elsif params[:state] == 'open'
-      @material_requests = @search.not_closed.paginate(:page => params[:page])
-    else
+      @material_requests = @search.search(:closed => true).paginate(:page => params[:page])
+    elsif params[:state] == 'all'
       @material_requests = @search.paginate(:page => params[:page])
+    else
+      @material_requests = @search.search(:closed => false).paginate(:page => params[:page])
     end
   end
   

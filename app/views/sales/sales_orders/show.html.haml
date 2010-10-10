@@ -4,42 +4,46 @@
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Sales', |
     link_to('Sales Order', sales_sales_orders_path), |
-    "Sales Orders ##{@sales_order.number}" ] |
+    "Sales Orders # #{@sales_order.number}" ] |
 
   = sidemenu @tab
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Sales Order", edit_sales_sales_order_path(@quotation), :class => 'main_link'
-  = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", '#', :class => 'main_link'
+#subheader
+  %h3= "Sales Order # #{@sales_order.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", '#'
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_sales_sales_order_path(@sales_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", purchasing_material_request_path(@material_request), :method => :delete, :confirm => "Are you sure"
 
-#dialog_form
-  .two_columns
-    %p
-      %strong.light.transaction_label Quotation Number:
-      =h @sales_order.quotation.number
-    %p
-      %strong.light.transaction_label Number:
-      =h @sales_order.number
-    %p
-      %strong.light.transaction_label Date:
-      =h @sales_order.tanggal
-    %p
-      %strong.light.transaction_label Customer Name:
-      =h @sales_order.customer
-    %p
-      %strong.light.transaction_label Payment Terms:
-      =h @sales_order.top
-    %p
-      %strong.light.transaction_label Status:
-      =h @sales_order.status
-    %p
-      %strong.light.transaction_label Total Bruto:
-      =h @sales_order.totral_bruto
-    %p
-      %strong.light.transaction_label Total Disc:
-      =h @sales_order.total_disc
-    %p
-    %strong.light.transaction_label Total Netto:
+.two_columns
+  %p
+    %span.light Quotation Number:
+    =h @sales_order.quotation.number
+  %p
+    %span.light Number:
+    =h @sales_order.number
+  %p
+    %span.light Date:
+    =h @sales_order.tanggal
+  %p
+    %span.light Customer Name:
+    =h @sales_order.customer
+  %p
+    %span.light Payment Terms:
+    =h @sales_order.top
+  %p
+    %span.light Status:
+    =h @sales_order.status
+  %p
+    %span.light Total Bruto:
+    =h @sales_order.totral_bruto
+  %p
+    %span.light Total Disc:
+    =h @sales_order.total_disc
+  %p
+    %span.light Total Netto:
     =h @sales_order.total_netto
 
 %table.report

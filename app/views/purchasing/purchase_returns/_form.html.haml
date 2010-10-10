@@ -12,8 +12,8 @@
       .inline{ :style => "min-width:190px;" }
         = f.label :user_date, "Date", :style => "width:60px;", :class => "required"
         = f.text_field :user_date, :class => "datepicker"
-    = f.input :supplier, :collection => @suppliers, :required => true, :input_html => { :class => "select"}
-    = f.input :purchase_order, :collection => @purchase_orders, :input_html => { :class => "select"}
+    = f.input :supplier, :collection => @suppliers, :required => true, :input_html => { :class => "select filter"}
+    = f.input :purchase_order, :collection => @purchase_orders, :input_html => { :class => "select filter"}
     = f.input :remark, :label => "Remark"
   - f.inputs "Items", :class => "form_section" do
     %li
@@ -67,7 +67,7 @@
         .bind('multiselectclick', function(event, ui) {
           if(typeof(suppliers[ui.value]) != 'undefined') {
             $('#supplier_info').html(suppliers[ui.value].address);
-            $(this).multiselect('close');
+            // $(this).multiselect('close');
             $('#ajax_error').removeClass('flash_error').html('');
           }
         });
@@ -84,7 +84,7 @@
               $('input[name=get_pos]').remove();
             }
           });
-          $(this).multiselect('close');
+          //$(this).multiselect('close');
         });
       });
       $('.plu_code').live('focus', function() {
