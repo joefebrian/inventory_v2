@@ -3,7 +3,8 @@ class SalesInvoicesController < ApplicationController
   before_filter :assign_tab
 
   def index
-    @sales_invoices = current_company.sales_invoices.all
+    @search = current_company.sales_invoices.search(params[:search])
+    @sales_invoices = @search.paginate(:page => params[:page])
   end
   
   def show

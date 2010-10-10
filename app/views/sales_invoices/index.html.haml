@@ -3,10 +3,15 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
     'Sales', 'Sales Invoices' ] |
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :number_like
+      = f.submit 'search'
+
 
   = sidemenu @tab
 
-= hint 'Click "Create Sales Invoice" button to add new Invoice'
+= hint 'Click "Create Sales Invoice" button to add new Invoice. Use Number Sales Invoice for search quickly'
 
 #subheader
   %h3 Sales Invoices
@@ -20,11 +25,12 @@
       %th Number
       %th Code DO
       %th Due date
+      %th.action Action
   %tbody
     - for sales_invoice in @sales_invoices
       %tr
-        %td= h sales_invoice.number
-        %td= h sales_invoice.delivery_order_id
+        %td= link_to h(sales_invoice.number), [sales_invoice]
+        %td= h sales_invoice.delivery_order.number
         %td= h sales_invoice.due_date
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_invoice_path(sales_invoice)
