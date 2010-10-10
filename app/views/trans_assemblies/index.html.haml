@@ -22,7 +22,7 @@
     %th.actions Actions
   - for trans_assembly in @trans_assemblies
     %tr
-      %td= h trans_assembly.number
+      %td= link_to h(trans_assembly.number), [trans_assembly]
       %td
         = h trans_assembly.assembly.name
         = link_to h( "(#{trans_assembly.assembly.number})"), trans_assembly.assembly

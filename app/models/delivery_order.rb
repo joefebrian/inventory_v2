@@ -42,12 +42,6 @@ class DeliveryOrder < ActiveRecord::Base
                                            :conditions => {:delivery_order_id => data_do},
                                            :group => :item_id)
 
-=begin
-      items = SalesOrderEntry.calculate(:sum,
-                                             :quantity,
-                                             :conditions => { :sales_order_id => sales_order_id },
-                                             :group => :item_id)
-=end
 
       sales_order.entries.each do |so_data|
         debugger

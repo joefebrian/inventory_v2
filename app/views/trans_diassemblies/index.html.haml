@@ -26,7 +26,7 @@
     
     %tbody  
     %tr
-      %td= h trans_diassembly.number
+      %td= link_to h(trans_diassembly.number), [trans_diassembly]
       %td= h trans_diassembly.warehouse_id
       %td= h trans_diassembly.quantity
       %td.actions
