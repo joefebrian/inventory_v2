@@ -4,7 +4,13 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   
   def index
     @search = current_company.purchase_orders.search(params[:search])
-    @purchase_orders = @search.paginate(:page => params[:page])
+    if params[:state] == 'closed'
+      @purchase_orders = @search.search(:closed => true).paginate(:page => params[:page])
+    elsif params[:state] == 'all'
+      @purchase_orders = @search.paginate(:page => params[:page])
+    else
+      @purchase_orders = @search.search(:closed => false).paginate(:page => params[:page])
+    end
   end
   
   def show
@@ -37,36 +43,18 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   end
   
   def edit
-    session[:po_params] ||= {}
     @purchase_order = current_company.purchase_orders.find(params[:id])
-    @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
     @material_requests = current_company.material_requests.all(:conditions => ["closed = 0 OR id IN (?)", @purchase_order.material_requests.collect { |mr| mr.id }])
   end
   
   def update
-    session[:po_params].deep_merge!(params[:purchase_order]) if params[:purchase_order]
     @purchase_order = current_company.purchase_orders.find(params[:id])
-    @purchase_order.attributes = session[:po_params]
-    @purchase_order.current_step = session[:po_step]
     @suppliers = current_company.suppliers.all(:include => :profile)
     @material_requests = current_company.material_requests.not_closed
 
-    updated = nil
-    if @purchase_order.valid?
-      if params[:back_button]
-        @purchase_order.previous_step
-      elsif @purchase_order.last_step?
-        @purchase_order.entries.reject! { |e| e.id.nil? } # prevent double entries get saved when adding new entries
-        updated = @purchase_order.update_attributes(session[:po_params])
-      else
-        @purchase_order.next_step
-      end
-      session[:po_step] = @purchase_order.current_step
-    end
-
+    updated = @purchase_order.update_attributes(params[:purchase_order])
     if updated
-      session[:po_params] = session[:po_step] = nil
       flash[:success] = "Purchase Order updated"
       redirect_to [:purchasing, @purchase_order]
     else
@@ -80,6 +68,22 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @purchase_order.destroy
     flash[:notice] = "Successfully destroyed purchase order."
     redirect_to purchasing_purchase_orders_url
+  end
+
+  def manual_close
+    @purchase_order = current_company.purchase_orders.find(params[:id])
+  end
+
+  def close
+    @purchase_order = current_company.purchase_orders.find(params[:id])
+    @purchase_order.closed = true
+    if @purchase_order.save
+      flash[:success] = "Purchase Order # #{@purchase_order.number} successfuly closed"
+      redirect_to purchasing_purchase_orders_url
+    else
+      flash[:error] = "Something went wrong, please try again"
+      render :action => 'manual_close'
+    end
   end
 
   private

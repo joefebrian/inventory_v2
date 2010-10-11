@@ -4,7 +4,6 @@ class PurchaseOrder < ActiveRecord::Base
   has_many :entries, :class_name => "PurchaseOrderEntry", :dependent => :destroy
   has_many :item_receives, :class_name => "ItemReceive"
   has_and_belongs_to_many :material_requests
-  attr_writer :current_step
 
   validates_presence_of :number
   validates_uniqueness_of :number, :scope => :company_id
@@ -12,6 +11,9 @@ class PurchaseOrder < ActiveRecord::Base
   validates_presence_of :po_date
 
   after_save :close_material_requests
+
+  named_scope :all_closed, :conditions => { :closed => true }
+  named_scope :all_open, :conditions => { :closed => false }
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,

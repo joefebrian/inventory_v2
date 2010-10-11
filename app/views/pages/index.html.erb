@@ -16,3 +16,15 @@
     <% end %>
   </ol>
 <% end %>
+
+<% unless @open_purchase_orders.blank? %>
+  <h3 id="">Open Purchase Orders</h3>
+  <ol>
+    <% for record in @open_purchase_orders %>
+      <li>
+        <%= "#{link_to(record.number, purchasing_purchase_order_path(record))} \"#{truncate(record.notes)}\" totaling #{pluralize(record.entries.size, 'item')}," %>
+        <%= link_to "close manually", manual_close_purchasing_purchase_order_path(record) %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

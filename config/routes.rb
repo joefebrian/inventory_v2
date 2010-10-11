@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }
-    purchase.resources :purchase_orders
+    purchase.resources :purchase_orders, :member => { :manual_close => :get, :close => :put }
     purchase.resources :item_receives, :member => { :confirmation => :get, :confirm => :put }
     purchase.resources :purchase_returns
   end

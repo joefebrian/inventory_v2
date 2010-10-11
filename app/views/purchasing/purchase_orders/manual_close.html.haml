@@ -1,4 +1,4 @@
-- title "Purchasing :: Purchase Order"
+- title "Close Purchasing :: Purchase Order"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
@@ -8,11 +8,10 @@
 
 - content_for :top_right_link do
   = link_to image_tag('icons/silk/page_white_acrobat.png'), '#', :title => "Download purchase order in PDF format"
-  = link_to image_tag('icons/silk/email_go.png'), [:purchasing, @purchase_order], :title => "Send purchase order to suppliers"
 
   = sidemenu @tab
 
-= hint "Click 'Edit Purchase Order' button to edit this Purchase Order (PO)"
+= hint "Click 'Close Purchase Order' button to close this Purchase Order (PO)"
 
 #subheader
   %h3= "Purchase Order # #{@purchase_order.number}"
@@ -64,3 +63,7 @@
           %td.tdr= entry.quantity
           %td.tdr= entry.purchase_price
           %td.tdr= entry.discount
+
+  - form_for @purchase_order, :url => { :action => 'close'}, :html => { :method => :put } do |f|
+    = f.submit "Close this purchase order"
+    

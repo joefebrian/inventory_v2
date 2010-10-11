@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   def index
     @tab = 'dashboard'
     @unconfirmed_item_receives = current_company.item_receives.unconfirmed
+    @open_purchase_orders = current_company.purchase_orders.all_open
   end
 
   def show
