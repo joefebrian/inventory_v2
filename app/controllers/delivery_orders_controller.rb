@@ -35,7 +35,7 @@ class DeliveryOrdersController < ApplicationController
       render("new", :layout => false) and return
     end
     if @delivery_order.save
-      flash[:notice] = "Successfully created sales order."
+      flash[:notice] = "Successfully created delivery order."
       redirect_to @delivery_order
     else
       @delivery_order.entries.build

@@ -1,11 +1,12 @@
 class TransAssembliesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-
-  def index
-    @trans_assemblies = current_company.trans_assemblies.all
-  end
   
+  def index
+    @search = current_company.trans_assemblies.search(params[:search])
+    @trans_assemblies = @search.paginate(:page => params[:page])
+  end
+ 
   def show
     @trans_assembly = current_company.trans_assemblies.find(params[:id])
   end
