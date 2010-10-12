@@ -60,7 +60,7 @@ class Company < ActiveRecord::Base
   end
 
   def leaf_categories
-    categories.all(:order => "lft, name").reject { |cat| !cat.leaf? }
+    categories.all(:order => "lft, name").reject { |cat| cat.children.count > 0 }
   end
 
   def first_transaction_date

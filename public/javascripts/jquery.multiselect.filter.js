@@ -38,7 +38,7 @@
 			// build the input box
 			this.input = wrapper.find("input").bind("keydown", function( e ){
 				// prevent the enter key from submitting the form / closing the widget
-				if( e.keyCode === 13 ){
+				if( e.which === 13 ){
 					return false;
 				}
 			}).bind("keyup", $.proxy(self._handler, self) );
@@ -96,19 +96,19 @@
 				isOptgroup = optiontags[0].tagName === "OPTGROUP" || false;
 			
 			this.cache = optiontags.map(function(){
-				var self = $(this), nodes = self;
-
+				var self = $(this);
+				
+				// account for optgroups
+				if( isOptgroup ){
+					self = self.children();
+				}
+				
 				// see _create() in jquery.multiselect.js around line 96
 				if( !self.val().length ){
 					return null;
 				}
-
-				// account for optgroups
-				if( isOptgroup ){
-					nodes = self.children();
-				}
 				
-				return nodes.map(function(){
+				return self.map(function(){
 					return this.innerHTML.toLowerCase();
 				}).get();
 			}).get();

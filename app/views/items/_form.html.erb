@@ -60,6 +60,8 @@
     $(function() {
       $('#item_category_id')
       .bind('multiselectclick', function(event, ui) {
+        //console.log(event.target);
+        console.log($(this).multiselect('getChecked'));
         // $(this).multiselect('close');
       });
     });
