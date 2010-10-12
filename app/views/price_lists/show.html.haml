@@ -25,9 +25,9 @@
     %p
       %span.light.transaction_label Name
       %strong=h @price_list.name
-  %p
-    %span.light.transaction_label Active in
-    %strong= "#{@price_list.active_from.to_s(:long)} - #{@price_list.active_until.to_s(:long)}"
+    %p
+      %span.light.transaction_label Active in
+      %strong= "#{@price_list.active_from.to_s(:long)} - #{@price_list.active_until.to_s(:long)}"
 
 %table#enhanced.list
   %thead

@@ -27,23 +27,23 @@
       %tfoot
         %tr
           %td{ :colspan => 4 }
-            = label_tag :item, "Enter item code or name"
-            = text_field_tag "item_getter", nil, :class => "item_autocomplete", :id => "item", :style => "width:60% !important;"
-      %tbody
+            = label_tag :item, "Enter item code or name", :style => "display:inline-block;width:25%;"
+            = text_field_tag "item_getter", nil, :class => "item_autocomplete", :id => "item", :style => "width:74% !important;margin-left:-4px;"
+      %tbody{ :style => "background:none repeat scroll 0 0 #F2F2F2;" }
         - f.semantic_fields_for :entries do |ent|
           - if current_item.nil? || current_item != ent.object.item.id
             - unless current_item.nil?
               </td>
-              <td class='td_5 tdr'>
-              = link_to image_tag('icons/silk/cross.png'), '#', :class => "units_remover", :title => "remove this item from price list"
+              <td class='td_5 tdr' style="vertical-align:top;">
+              = link_to image_tag('icons/silk/cross.png'), '#', :class => "unit_remover", :title => "remove this item from price list"
               </td>
               </tr>
             - current_item = ent.object.item.id
             <tr>
             = "<td style='vertical-align:top;' class='index td_5'>#{idx}</td>"
             = "<td style='vertical-align:top;' class='td_30''>#{link_to h(ent.object.item.name), ent.object.item}</td>"
-            <td class="string">
-            <div class="inline">
+            <td class="string" style="float:right;">
+            <div class="inline" style="margin:0 0 0 1em;">
             = ent.text_field :value, :size => 10, :value => (ent.object.value || ent.object.unit.value || 0), :class => "numbers"
             = ent.hidden_field :item_id
             = ent.hidden_field :unit_id
@@ -52,7 +52,7 @@
             </div>
             - idx = idx + 1
           - else
-            <div class="inline">
+            <div class="inline" style="margin:0 0 0 1em;">
             = ent.text_field :value, :size => 10, :value => (ent.object.value || ent.object.unit.value || 0), :class => "numbers"
             = ent.hidden_field :item_id
             = ent.hidden_field :unit_id
@@ -61,8 +61,8 @@
             </div>
         - unless @price_list.entries.blank?
           </td>
-          <td class='td_5 tdr'>
-          = link_to image_tag('icons/silk/cross.png'), '#', :class => "units_remover", :title => "remove this item from price list"
+          <td class='td_5 tdr' style="vertical-align:top;">
+          = link_to image_tag('icons/silk/cross.png'), '#', :class => "unit_remover", :title => "remove this item from price list"
           </td>
           </tr>
       

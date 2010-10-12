@@ -166,7 +166,7 @@ $('input.item_autocomplete').live('focus', function() {
 });
 
 $('.unit_remover').live('click', function() {
-  $(this).parents('li').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
+  $(this).parents('li, tr').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
   return false;
 })
 
