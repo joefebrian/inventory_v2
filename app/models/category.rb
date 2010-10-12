@@ -22,7 +22,7 @@ class Category < ActiveRecord::Base
   end
 
   def fullname
-    root? ? name : "#{parent.fullname} :: #{name}"
+    root? ? name : "#{parent.fullcode} :: #{name}"
   end
 
   def parent_code
