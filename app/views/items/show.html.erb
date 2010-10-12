@@ -28,30 +28,31 @@
 
   <fieldset class="form_section">
     <legend>Item Attributes</legend>
-    <p class="single-column">
-      <span class="light transaction_label">Code</span>
-      <strong><%= @item.code %></strong>
-    </p>
-    <p class="single-column">
-      <span class="light transaction_label">Category</span>
-      <% if @item.category.nil? %>
-        <strong>NO CATEGORY</strong>
-      <% else %>
-        <strong><%= link_to @item.category.name, @item.category %></strong>
-      <% end %>
-    </p>
-    <p class="single-column">
-      <span class="light transaction_label">Name</span>
-      <strong><%= @item.name %></strong>
-    </p>
-    <p class="single-column">
-      <span class="light transaction_label">Purchase Price</span>
-      <strong><%= @item.purchase_price %></strong>
-    </p>
-    <p class="single-column">
-      <span class="light transaction_label">Description</span>
-      <strong><%=h @item.description %></strong>
-    </p>
+    <div class="two_columns">
+      <p>
+        <span class="light ">Code</span>
+        <strong><%= @item.code %></strong>
+      </p>
+      <p>
+        <span class="light ">Category</span>
+        <% if @item.category.nil? %>
+          <strong>NO CATEGORY</strong>
+        <% else %>
+          <strong><%= link_to @item.category.name, @item.category %></strong>
+        <% end %>
+      </p>
+      <p>
+        <span class="light ">Name</span>
+        <strong><%= @item.name %></strong>
+      </p>
+      <p>
+        <span class="light ">Purchase Price</span>
+        <strong><%= @item.purchase_price %></strong>
+      </p>
+      <p>
+        <span class="light ">Description</span>
+        <strong><%=h @item.description %></strong>
+      </p>
   </fieldset>
 
   <fieldset class="form_section">
@@ -73,12 +74,14 @@
 
   <fieldset class="form_section">
     <legend>Stock</legend>
-    <p class="single-column">
-      <span class="light transaction_label">Overall</span>
-      <strong><%= @item.stock %></strong>
-    </p>
-    <p class="single-column">
-      <span class="light transaction_label">Per PLU</span>
-      <strong></strong>
-    </p>
+    <div class="two_columns">
+      <p>
+        <span class="light">Overall</span>
+        <strong><%= @item.stock %></strong>
+      </p>
+      <p>
+        <span class="light">Per PLU</span>
+        <strong></strong>
+      </p>
+    </div>
   </fieldset>
