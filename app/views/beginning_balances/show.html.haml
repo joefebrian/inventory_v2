@@ -6,9 +6,16 @@
     @beginning_balance.number ] |
 
 = sidemenu @tab
+= hint "Click 'edit' to edit beginning balance"
 
-- content_for :main_act do
-  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Beginning Balance", edit_beginning_balance_path(@beginning_balance), :class => 'main_link'
+#subheader
+  %h3= "Beginning Balance # #{@beginning_balance.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", beginning_balances_path, :class => "back_link"
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_beginning_balance_path(@beginning_balance)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", beginning_balance_path(@purchase_order), :method => :delete, :confirm => "Are you sure?"
 
 #dialog_form
   %fieldset.form_section
@@ -41,8 +48,7 @@
             %td.index= n+1
             %td= entry.item.code
             %td
-              %strong= entry.item.name
-              %span.description= "(#{truncate entry.item.description})"
+              %strong= entry.item.name_with_category
             %td.actions= entry.quantity
             %td.actions
               = number_to_currency(entry.total_value, :unit => '', :delimiter => '.', :separator => ',')

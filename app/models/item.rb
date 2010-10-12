@@ -52,7 +52,7 @@ class Item < ActiveRecord::Base
   end
 
   def category_tree
-    "#{category.ancestors.map(&:name).join(' :: ')} :: #{category.name}"
+    "#{category.ancestors.map(&:code).join(' :: ')} :: #{category.name}"
   end
 
   def stock
