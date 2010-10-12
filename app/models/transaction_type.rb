@@ -9,6 +9,8 @@ class TransactionType < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :company_id
   validates_uniqueness_of :description
 
+  named_scope :selectable, :conditions => { :editable => true }
+
   def to_s
     name
   end
