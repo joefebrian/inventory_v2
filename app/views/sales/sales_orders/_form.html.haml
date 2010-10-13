@@ -37,8 +37,8 @@
           %tr
             %td &nbsp;
             %td.tdr{ :colspan => 4 } Summary Total = 
-            %td.tdr{ :colspan => 2 }
-              %span#total_price
+            %td#total_price.tdr
+            %td
         %tbody
           - f.semantic_fields_for :entries do |ent|
             %tr
@@ -99,11 +99,13 @@
         var before_disc = parseInt(price.value) * parseInt(qty.value);
         var disc_val = (before_disc * parseInt(disc.value)) / 100;
         var after_disc = before_disc - disc_val;
-        row.find('.sub_price').val(after_disc);
+        row.find('.sub_total').val(after_disc);
         var total = 0;
-        $(this).parents('form').find('.sub_total').each(function(e) {
-          total += parseInt(e.value);
+        var form = $(this).parents('form')
+        form.find('.sub_total').each(function(index, element) {
+          if (element.value != '') total += parseInt(element.value);
         });
+        form.find('#total_price').html(total);
       });
       $(function() {
         multiselect_response();
