@@ -410,8 +410,7 @@ $('#sales_order_customer_name').live('focus', function() {
         source: form[0].action,
         data: form.serialize(),
         success: function(response, status) {
-          var form_html = $(response).find('form').html();
-          form.replaceWith(response);
+          form.replaceWith($(response)[2]);
           run_multiselect();
           attach_datepicker();
           multiselect_response();
@@ -436,18 +435,6 @@ $('#quotation_customer_name').live('focus', function() {
     focus: function(event, ui) {$(this).val(ui.item.fullname); return false;},
     select: function(event, ui) {
       $(this).parents('form').find('#quotation_customer_id').val(ui.item.id);
-      /*var form = $(this).parents('form')
-$.ajax({
-source: form[0].action,
-data: form.serialize(),
-success: function(response, status) {
-var form_html = $(response).find('form').html();
-form.replaceWith(response);
-run_multiselect();
-attach_datepicker();
-multiselect_response();
-}
-});*/
     }
   })
   .data("autocomplete")

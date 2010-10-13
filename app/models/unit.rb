@@ -1,9 +1,6 @@
 class Unit < ActiveRecord::Base
   belongs_to :item
   has_many :customer_prices
-  #validates_presence_of :name, :message => "unit name can't be blank"
-  #validates_presence_of :conversion_rate, :message => "convertion rate can't be blank"
-  #validates_numericality_of :conversion_rate, :message => "conversion_rate must be number", :allow_blank => true
 
   after_create :assign_position
   after_create :assign_default_conversion_rate

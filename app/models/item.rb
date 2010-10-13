@@ -12,12 +12,12 @@ class Item < ActiveRecord::Base
   validates_presence_of :count_method
   validates_uniqueness_of :code, :scope => :company_id, :message => "code has already been taken"
   validates_uniqueness_of :name, :scope => :company_id, :message => "name has already been taken"
-  accepts_nested_attributes_for :units, :allow_destroy => true, :reject_if => lambda {|a| a['name'].blank? }
+  accepts_nested_attributes_for :units, :allow_destroy => true, :reject_if => lambda {|a| a['name'].blank? || a['conversion_rate'].blank? || a['conversion_rate'].to_i <= 0 || a['value'].blank? || a['value'].to_i <= 0 }
 
   named_scope :services, :conditions => { :is_stock => false }
 
   def validate
-    errors.add_to_base("All specified unit must have proper value") if units.detect { |u| u.value.present? && u.conversion_rate.present? && (u.value.to_i <= 0 || u.conversion_rate.to_i <= 0) }
+    #errors.add_to_base("All specified unit must have proper value") if units.detect { |u| (u.value.to_i <= 0 || u.conversion_rate.to_i <= 0) }
   end
 
   has_attached_file :photo,

@@ -37,7 +37,8 @@
           %tr
             %td &nbsp;
             %td.tdr{ :colspan => 4 } Summary Total = 
-            %td.tdr{ :colspan => 2 } &nbsp;
+            %td.tdr{ :colspan => 2 }
+              %span#total_price
         %tbody
           - f.semantic_fields_for :entries do |ent|
             %tr
@@ -45,10 +46,10 @@
               %td.item
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
-              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty"
-              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "price numbers"
-              %td.tdr.td_5= ent.text_field :diskon, :size => 5, :class => "numbers mr_qty"
-              %td.tdr.td_5= ent.text_field :total_price, :size => 15, :class => "number total_price"
+              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty calc"
+              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "numbers mr_price calc"
+              %td.tdr.td_5= ent.text_field :diskon, :size => 5, :class => "numbers mr_disc calc"
+              %td.tdr.td_5= ent.text_field :total_price, :size => 15, :class => "number sub_total"
               %td.tdr
                 - if ent.object.description.blank?
                   = link_to image_tag('icons/silk/comment.png'), '#', :class => "popup_handle"
@@ -90,6 +91,20 @@
           return false;
         });
       }
+      $('.calc').live('keyup', function() {
+        var row = $(this).parents('tr');
+        var price = row.find('.mr_price')[0];
+        var qty = row.find('.mr_qty')[0];
+        var disc = row.find('.mr_disc')[0];
+        var before_disc = parseInt(price.value) * parseInt(qty.value);
+        var disc_val = (before_disc * parseInt(disc.value)) / 100;
+        var after_disc = before_disc - disc_val;
+        row.find('.sub_price').val(after_disc);
+        var total = 0;
+        $(this).parents('form').find('.sub_total').each(function(e) {
+          total += parseInt(e.value);
+        });
+      });
       $(function() {
         multiselect_response();
       });
