@@ -15,13 +15,13 @@
 #subheader
   %h3 Material Requests
   #subheader-menu
-    = link_to_if (params[:state] != 'all'), "all", purchasing_material_requests_path(:state => "all")
+    = link_to_if((params[:state] != 'all'), "all", purchasing_material_requests_path(:state => "all"))
     &bull;
-    = link_to_if (params[:state] != 'closed'), "closed", purchasing_material_requests_path(:state => "closed")
+    = link_to_if((params[:state] != 'closed'), "closed", purchasing_material_requests_path(:state => "closed"))
     &bull;
-    = link_to_if (params[:state] && params[:state] != 'open'), "open", purchasing_material_requests_path(:state => "open")
+    = link_to_if((params[:state] && params[:state] != 'open'), "open", purchasing_material_requests_path(:state => "open"))
     &bull;
-    = link_to "#{image_tag('icons/silk/add.png')} Create Material Request", new_purchasing_material_request_path, :class => 'main_link'
+    = link_to("#{image_tag('icons/silk/add.png')} Create Material Request", new_purchasing_material_request_path, :class => 'main_link')
 
 %table.list
   %thead
