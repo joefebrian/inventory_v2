@@ -52,7 +52,7 @@ class Sales::QuotationsController < ApplicationController
     @quotation = current_company.quotations.find(params[:id])
     @quotation.destroy
     flash[:notice] = "Successfully destroyed quotation."
-    redirect_to sales_quotation_path
+    redirect_to sales_quotations_path
   end  
   
   def send_request
