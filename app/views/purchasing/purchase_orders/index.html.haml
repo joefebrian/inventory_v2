@@ -35,12 +35,15 @@
       %td{ :colspan => 5 }= will_paginate @purchase_orders
   %tbody
     - @purchase_orders.each_with_index do |purchase_order, i|
-      %tr
+      %tr{ :class => purchase_order.closed? ? 'inactive' : '' }
         %td.td_5.tdr= (i+1)
         %td
           %strong= link_to h(purchase_order.number), [:purchasing, purchase_order]
+          %em (Closed)
         %td= h purchase_order.supplier.name
         %td= h purchase_order.po_date.to_s(:long)
         %td.actions
-          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_purchase_order_path(purchase_order)
-          = link_to image_tag('icons/silk/delete.png'), purchasing_purchase_order_path(purchase_order), :confirm => 'Are you sure?', :method => :delete
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_purchase_order_path(purchase_order), :title => 'Edit'
+          - unless purchase_order.closed?
+            = link_to image_tag('icons/silk/application_form_delete.png'), manual_close_purchasing_purchase_order_path(purchase_order), :title => 'Manual Close'
+          = link_to image_tag('icons/silk/delete.png'), purchasing_purchase_order_path(purchase_order), :confirm => 'Are you sure?', :method => :delete, :title => 'Delete'
