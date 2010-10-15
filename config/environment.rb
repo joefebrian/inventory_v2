@@ -19,17 +19,18 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  #config.gem 'will_paginate', :version => '2.3.14'
-  #config.gem 'authlogic'
-  #config.gem 'searchlogic'
-  #config.gem 'subdomain-fu'
-  #config.gem 'slim_scrooge'
-  #config.gem 'cancan'
-  #config.gem 'formtastic'
-  #config.gem 'chronic'
-  #config.gem 'prawn'
-  #config.gem 'haml'
-  #config.gem 'spreadsheet'
+  config.gem 'will_paginate'
+  config.gem 'authlogic'
+  config.gem 'searchlogic'
+  config.gem 'subdomain-fu'
+  config.gem 'slim_scrooge'
+  config.gem 'cancan'
+  config.gem 'formtastic'
+  config.gem 'chronic'
+  config.gem 'prawn'
+  config.gem 'haml'
+  config.gem 'spreadsheet'
+  config.gem 'paperclip'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -53,26 +54,26 @@ end
 SubdomainFu.tld_sizes = { :development => 1, :test => 1, :production => 1 }
 
 #monkeypatch for allowing unescape options tag for select field
-module ActionView
-  module Helpers
-    module FormOptionsHelper
-      def options_for_select(container, selected = nil, escape = true)
-        container = container.to_a if Hash === container
-        selected, disabled = extract_selected_and_disabled(selected)
+#module ActionView
+  #module Helpers
+    #module FormOptionsHelper
+      #def options_for_select(container, selected = nil, escape = true)
+        #container = container.to_a if Hash === container
+        #selected, disabled = extract_selected_and_disabled(selected)
       
-        options_for_select = container.inject([]) do |options, element|
-          text, value = option_text_and_value(element)
-          selected_attribute = ' selected="selected"' if option_value_selected?(value, selected)
-          disabled_attribute = ' disabled="disabled"' if disabled && option_value_selected?(value, disabled)
-          if escape
-            options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{html_escape(text.to_s)}</option>)
-          else
-            options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{text.to_s}</option>)
-          end
-        end
+        #options_for_select = container.inject([]) do |options, element|
+          #text, value = option_text_and_value(element)
+          #selected_attribute = ' selected="selected"' if option_value_selected?(value, selected)
+          #disabled_attribute = ' disabled="disabled"' if disabled && option_value_selected?(value, disabled)
+          #if escape
+            #options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{html_escape(text.to_s)}</option>)
+          #else
+            #options << %(<option value="#{html_escape(value.to_s)}"#{selected_attribute}#{disabled_attribute}>#{text.to_s}</option>)
+          #end
+        #end
     
-        options_for_select.join("\n")
-      end
-    end
-  end
-end
+        #options_for_select.join("\n")
+      #end
+    #end
+  #end
+#end
