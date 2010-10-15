@@ -16,7 +16,7 @@
 #subheader
   %h3= "Closing Purchase Order # #{@purchase_order.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_purchase_orders_path, :class => "back_link"
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_purchase_orders_path, :class => "back_link"
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_purchasing_purchase_order_path(@purchase_order)
     &bull;
@@ -64,6 +64,13 @@
           %td.tdr= entry.purchase_price
           %td.tdr= entry.discount
 
+%fieldset.form_section
+  %legend Closing Note
   - form_for @purchase_order, :url => { :action => 'close'}, :html => { :method => :put } do |f|
-    = f.submit "Close this purchase order"
+    %p
+      = f.text_area :closing_note, :rows => 2, :cols => 60, :style => "margin-bottom:5px;"
+    %p.buttons
+      %button#primary-button{ :type => "submit" }
+        = image_tag 'icons/silk/application_form_delete.png'
+        Close Purchase Order
     

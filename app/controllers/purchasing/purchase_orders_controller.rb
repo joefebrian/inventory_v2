@@ -77,6 +77,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
   def close
     @purchase_order = current_company.purchase_orders.find(params[:id])
     @purchase_order.closed = true
+    @purchase_order.closing_note = params[:purchase_order][:closing_note]
     if @purchase_order.save
       flash[:success] = "Purchase Order # #{@purchase_order.number} successfuly closed"
       redirect_to purchasing_purchase_orders_url
