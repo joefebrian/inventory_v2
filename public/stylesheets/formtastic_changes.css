@@ -24,7 +24,7 @@ label span.required, span.required {
   color:rgb(200,0,0);
   font-weight:bold;
 }
-form.formtastic fieldset.buttons button {
+form.formtastic fieldset.buttons button, .buttons button {
   background:#235F26 url(/images/gradient.png) repeat-x scroll 0 -125px;
   border:solid 1px #235f26;
   color:#fff;
@@ -32,7 +32,7 @@ form.formtastic fieldset.buttons button {
   font-size:1.2em;
   padding:5px 10px;
   text-shadow:0 -1px rgba(0, 0, 0, .8);
-  margin-left:2px;
+  /*margin-left:2px;*/
   /*border-radius:4px;
   -moz-border-radius:4px;
   -webkit-border-radius:4px;
