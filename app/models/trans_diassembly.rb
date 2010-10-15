@@ -27,10 +27,10 @@ class TransDiassembly < ActiveRecord::Base
    date = Chronic.parse(date)
   end
 
-  def build_entries_from_tras
+  def build_entries_from_trad
     entries.clear
     unless trans_assembly.blank?
-      items = TransAssemblyEntry.calculate(:sum,
+      items = TransAssembliesEntry.calculate(:sum,
                                              :quantity,
                                              :conditions => { :trans_assembly_id => trans_assembly_id },
                                              :group => :item_id)
@@ -40,6 +40,5 @@ class TransDiassembly < ActiveRecord::Base
       end
     end
   end
-
 
 end

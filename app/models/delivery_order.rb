@@ -44,7 +44,7 @@ class DeliveryOrder < ActiveRecord::Base
 
 
       sales_order.entries.each do |so_data|
-        debugger
+       # debugger
         item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
         self.entries.build(:item_id => so_data.item_id,
                            :quantity => so_data.quantity - item_dos[1].to_i) 

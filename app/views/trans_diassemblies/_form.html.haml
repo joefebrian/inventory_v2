@@ -45,6 +45,7 @@
       = image_tag 'icons/silk/disk.png'
       Save Diassembling
 
+
 - content_for :javascripts do
   - javascript_tag do
     var insert_fields = true;
@@ -55,9 +56,9 @@
       var new_id = $('tbody tr').length;
       $(function() {
         $('.multiselect').bind('multiselectclose', function(event, ui) {
-          var tras = $(this).multiselect('getChecked');
+          var trad = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
-          form.append('<input type="hidden" name="get_trass" value="1"/>');
+          form.append('<input type="hidden" name="get_trads" value="1"/>');
           $.ajax({
             url: form[0].action,
             type: 'post',
@@ -65,7 +66,7 @@
             success: function(response, status) {
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
-              $('input[name=get_trass]').remove();
+              $('input[name=get_trads]').remove();
             }
           });
           return false;

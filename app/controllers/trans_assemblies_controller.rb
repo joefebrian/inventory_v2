@@ -62,6 +62,7 @@ class TransAssembliesController < ApplicationController
     flash[:notice] = "Successfully destroyed trans assembly."
     redirect_to trans_assemblies_url
   end
+
   private
   def assign_tab
     @tab = 'transactions'

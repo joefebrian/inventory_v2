@@ -5,7 +5,7 @@ class TransDiassembliesController < ApplicationController
   def index
     @trans_diassemblies = current_company.trans_diassemblies.all
   end
-  
+ 
   def show
     @trans_diassembly = current_company.trans_diassemblies.find(params[:id])
   end
@@ -16,16 +16,17 @@ class TransDiassembliesController < ApplicationController
     @warehouses = current_company.warehouses
     @trans_assemblies = current_company.trans_assemblies
   end
-  
+
   def create
-    @trans_diassembly = current_company.trans_diassemblies.new(params[:trans_diassembly])
-    if params[:get_trass] && params[:get_trass].to_i == 1
-      @trans_diassembly.build_entries_from_tras
+    @trans_diassembly = current_company.trans_diassemblies.new
+    @trans_diassembly.attributes = params[:trans_diassembly]
+    if params[:get_trads] && params[:get_trads].to_i == 1
+      @trans_diassembly.build_entries_from_trad
       @trans_diassembly.entries.build
       render("new", :layout => false) and return
     end
     if @trans_diassembly.save
-      flash[:notice] = "Successfully created trans diassembly."
+      flash[:notice] = "Successfully created Transaction Diassembling."
       redirect_to @trans_diassembly
     else
       @trans_diassembly.entries.build
@@ -34,7 +35,8 @@ class TransDiassembliesController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
+
   def edit
     @trans_diassembly = current_company.trans_diassemblies.find(params[:id])
   end
