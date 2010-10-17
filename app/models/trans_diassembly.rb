@@ -4,7 +4,7 @@ class TransDiassembly < ActiveRecord::Base
   belongs_to :warehouse
   belongs_to :trans_assembly
   has_many :entries, :class_name => "TransDiassembliesEntry"
-  validates_presence_of :number, :quantity, :warehouse_id, :trans_diassembly_id
+  validates_presence_of :number, :quantity, :warehouse_id, :trans_assembly_id
   validates_uniqueness_of :number, :scope => :company_id
   
   accepts_nested_attributes_for :entries,

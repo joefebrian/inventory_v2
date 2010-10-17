@@ -16,8 +16,8 @@
 %table.list
   %thead
     %tr
-      %th.td_5 No.
       %th Number
+      %th Number Trans Assembling
       %th Warehouse
       %th Quantity
       %th.actions Actions 
@@ -27,7 +27,8 @@
     %tbody  
     %tr
       %td= link_to h(trans_diassembly.number), [trans_diassembly]
-      %td= h trans_diassembly.warehouse_id
+      %td= h trans_diassembly.trans_assembly.number
+      %td= h trans_diassembly.warehouse.name
       %td= h trans_diassembly.quantity
       %td.actions
         = link_to image_tag('icons/silk/application_form_edit.png'), edit_trans_diassembly_path(trans_diassembly)

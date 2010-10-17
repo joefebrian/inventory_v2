@@ -1,27 +1,48 @@
-- title "Trans Diassembly"
+- title "Transaction Diassembling"
 
-%p
-  %strong Company:
-  =h @trans_diassembly.company_id
-%p
-  %strong Warehouse:
-  =h @trans_diassembly.warehouse_id
-%p
-  %strong Trans Assembly:
-  =h @trans_diassembly.trans_assembly_id
-%p
-  %strong Number:
-  =h @trans_diassembly.number
-%p
-  %strong Quantity:
-  =h @trans_diassembly.quantity
-%p
-  %strong Description:
-  =h @trans_diassembly.description
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Transaction Diassembling', trans_diassemblies_path), |
+    "Transaction Dissembling ##{@trans_diassembly.number}" ] |
 
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit Transaction Diassembling", edit_trans_diassembly_path(@trans_diassembly), :class => 'main_link'
+
+#dialog_form
+  .two_columns
+    %p
+      %span.light.transaction_label Number
+      %strong= @trans_diassembly.number
+    %p
+      %span.light.transaction_label Warehouse
+      %strong= @trans_diassembly.warehouse.name
+    %p
+      %span.light.transaction_label Code Assemblies
+      %strong
+        = @trans_diassembly.trans_assembly.number 
+        = link_to ("(#{@trans_diassembly.trans_assembly.number})"), @trans_diassembly.trans_assembly 
+    %p
+      %span.light.transaction_label Quantity
+      %strong= @trans_diassembly.quantity
 %p
-  = link_to "Edit", edit_trans_diassembly_path(@trans_diassembly)
-  |
-  = link_to "Destroy", @trans_diassembly, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", trans_diassemblies_path
+  %span.light.transaction_label Description
+%p{ :style => "overflow:hidden; margin-bottom:20px;" }
+  %strong= @trans_diassembly.description
+
+
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qauntity
+  %tbody
+  - @trans_diassembly.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdl.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdc= entry.quantity
+
