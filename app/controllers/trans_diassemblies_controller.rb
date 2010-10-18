@@ -21,6 +21,7 @@ class TransDiassembliesController < ApplicationController
     @trans_diassembly = current_company.trans_diassemblies.new(params[:trans_diassembly])
     if params[:get_trads] && params[:get_trads].to_i == 1
       @trans_diassembly.build_entries_from_trad
+      @trans_assemblies = current_company.trans_assemblies
       @trans_diassembly.entries.build
       render("new", :layout => false) and return
     end
@@ -34,25 +35,6 @@ class TransDiassembliesController < ApplicationController
       render :action => 'new'
     end
   end
-=begin
-  def create
-    @trans_diassembly = current_company.trans_diassemblies.new(params[:trans_diassembly])
-    if params[:get_trads] && params[:get_trads].to_i == 1
-      @trans_diassembly.build_entries_from_trad
-      @trans_diassembly.entries.build
-      render("new", :layout => false) and return
-    end
-    if @trans_diassembly.save
-      flash[:notice] = "Successfully created Transaction Diassembling."
-      redirect_to @trans_diassembly
-    else
-      @trans_diassembly.entries.build
-      @warehouses = current_company.warehouses
-      @trans_assemblies = current_company.trans_assemblies
-      render :action => 'new'
-    end
-  end
-=end
 
   def edit
     @trans_diassembly = current_company.trans_diassemblies.find(params[:id])

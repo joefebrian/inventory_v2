@@ -10,9 +10,9 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
  
-    = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :warehouse, :collection => @warehouses, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"} 
-    = f.input :trans_assembly_id, :as => :select, :label => "Trans Assembling", :collection => @trans_assemblies.collect{ |t| [t.number, t.id] }, :include_blank => "select Code Assembling", :input_html => {:class => "multiselect"} 
+    = f.input :trans_assembly, :collection => @trans_assemblies, :as => :select, :label => "Transaction Assembling", :include_blank => "select trans Assembling", :input_html => {:class => "multiselect"} 
+    = f.collection_select :trans_assembly_id, :trans_assembly.all, :trans_assembly_number, :id, :number, :prompt => true
     = f.input :quantity  
     = f.input :description, :input_html => { :rows => 3 }
 

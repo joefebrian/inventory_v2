@@ -1,10 +1,10 @@
 class TransDiassembly < ActiveRecord::Base
-  attr_accessible :company_id, :warehouse_id, :trans_assembly_id, :number, :quantity, :description, :entries_attributes
+  attr_accessible :company_id, :warehouse_id, :trans_assembly_id, :number, :quantity, :description, :tanggal, :entries_attributes
   belongs_to :company
   belongs_to :warehouse
   belongs_to :trans_assembly
   has_many :entries, :class_name => "TransDiassembliesEntry"
-  validates_presence_of :number, :quantity, :warehouse_id, :trans_assembly_id
+  validates_presence_of :number, :quantity, :warehouse_id, :trans_assembly_id, :tanggal
   validates_uniqueness_of :number, :scope => :company_id
   
   accepts_nested_attributes_for :entries,
@@ -24,7 +24,7 @@ class TransDiassembly < ActiveRecord::Base
   end
 
   def tgl_active
-   date = Chronic.parse(date)
+   tanggal = Chronic.parse(tanggal)
   end
 
   def build_entries_from_trad
@@ -39,6 +39,10 @@ class TransDiassembly < ActiveRecord::Base
                            :quantity => qty)
       end
     end
+  end
+
+  def to_s
+    number
   end
 
 end
