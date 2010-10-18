@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :credit_debit_notes
+
   map.resources :sales_invoices
   map.resources :delivery_orders
   map.resources :item_receives

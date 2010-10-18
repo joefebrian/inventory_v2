@@ -39,7 +39,8 @@
         %td.td_5.tdr= (i+1)
         %td
           %strong= link_to h(purchase_order.number), [:purchasing, purchase_order]
-          %em (Closed)
+          - if purchase_order.closed?
+            %span.red-tag closed
         %td= h purchase_order.supplier.name
         %td= h purchase_order.po_date.to_s(:long)
         %td.actions

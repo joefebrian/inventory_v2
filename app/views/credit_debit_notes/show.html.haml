@@ -1,0 +1,30 @@
+- title "Credit Debit Note"
+
+%p
+  %strong Company:
+  =h @credit_debit_note.company_id
+%p
+  %strong Number:
+  =h @credit_debit_note.number
+%p
+  %strong Customer:
+  =h @credit_debit_note.customer_id
+%p
+  %strong Supplier:
+  =h @credit_debit_note.supplier_id
+%p
+  %strong User Date:
+  =h @credit_debit_note.user_date
+%p
+  %strong Note:
+  =h @credit_debit_note.note
+%p
+  %strong Credit:
+  =h @credit_debit_note.credit
+
+%p
+  = link_to "Edit", edit_credit_debit_note_path(@credit_debit_note)
+  |
+  = link_to "Destroy", @credit_debit_note, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", credit_debit_notes_path
