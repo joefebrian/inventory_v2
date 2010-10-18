@@ -17,6 +17,7 @@
   %thead
     %tr
       %th Number
+      %th Date
       %th Number Trans Assembling
       %th Warehouse
       %th Quantity
@@ -27,6 +28,7 @@
     %tbody  
     %tr
       %td= link_to h(trans_diassembly.number), [trans_diassembly]
+      %td= h trans_diassembly.tanggal
       %td= h trans_diassembly.trans_assembly.number
       %td= h trans_diassembly.warehouse.name
       %td= h trans_diassembly.quantity
