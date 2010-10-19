@@ -492,3 +492,43 @@ function run_multiselect() {
   $('.multiselect, .filter').multiselect({show: 'blind', hide: 'blind'}).multiselectfilter();
 }
 
+//customer auto_complete for sales return
+$('#sales_return_customer_name').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/customers/search.js',
+    focus: function(event, ui) {$(this).val(ui.item.fullname); return false;},
+    select: function(event, ui) {
+      $(this).parents('form').find('#sales_return_customer_id').val(ui.item.id);
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, customers) {
+    //console.log(customer);
+    return $("<li></li>")
+    .data("item.autocomplete", customers)
+    .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+
+//customer auto_complete for customer DP
+$('#customer_down_payment_customer_name').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/customers/search.js',
+    focus: function(event, ui) {$(this).val(ui.item.fullname); return false;},
+    select: function(event, ui) {
+      $(this).parents('form').find('#customer_down_payment_customer_id').val(ui.item.id);
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, customers) {
+    //console.log(customer);
+    return $("<li></li>")
+    .data("item.autocomplete", customers)
+    .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+

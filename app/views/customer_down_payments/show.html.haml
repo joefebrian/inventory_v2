@@ -1,0 +1,34 @@
+- title "Customer Down Payment"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Customer Down Payment', customer_down_payments_path), |
+    "Customer Down Payment # #{@customer_down_payment.number}" ] |
+
+  = sidemenu @tab
+
+= hint "Click 'edit' to edit"
+
+#subheader
+  %h3= "Customer Down Payment # #{@customer_down_payment.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_customer_down_payment_path(@customer_down_payment)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", customer_down_payment_path(@customer_down_payment), :method => :delete, :confirm => "Are you sure"
+
+.two_columns
+  %p
+    %span.light CDP Number:
+    =h @customer_down_payment.number
+  %p
+    %span.light Customer Name:
+    =h @customer_down_payment.customer_id
+  %p
+    %span.light Value:
+    =h @customer_down_payment.value
+  %p
+    %span.light Date:
+    =h @customer_down_payment.tanggal
+  %p
+    %span.light Description:
+    =h @customer_down_payment.description

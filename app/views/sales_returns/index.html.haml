@@ -1,8 +1,8 @@
-- title "Sales Returns"
+- title "Sales Return"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Sales', 'Sales Returns ] |
+    'Sales', 'Sales Return' ] |
   #top_right_link
     - form_for @search do |f|
       = f.text_field :number_like
@@ -13,7 +13,7 @@
 = hint 'Click "Create Sales Return" button to add new Sales Return'
 
 #subheader
-  %h3 Sales Returns
+  %h3 Sales Return
   #subheader-menu
     = link_to "#{image_tag('icons/silk/add.png')} Create Delivery Order", new_sales_return_path, :class => 'main_link'
 
@@ -22,15 +22,15 @@
   %thead
     %tr
       %th Number
-      %th Date
       %th Customer
+      %th Date
       %th.action Action
   %tbody
     - for sales_return in @sales_returns
       %tr
         %td= link_to h(sales_return.number), [sales_return]
+        %td= h sales_return.customer
         %td= h sales_return.tanggal
-        %td= h sales_return.customers
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_return_path(sales_return)
           = link_to image_tag('icons/silk/delete.png'), sales_return_path(sales_return), :confirm => 'Are you sure?', :method => :delete

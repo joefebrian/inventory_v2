@@ -7,7 +7,7 @@ class Company < ActiveRecord::Base
   validates_format_of :subdomain, :with => /^[a-zA-Z0-9\-]*?$/, :message => 'only accepts letters, numbers, and hypens'
 
   has_many :sales_returns, :dependent => :destroy
-  has_many :down_payment_cusotmers, :dependent => :destroy
+  has_many :customer_down_payments, :dependent => :destroy
   has_many :delivery_orders, :dependent => :destroy
   has_many :sales_invoices, :dependent => :destroy
   has_many :users, :dependent => :destroy

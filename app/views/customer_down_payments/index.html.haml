@@ -1,0 +1,38 @@
+- title "Customer Down Payments"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', 'Customer Down Payment' ] |
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :number_like
+      = f.submit 'search'
+
+  = sidemenu @tab
+
+= hint 'Click "Create Customer Down Payment" button to add new Customer Down Payment'
+
+#subheader
+  %h3 Customer Down Payment
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Customer Down Payment", new_customer_down_payment_path, :class => 'main_link'
+
+
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Customer
+      %th Value
+      %th Date
+      %th.action Action
+  %tbody
+    - for customer_down_payment in @customer_down_payments
+      %tr
+        %td= link_to h(customer_down_payment.number), [customer_down_payment]
+        %td= h customer_down_payment.customer
+        %td= h customer_down_payment.value
+        %td= h customer_down_payment.tanggal
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_customer_down_payment_path(customer_down_payment)
+          = link_to image_tag('icons/silk/delete.png'), customer_down_payment_path(customer_down_payment), :confirm => 'Are you sure?', :method => :delete

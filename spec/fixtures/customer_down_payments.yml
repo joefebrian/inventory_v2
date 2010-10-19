@@ -1,0 +1,13 @@
+one:
+  company_id: 1
+  customer_id: 1
+  number: MyString
+  value: MyString
+  tanggal: 2010-10-19
+
+two:
+  company_id: 1
+  customer_id: 1
+  number: MyString
+  value: MyString
+  tanggal: 2010-10-19

@@ -1,24 +1,44 @@
 - title "Sales Return"
 
-%p
-  %strong Company:
-  =h @sales_return.company_id
-%p
-  %strong Number:
-  =h @sales_return.number
-%p
-  %strong Tanggal:
-  =h @sales_return.tanggal
-%p
-  %strong Customer:
-  =h @sales_return.customer_id
-%p
-  %strong Description:
-  =h @sales_return.description
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Sales Return', sales_returns_path), |
+    "Sales Return # #{@sales_return.number}" ] |
 
-%p
-  = link_to "Edit", edit_sales_return_path(@sales_return)
-  |
-  = link_to "Destroy", @sales_return, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", sales_returns_path
+  = sidemenu @tab
+
+= hint "Click 'edit' to edit"
+
+#subheader
+  %h3= "Sales Return # #{@sales_return.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_sales_return_path(@sales_return)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", sales_return_path(@sales_return), :method => :delete, :confirm => "Are you sure"
+
+.two_columns
+  %p
+    %span.light SR Number:
+    =h @sales_return.number
+  %p
+    %span.light Customer Name:
+    =h @sales_return.customer_id
+  %p
+    %span.light Date:
+    =h @sales_return.tanggal
+  %p
+    %span.light Description:
+    =h @sales_return.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @sales_return.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity

@@ -1,0 +1,15 @@
+- title "Edit Customer Down Payment"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', |
+    link_to('Customer Down Payment', customer_down_payment_path), |
+    link_to(@customer_down_payment.number, customer_down_payment_path(@customer_down_payment)), |
+    'Edit Customer Down Payment' ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/page_white_text.png')} Sales Return Detail", customer_down_payment_path(@delivery_order), :class => 'main_link'
+
+= render :partial => 'form'

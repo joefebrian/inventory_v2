@@ -9,13 +9,13 @@ class SalesReturnsController < ApplicationController
   end
   
   def show
-    @sales_returns = current_company.sales_returns.find(params[:id])
+    @sales_return = current_company.sales_returns.find(params[:id])
   end
 
   def new
-    @sales_returns = current_company.sales_returns.new
-    @sales_returns.entries.build
-    @sales_returns.number = SalesReturn.suggested_number(current_company)
+    @sales_return = current_company.sales_returns.new
+    @sales_return.entries.build
+    @customer = current_company.customers
   end  
   
   def create
@@ -48,41 +48,9 @@ class SalesReturnsController < ApplicationController
     @sales_return = current_company.sales_returns.find(params[:id])
     @sales_return.destroy
     flash[:notice] = "Successfully destroyed Sales Return."
-    redirect_to assembly_url
+    redirect_to sales_return_url
   end 
- 
-=begin 
-  def create
-    @sales_return = SalesReturn.new(params[:sales_return])
-    if @sales_return.save
-      flash[:notice] = "Successfully created sales return."
-      redirect_to @sales_return
-    else
-      render :action => 'new'
-    end
-  end
- 
-  def edit
-    @sales_return = SalesReturn.find(params[:id])
-  end
-  
-  def update
-    @sales_return = SalesReturn.find(params[:id])
-    if @sales_return.update_attributes(params[:sales_return])
-      flash[:notice] = "Successfully updated sales return."
-      redirect_to @sales_return
-    else
-      render :action => 'edit'
-    end
-  end
-  
-  def destroy
-    @sales_return = SalesReturn.find(params[:id])
-    @sales_return.destroy
-    flash[:notice] = "Successfully destroyed sales return."
-    redirect_to sales_returns_url
-  end  
-=end  
+
   private
   def assign_tab
     @tab = 'transactions'
