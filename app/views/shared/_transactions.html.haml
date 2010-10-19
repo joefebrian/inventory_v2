@@ -1,5 +1,5 @@
 - current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil,
-  'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil}
+  'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'dp' => nil}
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -59,14 +59,15 @@
           =link_to "Sales Invoices", sales_invoices_path, :class => current['invoices']
           %div
         %li
-          =link_to "Sales Returns", '#'
+          =link_to "Sales Returns", sales_returns_path, :class => current['sr']
+          %div
+        %li
+          =link_to  "Customer Down Payments", down_payment_customers_path, :class => current['dp']
           %div
         %li
           =link_to "Close SO", '#'
           %div
-        %li
-          =link_to  "Customer Down Payments", '#'
-          %div
+
     %li
       =link_to "Transaction Assembling", trans_assemblies_path, :class => current['trass'] 
     %li

@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  sales_return_id: 1
+  item_id: 1
+  quantity: 1
+  price: 1
+  total_price: 1
+  description: MyText
+
+two:
+  sales_return_id: 1
+  item_id: 1
+  quantity: 1
+  price: 1
+  total_price: 1
+  description: MyText

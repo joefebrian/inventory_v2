@@ -1,0 +1,25 @@
+<% title "Down Payment Customers" %>
+
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Number</th>
+    <th>Customer</th>
+    <th>Value</th>
+    <th>Description</th>
+  </tr>
+  <% for down_payment_customer in @down_payment_customers %>
+    <tr>
+      <td><%=h down_payment_customer.company_id %></td>
+      <td><%=h down_payment_customer.number %></td>
+      <td><%=h down_payment_customer.customer_id %></td>
+      <td><%=h down_payment_customer.value %></td>
+      <td><%=h down_payment_customer.description %></td>
+      <td><%= link_to "Show", down_payment_customer %></td>
+      <td><%= link_to "Edit", edit_down_payment_customer_path(down_payment_customer) %></td>
+      <td><%= link_to "Destroy", down_payment_customer, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Down Payment Customer", new_down_payment_customer_path %></p>
