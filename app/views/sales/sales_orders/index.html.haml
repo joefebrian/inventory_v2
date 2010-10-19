@@ -27,7 +27,7 @@
   - for sales_order in @sales_orders
     %tr
       %td= link_to h(sales_order.number), [:sales, sales_order]
-      %td= h sales_order.quotation.number
+      %td= h sales_order.quotation.nil? ? 'Without Quotation' : sales_order.quotation.number
       %td= h sales_order.tanggal
       %td= h sales_order.status
       %td.actions
