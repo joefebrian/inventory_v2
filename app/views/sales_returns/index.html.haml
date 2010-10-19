@@ -1,0 +1,21 @@
+- title "Sales Returns"
+
+%table
+  %tr
+    %th Company
+    %th Number
+    %th Tanggal
+    %th Customer
+    %th Description
+  - for sales_return in @sales_returns
+    %tr
+      %td= h sales_return.company_id
+      %td= h sales_return.number
+      %td= h sales_return.tanggal
+      %td= h sales_return.customer_id
+      %td= h sales_return.description
+      %td= link_to 'Show', sales_return
+      %td= link_to 'Edit', edit_sales_return_path(sales_return)
+      %td= link_to 'Destroy', sales_return, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Sales Return", new_sales_return_path

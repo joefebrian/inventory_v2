@@ -1,0 +1,24 @@
+- form_for @sales_return do |f|
+  = f.error_messages
+  %p
+    = f.label :company_id
+    %br
+    = f.text_field :company_id
+  %p
+    = f.label :number
+    %br
+    = f.text_field :number
+  %p
+    = f.label :tanggal
+    %br
+    = f.date_select :tanggal
+  %p
+    = f.label :customer_id
+    %br
+    = f.text_field :customer_id
+  %p
+    = f.label :description
+    %br
+    = f.text_area :description
+  %p
+    = f.submit

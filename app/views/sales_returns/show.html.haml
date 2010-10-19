@@ -1,0 +1,24 @@
+- title "Sales Return"
+
+%p
+  %strong Company:
+  =h @sales_return.company_id
+%p
+  %strong Number:
+  =h @sales_return.number
+%p
+  %strong Tanggal:
+  =h @sales_return.tanggal
+%p
+  %strong Customer:
+  =h @sales_return.customer_id
+%p
+  %strong Description:
+  =h @sales_return.description
+
+%p
+  = link_to "Edit", edit_sales_return_path(@sales_return)
+  |
+  = link_to "Destroy", @sales_return, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", sales_returns_path
