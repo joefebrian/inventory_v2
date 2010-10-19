@@ -9,7 +9,7 @@ class AssembliesController < ApplicationController
     @assemblies = @search.paginate(:page => params[:page])
   end
 
-   def show
+  def show
     @assembly = Assembly.find(params[:id])
   end 
 
@@ -32,7 +32,7 @@ class AssembliesController < ApplicationController
     end
   end
 
- def edit
+  def edit
     @assembly = current_company.assemblies.find(params[:id])
     @assembly.entries.build
     @category = current_company.categories.collect {|category| [category.name,category.id] if category.leaf?}.compact

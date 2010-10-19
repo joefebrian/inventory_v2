@@ -13,7 +13,7 @@ class Assembly < ActiveRecord::Base
     :allow_destroy => true, 
     :reject_if => lambda {|a| a['quantity'].blank? }
 
- def self.suggested_number(company)
+  def self.suggested_number(company)
     last_number = Assembly.last.try(:number)
     next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
     time = Time.now

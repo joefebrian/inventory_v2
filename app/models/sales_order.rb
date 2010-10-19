@@ -8,7 +8,7 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :quotation
   belongs_to :salesman
   validates_presence_of :number, :currency_id, :currency_rate
-  validates_presence_of :number, :kurs_id
+  validates_presence_of :number
   validates_uniqueness_of :number, :scope => :company_id
 
   accepts_nested_attributes_for :entries,
