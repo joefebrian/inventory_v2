@@ -1,0 +1,17 @@
+one:
+  company_id: 1
+  number: MyString
+  customer_id: 1
+  supplier_id: 1
+  user_date: 2010-10-18
+  note: MyText
+  credit: false
+
+two:
+  company_id: 1
+  number: MyString
+  customer_id: 1
+  supplier_id: 1
+  user_date: 2010-10-18
+  note: MyText
+  credit: false

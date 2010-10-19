@@ -23,6 +23,9 @@ group :development do
   # gem "rails-footnotes"
   gem "bullet"
   gem "mongrel"
+  gem 'hirb'
+  gem 'wirble'
+  gem 'nifty-generators'
 end
 
 group :test do

@@ -13,7 +13,7 @@
 #subheader
   %h3= "Item Receipt # #{@item_receive.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_item_receives_path
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_item_receives_path
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_item_receife_path(@item_receive)
     &bull;
@@ -22,20 +22,18 @@
 %fieldset.form_section
   %legend Material Request
   .two_columns
-    %div
-      %p
-        %span.light Number
-        %strong= @item_receive.number
-      %p
-        %span.light Purchase Order
-        %strong= link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
-    %div
-      %p
-        %span.light Date
-        %strong= @item_receive.user_date.to_s(:long)
-  %p.single-column
-    %span.light Remark
-    %strong= @item_receive.remark
+    %p
+      %span.light Number
+      %strong= @item_receive.number
+    %p
+      %span.light Date
+      %strong= @item_receive.user_date.to_s(:long)
+    %p
+      %span.light Purchase Order
+      %strong= link_to @item_receive.purchase_order.number, [:purchasing, @item_receive.purchase_order]
+    %p
+      %span.light Remark
+      %strong= @item_receive.remark
 
 %fieldset.form_section
   %legend Items
