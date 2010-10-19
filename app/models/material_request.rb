@@ -11,10 +11,12 @@ class MaterialRequest < ActiveRecord::Base
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
 
+  #before_save :parse_userdate
+
   def after_initialize
     if new_record?
       self.number = suggested_number
-      self.userdate = Time.now.strftime("%d/%m/%Y")
+      self.userdate = Time.now.strftime("%m/%d/%Y") if userdate.blank?
       self.closed = false
     end
   end
@@ -46,6 +48,10 @@ class MaterialRequest < ActiveRecord::Base
       self.closed = true
       save
     end
+  end
+
+  def parse_userdate
+    self.userdate = Chronic.parse(userdate)
   end
 
 end

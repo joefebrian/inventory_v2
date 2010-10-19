@@ -15,12 +15,12 @@
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_sales_sales_order_path(@sales_order)
     &bull;
-    = link_to "#{image_tag('icons/silk/delete.png')} delete", purchasing_material_request_path(@sales_order), :method => :delete, :confirm => "Are you sure"
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", sales_sales_order_path(@sales_order), :method => :delete, :confirm => "Are you sure"
 
 .two_columns
   %p
     %span.light Quotation Number:
-    =h @sales_order.quotation.number
+    =h @sales_order.quotation.try(:number)
   %p
     %span.light Number:
     =h @sales_order.number
