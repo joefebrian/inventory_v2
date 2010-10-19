@@ -20,7 +20,7 @@
 .two_columns
   %p
     %span.light Quotation Number:
-    =h @sales_order.quotation.try(:number)
+    =h @sales_order.quotation.nil? ? 'Without Quotation' : @sales_order.quotation.number
   %p
     %span.light Number:
     =h @sales_order.number
