@@ -1,9 +1,13 @@
 class PagesController < ApplicationController
-  before_filter :authenticate
+  before_filter :authenticate, :except => [:index]
   def index
-    @tab = 'dashboard'
-    @unconfirmed_item_receives = current_company.item_receives.unconfirmed
-    @open_purchase_orders = current_company.purchase_orders.all_open
+    if current_user
+      @tab = 'dashboard'
+      @unconfirmed_item_receives = current_company.item_receives.unconfirmed
+      @open_purchase_orders = current_company.purchase_orders.all_open
+    else
+      redirect_to signin_path
+    end
   end
 
   def show

@@ -1,7 +1,7 @@
 class CustomersController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:search, :search2, :picker, :price, :prices]
 
   def index
     @search = current_company.customers.search(params[:search])

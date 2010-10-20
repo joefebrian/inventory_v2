@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
   before_filter :categories_list
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:search, :lookup, :picker]
 
   def index
     @search = current_company.items.search(params[:search])

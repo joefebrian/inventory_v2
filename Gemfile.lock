@@ -14,7 +14,7 @@ GEM
     authlogic (2.1.6)
       activesupport
     bullet (1.7.6)
-    cancan (1.1.1)
+    cancan (1.4.0)
     cgi_multipart_eof_fix (2.5.0)
     chronic (0.2.3)
       hoe (>= 1.2.1)
@@ -74,7 +74,7 @@ PLATFORMS
 DEPENDENCIES
   authlogic
   bullet
-  cancan (~> 1.1.1)
+  cancan (~> 1.4.0)
   chronic
   formtastic
   haml (~> 3.0.13)

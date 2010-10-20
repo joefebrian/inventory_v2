@@ -2,7 +2,7 @@ source :gemcutter
 gem "rails", "~> 2.3.10"
 gem "mysql"
 gem "prawn"
-gem "cancan", "~> 1.1.1"
+gem "cancan", "~> 1.4.0"
 gem "chronic"
 gem "slim_scrooge"
 gem "spreadsheet"
