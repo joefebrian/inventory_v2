@@ -485,14 +485,14 @@ tr.total td { border-top:solid 1px #666; }
 }
 .two_columns p {
   position:relative;
-  /*margin-left:160px;*/
+  padding-left:160px;
   margin-bottom:10px;
   line-height:1.2em;
 }
 .two_columns p span {
   /*position:absolute;*/
   display:inline-block;
-  /*left:-160px;*/
+  margin-left:-160px;
   width:160px;
 }
 tr.special td { background:#EFE259 !important; }

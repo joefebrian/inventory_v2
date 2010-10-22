@@ -1,30 +1,40 @@
 - title "Credit Debit Note"
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transacions', transactions_path), |
+    link_to('Credit Debit Note', credit_debit_notes_path), |
+    @credit_debit_note.number ] |
 
-%p
-  %strong Company:
-  =h @credit_debit_note.company_id
-%p
-  %strong Number:
-  =h @credit_debit_note.number
-%p
-  %strong Customer:
-  =h @credit_debit_note.customer_id
-%p
-  %strong Supplier:
-  =h @credit_debit_note.supplier_id
-%p
-  %strong User Date:
-  =h @credit_debit_note.user_date
-%p
-  %strong Note:
-  =h @credit_debit_note.note
-%p
-  %strong Credit:
-  =h @credit_debit_note.credit
+#subheader
+  %h3= "#{@credit_debit_note.credit? ? 'Credit' : 'Debit' } note # #{@credit_debit_note.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", credit_debit_notes_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/user_edit.png')} edit", edit_credit_debit_note_path(@credit_debit_note)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", @credit_debit_note, :method => :delete, :prompt => "Are you sure?"
 
-%p
-  = link_to "Edit", edit_credit_debit_note_path(@credit_debit_note)
-  |
-  = link_to "Destroy", @credit_debit_note, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", credit_debit_notes_path
+= hint ""
+
+%fieldset.form_section
+  %legend= "#{@credit_debit_note.credit? ? 'Credit' : 'Debit'} note"
+  .two_columns
+    %p
+      %span.light Number
+      %strong= @credit_debit_note.number
+    %p
+      %span.light Date
+      %strong= @credit_debit_note.user_date
+    - if @credit_debit_note.credit?
+      %p
+        %span.light Supplier
+        %strong= link_to @credit_debit_note.supplier.name, @credit_debit_note.supplier
+    - else
+      %p
+        %span.light Customer
+        %strong= link_to @credit_debit_note.customer.profile.fullname, @credit_debit_note.customer
+    %p
+      %span.light Note
+      %strong= @credit_debit_note.note
+    %p
+      %span.light Value
+      %strong= number_to_currency(@credit_debit_note.value, :unit => '', :precision => 2, :delimiter => '.', :separator => ',')

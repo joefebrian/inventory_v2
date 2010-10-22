@@ -1,5 +1,5 @@
 - current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil,
-  'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil}
+  'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil}
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -33,15 +33,6 @@
         %li
           = link_to "Purchase Retur", purchasing_purchase_returns_path, :class => current['ptr']
           %div
-        %li
-          = link_to "Purchase Without Goods", '#'
-          %div
-        -#%li
-          -#= link_to "Tanda Terima Faktur", '#'
-          -#%div
-        -#%li
-          -#= link_to "refilling", '#'
-          -#%div
     %li.submenu_handler
       =link_to "Sales", '#', :class => current['sal']
       %div
@@ -69,9 +60,14 @@
           %div
 
     %li
+      =link_to "Credit / Debit Note", credit_debit_notes_path, :class => current['cndn'] 
+      %div
+    %li
       =link_to "Transaction Assembling", trans_assemblies_path, :class => current['trass'] 
+      %div
     %li
       =link_to "Transaction Diassembling", trans_diassemblies_path, :class => current['tradis']  
+      %div
     %li.submenu_handler
       =link_to "Production", '#', :class => current['prod']
       %div

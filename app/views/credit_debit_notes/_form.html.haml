@@ -1,32 +1,33 @@
-- form_for @credit_debit_note do |f|
+- semantic_form_for @credit_debit_note do |f|
   = f.error_messages
-  %p
-    = f.label :company_id
-    %br
-    = f.text_field :company_id
-  %p
-    = f.label :number
-    %br
-    = f.text_field :number
-  %p
-    = f.label :customer_id
-    %br
-    = f.text_field :customer_id
-  %p
-    = f.label :supplier_id
-    %br
-    = f.text_field :supplier_id
-  %p
-    = f.label :user_date
-    %br
-    = f.date_select :user_date
-  %p
-    = f.label :note
-    %br
-    = f.text_area :note
-  %p
-    = f.label :credit
-    %br
-    = f.check_box :credit
-  %p
-    = f.submit
+  - f.inputs "Credit / Debit Note", :class => 'form_section' do
+    = f.input :credit, :as => :radio, :collection => [["Credit Note", true], ["Debit Note", false]], :label => "Type", :required => true
+    = f.input :number
+    = f.input :customer, :collection => current_company.customers, :input_html => { :class => "select filter" }, :required => true
+    = f.input :supplier, :collection => current_company.suppliers, :input_html => { :class => "select filter" }, :required => true
+    = f.input :user_date, :as => :string, :input_html => { :class => "datepicker" }
+    = f.input :note, :input_html => { :rows => 2 }
+    = f.input :value, :input_html => { :class => 'number' }
+  %fieldset.buttons
+    %button#primary-button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Credit / Debit Note
+
+- content_for :javascripts do
+  - javascript_tag do
+    :plain
+      $(function() {
+        show_or_hide_supplier_and_customer_input();
+        $('#credit_debit_note_credit_true, #credit_debit_note_credit_false').live('click', function() {
+          show_or_hide_supplier_and_customer_input();
+        });
+      });
+      function show_or_hide_supplier_and_customer_input() {
+        if($('#credit_debit_note_credit_true').attr('checked') == true) {
+          $('#credit_debit_note_customer_input').hide();
+          $('#credit_debit_note_supplier_input').show();
+        } else {
+          $('#credit_debit_note_supplier_input').hide();
+          $('#credit_debit_note_customer_input').show();
+        }
+      }

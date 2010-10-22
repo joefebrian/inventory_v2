@@ -1,20 +1,25 @@
 class CreditDebitNotesController < ApplicationController
+  before_filter :authenticate
+  before_filter :assign_tab
+  
   def index
-    @credit_debit_notes = CreditDebitNote.all
+    @search = current_company.credit_debit_notes.search(params[:search])
+    @credit_debit_notes = @search.paginate(:page => params[:page])
   end
   
   def show
-    @credit_debit_note = CreditDebitNote.find(params[:id])
+    @credit_debit_note = current_company.credit_debit_notes.find(params[:id])
   end
   
   def new
-    @credit_debit_note = CreditDebitNote.new
+    @credit_debit_note = current_company.credit_debit_notes.new
+    @credit_debit_note.credit = true
   end
   
   def create
-    @credit_debit_note = CreditDebitNote.new(params[:credit_debit_note])
+    @credit_debit_note = current_company.credit_debit_notes.new(params[:credit_debit_note])
     if @credit_debit_note.save
-      flash[:notice] = "Successfully created credit debit note."
+      flash[:notice] = "Successfully created #{@credit_debit_note.credit? ? 'credit' : 'debit' } note."
       redirect_to @credit_debit_note
     else
       render :action => 'new'
@@ -22,13 +27,13 @@ class CreditDebitNotesController < ApplicationController
   end
   
   def edit
-    @credit_debit_note = CreditDebitNote.find(params[:id])
+    @credit_debit_note = current_company.credit_debit_notes.find(params[:id])
   end
   
   def update
-    @credit_debit_note = CreditDebitNote.find(params[:id])
+    @credit_debit_note = current_company.credit_debit_notes.find(params[:id])
     if @credit_debit_note.update_attributes(params[:credit_debit_note])
-      flash[:notice] = "Successfully updated credit debit note."
+      flash[:notice] = "Successfully updated #{@credit_debit_note.credit? ? 'credit' : 'debit'} note."
       redirect_to @credit_debit_note
     else
       render :action => 'edit'
@@ -36,9 +41,15 @@ class CreditDebitNotesController < ApplicationController
   end
   
   def destroy
-    @credit_debit_note = CreditDebitNote.find(params[:id])
+    @credit_debit_note = current_company.credit_debit_notes.find(params[:id])
     @credit_debit_note.destroy
     flash[:notice] = "Successfully destroyed credit debit note."
     redirect_to credit_debit_notes_url
+  end
+
+  private
+  def assign_tab
+    @tab = 'transactions'
+    @current = 'cndn'
   end
 end
