@@ -1,0 +1,54 @@
+- title "Direct Sale"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to('Direct Sale', direct_sales_path), |
+    "Direct Sale # #{@direct_sale.number}" ] |
+
+  = sidemenu @tab
+
+= hint "Click 'edit' to edit"
+
+#subheader
+  %h3= "Direct Sale # #{@direct_sale.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_direct_sale_path(@direct_sale)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", direct_sale_path(@direct_sale), :method => :delete, :confirm => "Are you sure"
+
+.two_columns
+  %p
+    %span.light SR Number:
+    =h @direct_sale.number
+  %p
+    %span.light Customer Name:
+    =h @direct_sale.customer
+  %p
+    %span.light Date:
+    =h @direct_sale.tanggal
+  %p
+    %span.light Salesman:
+    =h @direct_sale.salesman
+  %p
+    %span.light Currency:
+    =h @direct_sale.currency
+  %p
+    %span.light Rate:
+    =h @direct_sale.currency_rate
+ 
+  %p
+    %span.light Description:
+    =h @direct_sale.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @direct_sale.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdr= entry.quantity

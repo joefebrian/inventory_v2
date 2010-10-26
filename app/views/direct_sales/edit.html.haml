@@ -1,0 +1,15 @@
+- title "Edit Direct Sale"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', |
+    link_to('Direct Sale', direct_sale_path), |
+    link_to(@direct_sale.number, direct_sale_path(@direct_sale)), |
+    'Edit Direct Sale' ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/page_white_text.png')} Direct Sale Detail", direct_sale_path(@sales_order), :class => 'main_link'
+
+= render :partial => 'form'

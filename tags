@@ -1,4 +1,4 @@
-1288001693
+1288082935
 Ability	/home/ones006/ROR/inventory_first/inventory_v2/app/models/ability.rb	class Ability
 AddClosedToMaterialRequests	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100820030606_add_closed_to_material_requests.rb	class AddClosedToMaterialRequests 
 AddClosedToPurchaseOrders	/home/ones006/ROR/inventory_first/inventory_v2/db/migrate/20100902084223_add_closed_to_purchase_orders.rb	class AddClosedToPurchaseOrders 

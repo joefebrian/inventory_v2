@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  direct_sale_id: 1
+  item_id: 1
+  quantity: 1
+  price: 1
+  diskon: 1
+  total_price: 1
+  description: MyText
+
+two:
+  direct_sale_id: 1
+  item_id: 1
+  quantity: 1
+  price: 1
+  diskon: 1
+  total_price: 1
+  description: MyText

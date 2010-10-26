@@ -1,0 +1,36 @@
+- title "Direct Sales"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', 'Direct Sale' ] |
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :number_like
+      = f.submit 'search'
+
+  = sidemenu @tab
+
+= hint 'Click "Create Direct Sale" button to add new Direct Sale'
+
+#subheader
+  %h3 Direct Sale
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Direct Sale", new_direct_sale_path, :class => 'main_link'
+
+
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Customer
+      %th Date
+      %th.action Action
+  %tbody
+    - for direct_sale in @direct_sales
+      %tr
+        %td= link_to h(direct_sale.number), [direct_sale]
+        %td= h direct_sale.customer
+        %td= h direct_sale.tanggal
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_direct_sale_path(direct_sale)
+          = link_to image_tag('icons/silk/delete.png'), direct_sale_path(direct_sale), :confirm => 'Are you sure?', :method => :delete

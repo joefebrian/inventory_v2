@@ -1,0 +1,21 @@
+one:
+  company_id: 1
+  number: MyString
+  tanggal: 2010-10-25
+  customer_id: 1
+  salesman_id: 1
+  currency_id: 1
+  currency_rate: 1
+  top: 1
+  description: MyText
+
+two:
+  company_id: 1
+  number: MyString
+  tanggal: 2010-10-25
+  customer_id: 1
+  salesman_id: 1
+  currency_id: 1
+  currency_rate: 1
+  top: 1
+  description: MyText
