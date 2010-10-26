@@ -22,7 +22,7 @@ class Purchasing::ItemReceivesController < ApplicationController
     @item_receive.confirmed = false
     @purchase_orders = current_company.purchase_orders
     @warehouses = current_company.warehouses
-    if params[:get_pos] && params[:get_pos] == '1'
+    if params[:get_po] && params[:get_po].to_i > 0
       if @item_receive.check_plu
         @item_receive.build_entries_from_po
         render('new', :layout => false) and return

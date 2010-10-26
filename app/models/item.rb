@@ -136,4 +136,8 @@ class Item < ActiveRecord::Base
   def plu_for(supplier)
     plus.all(:conditions => { :Item_id => id, :supplier_id => supplier })
   end
+
+  def has_plu?
+    plus.present?
+  end
 end

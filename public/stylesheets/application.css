@@ -768,6 +768,8 @@ a.main_link:active, #subheader #subheader-menu a.main_link:active {
   border-top:solid 1px #ff6f6f;
   border-left:solid 1px #ff6f6f;
   padding:1px 2px 0 2px;
+  color:#fff;
+  font-weight:normal;
 }
 .ui-corner-all { border-radius:0; -moz-border-radius:0; -webkit-border-radius:0; }
 .dijitValidationIconText, .dijitValidationIcon { display:none; }
