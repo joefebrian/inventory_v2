@@ -15,6 +15,7 @@ TRANS_PREFIX = { :item_transfer => 'TRF',
                  :trans_diassemblies => 'TRAN-DISS',
                  :trans_assemblies => 'TRAN-ASSY',
                  :sales_returns => 'SR',
+                 :direct_sales => 'DS',
                  :cndn => 'CNDN',
                  :customer_down_payments => 'CDP' }
 COMPANY_MODE = { :inventory => false, :ca => false, :foobar => true, :rai => true }
