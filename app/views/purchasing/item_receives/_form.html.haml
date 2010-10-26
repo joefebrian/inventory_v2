@@ -87,8 +87,10 @@
           if(typeof(pos[ui.value]) != 'undefined') {
             $('#supplier_info').html("Supplier: " + pos[ui.value].supplier.name_and_address);
           }
+        });
+        $('#item_receive_purchase_order_id').bind('multiselectclose', function(event, ui) {
           var form = $(this).parents('form');
-          form.append('<input type="hidden" name="get_pos" value="1"/>');
+          form.append('<input type="hidden" name="get_po" value="1"/>');
           $.ajax({
             url: form[0].action,
             type: 'post',
@@ -96,9 +98,8 @@
             success: function(response, status) {
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
-              $('input[name=get_pos]').remove();
+              $('input[name=get_po]').remove();
             }
           });
-          $(this).multiselect('close');
         });
       });
