@@ -7,7 +7,7 @@
 
 <% unless @unconfirmed_item_receives.blank? %>
   <h3 id="">Unconfirmed Item Receive</h3>
-  <ol>
+  <ol class="dashboard">
     <% for record in @unconfirmed_item_receives %>
       <li>
         <%= "#{link_to(record.number, purchasing_item_receife_path(record))} \"#{record.remark}\" totaling #{pluralize(record.entries.size, 'item')}" %>
@@ -15,11 +15,12 @@
       </li>
     <% end %>
   </ol>
+  <hr/>
 <% end %>
 
 <% unless @open_purchase_orders.blank? %>
   <h3 id="">Open Purchase Orders</h3>
-  <ol>
+  <ol class="dashboard">
     <% for record in @open_purchase_orders %>
       <li>
         <%= "#{link_to(record.number, purchasing_purchase_order_path(record))} \"#{truncate(record.notes)}\" totaling #{pluralize(record.entries.size, 'item')}," %>

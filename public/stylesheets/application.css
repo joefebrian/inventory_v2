@@ -800,3 +800,5 @@ form.formtastic div.flash_error ol {
 div.single-column div.group { padding-left:0; }
 ol, ul { list-style-position:inside; }
 ol { list-style-type:decimal; }
+ol.dashboard { margin-bottom:1em; }
+ol.dashboard + hr { margin-bottom:20px; }

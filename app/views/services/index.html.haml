@@ -29,7 +29,7 @@
   %tbody
   - for service in @services
     %tr
-      %td= link_to h(service.code), service
+      %td= link_to h(service.code), service_path(service)
       %td= h service.name
       %td= h service.description
       %td.actions

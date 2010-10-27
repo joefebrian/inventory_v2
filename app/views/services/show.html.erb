@@ -4,7 +4,8 @@
   <h3><%=h "#{@service.code} :: #{@service.name}" %></h3>
   <div id='subheader-menu'>
     <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", services_path %> &bull;
-    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_service_path(@service), :title => "Edit Service #{@service.code}" %>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_service_path(@service), :title => "Edit Service #{@service.code}" %> &bull;
+    <%= link_to "#{image_tag('icons/silk/delete.png')} delete", service_path(@service), :method => :delete, :confirm => "Are you sure?" %>
   </div>
 </div>
 
