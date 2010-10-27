@@ -5,7 +5,7 @@
     %h5 Sorry, but you have to at least have 1 warehouse to act as a default warehouse.
     %h6= link_to "Click to add default warehouse", new_warehouse_path(:default => true)
 - else
-  - semantic_form_for @beginning_balance, :url => beginning_balances_path do |f|
+  - semantic_form_for @beginning_balance do |f|
     %fieldset.form_section
       %legend Transaction data
       - f.inputs do
@@ -53,7 +53,6 @@
     :plain
       $(function() {
         $('#beginning_balance_category_ids').bind('multiselectclose', function(event, ui) {
-          var mrs = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
           form.append('<input type="hidden" name="get_mrs" value="1"/>');
           $.ajax({

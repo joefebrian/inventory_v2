@@ -211,7 +211,6 @@ $('.plu_input').live('click', function() {
 
 $("form#search").live('submit', function() {
   $(this).find('button[type=submit]').html('Searching...');
-  //.after("<span id='progress' style='font-style:italic;color:green;padding-left:5px;'>searching...</span>");
   $.ajax({ url: this.action,
     type: this.method,
     data: $(this).serialize(),
@@ -302,7 +301,6 @@ $('input.entries_quantity, input.entries_value').live('keypress', function(e) {
   if(e.keyCode == 13 && this.value != '') {
     $('#add_entries').click();
     $('#transaction_entries tbody tr:last td:first').children()[0].focus();
-    // set_autocomplete();
     return false;
   }
 });

@@ -21,7 +21,7 @@ class BeginningBalancesController < ApplicationController
     @beginning_balance.destination_warehouse = current_company.default_warehouse
     if params[:get_mrs] && params[:get_mrs].to_i == 1
       @categories = current_company.leaf_categories
-      @beginning_balance.build_entries_from_categories(params[:categories])
+      @beginning_balance.build_entries_from_categories
       @beginning_balance.entries.build
       render("new", :layout => false) and return
     end
@@ -48,6 +48,13 @@ class BeginningBalancesController < ApplicationController
       @categories = current_company.leaf_categories
       render :action => 'edit'
     end
+  end
+
+  def destroy
+    @beginning_balance = BeginningBalance.find(params[:id])
+    @beginning_balance.delete
+    flash[:notice] = "Beginning Balance deleted successfully"
+    redirect_to beginning_balances_url
   end
 
   private

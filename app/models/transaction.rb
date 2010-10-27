@@ -2,6 +2,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :company
   belongs_to :transaction_type
   has_many :entries
+  accepts_nested_attributes_for :entries, :allow_destroy => true, :reject_if => proc { |a| a['quantity'].blank? }
 
   default_scope :order => "created_at"
   named_scope :inward, :conditions => [ "origin_id IS NULL AND destination_id > ?", 0 ], :order => :created_at
@@ -44,7 +45,7 @@ class Transaction < ActiveRecord::Base
     { :conditions => [ "transactions.id NOT IN (?)", ids ] }
   }
 
-  after_save :run_trackers
+  #after_save :run_trackers
 
   def self.inward
     transaction_origin_id_null.transaction_destination_id_not_null

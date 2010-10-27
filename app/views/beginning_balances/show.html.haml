@@ -52,4 +52,5 @@
             %td.actions= entry.quantity
             %td.actions
               = number_to_currency(entry.total_value, :unit => '', :delimiter => '.', :separator => ',')
+              %br
               = "(@ #{number_to_currency(entry.value, :unit => '', :delimiter => '.', :separator => ',')})"

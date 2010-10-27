@@ -3,7 +3,6 @@ class BeginningBalance < Transaction
   belongs_to :destination_warehouse, :class_name => "Warehouse", :foreign_key => :destination_id
   has_many :entries, :foreign_key => :transaction_id, :dependent => :destroy
   has_and_belongs_to_many :categories
-  accepts_nested_attributes_for :entries, :allow_destroy => true, :reject_if => proc { |a| a['quantity'].blank? }
   validates_presence_of :number
   before_save :assign_alter_stock
 
@@ -11,7 +10,7 @@ class BeginningBalance < Transaction
     @category_name || entries.first.try(:item).try(:category).try(:name)
   end
 
-  def build_entries_from_categories(ids)
+  def build_entries_from_categories
     categories.each do |cat|
       cat.items.each do |item|
         self.entries.build(:item_id => item.id)

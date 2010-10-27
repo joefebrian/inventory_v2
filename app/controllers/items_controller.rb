@@ -121,7 +121,7 @@ class ItemsController < ApplicationController
 
   def search
     @keyword = params[:term]
-    @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).reject {|o| o.has_plu?}[0..10]
+    @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).reject {|o| !o.has_plu?}[0...10]
     respond_to do |format|
       format.html { render :layout => false }
       format.js { 
