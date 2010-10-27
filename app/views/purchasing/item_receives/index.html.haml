@@ -36,5 +36,7 @@
         %td= h item_receive.user_date
         %td= h item_receive.remark
         %td.actions
+          - unless item_receive.confirmed?
+            = link_to image_tag('icons/silk/bullet_tick.png'), confirmation_purchasing_item_receife_path(item_receive), :title => "Confirm this item receive"
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_item_receife_path(item_receive)
           = link_to image_tag('icons/silk/delete.png'), purchasing_item_receife_path(item_receive), :confirm => 'Are you sure?', :method => :delete
