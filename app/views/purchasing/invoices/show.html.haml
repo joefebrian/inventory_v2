@@ -1,0 +1,36 @@
+- title "Purchase Invoice"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', |
+    link_to('Purchase Invoice', purchasing_invoices_path), |
+    "#{@invoice.number}" ] |
+
+  = sidemenu @tab
+
+= hint 'Click "Edit" to edit purchase invoice'
+
+#subheader
+  %h3= "Purchase Invoice # #{@invoice.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_invoices_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_invoice_path(@invoice)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", purchasing_invoice_path(@invoice), :method => :delete, :confirm => "Are you sure"
+
+%fieldset.form_section
+  %legend Material Request
+  .two_columns
+    %p
+      %span.light Number
+      %strong= @invoice.number
+    %p
+      %span.light Date
+      %strong= @invoice.user_date.to_s(:long)
+    %p
+      %span.light Item Receives
+      %strong= @invoice.item_receives.collect { |i| link_to i.number, [:purchasing, i] }.join(', ')
+    %p
+      %span.light Remark
+      %strong= @invoice.remark

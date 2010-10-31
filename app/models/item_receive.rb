@@ -4,7 +4,8 @@ class ItemReceive < ActiveRecord::Base
   belongs_to :purchase_order
   belongs_to :warehouse
   has_many :entries, :class_name => "ItemReceiveEntry", :dependent => :destroy
-
+  has_and_belongs_to_many :invoices, :join_table => "invoices_item_receives"
+  
   validates_presence_of :number
   validates_presence_of :user_date
   validates_presence_of :purchase_order_id
@@ -74,5 +75,9 @@ class ItemReceive < ActiveRecord::Base
     if confirmed?
       alter_stock
     end
+  end
+
+  def to_s
+    number
   end
 end

@@ -1,5 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil,
-  'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil}
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil}
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -32,6 +31,9 @@
           %div
         %li
           = link_to "Purchase Retur", purchasing_purchase_returns_path, :class => current['ptr']
+          %div
+        %li
+          = link_to "Invoices", purchasing_invoices_path, :class => current['pinv']
           %div
     %li.submenu_handler
       =link_to "Sales", '#', :class => current['sal']
