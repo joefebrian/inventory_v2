@@ -8,4 +8,5 @@ class SalesOrderEntry < ActiveRecord::Base
   
   def item_name=(name)
   end
+
 end

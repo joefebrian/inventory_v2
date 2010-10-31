@@ -119,6 +119,16 @@ class Company < ActiveRecord::Base
                         :alter_date => false,
                         :alter_stock => true,
                         :editable => false).save(false)
+    #untuk kurangi stock berdasarkan item dari Delivery Order
+    TransactionType.new(:company_id => id,
+                        :code => "AUTO-DO",
+                        :name => "Auto-generated from Delivery Order",
+                        :direction => 0,
+                        :negate => false,
+                        :alter_date => false,
+                        :alter_stock => true,
+                        :editable => false).save(false)
+
   end
 
   def create_default_warehouse
