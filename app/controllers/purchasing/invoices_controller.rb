@@ -8,7 +8,7 @@ before_filter :assign_tab
   
   def new
     @invoice = current_company.invoices.new
-    @item_receives = current_company.item_receives.unconfirmed
+    @item_receives = current_company.item_receives.all_confirmed.reject { |ir| ir.invoices.present? }
   end
 
   def create
@@ -24,6 +24,20 @@ before_filter :assign_tab
 
   def show
     @invoice = current_company.invoices.find(params[:id])
+  end
+
+  def edit
+    @invoice = current_company.invoices.find(params[:id])
+  end
+
+  def update
+    @invoice = current_company.invoices.find(params[:id])
+    if @invoice.update_attributes(params[:invoice])
+      flash[:success] = "Purchase invoice # #{@invoice.number} updated"
+      redirect_to [:purchasing, @invoice]
+    else
+      render :action => 'edit'
+    end
   end
 
   def destroy

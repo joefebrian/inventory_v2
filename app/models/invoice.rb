@@ -23,4 +23,12 @@ class Invoice < ActiveRecord::Base
     prefix = "#{TRANS_PREFIX[:purchase_invoices]}.#{time.strftime('%Y%m')}"
     "#{prefix}.#{next_available}"
   end
+
+  def total_value
+    item_receives.collect { |ir| ir.total_po }.sum
+  end
+
+  def self.grand_total(company)
+    Company.find(company).invoices.collect { |inv| inv.total_value }.sum
+  end
 end

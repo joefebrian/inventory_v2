@@ -28,9 +28,16 @@
     %p
       %span.light Date
       %strong= @invoice.user_date.to_s(:long)
-    %p
+    %div
       %span.light Item Receives
-      %strong= @invoice.item_receives.collect { |i| link_to i.number, [:purchasing, i] }.join(', ')
+      %ol
+        - for rcv in @invoice.item_receives
+          %li
+            %strong= link_to rcv.number, [:purchasing, rcv]
+            = "(Total purchase order value: #{number_to_currency(rcv.total_po, :unit => '', :delimiter => '.', :separator => ',')})"
+    %p
+      %span.light Total Value
+      %strong= number_to_currency(@invoice.total_value, :unit => '', :delimiter => '.', :separator => ',')
     %p
       %span.light Remark
       %strong= @invoice.remark

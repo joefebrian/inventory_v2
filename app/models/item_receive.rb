@@ -23,6 +23,7 @@ class ItemReceive < ActiveRecord::Base
   end
 
   named_scope :unconfirmed, :conditions => { :confirmed => false }
+  named_scope :all_confirmed, :conditions => { :confirmed => true }
 
   def after_initialize
     if new_record?
@@ -77,7 +78,22 @@ class ItemReceive < ActiveRecord::Base
     end
   end
 
+  def create_invoice
+    invoice = company.invoices.new
+    invoice.item_receives << self
+    invoice.remark = "Auto-generated invoice"
+    while !invoice.save
+      invoice = company.invoices.new
+      invoice.item_receives << self
+      invoice.remark = "Auto-generated invoice"
+    end
+  end
+
   def to_s
     number
+  end
+
+  def total_po
+    purchase_order.total_value
   end
 end

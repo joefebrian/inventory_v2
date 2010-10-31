@@ -63,12 +63,14 @@ class Purchasing::ItemReceivesController < ApplicationController
 
   def confirmation
     @item_receive = current_company.item_receives.find(params[:id])
+    #@item_receive.auto_invoice = true
   end
 
   def confirm
     @item_receive = current_company.item_receives.find(params[:id])
     @item_receive.confirmed = true
     if @item_receive.update_attributes(params[:item_receive])
+      @item_receive.create_invoice if params[:auto_invoice]
       flash[:success] = 'Successfully confirmed Item Receipt'
       redirect_to purchasing_item_receives_url
     end

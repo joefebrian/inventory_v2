@@ -97,4 +97,8 @@ class PurchaseOrder < ActiveRecord::Base
     end
     true
   end
+
+  def total_value
+    entries.collect { |entry| entry.total }.sum
+  end
 end

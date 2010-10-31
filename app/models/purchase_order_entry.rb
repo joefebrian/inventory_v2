@@ -18,4 +18,10 @@ class PurchaseOrderEntry < ActiveRecord::Base
       self.discount = 0
     end
   end
+
+  def total
+    before_discount = (quantity * purchase_price)
+    discount_value = (before_discount * discount) / 100
+    before_discount - discount_value
+  end
 end
