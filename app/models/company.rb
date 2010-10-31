@@ -43,6 +43,7 @@ class Company < ActiveRecord::Base
   has_many :delivery_orders, :dependent => :destroy
   has_many :sales_invoices, :dependent => :destroy
   has_many :credit_debit_notes, :dependent => :destroy
+  has_many :invoices, :dependent => :destroy
 
   default_scope :order => :created_at
   after_create :create_defaults

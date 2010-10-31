@@ -48,6 +48,10 @@
             %td= link_to ent.object.item.name_with_code, item_path(ent.object.item)
             %td.numbers= ent.object.quantity
             %td.tdr= ent.input :plu, :as => :select, :collection => Plu.all(:conditions => { :supplier_id => @item_receive.purchase_order.supplier_id, :item_id => ent.object.item_id }).collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
+    %li.no_label
+      %label{ :for => "auto_invoice", :style => "margin-left:25%;" }
+        = check_box_tag 'auto_invoice', 1
+        Create purchase invoice
 
   %fieldset.buttons
     %button{ :type => 'submit', :id => 'primary-button' }

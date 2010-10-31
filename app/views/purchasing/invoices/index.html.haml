@@ -1,0 +1,40 @@
+- title "Purchasing Invoices"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Purchasing', 'Purchasing Invoices' ] |
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :number_like
+      = f.submit 'search'
+
+  = sidemenu @tab
+
+= hint 'Click "Create purchase invoice" to add new purchase invoice'
+
+#subheader
+  %h3= "Purchasing Invoices (Total: #{number_to_currency(Invoice.grand_total(current_company), :unit => '', :delimiter => '.', :separator => ',')})"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create purchasing invoice", new_purchasing_invoice_path, :class => "main_link"
+
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Date
+      %th Item Receive
+      %th Value
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 5 }= will_paginate @invoices
+  %tbody
+    - for invoice in @invoices
+      %tr
+        %td= link_to h(invoice.number), purchasing_invoice_path(invoice)
+        %td= h invoice.user_date
+        %td= invoice.item_receives.collect { |ir| link_to(ir.number, [:purchasing, ir]) }.join(', ')
+        %td.numbers= h number_to_currency(invoice.total_value, :unit => '', :delimiter => '.', :separator => ',')
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_invoice_path(invoice)
+          = link_to image_tag('icons/silk/delete.png'), purchasing_invoice_path(invoice), :confirm => 'Are you sure?', :method => :delete

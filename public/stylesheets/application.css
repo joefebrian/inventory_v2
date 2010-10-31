@@ -479,10 +479,10 @@ div.no_record {
 }
 tr.total td { border-top:solid 1px #666; }
 .two_columns { margin-bottom:10px; overflow:hidden; }
-.two_columns div {
-  float:left;
-  width:50%;
-}
+/*.two_columns div {*/
+  /*float:left;*/
+  /*width:50%;*/
+/*}*/
 .two_columns p {
   position:relative;
   padding-left:160px;
@@ -494,6 +494,11 @@ tr.total td { border-top:solid 1px #666; }
   display:inline-block;
   margin-left:-160px;
   width:160px;
+}
+.two_columns ol {
+  margin-bottom:6px;
+  margin-left:163px;
+  margin-top:-12px;
 }
 tr.special td { background:#EFE259 !important; }
 fieldset.plain {
