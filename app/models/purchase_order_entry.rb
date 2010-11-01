@@ -14,7 +14,7 @@ class PurchaseOrderEntry < ActiveRecord::Base
   end
 
   def after_initialize
-    if new_record?
+    if new_record? && (discount.blank? || discount.to_i <= 0)
       self.discount = 0
     end
   end
