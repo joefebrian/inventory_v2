@@ -12,36 +12,50 @@
 = hint 'Click "Create Credit / Debit Note" to add new Credit / Debit Note'
 
 #subheader
-  %h3 Material Requests
+  %h3 Credit / Debit Notes
   #subheader-menu
-    -#= link_to_if((params[:state] != 'all'), "all", purchasing_material_requests_path(:state => "all"))
-    -#&bull;
-    -#= link_to_if((params[:state] != 'closed'), "closed", purchasing_material_requests_path(:state => "closed"))
-    -#&bull;
-    -#= link_to_if((params[:state] && params[:state] != 'open'), "open", purchasing_material_requests_path(:state => "open"))
-    -#&bull;
     = link_to("#{image_tag('icons/silk/add.png')} Create Credit / Debit Note", new_credit_debit_note_path, :class => 'main_link')
 
-%table
-  %tr
-    %th Company
-    %th Number
-    %th Customer
-    %th Supplier
-    %th User date
-    %th Note
-    %th Credit
-  - for credit_debit_note in @credit_debit_notes
+%h4 Credit Notes
+%table.list
+  %thead
     %tr
-      %td= h credit_debit_note.company_id
-      %td= h credit_debit_note.number
-      %td= h credit_debit_note.customer_id
-      %td= h credit_debit_note.supplier_id
-      %td= h credit_debit_note.user_date
-      %td= h credit_debit_note.note
-      %td= h credit_debit_note.credit
-      %td= link_to 'Show', credit_debit_note
-      %td= link_to 'Edit', edit_credit_debit_note_path(credit_debit_note)
-      %td= link_to 'Destroy', credit_debit_note, :confirm => 'Are you sure?', :method => :delete
+      %th Number
+      %th Supplier
+      %th Date
+      %th Note
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 5 }= will_paginate @credit_notes, :param_name => :credit
+  - for credit_note in @credit_notes
+    %tr
+      %td= link_to credit_note.number, credit_note
+      %td= h credit_note.supplier.name
+      %td= h credit_note.user_date
+      %td= h truncate(credit_note.note, :length => 50)
+      %td.actions 
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_credit_debit_note_path(credit_note)
+        = link_to image_tag('icons/silk/delete.png'), credit_note, :confirm => 'Are you sure?', :method => :delete
 
-%p= link_to "New Credit Debit Note", new_credit_debit_note_path
+%h4 Debit Notes
+%table.list
+  %thead
+    %tr
+      %th Number
+      %th Customer
+      %th Date
+      %th Note
+      %th.actions Actions
+  %tfoot
+    %tr
+      %td{ :colspan => 5 }= will_paginate @debit_notes, :param_name => :credit
+  - for debit_note in @debit_notes
+    %tr
+      %td= link_to debit_note.number, debit_note
+      %td= h debit_note.customer.profile.full_name
+      %td= h debit_note.user_date
+      %td= h truncate(debit_note.note, :length => 50)
+      %td.actions 
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_credit_debit_note_path(debit_note)
+        = link_to image_tag('icons/silk/delete.png'), debit_note, :confirm => 'Are you sure?', :method => :delete

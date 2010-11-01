@@ -4,7 +4,8 @@ class CreditDebitNotesController < ApplicationController
   
   def index
     @search = current_company.credit_debit_notes.search(params[:search])
-    @credit_debit_notes = @search.paginate(:page => params[:page])
+    @credit_notes = @search.all(:conditions => { :credit => true }).paginate(:page => params[:credit])
+    @debit_notes = @search.all(:conditions => { :credit => false }).paginate(:page => params[:debit])
   end
   
   def show

@@ -8,6 +8,9 @@ class CreditDebitNote < ActiveRecord::Base
   validates_presence_of :supplier_id, :if => Proc.new { |cndn| cndn.credit == true }
   validates_presence_of :customer_id, :if => Proc.new { |cndn| cndn.credit == false }
 
+  named_scope :credit_notes, :conditions => { :credit => true }
+  named_scope :debit_notes, :conditions => { :credit => false }
+
   def after_initialize
     self.number = suggested_number if new_record?
     self.user_date = Time.now.strftime("%m/%d/%Y") if user_date.blank?
