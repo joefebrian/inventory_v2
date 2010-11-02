@@ -26,16 +26,22 @@
 
 <fieldset class='form_section'>
   <legend>Supplier data</legend>
-  <p class="single-column">
-    <span class="light transaction_label">Code</span>
-    <strong><%= @supplier.code %></strong>
-  </p>
-  <p class="single-column">
-    <span class="light transaction_label">Name</span>
-    <strong><%= @supplier.name %></strong>
-  </p>
-  <p class="single-column">
-    <span class="light transaction_label">Address</span>
-    <strong><%= @supplier.profile.address %></strong>
-  </p>
+  <div class="two_columns">
+    <p>
+      <span class="light">Code</span>
+      <strong><%= @supplier.code %></strong>
+    </p>
+    <p>
+      <span class="light">Name</span>
+      <strong><%= @supplier.name %></strong>
+    </p>
+    <p>
+      <span class="light">Address</span>
+      <strong><%= @supplier.profile.address %></strong>
+    </p>
+    <p>
+      <span class="light">Total Credit</span>
+      <strong><%= local_currency(@supplier.total_credit) %></strong>
+    </p>
+  </div>
 </fieldset>

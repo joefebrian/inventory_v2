@@ -18,4 +18,8 @@ class Supplier < ActiveRecord::Base
   def name_and_address
     "#{name}, #{address}"
   end
+
+  def total_credit
+    purchase_orders.closed.collect { |po| po.total_value }.sum
+  end
 end

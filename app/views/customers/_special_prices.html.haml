@@ -28,5 +28,5 @@
               .customer_prices.inline.box_blue
                 = number_to_currency(p.price, :unit => "Rp. ", :delimiter => ".", :precision => 0)
                 %br
-                %p.inline-hints.inline-labels= p.unit.name
+                %p.inline-hints.inline-labels= p.unit.try(:name)
           %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_prices_customer_customer_prices_path(@customer, :item => price[1]['item'].id), :title => "edit special prices"

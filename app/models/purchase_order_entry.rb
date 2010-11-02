@@ -6,6 +6,8 @@ class PurchaseOrderEntry < ActiveRecord::Base
   accepts_nested_attributes_for :trackers,
     :allow_destroy => true
   
+  before_save :populate_total
+
   def item_name
     item.try(:name)
   end
@@ -19,9 +21,9 @@ class PurchaseOrderEntry < ActiveRecord::Base
     end
   end
 
-  def total
+  def populate_total
     before_discount = (quantity * purchase_price)
     discount_value = (before_discount * discount) / 100
-    before_discount - discount_value
+    self.total = before_discount - discount_value
   end
 end

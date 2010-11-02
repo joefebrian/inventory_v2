@@ -5,6 +5,7 @@ class ItemReceive < ActiveRecord::Base
   belongs_to :warehouse
   has_many :entries, :class_name => "ItemReceiveEntry", :dependent => :destroy
   has_and_belongs_to_many :invoices, :join_table => "invoices_item_receives"
+  has_many :suppliers, :through => :purchase_order
   
   validates_presence_of :number
   validates_presence_of :user_date

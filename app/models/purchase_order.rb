@@ -99,6 +99,6 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def total_value
-    entries.collect { |entry| entry.total }.sum
+    entries.sum :total
   end
 end
