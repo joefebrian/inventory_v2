@@ -124,7 +124,7 @@ class Company < ActiveRecord::Base
     TransactionType.new(:company_id => id,
                         :code => "AUTO-DO",
                         :name => "Auto-generated from Delivery Order",
-                        :direction => 0,
+                        :direction => 1,
                         :negate => false,
                         :alter_date => false,
                         :alter_stock => true,
