@@ -5,7 +5,7 @@
     'Sales', 'Sales Order' ] |
   #top_right_link
     - form_for @search do |f|
-      = f.text_field :number_or_status_like
+      = f.text_field :number_like
       = f.submit 'search'
 
   = sidemenu @tab
@@ -22,14 +22,12 @@
     %th Number
     %th Quotation
     %th Tanggal
-    %th Status
     %th.actions Actions
   - for sales_order in @sales_orders
     %tr
       %td= link_to h(sales_order.number), [:sales, sales_order]
       %td= h sales_order.quotation.nil? ? 'Without Quotation' : sales_order.quotation.number
       %td= h sales_order.tanggal
-      %td= h sales_order.status
       %td.actions
         = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(sales_order)
         = link_to image_tag('icons/silk/delete.png'), sales_sales_order_path(sales_order), :confirm => 'Are you sure?', :method => :delete
