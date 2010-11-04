@@ -8,7 +8,6 @@ class AddIndexes < ActiveRecord::Migration
     add_index 'quotation_entries', 'item_id'
     add_index 'privileges', 'role_id'
     add_index 'privileges', 'company_id'
-    add_index 'kurs_rates', 'company_id'
     add_index 'items', 'category_id'
     add_index 'items', 'company_id'
     add_index 'direct_sales', 'company_id'
