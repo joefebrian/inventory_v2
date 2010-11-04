@@ -1,0 +1,173 @@
+/* -------------------------------------------------------------------------------------------------
+ *
+ *Load this stylesheet after formtastic.css in your layouts to override the CSS to suit your needs.
+ *This will allow you to update formtastic.css with new releases without clobbering your own changes.
+ *
+ *For example, to make the inline hint paragraphs a little darker in color than the standard #666:
+ *
+ *form.formtastic fieldset ol li p.inline-hints { color:#333; }
+ *
+ *--------------------------------------------------------------------------------------------------
+
+input
+  border: solid 1px rgb(159, 159, 159)
+  padding: 2px
+
+form.formtastic
+  input, textarea, select
+    border: solid 1px rgb(159, 159, 159)
+    padding: 2px
+  fieldset
+    ol li
+      &.string input, &.password input, &.numeric input
+        width: 35%
+      &.text textarea
+        width: 60%
+    &.buttons
+      button
+        font-family: "Trebuchet MS", Tahoma, Verdana, Helvetica, Arial
+      margin-top: 20px
+    ol li.check_boxes fieldset ol li
+      margin: 0.1em 0 1em
+
+label span.required, span.required
+  color: rgb(200, 0, 0)
+  font-weight: bold
+
+form.formtastic fieldset.buttons button, .buttons button
+  background: #235f26 url(/images/gradient.png) repeat-x scroll 0 -125px
+  border: solid 1px #235f26
+  color: #fff
+  font-weight: bold
+  font-size: 1.2em
+  padding: 5px 10px
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.8)
+  /*margin-left:2px;
+  /*border-radius:4px;
+   *-moz-border-radius:4px;
+   *-webkit-border-radius:4px;
+   *-webkit-background-clip:padding-box;
+
+form.formtastic fieldset.buttons button
+  &:hover
+    background: #235f26 url(/images/gradient.png) repeat-x scroll 0 -110px
+    cursor: pointer
+  &:active
+    background: rgba(35, 95, 38, 0.85)
+    -moz-box-shadow: none
+    -webkit-box-shadow: none
+
+input:focus
+  border: solid 1px rgb(255, 131, 63) !important
+
+ul.form_info
+  background: rgb(242, 255, 127)
+  list-style-position: inside !important
+  list-style-type: disc !important
+  margin-bottom: 20px !important
+  padding: 5px !important
+
+form.formtastic fieldset ol li p.inline-hints, .inline-hints
+  font-style: italic
+
+form.formtastic fieldset
+  ol li.hidden
+    display: none !important
+  &#items, &#detail_assemblies
+    position: relative
+  &#units ol li span.label, &#items ol li span.label, &#detail_assemblies ol li span.label
+    display: inline-block
+    font-weight: bold
+    margin-right: -4px
+    width: 25%
+  &#units ol li label, &#items ol li label, &#detail_assemblies ol li label
+    display: inline-block
+    float: none
+    margin-right: 4px
+    width: auto
+  &#units ol li.additional_units, &#items ol li.additional_items, &#detail_assemblies ol li.additional_items
+    margin-left: 25%
+  &#units ol li input, &#items ol li input, &#detail_assemblies ol li input
+    margin-right: 5px
+  ol li
+    &.radio.inline fieldset ol
+      margin: 0
+      li
+        float: left
+        width: 15%
+        margin-right: .2em
+        margin-top: 0.3em
+    &.boolean label
+      width: 25%
+      padding-top: 7px
+    padding: 3px
+    &:hover
+      background: #ffffef
+    margin-bottom: .1em
+
+/*form.formtastic fieldset#units { position:relative; }
+
+img.ui-datepicker-trigger
+  margin-left: -18px
+  margin-top: -2px
+  vertical-align: middle
+
+/*fieldset#units legend {
+/*float:left;
+/*margin-left:3px;
+/*line-height:2.2em;
+/*width:25%;
+/*}
+
+fieldset
+  &#items legend, &#detail_assemblies legend
+    float: left
+    line-height: 2.2em
+    width: 25%
+  &#items ol, &#detail_assemblies ol
+    float: left
+
+a
+  &#add_item, &#add_detail_assemblies
+    clear: both
+    display: block
+    margin-left: 25%
+    padding-top: 10px
+
+form.formtastic fieldset ol li.inline
+  >
+    label
+      margin-right: .4em
+      width: auto
+    input
+      float: left
+      margin-right: 1em
+    span.label
+      width: 25%
+      float: left
+      /*line-height:2.1em;
+  input[type=checkbox]
+    float: left
+    margin: 5px 0.7em 5px 0
+    + label
+      margin: 4px 20px 4px 0
+      width: auto
+
+input[type=text].number
+  text-align: right
+
+ol#transaction_types
+  list-style: inside decimal
+  margin-bottom: 10px
+  li
+    margin-bottom: 5px
+
+#units ol
+  padding-left: 25%
+
+form.formtastic fieldset ol li
+  fieldset legend.label
+    font-size: 1em
+    font-weight: normal
+  &.boolean.one_checkbox label
+    width: 75%

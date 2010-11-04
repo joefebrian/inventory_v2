@@ -1,0 +1,960 @@
+body
+  background: rgb(207, 255, 209)
+  font-family: "Trebuchet MS", Tahoma, Verdana, Helvetica, Arial
+  font-size: 12px
+
+a img, button img
+  border: none
+  vertical-align: text-top
+
+a
+  text-decoration: none
+  color: #235f26
+
+.clear
+  clear: both
+  height: 0
+  overflow: hidden
+
+h1, h2, h3, h4, h5
+  font-weight: bold
+  margin-bottom: 20px
+
+h1
+  font-size: 2em
+
+h2
+  font-size: 1.8em
+
+h3
+  font-size: 1.5em
+
+h4
+  font-size: 1.3em
+
+h5
+  font-size: 1.15em
+
+h6
+  font-size: 1.1em
+
+#flash_notice, #flash_error, #flash_success, .flash_error, .flash_notice, .flash_success
+  padding: 5px 8px
+  margin: 10px 0
+
+#flash_notice, .flash_notice
+  background-color: #FFF1AF
+  border: solid 1px #FFD100
+
+#flash_error, .flash_error
+  background-color: #FCC
+  border: solid 1px #C66
+
+#flash_success, .flash_success
+  background-color: #92FF7F
+  border: solid 1px #427F37
+
+#banner
+  background: rgb(35, 95, 38)
+  padding: 0 20px
+  overflow: hidden
+
+#user_nav
+  background: rgb(207, 255, 209)
+  float: right
+  margin-right: -20px
+  padding: 7px 20px 10px
+  border-radius: 0 0 0 15px
+  -moz-border-radius: 0 0 0 15px
+  -webkit-border-radius: 0 0 0 15px
+
+#user_logo
+  img
+    vertical-align: middle
+  span
+    color: rgb(207, 255, 209)
+    display: inline-block
+    font-size: 20px
+    font-weight: bold
+    margin: 10px 10px 20px
+    padding: 10px 0
+
+#tabs
+  margin: 10px 10px 10px 0
+  li
+    margin: -10px 3px 0 0
+    float: left
+    a
+      background: rgb(116, 207, 120)
+      color: rgb(35, 95, 38)
+      display: block
+      font-size: 1.06em
+      font-weight: bold
+      padding: 8px 14px
+      text-decoration: none
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9)
+      &.current, &:hover
+        background: #CFFFD1 none repeat scroll 0 0
+        border-top: 2px solid orange
+        color: #173F19
+        margin-top: -2px
+    div
+      background: rgb(116, 207, 120)
+      height: 1px
+      box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.9)
+      -moz-box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.9)
+      -webkit-box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.9)
+    a
+      &.current + div, &:hover + div
+        background: rgb(207, 255, 209)
+        box-shadow: none
+        -moz-box-shadow: none
+        -webkit-box-shadow: none
+
+#content
+  padding: 20px
+
+#sidebar
+  float: left
+  margin: 0 20px 20px 0
+  width: 240px
+  border-radius: 8px
+  -moz-border-radius: 8px
+  -webkit-border-radius: 8px
+  ul#additional_actions li
+    padding: 15px 6px
+
+#sidemenu
+  li
+    position: relative
+    span
+      color: rgb(111, 111, 111)
+      display: block
+      font-size: 1.05em
+      font-weight: bold
+      margin: 0 0 2px
+      padding: 6px
+      text-decoration: none
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9)
+    a
+      color: #40bf3f
+      display: block
+      font-size: 1.06em
+      font-weight: bold
+      margin: 0 0 2px
+      padding: 6px 6px 7px
+      text-decoration: none
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9)
+      &.current
+        background: rgb(35, 95, 38)
+        color: #fff
+        margin-right: -20px
+        text-shadow: 0 -1px rgba(0, 0, 0, 1)
+        + div
+          border-width: 13px 0 13px 7px
+          border-style: solid
+          position: absolute
+          top: 0
+          right: -27px
+          height: 0
+          width: 0
+      &:hover + div
+        border-width: 13px 0 13px 7px
+        border-style: solid
+        position: absolute
+        top: 0
+        right: -27px
+        height: 0
+        width: 0
+      &.current
+        + div, &:hover + div
+          border-color: transparent transparent transparent #235f26
+      &:hover
+        + div
+          border-color: transparent transparent transparent #9bfb9d
+        background: #9bfb9d
+        color: rgb(0, 0, 0)
+        margin-right: -20px
+      &.current:hover
+        background: rgb(35, 95, 38)
+        color: #fff
+  ul.submenu
+    padding: 0 0 0 20px
+    li a.current
+      display: block !important
+
+#main
+  background: rgb(255, 255, 255)
+  background: rgba(255, 255, 255, 0.8)
+  margin-left: 260px
+  min-height: 360px
+  padding: 20px
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+
+#main_wide
+  background: rgb(255, 255, 255)
+  background: rgba(255, 255, 255, 0.8)
+  min-height: 360px
+  padding: 20px
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+
+#breadcrumb
+  background: #c8c8c8
+  margin: -20px -20px 20px
+  padding: 10px 20px
+  overflow: hidden
+  a
+    color: #235f26
+    text-decoration: none
+    padding: 0 2px
+    &:hover
+      background: #173F19
+      color: #fff
+
+#footer
+  color: #8C8C8C
+  font-size: 0.9em
+  line-height: 2em
+  margin: 20px 0 0 260px
+  p
+    margin-bottom: 0
+  &.wide
+    margin: 30px 0 0
+  a
+    color: #8c8c8c
+    text-decoration: none
+    &:hover
+      color: #235f26
+
+table
+  &.list
+    border-collapse: collapse
+    border-bottom: solid 1px #5fbf63
+    line-height: 1.5em
+    margin-bottom: 20px
+    width: 100%
+    tr
+      th
+        background: #5FBF63
+        color: #fff
+        text-align: center
+        padding: 6px
+      td
+        background: rgba(95, 191, 99, 0.1)
+        padding: 4px
+      &:nth-child(2n+1) td
+        background: rgba(95, 191, 99, 0.2)
+  &.report tr:nth-child(2n+1) td
+    background: rgba(242, 242, 242, 1)
+  &.list tr
+    &:hover td, &.odd:hover td, &.even:hover td
+      background: rgba(95, 191, 99, 0.4)
+    td
+      &.lvl_1
+        padding-left: 20px
+      &.lvl_2
+        padding-left: 40px
+      &.lvl_3
+        padding-left: 60px
+      &.lvl_4
+        padding-left: 80px
+      &.lvl_5
+        padding-left: 100px
+      &.lvl_6
+        padding-left: 120px
+
+td
+  &.subcategories_count
+    width: 44px
+  &.root_category span
+    background: red url(/images/gradient.png) repeat-x scroll 0 -110px !important
+  &.subcategories_count span
+    background: black url(/images/gradient.png) repeat-x scroll 0 -110px
+    color: #fff
+    display: inline-block
+    font-weight: bold
+    padding: 2px
+    text-align: center
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.9)
+    width: 40px
+
+.list tfoot tr td
+  background: #f5fff6 !important
+  border-top: solid 1px #5fbf63
+
+.actions
+  text-align: right !important
+  width: 12%
+
+.boxy-wrapper
+  border-bottom: none
+  width: 700px
+  border: 8px solid rgba(0, 0, 0, 0.6)
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.8)
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8)
+
+#dialog_form
+  margin: 15px
+
+#main > div#dialog_form
+  margin: 0
+
+.buttons p
+  margin: 10px 0 !important
+  img
+    vertical-align: middle
+    + span
+      color: #235f26
+      font-style: italic
+
+#nested_attributes li label
+  float: none
+  display: inline
+
+form.formtastic fieldset#nested_attributes
+  border: 1px solid lightgrey
+  margin-bottom: 20px
+  margin-left: 25%
+  padding: 10px
+
+#item_detail #dialog_form
+  margin: 0
+
+.light
+  color: #7f7f7f
+
+table.report
+  border-collapse: collapse
+  width: 100%
+  th, td
+    padding: 5px
+  tr
+    th
+      background: #5FBF63
+      border: medium none
+      color: #fff
+      vertical-align: bottom
+      > span
+        float: left
+        margin-top: -4px
+    &.even td
+      background: rgba(239, 239, 239, 0.8)
+
+.report span.description
+  font-style: italic
+
+td.index
+  font-weight: bold
+  text-align: right
+  width: 5%
+
+.numbers
+  text-align: right
+
+.tdc
+  text-align: center
+
+.tdr
+  text-align: right
+
+.td_5
+  width: 5%
+
+.td_10
+  width: 10%
+
+.td_15
+  width: 15%
+
+.td_20
+  position: relative
+  width: 20%
+
+.td_25
+  width: 25%
+
+.td_30
+  width: 30%
+
+.td_35
+  width: 35%
+
+.td_40
+  width: 40%
+
+.td_50
+  width: 50%
+
+.td_70
+  width: 70%
+
+.td_10 input, .td_20 input, .td_30 input, .td_40 input, .td_70 input
+  width: 90% !important
+
+.firerift-style
+  background: transparent url(/images/yesno-circle.png) no-repeat scroll 0 0
+  cursor: pointer
+  display: inline-block
+  float: right
+  height: 28px
+  margin: -7px -64px 0 0
+  width: 68px
+
+.on
+  background-position: 0% 100%
+
+.off
+  background-position: 100% 0%
+
+.hidden
+  display: none
+
+#errorExplanation
+  width: auto
+  border: 2px solid #CC0000
+  padding: 7px
+  padding-bottom: 12px
+  margin-bottom: 20px
+  background-color: #f0f0f0
+  h2
+    background-color: #CC0000
+    color: #FFFFFF
+    font-size: 1.4em
+    font-weight: bold
+    margin: -7px
+    padding: 5px 5px 5px 15px
+    text-align: left
+  p
+    color: #333333
+    margin: 10px 0
+    padding: 8px
+  ul li
+    font-size: 12px
+    line-height: 1.4em
+    list-style-type: square
+    list-style-position: inside
+    padding: 0 20px
+
+#dialog_form div
+  overflow: hidden
+
+.transaction_label
+  display: block
+  float: left
+  margin-bottom: 10px
+  width: 160px
+  + p
+    margin-left: 160px
+    margin-bottom: 10px
+
+td img
+  vertical-align: middle
+
+#hint
+  background: rgb(254, 255, 175)
+  margin-bottom: 20px
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4)
+  h2
+    font-size: 1.3em
+    font-weight: bold
+    margin: 0
+    padding: 10px
+  p
+    line-height: 1.25em
+    margin: 0
+    padding: 0 10px 10px
+
+.hints
+  background: #feffaf
+  margin: 10px 10px 10px 0 !important
+  padding: 10px !important
+
+input.plu_code
+  width: 80% !important
+
+.plu_input
+  float: right
+
+#searchresult
+  height: 400px
+  overflow: auto !important
+
+.searchresults
+  th, td
+    padding: 5px
+  tr
+    th
+      background: #77EF7C
+    background: #EFFFF0
+    &:nth-child(2n+1)
+      background: #E0EFE1
+  td ul
+    margin: -5px
+    li
+      background: #FFE4A8
+      &:hover
+        background: #FFAD0F
+      a
+        display: block
+        padding: 5px
+        &:focus
+          background: #FFAD0F
+
+div.no_record
+  font: 1.2em bold
+  padding: 10px
+  text-align: center
+
+.fifo
+  background: #C9FF8F
+  border-right: solid 1px #5BAF00
+  border-bottom: solid 1px #5BAF00
+  font-weight: normal
+  padding: 2px 5px
+
+.lifo
+  background: #9FDDFF
+  border-right: solid 1px #00669F
+  border-bottom: solid 1px #00669F
+  font-weight: normal
+  padding: 2px 5px
+
+.avg
+  background: #EF95ED
+  border-right: solid 1px #6F006D
+  border-bottom: solid 1px #6F006D
+  font-weight: normal
+  padding: 2px 5px
+
+.transaction_type_tag
+  background: #FAFFCF
+  border-right: solid 1px #ADBF0B
+  border-bottom: solid 1px #ADBF0B
+  font-weight: normal
+  padding: 2px 5px
+
+tr.total td
+  border-top: solid 1px #666
+
+.two_columns
+  margin-bottom: 10px
+  overflow: hidden
+  p
+    position: relative
+    padding-left: 160px
+    margin-bottom: 10px
+    line-height: 1.2em
+    span
+      display: inline-block
+      margin-left: -160px
+      width: 160px
+  ol
+    margin-bottom: 6px
+    margin-left: 163px
+    margin-top: -12px
+
+tr.special td
+  background: #EFE259 !important
+
+fieldset.plain
+  border: solid 1px #008F0D
+  padding: 10px
+  margin-bottom: 10px
+  legend
+    padding: 2px 5px
+    font-weight: bold
+
+.ui-widget-header
+  font-size: 1em
+
+.ui-widget-content
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.8)
+  -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.8)
+  -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.8)
+
+p.date_range input[type="text"]
+  width: 86px
+
+#report
+  height: 100px
+  overflow-x: scroll
+  overflow-y: hidden
+  > table
+    width: 100%
+    border-collapse: separate
+    tr th
+      background: #c8c8c8
+      color: #fff
+  th, td
+    margin: 3px
+    padding: 5px
+
+.main_link + div
+  margin-top: 10px
+
+tr.inactive td
+  background: #FFDFE0 !important
+
+img.top_right_photo
+  float: right
+  margin-left: 10px
+
+.tag_yellow, .tag_green, .tag_pink
+  padding: 2px
+
+.tag_yellow
+  background: #F2FF7F
+
+.tag_green
+  background: #86FF7F
+
+.tag_pink
+  background: #FFAFC1
+
+fieldset.report label
+  display: inline-block
+  float: left
+  line-height: 2em
+  margin-right: 5px
+  width: 10em
+  &.inline
+    float: none
+    margin: 0 0.5em
+    width: auto
+
+table.form
+  width: 100%
+  margin-bottom: 20px
+  tr
+    th, td
+      padding: 4px
+    th
+      background: #B3CFAE
+    td:first-child
+      text-align: center
+
+#notifier
+  font-weight: bold
+  letter-spacing: .2em
+  width: 120px
+  background: rgba(255, 255, 0, 0.8)
+  margin: 0 auto
+  position: fixed
+  top: 0
+  display: none
+  z-index: 999
+  text-align: center
+  padding: 5px
+  border-radius: 0 0 5px 5px
+  -moz-border-radius: 0 0 5px 5px
+  -webkit-border-radius: 0 0 5px 5px
+  img
+    vertical-align: middle
+
+.string div.inline .inline-hints.inline-labels, .inline-labels
+  margin: 3px 0 0
+  font-style: italic
+  color: #666
+
+.string div.inline > input
+  width: 96% !important
+  &.datepicker
+    width: 120px !important
+
+fieldset
+  &.info
+    border: solid 1px #666666
+    padding: 10px
+    margin-bottom: 20px
+    border-radius: 5px
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    legend
+      padding: 0 10px
+      font-weight: bold
+      font-size: 1.2em
+  &.form_section
+    legend
+      padding: 0 10px
+      font-weight: bold
+      font-size: 1.2em
+      padding: 0 10px 0 0 !important
+    border-top: solid 1px #666666 !important
+    margin: 0 0 20px !important
+    padding-top: 10px !important
+
+#secondary_actions
+  margin: 10px 0 20px
+  li a
+    color: #387E3A
+    display: block
+    font-weight: bold
+    padding: 2px 0
+
+.box_blue
+  padding: 5px
+  width: 80px
+  text-align: right
+  background: #B5D0DF
+
+.top_align tr td
+  vertical-align: top
+
+.mid-align
+  vertical-align: middle !important
+
+input.subtle
+  background: none
+  border: none
+  color: #666
+  &:hover
+    background: #FFCFD5
+
+.input.subtle:active
+  background: #FFCFD5
+
+.ui-widget-header
+  padding: 5px
+
+a
+  &#enhanced_previous, &#enhanced_next
+    float: left
+
+#enhanced
+  margin: 0
+  border-bottom: none
+
+.boxy-wrapper
+  .top, .bottom
+    border: none
+
+.dataTables_wrapper
+  top: -280px
+
+.dataTables_info, .paging_full_numbers
+  width: auto !important
+
+.searchresults
+  list-style: outside decimal
+  margin-left: 20px
+  li
+    padding: 5px
+    border-radius: 3px
+    -moz-border-radius: 3px
+    -webkit-border-radius: 3px
+    &:nth-child(2n+1)
+      background: #EFF3FF
+    .actions
+      float: right
+      margin: 6px 0
+
+div.inline
+  float: left
+  margin-right: 1em
+  min-width: 100px
+
+input.item_autocomplete
+  width: 98% !important
+
+form.formtastic
+  .ui-multiselect-checkboxes label
+    width: auto
+    float: none
+    padding: .5em
+  .ui-multiselect-menu
+    width: auto !important
+
+.ui-multiselect-checkboxes
+  overflow: auto !important
+  label input
+    margin-right: 1em !important
+
+#top_right_link
+  float: right
+
+#pop_
+  border-radius: 1em 1em 1em 1em
+  -moz-border-radius: 1em 1em 1em 1em
+  -webkit-border-radius: 1em 1em 1em 1em
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6)
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6)
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.6)
+  background: none repeat scroll 0 0 #FFFFFF
+  border: 5px solid rgba(0, 0, 0, 0.5)
+  padding: 1em
+  left: 0 !important
+  position: relative !important
+  width: 500px
+
+.pop_container
+
+.pop_close
+  width: 16px
+  height: 16px
+  cursor: pointer
+  position: absolute
+  top: 1em
+  right: 1em
+
+.pop_input
+  width: 98%
+  margin: 5px 0
+
+.pop_message h6
+  font-size: 1.5em
+
+.should_hidden
+  display: none
+
+.ui-multiselect-menu .ui-widget-header > .ui-helper-reset
+  display: inline
+
+ol.numbered-list
+  list-style: decimal inside
+
+label.required:after
+  content: " *"
+  color: #ce371e
+  font-weight: bold
+
+#button-replacer
+  font-style: italic
+  color: #235f26
+  margin-left: 10px
+  img
+    vertical-align: middle
+
+form.formtastic .uneditable
+  font-weight: bold
+  line-height: 1.4em
+  display: inline-block
+  margin-bottom: 5px
+
+#subheader
+  margin-bottom: 15px
+  overflow: hidden
+  padding: 5px 0
+  h3
+    float: left
+    margin-bottom: 0
+  #subheader-menu
+    float: right
+    line-height: 26px
+
+.main_link, #subheader #subheader-menu a.main_link
+  background: #1f1f1f url(/images/gradient.png) repeat-x scroll 0 -4px
+  border: 1px solid lightgray
+  font-weight: bold
+  padding: 4px 10px 4px 8px
+  text-shadow: 0 1px #FFFFFF
+  border-radius: 12px
+  margin-right: 3px
+  margin-left: 3px
+  border-radius: 12px
+  display: inline
+  -moz-border-radius: 12px
+  -webkit-border-radius: 12px
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3)
+  -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3)
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3)
+  -webkit-background-clip: padding-box
+
+a.main_link
+  display: inline-block
+  margin-bottom: 20px
+  margin-left: 0
+  margin-right: 0
+  &:hover
+    background: #7f7f7f url(/images/gradient.png) repeat-x scroll 0 -4px
+    color: rgb(23, 63, 25)
+  &:active
+    box-shadow: none
+    -moz-box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.3)
+    -webkit-box-shadow: none
+
+#subheader #subheader-menu a.main_link:active
+  box-shadow: none
+  -moz-box-shadow: inset 0px 0px 2px rgba(0, 0, 0, 0.3)
+  -webkit-box-shadow: none
+
+.single-column
+  > span
+    left: -160px
+    overflow: hidden
+    position: absolute
+  margin-bottom: 10px
+  margin-left: 160px
+  position: relative
+  min-height: 1em
+  line-height: 2em
+
+.red-tag
+  display: inline-block
+  background: #ff6f6f
+  border-right: solid 1px #8f1111
+  border-bottom: solid 1px #8f1111
+  border-top: solid 1px #ff6f6f
+  border-left: solid 1px #ff6f6f
+  padding: 1px 2px 0 2px
+  color: #fff
+  font-weight: normal
+
+.ui-corner-all
+  border-radius: 0
+  -moz-border-radius: 0
+  -webkit-border-radius: 0
+
+.dijitValidationIconText, .dijitValidationIcon
+  display: none
+
+input.dijitReset
+  border: none !important
+  padding: 2px
+  &:focus
+    border: none !important
+    padding: 2px
+
+form.formtastic
+  input.dijitReset, textarea.dijitReset
+    border: none !important
+    padding: 2px
+    &:focus
+      border: none !important
+      padding: 2px
+  select.dijitReset
+    border: none !important
+    padding: 2px
+
+.group
+  padding-left: 25%
+  label
+    width: 33% !important
+  input[type=checkbox]
+    margin-bottom: .5em
+
+form.formtastic div.flash_error
+  p
+    margin-bottom: 1em
+    font-weight: bold
+  ol
+    list-style: inside decimal
+
+div.single-column div.group
+  padding-left: 0
+
+ol, ul
+  list-style-position: inside
+
+ol
+  list-style-type: decimal
+  &.dashboard
+    margin-bottom: 1em
+    + hr
+      margin-bottom: 20px

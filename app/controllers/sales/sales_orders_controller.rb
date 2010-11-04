@@ -15,7 +15,7 @@ class Sales::SalesOrdersController < ApplicationController
     elsif params[:state] == 'all'
       @sales_orders = @search.paginate(:page => params[:page])
     else
-      @sales_orders = @search.search(:closed => false).paginate(:page => params[:page])
+      @sales_orders = @search.all(:conditions => {:closed => false} ).paginate(:page => params[:page])
     end
   end
   
