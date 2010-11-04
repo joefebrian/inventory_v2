@@ -117,7 +117,6 @@ class AddIndexes < ActiveRecord::Migration
     add_index 'locations', 'warehouse_id'
     add_index 'locations', 'company_id'
     add_index 'locations', 'parent_id'
-    add_index 'kurs_ids', 'company_id'
     add_index 'categories', 'company_id'
     add_index 'categories', 'parent_id'
     add_index 'suppliers', 'company_id'
