@@ -4,7 +4,7 @@ class CreateCompanies < ActiveRecord::Migration
       t.string :name
       t.text :address
       t.string :phone
-      t.string :sudomain
+      t.string :subdomain
 
       t.timestamps
     end
