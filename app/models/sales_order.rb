@@ -10,6 +10,9 @@ class SalesOrder < ActiveRecord::Base
   validates_presence_of :number, :currency_id, :currency_rate
   validates_uniqueness_of :number, :scope => :company_id
 
+  named_scope :all_closed, :conditions => { :closed => true }
+  named_scope :all_open, :conditions => { :closed => false }
+
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda {|at| at['quantity'].blank? || at['quantity'].to_i == 0}
