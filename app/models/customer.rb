@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  attr_accessible :profile_id, :code, :profile_attributes, :tax_profile_attributes, :item_code, :price_list_id, :special_prices_attributes
+  attr_accessible :profile_id, :code, :profile_attributes, :tax_profile_attributes, :item_code, :price_list_id, :special_prices_attributes, :attention
   belongs_to :company
   belongs_to :profile
   belongs_to :price_list
