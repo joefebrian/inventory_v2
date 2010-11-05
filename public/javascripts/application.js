@@ -433,11 +433,11 @@ $('#quotation_customer_name').live('focus', function() {
     focus: function(event, ui) {$(this).val(ui.item.fullname); return false;},
     select: function(event, ui) {
       $(this).parents('form').find('#quotation_customer_id').val(ui.item.id);
+      $(this).parents('form').find('#quotation_penerima').val(ui.item.attention);
     }
   })
   .data("autocomplete")
   ._renderItem = function(ul, customers) {
-    //console.log(customer);
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")
