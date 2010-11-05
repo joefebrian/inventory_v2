@@ -5,6 +5,7 @@
     = f.input :user_date, :as => :string, :input_html => { :class => "datepicker" }
     = f.input :item_receives, :collection => @item_receives, :input_html => { :class => "multiselect filter" }
     = f.input :remark, :input_html => { :rows => 2 }
+    = f.input :vat, :label => "VAT (%)"
   %fieldset.buttons
     %button{ :type => "submit", :id => "primary-button" }
       = image_tag('icons/silk/disk.png')

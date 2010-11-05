@@ -6,6 +6,7 @@ class Invoice < ActiveRecord::Base
   validates_presence_of :user_date
 
   def validate
+    errors.add(:vat, "Must be number") unless vat.blank? || (vat.to_s =~ /^(\d+)$/) == 0
     errors.add_to_base('Purchase invoice must have at least 1 item receive') if item_receives.blank?
   end
 
@@ -25,7 +26,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def total_value
-    item_receives.collect { |ir| ir.total_po }.sum
+    item_receives.collect { |ir| ir.total }.sum
   end
 
   def self.grand_total(company)

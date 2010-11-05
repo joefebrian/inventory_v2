@@ -17,7 +17,7 @@ before_filter :assign_tab
       flash[:success] = "Purchase invoice created successfuly"
       redirect_to [:purchasing, @invoice]
     else
-      @item_receives = current_company.item_receives.unconfirmed
+      @item_receives = current_company.item_receives.all_confirmed.reject { |ir| ir.invoices.present? }
       render :action => 'new'
     end
   end
