@@ -101,4 +101,9 @@ class PurchaseOrder < ActiveRecord::Base
   def total_value
     entries.sum :total
   end
+
+  def populate_total
+    self.total = total_value
+    save(false)
+  end
 end

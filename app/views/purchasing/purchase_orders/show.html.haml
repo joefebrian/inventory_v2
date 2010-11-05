@@ -49,6 +49,9 @@
     %p
       %span.light Remark
       %strong= @purchase_order.notes
+    %p
+      %span.light Total Value
+      %strong= local_currency(@purchase_order.total)
     - if @purchase_order.closed?
       %p
         %span.light Closing Note
@@ -65,11 +68,13 @@
         %th Qty
         %th Price
         %th Disc (%)
+        %th Total
     %tbody
       - @purchase_order.entries.each_with_index do |entry, i|
         %tr
           %td.tdr.td_5= (i+1)
           %td= link_to h(entry.item.name), entry.item
           %td.tdr= entry.quantity
-          %td.tdr= entry.purchase_price
+          %td.tdr= local_currency(entry.purchase_price)
           %td.tdr= entry.discount
+          %td.tdr= local_currency(entry.total)

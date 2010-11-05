@@ -31,6 +31,7 @@ class Purchasing::ItemReceivesController < ApplicationController
       end
     end
     if @item_receive.save
+      @item_receive.populate_total
       flash[:notice] = "Item receive created, but is not confirmed yet. Unconfirmed Item receive transaction is not affecting item stock"
       redirect_to purchasing_item_receife_path(@item_receive)
     else
@@ -47,6 +48,7 @@ class Purchasing::ItemReceivesController < ApplicationController
   def update
     @item_receive = current_company.item_receives.find(params[:id])
     if @item_receive.update_attributes(params[:item_receive])
+      @item_receive.populate_total
       flash[:notice] = "Successfully updated item receive."
       redirect_to purchasing_item_receife_path(@item_receive)
     else

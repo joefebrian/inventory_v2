@@ -35,6 +35,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       render('new') and return
     end
     if @purchase_order.save
+      @purchase_order.populate_total
       flash[:success] = "Purchase Order saved"
       redirect_to [:purchasing, @purchase_order]
     else
@@ -55,6 +56,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
 
     updated = @purchase_order.update_attributes(params[:purchase_order])
     if updated
+      @purchase_order.populate_total
       flash[:success] = "Purchase Order updated"
       redirect_to [:purchasing, @purchase_order]
     else

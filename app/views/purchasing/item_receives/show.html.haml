@@ -11,9 +11,13 @@
 = hint 'Click "Edit" to edit item receive'
 
 #subheader
-  %h3= "Item Receipt # #{@item_receive.number}"
+  %h3
+    = "Item Receipt # #{@item_receive.number}"
+    = "<span class='red-tag'>Unconfirmed</span>" unless @item_receive.confirmed?
   #subheader-menu
     = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_item_receives_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/tick.png')} Confirm", confirmation_purchasing_item_receife_path
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_item_receife_path(@item_receive)
     &bull;
@@ -34,6 +38,9 @@
     %p
       %span.light Remark
       %strong= @item_receive.remark
+    %p
+      %span.light Total
+      %strong= local_currency(@item_receive.total)
 
 %fieldset.form_section
   %legend Items
@@ -43,6 +50,7 @@
         %th No.
         %th Item
         %th Qty
+        %th Total Value
     %tbody
     - @item_receive.entries.each_with_index do |entry, i|
       %tr
@@ -50,3 +58,4 @@
         %td
           %p= link_to h(entry.item.name), entry.item
         %td.tdr= entry.quantity
+        %td.tdr= local_currency(entry.total)

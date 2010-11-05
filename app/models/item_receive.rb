@@ -97,4 +97,9 @@ class ItemReceive < ActiveRecord::Base
   def total_po
     purchase_order.total_value
   end
+
+  def populate_total
+    self.total = entries.collect { |e| e.total }.sum
+    save
+  end
 end
