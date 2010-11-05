@@ -15,6 +15,10 @@ class Quotation < ActiveRecord::Base
   belongs_to :customer
   validates_presence_of :number, :customer_id
   validates_uniqueness_of :number, :scope => :company_id
+
+  def validate
+    #errors.add_to_base("Customer name cannot be empty") if customer_name.blank?
+  end
   
   def name
     number

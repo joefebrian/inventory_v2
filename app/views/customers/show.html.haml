@@ -34,6 +34,9 @@
     %div
       %span.light.transaction_label Attention
       %p= @customer.attention
+    %div
+      %span.light.transaction_label Default T.O.P
+      %p= @customer.default_top
   %fieldset#tax-profile.info
     %legend Tax Information
     - unless @customer.tax_profile.blank?

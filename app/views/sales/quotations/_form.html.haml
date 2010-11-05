@@ -10,7 +10,7 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
     = f.input :customer_id, :as => :hidden
-    = f.input :customer_name, :label => "Customer Name", :as => :string
+    = f.input :customer_name, :label => "Customer Name", :as => :string, :required => true
     = f.input :tanggal_berlaku, :as => :string, :input_html => { :class => "datepicker" }, :label => "Effective Date"
     = f.input :day, :label => "Days"
     = f.input :hal, :label => "Subject"

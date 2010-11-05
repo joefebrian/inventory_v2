@@ -403,6 +403,7 @@ $('#sales_order_customer_name').live('focus', function() {
     focus: function(event, ui) { $(this).val(ui.item.fullname); return false; },
     select: function(event, ui) {
       $(this).parents('form').find('#sales_order_customer_id').val(ui.item.id);
+      $(this).parents('form').find('#sales_order_top').val(ui.item.default_top);
       var form = $(this).parents('form')
       $.ajax({
         source: form[0].action,
@@ -444,8 +445,6 @@ $('#quotation_customer_name').live('focus', function() {
     .appendTo(ul);
   };
  });
-
-
 
 //customer auto_complete for form delivery orders
 $('#delivery_order_customer_name').live('focus', function() {
