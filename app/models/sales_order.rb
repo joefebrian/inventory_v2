@@ -22,7 +22,10 @@ class SalesOrder < ActiveRecord::Base
   end
 
   def after_initialize
-    self.number = suggested_number if new_record?
+    if new_record?
+      self.closed = false
+      self.number = suggested_number
+    end
   end
 
   def suggested_number

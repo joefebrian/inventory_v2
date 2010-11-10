@@ -15,6 +15,13 @@
 #subheader
   %h3 Transaction Sales Order
   #subheader-menu
+    %strong Showing :
+    = link_to_if((params[:state] != 'all'), "all", sales_sales_orders_path(:state => "all"))
+    &bull;
+    = link_to_if((params[:state] != 'closed'), "closed", sales_sales_orders_path(:state => "closed"))
+    &bull;
+    = link_to_if((params[:state] && params[:state] != 'open'), "open", sales_sales_orders_path(:state => "open"))
+    &bull;
     = link_to "#{image_tag('icons/silk/add.png')} Create Sales Order", new_sales_sales_order_path, :class => 'main_link'
 
 %table.list

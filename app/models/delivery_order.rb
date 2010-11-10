@@ -36,6 +36,7 @@ class DeliveryOrder < ActiveRecord::Base
     entries.clear
     unless sales_order_id.blank?
      
+       #debugger
       data_do = DeliveryOrder.all(:conditions => {:sales_order_id => sales_order_id}).collect{|d| d.id}
       item_do = DeliveryOrderEntry.calculate(:sum, 
                                            :quantity,
@@ -44,10 +45,9 @@ class DeliveryOrder < ActiveRecord::Base
 
 
       sales_order.entries.each do |so_data|
-       # debugger
         item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
         self.entries.build(:item_id => so_data.item_id,
-                           :quantity => so_data.quantity - item_dos[1].to_i) 
+                           :quantity => so_data.quantity - (item_dos.nil? ? 0 : item_dos[1].to_i)) 
  
       end
     end

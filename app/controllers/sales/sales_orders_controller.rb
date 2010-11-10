@@ -1,22 +1,17 @@
 class Sales::SalesOrdersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-=begin
-  def index
-    @search = current_company.sales_orders.search(params[:search])
-    @sales_orders = @search.paginate(:page => params[:page])
-  end
-=end
 
   def index
     @search = current_company.sales_orders.search(params[:search])
     if params[:state] == 'closed'
-      @sales_orders = @search.search(:closed => true).paginate(:page => params[:page])
+      @sales_orders = @search.search(:closed => true)
     elsif params[:state] == 'all'
-      @sales_orders = @search.paginate(:page => params[:page])
+      @sales_orders = @search.all
     else
-      @sales_orders = @search.all(:conditions => {:closed => false} ).paginate(:page => params[:page])
+      @sales_orders = @search.search(:closed => false)
     end
+    @sales_orders.paginate(:page => params[:page])
   end
   
   def show

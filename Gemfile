@@ -26,6 +26,7 @@ group :development do
   gem 'hirb'
   gem 'wirble'
   gem 'nifty-generators'
+  gem 'ruby-debug'
 end
 
 group :test do
