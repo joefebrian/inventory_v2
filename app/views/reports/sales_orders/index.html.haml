@@ -1,0 +1,24 @@
+- title "Sales Orders Report"
+= hint "Select the kind of report you want to see"
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Reports', reports_path), |
+    "Sales Orders" ] |
+
+%fieldset.plain
+  %legend Filter
+  - form_tag reports_sales_orders_path, :method => :get do
+    %p.date_range
+      = label_tag 'until', 'Report per '
+      = text_field_tag 'until', @until, :class => 'datepicker'
+      %button{ :type => :submit } Go
+      = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download PDF", reports_sales_orders_path(:format => :pdf)
+
+#items
+  %table.list
+    %tr
+      %th Sales Order Number
+      %th Customer Name
+    - for sales_order in @sales_orders
+      %tr
+        %td= link_to sales_order.number, sales_order
+        %td= sales_order.customer_id

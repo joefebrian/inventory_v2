@@ -1,4 +1,4 @@
-- current = { 'oh' => nil }
+- current = { 'oh' => nil, 'sales' => nil }
 - current[@current] = 'current'
 
 %ul#sidemenu
@@ -11,3 +11,5 @@
   %li
     = link_to "Stock Card", reports_stock_cards_path, :class => current['sc']
     %div
+  %li
+    =link_to "Sales Order", reports_sales_orders_path, :class => current['so'];
