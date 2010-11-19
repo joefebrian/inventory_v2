@@ -66,6 +66,7 @@ ActionController::Routing::Routes.draw do |map|
     page.reports 'reports', :id => 'reports'
     page.administrations 'administrations', :id => 'administrations'
   end
+  map.resources 'hpp', :controller => 'hpp'
   map.dashboard 'dashboard', :controller => :pages
   map.signin "signin", :controller => :user_sessions, :action => :new
   map.signout "signout", :controller => :user_sessions, :action => :destroy

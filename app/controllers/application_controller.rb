@@ -8,10 +8,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
   helper_method :current_user_session, :current_user, :current_company, :authenticate, :random_css_color
-  # rescue_from CanCan::AccessDenied do |exception|
-  #   flash[:error] = "Maaf, anda tidak bisa mengakses halaman tersebut."
-  #   redirect_to root_path
-  # end
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to dashboard_path
