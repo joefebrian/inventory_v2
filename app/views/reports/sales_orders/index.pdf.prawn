@@ -2,12 +2,12 @@ pdf.text "Quantity On-hand", :size => 18, :style => :bold, :align => :center
 pdf.text "Report per #{@until}", :align => :center if @until
 pdf.move_down 20
 
-data = @items.map do |item|
-  [ item.code, item.name, item.on_hand_stock ]
+data = @sales_orders.map do |sales_order|
+  [ sales_order.number, sales_order.tanggal, sales_order.customer_id, sales_order.customer, sales_order.vat, sales_order.vat, sales_order.vat ]
 end
 
   pdf.table data, 
-    :headers => ['Code', 'Name', 'Quantity'],
+    :headers => ['SO Number', 'Date', 'Cust. ID', 'Cust. Name', 'Total Bruto', 'Total Disc', 'Total Netto' ],
     :column_widths => { 2 => 75},
     :header_color => "cccccc",
     :header_text_color  => "ffffff",

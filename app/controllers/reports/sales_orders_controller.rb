@@ -19,7 +19,7 @@ class Reports::SalesOrdersController < ApplicationController
     @sales_orders.paginate(:page => params[:page])
 
 
-  respond_to do |format|
+    respond_to do |format|
       format.html
       format.pdf
     end
@@ -30,6 +30,5 @@ class Reports::SalesOrdersController < ApplicationController
     @tab = 'reports'
     @current = 'so'
   end
-
 
 end

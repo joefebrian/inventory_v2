@@ -16,9 +16,19 @@
 #items
   %table.list
     %tr
-      %th Sales Order Number
-      %th Customer Name
+      %th SO Number
+      %th Date
+      %th Cust. ID
+      %th Cust. Name
+      %th Total Bruto
+      %th Total Disc
+      %th Total Netto
     - for sales_order in @sales_orders
       %tr
-        %td= link_to sales_order.number, sales_order
+        %td= sales_order.number
+        %td= sales_order.tanggal
         %td= sales_order.customer_id
+        %td= sales_order.customer
+        %td= sales_order.vat
+        %td= sales_order.vat
+        %td= sales_order.vat
