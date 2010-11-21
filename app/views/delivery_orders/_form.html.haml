@@ -37,6 +37,7 @@
               %td.item
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
+                = ent.hidden_field :plu_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
               %td.tdr
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"

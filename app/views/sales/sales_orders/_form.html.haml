@@ -46,6 +46,7 @@
               %td.item
                 = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                 = ent.hidden_field :item_id
+                = ent.hidden_field :plu_id
               %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty calc"
               %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "numbers mr_price calc"
               %td.tdr.td_5= ent.text_field :diskon, :size => 5, :class => "numbers mr_disc calc"

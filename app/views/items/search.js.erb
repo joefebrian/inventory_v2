@@ -1,2 +1,2 @@
 <% ActiveRecord::Base.include_root_in_json = false %>
-<%= @items.to_json(:only => [:id, :name, :code], :include => :units) %>
+<%= @items.to_json(:only => [:id, :name, :code], :include => [:units, :plus]) %>

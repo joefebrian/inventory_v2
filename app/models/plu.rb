@@ -23,4 +23,8 @@ class Plu < ActiveRecord::Base
   def item_name_with_code
     item.name_with_code
   end
+
+  def item_name_with_plu_code
+    "#{item.name} (PLU no. #{code})"
+  end
 end

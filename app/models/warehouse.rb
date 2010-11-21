@@ -37,10 +37,26 @@ class Warehouse < ActiveRecord::Base
     Item.all(:conditions => {:id => item_ids})
   end
 
-  def item_quantity(item)
+  def item_quantity_with_id(item)
     ins = Entry.transaction_destination_id_is(self.id).transaction_alter_stock_is(true).item_id_is(item).sum(:quantity)
     out = Entry.transaction_origin_id_is(self.id).transaction_alter_stock_is(true).item_id_is(item).sum(:quantity)
     ins - out
+  end
+
+  def item_quantity_with_plu(plu)
+    ins = Entry.transaction_destination_id_is(self.id).transaction_alter_stock_is(true).plu_id_is(plu).sum(:quantity)
+    out = Entry.transaction_origin_id_is(self.id).transaction_alter_stock_is(true).plu_id_is(plu).sum(:quantity)
+    ins - out
+  end
+
+  def item_quantity(id)
+    if id.nil?
+      0
+    elsif id.class == Plu
+      item_quantity_with_plu(id)
+    else
+      item_quantity_with_id(id)
+    end
   end
 
   def managed_items_quantity

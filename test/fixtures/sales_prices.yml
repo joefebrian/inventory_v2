@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  company_id: 1
+  active_date: 2010-11-22
+  plu_id: 1
+  value: 1.5
+
+two:
+  company_id: 1
+  active_date: 2010-11-22
+  plu_id: 1
+  value: 1.5

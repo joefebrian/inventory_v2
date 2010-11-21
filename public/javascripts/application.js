@@ -107,11 +107,13 @@ $('#primary-button, .primary-button').click(function() {
 $('input.item_autocomplete').live('focus', function() {
   var input = $(this);
   input.autocomplete({
-    source: '/items/search.js',
-    focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
+    //source: '/items/search.js',
+    source: '/plus/search.js',
+    focus:  function(event, ui) { $(this).val(ui.item.item_name_with_plu_code); return false; },
     select: function(event, ui) {
-      $(this).val(ui.item.name);
-      $(this).next().val(ui.item.id);
+      $(this).val(ui.item.item_name_with_plu_code);
+      $(this).next().val(ui.item.item.id);
+      $(this).next().next().val(ui.item.id);
       var form = $(this).parents('form');
       // run when you want to add new set of inputs
       if(window.insert_fields) {
@@ -160,7 +162,7 @@ $('input.item_autocomplete').live('focus', function() {
   ._renderItem = function(ul, item) {
     return $("<li></li>")
     .data("item.autocomplete", item)
-    .append("<a>" + item.name + "</a>")
+    .append("<a>" + item.item_name_with_plu_code + "</a>")
     .appendTo(ul);
   };
 });
