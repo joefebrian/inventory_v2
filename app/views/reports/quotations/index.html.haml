@@ -1,0 +1,28 @@
+- title "Quotations Report"
+= hint "Select the kind of report you want to see"
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Reports', reports_path), |
+    "Quotations" ] |
+
+%fieldset.plain
+  %legend Filter
+  - form_tag reports_quotations_path, :method => :get do
+    %p.date_range
+      = label_tag 'until', 'Report per '
+      = text_field_tag 'until', @until, :class => 'datepicker'
+      %button{ :type => :submit } Go
+      = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download PDF", reports_quotations_path(:format => :pdf)
+
+#items
+  %table.list
+    %tr
+      %th Quotation Number
+      %th Date
+      %th Cust. ID
+      %th Cust. Name
+    - for quotation in @quotations
+      %tr
+        %td= quotation.number
+        %td= quotation.tanggal_berlaku
+        %td= quotation.customer_id
+        %td= quotation.customer

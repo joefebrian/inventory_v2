@@ -1,4 +1,4 @@
-pdf.text "Quantity On-hand", :size => 18, :style => :bold, :align => :center
+pdf.text "Sales Order", :size => 18, :style => :bold, :align => :center
 pdf.text "Report per #{@until}", :align => :center if @until
 pdf.move_down 20
 

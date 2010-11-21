@@ -59,6 +59,8 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :item_movements, :collection => { :generate => :get, :excel => :get }
     report.resources :stock_cards
     report.resources :sales_orders
+    report.resources :quotations
+    report.resources :delivery_orders
   end
 
   map.with_options(:controller => :pages, :action => :show) do |page|
