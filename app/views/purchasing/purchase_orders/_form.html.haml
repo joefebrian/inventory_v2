@@ -40,6 +40,8 @@
                   %li
                     = ent.text_field :item_name, :class => "item_autocomplete", :style => "width:66% !important"
                     = ent.hidden_field :item_id
+                    -#this field only used so that the plu id doesn't filled the quantity field
+                    = hidden_field_tag "bogus_field", -1
                     = ent.text_field :quantity, :class => "numbers mr_qty", :style => "width:7%"
                     = ent.text_field :purchase_price, :class => "numbers", :style => "width:10%"
                     = ent.text_field :discount, :class => "numbers", :style => "width:7%"

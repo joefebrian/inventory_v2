@@ -43,7 +43,6 @@ class DeliveryOrder < ActiveRecord::Base
     trans.alter_stock = true
     trans.remark = "Auto-generated from Delivery Order # #{number} date #{created_at.to_s(:long)}"
     entries.each do |entry|
-      #plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
       trans.entries.build(:plu_id => entry.plu_id, :quantity => entry.quantity)
     end
     trans.save
