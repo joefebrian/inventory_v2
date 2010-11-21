@@ -6,10 +6,24 @@ class DeliveryOrder < ActiveRecord::Base
   belongs_to :sales_order
   belongs_to :company
   belongs_to :warehouse
-  validates_presence_of :number, :customer_id, :do_date
+  validates_presence_of :number, :customer_id, :do_date, :warehouse_id
   validates_uniqueness_of :number, :scope => :company_id
 
-  after_save :close_do
+  def validate
+    errors.add_to_base("Selected warehouse doesn't have sufficient stock for some or all of the items") if insuficient_stock?
+  end
+
+  def insuficient_items
+    entries.reject do |entry|
+      entry if warehouse.item_quantity(entry.plu) < entry.quantity
+    end
+  end
+
+  def insuficient_stock?
+    insuficient_items.blank?
+  end
+
+  after_save :close_so
   after_save :alter_stock
 
   def close_so
@@ -29,8 +43,8 @@ class DeliveryOrder < ActiveRecord::Base
     trans.alter_stock = true
     trans.remark = "Auto-generated from Delivery Order # #{number} date #{created_at.to_s(:long)}"
     entries.each do |entry|
-      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
-      trans.entries.build(:plu_id => plu.id, :quantity => entry.quantity)
+      #plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
+      trans.entries.build(:plu_id => entry.plu_id, :quantity => entry.quantity)
     end
     trans.save
   end
@@ -48,7 +62,10 @@ class DeliveryOrder < ActiveRecord::Base
     :reject_if => lambda {|a| a['quantity'].blank? }
 
   def after_initialize
-    self.number = suggested_number if new_record?
+    if new_record?
+      self.warehouse_id = company.warehouses.default
+      self.number = suggested_number
+    end
   end
 
   def suggested_number
@@ -70,7 +87,7 @@ class DeliveryOrder < ActiveRecord::Base
 
       sales_order.entries.each do |so_data|
         item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
-        self.entries.build(:item_id => so_data.item_id, :quantity => so_data.quantity - (item_dos.nil? ? 0 : item_dos[1].to_i)) 
+        self.entries.build(:item_id => so_data.item_id, :quantity => so_data.quantity - (item_dos.nil? ? 0 : item_dos[1].to_i), :plu_id => so_data.plu_id) 
       end
     end
   end
