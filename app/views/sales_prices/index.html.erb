@@ -1,0 +1,19 @@
+<% title "Sales Prices" %>
+
+<table>
+  <tr>
+    <th>Company</th>
+    <th>Active Date</th>
+    <th>Plu</th>
+    <th>Value</th>
+  </tr>
+  <% for sales_price in @sales_prices %>
+    <tr>
+      <td><%=h sales_price.company_id %></td>
+      <td><%=h sales_price.active_date %></td>
+      <td><%=h sales_price.plu_id %></td>
+      <td><%=h sales_price.value %></td>
+    </tr>
+  <% end %>
+</table>
+

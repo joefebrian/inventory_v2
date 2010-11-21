@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :sales_prices
+
   map.resources :direct_sales
 
   map.resources :customer_down_payments
@@ -53,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :companies
   map.resources :users
+  map.resources :sales_prices
 
   map.namespace(:reports) do |report|
     report.resources :on_hands
