@@ -15,10 +15,11 @@ class DeliveryOrdersController < ApplicationController
     @customer = current_company.customers.all(:include => :profile)
     @delivery_order = current_company.delivery_orders.new
     @delivery_order.attributes = params[:delivery_order] if params[:delivery_order]
+    @warehouses = current_company.warehouses.all
     if params[:delivery_order]
-      @sales_orders = current_company.sales_orders.customer_id_is(params[:delivery_order][:customer_id])
+      @sales_orders = current_company.sales_orders.all_open.customer_id_is(params[:delivery_order][:customer_id])
     else
-      @sales_orders = current_company.sales_orders
+      @sales_orders = current_company.sales_orders.all_open
     end
     @delivery_order.entries.build
     if request.xhr?

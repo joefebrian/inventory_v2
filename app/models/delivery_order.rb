@@ -5,8 +5,35 @@ class DeliveryOrder < ActiveRecord::Base
   belongs_to :customer
   belongs_to :sales_order
   belongs_to :company
+  belongs_to :warehouse
   validates_presence_of :number, :customer_id, :do_date
   validates_uniqueness_of :number, :scope => :company_id
+
+  after_save :close_do
+  after_save :alter_stock
+
+  def close_so
+    if sales_order.all_entries_delivered?
+      sales_order.closed = true
+      sales_order.closing_note = "Closed automatically by Delivery Order # #{number}"
+      sales_order.save!
+    end
+  end
+
+  def alter_stock
+    ttype = TransactionType.first(:conditions => { :company_id => company.id, :code => "AUTO-DO" })
+    trans = company.general_transactions.new
+    trans.transaction_type = ttype
+    trans.number = GeneralTransaction.next_number(company, ttype)
+    trans.origin_id = warehouse_id
+    trans.alter_stock = true
+    trans.remark = "Auto-generated from Delivery Order # #{number} date #{created_at.to_s(:long)}"
+    entries.each do |entry|
+      plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
+      trans.entries.build(:plu_id => plu.id, :quantity => entry.quantity)
+    end
+    trans.save
+  end
 
   def name
     number

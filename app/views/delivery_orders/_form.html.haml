@@ -13,6 +13,7 @@
     = f.input :customer_name, :label => "Customer Name", :as => :string
     = f.input :sales_order_id, :collection => @sales_orders, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => { :class => "multiselect"}
     = f.input :do_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    = f.input :warehouse, :collection => @warehouses, :input_html => { :class => "select filter" }
     = f.input :reference
     = f.input :description, :input_html => { :rows => 3 }
 

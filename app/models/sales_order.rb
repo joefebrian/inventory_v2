@@ -1,6 +1,7 @@
 class SalesOrder < ActiveRecord::Base
   attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :currency_id, :currency_rate, :order_ref, :salesman_id, :entries_attributes, :customer_name
   has_many :entries, :class_name => "SalesOrderEntry"
+  has_many :delivery_orders
   belongs_to :company
   belongs_to :assembly
   belongs_to :customer
@@ -67,6 +68,20 @@ class SalesOrder < ActiveRecord::Base
   def customer_name=(name)
     first, last = name.split(' ', 2)
     customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
+  end
+
+  def undelivered_entries
+    do_entries = DeliveryOrderEntry.calculate(:sum, :quantity, :conditions => { 'delivery_orders.sales_order_id' => 3 }, :group => :item_id, :include => :delivery_order)
+    undelivered = {}; entries.collect do |entry|
+      if !do_entries.include? entry.item_id.to_i || do_entries[entry.item_id] < entry.quantity
+        undelivered[entry.item_id] = entry.quantity - do_entries[entry.item_id.to_i]
+      end
+    end
+    undelivered
+  end
+
+  def all_entries_delivered?
+    undelivered_entries.blank?
   end
 
 end
