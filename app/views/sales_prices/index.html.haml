@@ -1,0 +1,15 @@
+- title "Sales Price"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Administrations', administrations_path), link_to('Sales Price', sales_prices_path) ]
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :plu_item_name_like
+      = f.submit 'search'
+
+  = sidemenu @tab
+
+= hint ''
+#subheader
+  %h3 Sales Price
+  #subheader-menu
