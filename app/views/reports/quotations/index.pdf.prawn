@@ -3,7 +3,7 @@ pdf.text "Report per #{@until}", :align => :center if @until
 pdf.move_down 20
 
 data = @quotations.map do |quotation|
-  [ quotation.number, quotation.do_date, quotation.customer_id, quotation.customer ]
+  [ quotation.number, quotation.tanggal_berlaku, quotation.customer_id, quotation.customer ]
 end
 
   pdf.table data, 

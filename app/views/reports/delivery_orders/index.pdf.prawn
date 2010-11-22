@@ -3,7 +3,7 @@ pdf.text "Report per #{@until}", :align => :center if @until
 pdf.move_down 20
 
 data = @delivery_orders.map do |delivery_order|
-  [ delivery_order.number, delivery_order.tanggal_berlaku, delivery_order.customer_id, delivery_order.customer ]
+  [ delivery_order.number, delivery_order.do_date, delivery_order.customer_id, delivery_order.customer ]
 end
 
   pdf.table data, 
