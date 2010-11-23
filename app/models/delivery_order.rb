@@ -1,12 +1,12 @@
 class DeliveryOrder < ActiveRecord::Base
-  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes
+  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes, :warehouse_id
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
   belongs_to :customer
   belongs_to :sales_order
   belongs_to :company
   belongs_to :warehouse
-  validates_presence_of :number, :customer_id, :do_date, :warehouse_id
+  validates_presence_of :number, :do_date, :warehouse_id
   validates_uniqueness_of :number, :scope => :company_id
 
   def validate
@@ -101,8 +101,12 @@ class DeliveryOrder < ActiveRecord::Base
   end
 
   def customer_name=(name)
-    first, last = name.split(' ', 2)
-    customer = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
+    if name.present?
+      first, last = name.split(' ', 2)
+      tmp = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
+      RAILS_DEFAULT_LOGGER.debug tmp.inspect
+      self.customer_id = tmp.id
+    end
   end
 
 end

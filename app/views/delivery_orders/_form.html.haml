@@ -11,7 +11,7 @@
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
     = f.input :customer_id, :as => :hidden 
     = f.input :customer_name, :label => "Customer Name", :as => :string
-    = f.input :sales_order_id, :collection => @sales_orders, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => { :class => "multiselect"}
+    = f.input :sales_order_id, :collection => @sales_orders, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => { :class => "select filter"}
     = f.input :do_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :warehouse, :collection => @warehouses, :input_html => { :class => "select filter" }
     = f.input :reference
@@ -57,7 +57,7 @@
       var regexp2 = new RegExp("_(\\d+)_", "g");
       var new_id = $('tbody tr').length;
       function multiselect_response() {
-        $('.multiselect').bind('multiselectclose', function(event, ui) {
+        $('#delivery_order_sales_order_id').bind('multiselectclose', function(event, ui) {
           var sos = $(this).multiselect('getChecked');
           var form = $(this).parents('form');
           form.append('<input type="hidden" name="get_sos" value="1"/>');
@@ -67,9 +67,12 @@
             data: form.serialize(),
             success: function(response, status) {
               var entries = $(response).find('tbody');
+              var customer = $(response).find('#delivery_order_customer_name_input');
+              var customer_id = $(response).find('#delivery_order_customer_id_input');
+              form.find('#delivery_order_customer_name_input').html(customer.html());
+              form.find('#delivery_order_customer_id_input').html(customer_id.html());
               form.find('tbody').html(entries.html());
               $('input[name=get_sos]').remove();
-              $('.tracker_quantity').validate({ required: true, max: 12 });
             }
           });
           return false;
