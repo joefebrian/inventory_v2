@@ -2,7 +2,7 @@ class PlusController < ApplicationController
   before_filter :authenticate, :except => [:search]
   before_filter :assign_tab
   before_filter :prepare_autocomplete, :only => [:new, :create, :edit, :update]
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:search]
 
   def index
     @search = current_company.plus.search(params[:search])
