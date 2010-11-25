@@ -17,7 +17,6 @@
     = f.input :quotation, :collection => @quotations, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
     = f.input :salesman, :collection => @salesman, :label => "Salesman", :include_blank => "select Salesman", :input_html => { :class => "select filter"}
     = f.input :top, :label => "Payment Terms"
-    = f.input :retensi, :label => "Retensi"
     = f.input :currency_id, :label => "Currency", :as => :select, :collection => @currencies, :input_html => { :class => "select filter"}
     = f.input :currency_rate, :label => "Rate"
 

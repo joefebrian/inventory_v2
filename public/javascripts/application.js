@@ -104,16 +104,47 @@ $('#primary-button, .primary-button').click(function() {
   return true;
 });
 
-$('input.item_autocomplete').live('focus', function() {
+$('input.plu_autocomplete').live('focus', function() {
   var input = $(this);
   input.autocomplete({
-    //source: '/items/search.js',
     source: '/plus/search.js',
     focus:  function(event, ui) { $(this).val(ui.item.item_name_with_plu_code); return false; },
     select: function(event, ui) {
       $(this).val(ui.item.item_name_with_plu_code);
       $(this).next().val(ui.item.item.id);
       $(this).next().next().val(ui.item.id);
+      var form = $(this).parents('form');
+      // run when you want to add new set of inputs
+      if(window.insert_fields) {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        input.parents('tr').after(elem);
+        $('.should_hidden').hide();
+        attach_datepicker();
+        new_id++;
+      }
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, item) {
+    return $("<li></li>")
+    .data("plu.autocomplete", item)
+    .append("<a>" + item.item_name_with_plu_code + "</a>")
+    .appendTo(ul);
+  };
+});
+
+$('input.item_autocomplete').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/items/search.js',
+    //source: '/plus/search.js',
+    focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
+    select: function(event, ui) {
+      $(this).val(ui.item.name);
+      $(this).next().val(ui.item.id);
+      //$(this).next().next().val(ui.item.id);
       var form = $(this).parents('form');
       // run when you want to add new set of inputs
       if(window.insert_fields) {
@@ -162,7 +193,7 @@ $('input.item_autocomplete').live('focus', function() {
   ._renderItem = function(ul, item) {
     return $("<li></li>")
     .data("item.autocomplete", item)
-    .append("<a>" + item.item_name_with_plu_code + "</a>")
+    .append("<a>" + item.name_with_code + "</a>")
     .appendTo(ul);
   };
 });
