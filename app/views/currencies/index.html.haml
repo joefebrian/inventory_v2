@@ -21,6 +21,7 @@
     %th Code
     %th Name
     %th Symbol
+    %th Latest Rate
     %th Default
     %th.actions Actions
   - for currency in @currencies
@@ -28,7 +29,9 @@
       %td= link_to h(currency.code), currency
       %td= h currency.name
       %td= h currency.symbol
+      %td.tdr= h number_to_currency currency.latest_rate.try(:value), :unit => '', :precision => 2, :separator => ',', :delimiter => '.'
       %td.tdc= image_tag('icons/silk/flag_green.png') if currency.default?
       %td.actions
+        = link_to image_tag('icons/silk/money.png'), currency_exchange_rates_path(currency)
         = link_to image_tag('icons/silk/application_form_edit.png'), edit_currency_path(currency)
         = link_to image_tag('icons/silk/delete.png'), currency_path(currency), :confirm => 'Are you sure?', :method => :delete

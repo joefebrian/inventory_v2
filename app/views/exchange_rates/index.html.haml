@@ -1,7 +1,7 @@
 - title "Exchange Rates"
 
 - content_for :breadcrumb do
-  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Exchage Rates", exchange_rates_path) ]
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Currencies", currencies_path), link_to(@currency.name, @currency), "Exchage Rates"]
   #top_right_link
     - form_for @search do |f|
       = f.text_field :currency_name_or_currency_symbol_or_currency_code_or_value_like
@@ -12,23 +12,19 @@
 = hint 'Click "Create Exchange Rates" button to add new Exchange Rate'
 
 #subheader
-  %h3 Transaction Exchange Rates
+  %h3= "Exchange rates for #{@currency.name}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/add.png')} Create Exchange Rate", new_exchange_rate_path, :class => 'main_link'
+    = link_to "#{image_tag('icons/silk/add.png')} Create Exchange Rate", new_currency_exchange_rate_path(@curency), :class => 'main_link'
 
 %table.list
   %tr
-    %th Currency
+    %th Effective Date
     %th Value
-    %th Due Date
     %th.actions Actions
   - for exchange_rate in @exchange_rates
     %tr
-      %td= link_to h(exchange_rate.currency.name), exchange_rate
-      %td= h exchange_rate.value
       %td= h exchange_rate.effective_date
+      %td.tdr= h number_to_currency exchange_rate.value, :unit => '', :precision => 2, :separator => ',', :delimiter => '.'
       %td.actions
-        = link_to image_tag('icons/silk/application_form_edit.png'), edit_exchange_rate_path(exchange_rate)
-        = link_to image_tag('icons/silk/delete.png'), exchange_rate_path(exchange_rate), :confirm => 'Are you sure?', :method => :delete
-
-
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_currency_exchange_rate_path(@currency, exchange_rate)
+        = link_to image_tag('icons/silk/delete.png'), currency_exchange_rate_path(@currency, exchange_rate), :confirm => 'Are you sure?', :method => :delete

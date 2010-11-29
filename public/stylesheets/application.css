@@ -938,3 +938,10 @@ ol {
     margin-bottom: 1em; }
     ol.dashboard + hr {
       margin-bottom: 20px; }
+
+    .inline-label {
+      float:none !important;
+      display:inline !important;
+      margin-left:2em;
+    }
+}

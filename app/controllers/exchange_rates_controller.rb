@@ -4,7 +4,8 @@ class ExchangeRatesController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @search = current_company.exchange_rates.search(params[:search])
+    @currency = current_company.currencies.find(params[:currency_id])
+    @search = @currency.exchange_rates.search(params[:search])
     @exchange_rates = @search.paginate(:page => params[:page])
   end
   
@@ -13,15 +14,16 @@ class ExchangeRatesController < ApplicationController
   end
   
   def new
-    @exchange_rate = current_company.exchange_rates.new
-    @currency = current_company.currencies
+    @currency = current_company.currencies.find(params[:currency_id])
+    @exchange_rate = @currency.exchange_rates.new(:effective_date => Time.now.to_date)
   end
   
   def create
-    @exchange_rate = current_company.exchange_rates.new(params[:exchange_rate])
+    @currency = current_company.currencies.find(params[:currency_id])
+    @exchange_rate = @currency.exchange_rates.new(params[:exchange_rate])
     if @exchange_rate.save
       flash[:notice] = "Successfully created exchange rate."
-      redirect_to @exchange_rate
+      redirect_to currency_exchange_rates_path(@currency)
     else
       render :action => 'new'
     end
@@ -52,7 +54,7 @@ class ExchangeRatesController < ApplicationController
   private
   def assign_tab
     @tab = 'administrations'
-    @current = 'er'
+    @current = 'curr'
   end
   
 end
