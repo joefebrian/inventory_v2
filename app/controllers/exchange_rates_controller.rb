@@ -33,7 +33,7 @@ class ExchangeRatesController < ApplicationController
     @exchange_rate = current_company.exchange_rates.find(params[:id])
     @currency = current_company.currencies
   end
-  
+
   def update
     @exchange_rate = current_company.exchange_rates.find(params[:id])
     if @exchange_rate.update_attributes(params[:exchange_rate])
@@ -43,18 +43,18 @@ class ExchangeRatesController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
-    @exchange_rate = current_company.exchange_rates.find(params[:id])
+    @currency = current_company.currencies.find(params[:currency_id])
+    @exchange_rate = @currency.exchange_rates.find(params[:id])
     @exchange_rate.destroy
     flash[:notice] = "Successfully destroyed exchange rate."
-    redirect_to exchange_rates_url
+    redirect_to currency_exchange_rates_path(@currency)
   end
-  
+
   private
   def assign_tab
     @tab = 'administrations'
     @current = 'curr'
   end
-  
 end
