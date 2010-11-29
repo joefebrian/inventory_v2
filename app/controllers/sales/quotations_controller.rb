@@ -13,6 +13,7 @@ class Sales::QuotationsController < ApplicationController
   
   def new
     @quotation = current_company.quotations.new
+    @quotation.tanggal_berlaku = Time.now.to_date
     @quotation.entries.build
     @customer = current_company.customers.all(:include => :profile)
   end
