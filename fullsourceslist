@@ -1,0 +1,143 @@
+deb http://ppa.launchpad.net/leolik/leolik/ubuntu maverick main
+deb-src http://ppa.launchpad.net/leolik/leolik/ubuntu maverick main
+# deb http://ppa.launchpad.net/shutter-testing-team/ppa/ubuntu maverick main #Shutter Testing-Team PPA
+deb-src http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu maverick main
+deb http://ppa.launchpad.net/ilap/lwp/ubuntu maverick main
+deb-src http://ppa.launchpad.net/ilap/lwp/ubuntu maverick main
+deb http://ppa.launchpad.net/crebs/ppa/ubuntu maverick main
+deb-src http://ppa.launchpad.net/crebs/ppa/ubuntu maverick main
+deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu maverick main
+deb http://ppa.launchpad.net/ricotz/testing/ubuntu maverick main #Testing PPA
+# deb http://ppa.launchpad.net/chromium-daily/ppa/ubuntu maverick main
+# This file makes sure that Opera Browser is kept up-to-date
+# as part of regular system upgrades
+
+deb http://deb.opera.com/opera/ lenny non-free
+
+# The line above will make sure you get all final public releases.
+# Uncomment the following line if you want to get alpha and beta
+# releases, too.
+
+deb http://deb.opera.com/opera-beta/ testing non-free
+deb http://ppa.launchpad.net/zeitgeist/ppa/ubuntu maverick main #Zeitgeist
+deb http://ppa.launchpad.net/tsbarnes/misc/ubuntu maverick main
+deb-src http://ppa.launchpad.net/tsbarnes/misc/ubuntu maverick main
+deb http://ppa.launchpad.net/shutter/ppa/ubuntu maverick main #Shutter Team PPA
+deb http://ppa.launchpad.net/natesm/ease/ubuntu maverick main
+deb http://getswiftfox.com/builds/debian unstable non-free #Swiftfox
+## WineHQ - Ubuntu 6.06 LTS "dapper drake"
+deb http://ppa.launchpad.net/gnome-terminator/ppa/ubuntu maverick main #PPA for Terminator disabled on upgrade to maverick
+deb http://ppa.launchpad.net/elegant-gnome/ppa/ubuntu maverick main
+deb-src http://ppa.launchpad.net/elegant-gnome/ppa/ubuntu maverick main
+deb http://ppa.launchpad.net/adilson/experimental/ubuntu maverick main
+deb-src http://ppa.launchpad.net/adilson/experimental/ubuntu maverick main
+deb http://ppa.launchpad.net/tiheum/equinox/ubuntu maverick main
+deb-src http://ppa.launchpad.net/tiheum/equinox/ubuntu maverick main
+deb http://ppa.launchpad.net/ubuntu-desktop/gnome3-builds/ubuntu maverick main
+deb-src http://ppa.launchpad.net/ubuntu-desktop/gnome3-builds/ubuntu maverick main
+deb http://ppa.launchpad.net/murrine-daily/ppa/ubuntu maverick main
+deb-src http://ppa.launchpad.net/murrine-daily/ppa/ubuntu maverick main
+deb http://ppa.launchpad.net/prodoomman/qmlsaver/ubuntu maverick main
+deb-src http://ppa.launchpad.net/prodoomman/qmlsaver/ubuntu maverick main
+deb http://ppa.launchpad.net/tualatrix/ppa/ubuntu maverick main
+deb-src http://ppa.launchpad.net/tualatrix/ppa/ubuntu maverick main
+deb http://ppa.launchpad.net/docky-core/ppa/ubuntu maverick main #Docky Development PPA
+deb-src http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu maverick main
+deb http://ppa.launchpad.net/chromium-daily/dev/ubuntu maverick main #Ubuntu Chromium - Dev Channel PPA
+deb http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu maverick main
+deb-src http://ppa.launchpad.net/danielrichter2007/grub-customizer/ubuntu maverick main
+deb http://ppa.launchpad.net/vicox/weblauncher/ubuntu maverick main
+deb-src http://ppa.launchpad.net/vicox/weblauncher/ubuntu maverick main
+deb http://ppa.launchpad.net/alecive/antigone/ubuntu maverick main
+deb-src http://ppa.launchpad.net/alecive/antigone/ubuntu maverick main
+deb http://hacktolive.org/repo/maverick maverick main restricted multiverse universe partner #Super OS repository
+deb http://archive.getdeb.net/ubuntu maverick-getdeb apps
+deb http://ppa.launchpad.net/debfx/virtualbox/ubuntu maverick main #PPA for VirtualBox OSE
+deb http://ppa.launchpad.net/me-davidsansome/clementine-dev/ubuntu maverick main
+deb-src http://ppa.launchpad.net/me-davidsansome/clementine-dev/ubuntu maverick main
+deb http://ppa.launchpad.net/ubuntu-mozilla-daily/ppa/ubuntu maverick main
+deb-src http://ppa.launchpad.net/ubuntu-mozilla-daily/ppa/ubuntu maverick main
+# added by the release upgrader
+# deb cdrom:[Ubuntu 10.10 _Maverick Meerkat_ - Release i386 (20101007)]/ maverick main restricted
+# added by the release upgrader
+# See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+# newer versions of the distribution.
+
+deb http://archive.ubuntu.com/ubuntu maverick main restricted universe multiverse
+deb-src http://archive.ubuntu.com/ubuntu maverick main restricted universe multiverse
+deb http://mirrors.dotsrc.org/getdeb/ubuntu maverick-getdeb apps
+## Major bug fix updates produced after the final release of the
+## distribution.
+# deb http://archive.ubuntu.com/ubuntu maverick-updates main restricted
+# deb-src http://archive.ubuntu.com/ubuntu maverick-updates main restricted
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
+## team. Also, please note that software in universe WILL NOT receive any
+## review or updates from the Ubuntu security team.
+# deb http://archive.ubuntu.com/ubuntu maverick universe
+# deb-src http://archive.ubuntu.com/ubuntu maverick universe
+# deb http://archive.ubuntu.com/ubuntu maverick-updates universe
+# deb-src http://archive.ubuntu.com/ubuntu maverick-updates universe
+
+## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu 
+## team, and may not be under a free licence. Please satisfy yourself as to 
+## your rights to use the software. Also, please note that software in 
+## multiverse WILL NOT receive any review or updates from the Ubuntu
+## security team.
+# deb http://archive.ubuntu.com/ubuntu maverick multiverse
+# deb-src http://archive.ubuntu.com/ubuntu maverick multiverse
+# deb http://archive.ubuntu.com/ubuntu maverick-updates multiverse
+# deb-src http://archive.ubuntu.com/ubuntu maverick-updates multiverse
+
+## Uncomment the following two lines to add software from the 'backports'
+## repository.
+## N.B. software from this repository may not have been tested as
+## extensively as that contained in the main release, although it includes
+## newer versions of some applications which may provide useful features.
+## Also, please note that software in backports WILL NOT receive any review
+## or updates from the Ubuntu security team.
+deb http://archive.ubuntu.com/ubuntu maverick-backports restricted main multiverse universe
+deb-src http://archive.ubuntu.com/ubuntu maverick-backports main restricted universe multiverse
+
+## Uncomment the following two lines to add software from Canonical's
+## 'partner' repository.
+## This software is not part of Ubuntu, but is offered by Canonical and the
+## respective vendors as a service to Ubuntu users.
+deb http://archive.canonical.com/ubuntu maverick partner
+
+# deb http://archive.ubuntu.com/ubuntu maverick-security main restricted
+# deb-src http://archive.ubuntu.com/ubuntu maverick-security main restricted
+# deb http://archive.ubuntu.com/ubuntu maverick-security universe
+# deb-src http://archive.ubuntu.com/ubuntu maverick-security universe
+# deb http://archive.ubuntu.com/ubuntu maverick-security multiverse
+# deb-src http://archive.ubuntu.com/ubuntu maverick-security multiverse
+
+#Use the following sources.list at your own risk.
+deb http://kambing.vlsm.org/ubuntu maverick main restricted universe multiverse
+deb-src http://kambing.vlsm.org/ubuntu maverick main restricted universe multiverse
+
+## MAJOR BUG FIX UPDATES produced after the final release
+deb http://kambing.vlsm.org/ubuntu maverick-updates main restricted universe multiverse
+deb-src http://kambing.vlsm.org/ubuntu maverick-updates main restricted universe multiverse
+
+## UBUNTU SECURITY UPDATES
+deb http://kambing.vlsm.org/ubuntu maverick-security main restricted universe multiverse
+deb-src http://kambing.vlsm.org/ubuntu maverick-security main restricted universe multiverse
+
+## BACKPORTS REPOSITORY (Unsupported. May contain illegal packages. Use at own risk.)
+deb http://kambing.vlsm.org/ubuntu maverick-backports main restricted universe multiverse
+deb-src http://kambing.vlsm.org/ubuntu maverick-backports main restricted universe multiverse
+# deb http://ubuntu.pesat.net.id/archive/ maverick universe main restricted multiverse
+# deb-src http://ubuntu.pesat.net.id/archive/ maverick universe restricted multiverse #Added by software-properties
+
+
+# deb-src http://ppa.launchpad.net/chromium-daily/ppa/ubuntu maverick main
+
+#deb http://download.tuxfamily.org/gericom/libreoffice/ 
+deb http://security.ubuntu.com/ubuntu/ maverick-security universe main restricted multiverse
+deb-src http://archive.ubuntu.com/ubuntu maverick-security universe main restricted multiverse #Added by software-properties
+deb http://archive.ubuntu.com/ubuntu maverick-updates universe main restricted multiverse
+deb-src http://archive.ubuntu.com/ubuntu maverick-updates universe main restricted multiverse #Added by software-properties
+deb http://archive.ubuntu.com/ubuntu maverick-proposed universe main restricted multiverse
+deb-src http://archive.ubuntu.com/ubuntu maverick-proposed universe main restricted multiverse #Added by software-properties
+deb http://repository.glx-dock.org/ubuntu maverick cairo-dock

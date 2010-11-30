@@ -11,7 +11,7 @@
 #subheader
   %h3= "Sales Order # #{@sales_order.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", '#'
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_sales_order_path(@sales_order, :format => "pdf")
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_sales_sales_order_path(@sales_order)
     &bull;

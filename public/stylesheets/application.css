@@ -938,3 +938,47 @@ ol {
     margin-bottom: 1em; }
     ol.dashboard + hr {
       margin-bottom: 20px; }
+
+
+@media print{
+  body{
+    background:#FFFFFF;
+    width:100%;
+    margin:0;
+    padding:0;
+    border:none;
+  }
+  #line items{
+    page-break-before:always;
+  }
+  
+  #banner{
+    display:none;
+  }
+  #user_nav{ 
+   display:none; 
+  }
+  #user_logo {
+    display:none;    
+  }
+  
+  #sidebar{
+    display:none; 
+  }
+  #footer{
+    display:none;
+  }
+  #breadcrumb{
+    display:none;
+  }
+  #main{
+    margin:auto;
+    width:900px;
+  }
+  .plain{
+    display:none;
+  }
+  .pagination{
+    display:none
+  }
+}

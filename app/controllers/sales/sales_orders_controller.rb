@@ -16,6 +16,18 @@ class Sales::SalesOrdersController < ApplicationController
   
   def show
     @sales_order = current_company.sales_orders.find(params[:id])
+      respond_to do |format|
+        format.html
+        format.pdf { render :layout => print }  #add this line
+      end
+
+  end
+
+  def printshow
+    @sales_order = current_company.sales_orders.find(params[:id])
+      respond_to do |format|
+        format.pdf { render :layout => print }  #add this line
+      end
   end
   
   def new

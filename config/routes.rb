@@ -25,7 +25,8 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations, :member => { :send_request => :get }
-    sales.resources  :sales_orders
+    sales.resources  :sales_orders,
+      :collection => {:printshow => :get}
   end
   map.resources :customers, :collection => {:prices => :get, :search => :get }, :member => {:price => :get} do |customer|
     customer.resource :profile
