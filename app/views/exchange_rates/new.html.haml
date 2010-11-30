@@ -1,8 +1,11 @@
-- title "New Exchange Rate"
+- title "New #{@currency.name} Exchange Rate"
 
 - content_for :breadcrumb do
-  = breadcrumb [ link_to('Administrations', administrations_path), |
-    link_to("Exchange Rate", exchange_rates_path), |
-    "Add new Exchange Rate" ] |
+  = breadcrumb [ link_to("Administrations", administrations_path), link_to("Currencies", currencies_path), link_to(@currency.name, @currency), link_to("Exchange Rates", currency_exchange_rates_path(@currency)), "New"]
+
+= hint "Create new exchange rate for #{@currency.name}"
+
+#subheader
+  %h3= "New exchange rate for #{@currency.name}"
 
 = render :partial => 'form'

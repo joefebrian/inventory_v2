@@ -17,8 +17,11 @@
     = f.input :quotation, :collection => @quotations, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
     = f.input :salesman, :collection => @salesman, :label => "Salesman", :include_blank => "select Salesman", :input_html => { :class => "select filter"}
     = f.input :top, :label => "Payment Terms"
-    = f.input :currency_id, :label => "Currency", :as => :select, :collection => @currencies, :input_html => { :class => "select filter"}
-    = f.input :currency_rate, :label => "Rate"
+    %li.select.optional
+      = f.label :currency_id, "Currency"
+      = f.collection_select :currency_id, @currencies, :id, :name, {}, :class => "select filter"
+      = f.label :currency_rate, "Rate", :class => 'inline-label'
+      = f.text_field :currency_rate
 
   - f.inputs 'Items', :class => "form_section" do
     %li

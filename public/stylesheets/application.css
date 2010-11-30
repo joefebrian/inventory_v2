@@ -981,4 +981,9 @@ ol {
   .pagination{
     display:none
   }
+    .inline-label {
+      float:none !important;
+      display:inline !important;
+      margin-left:2em;
+    }
 }

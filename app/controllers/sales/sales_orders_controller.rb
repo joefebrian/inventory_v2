@@ -32,7 +32,7 @@ class Sales::SalesOrdersController < ApplicationController
   
   def new
     @sales_order = current_company.sales_orders.new
-    @sales_order.attributes = params[:sales_order] if params[:sales_order]
+    #@sales_order.attributes = params[:sales_order] if params[:sales_order]
     if params[:sales_order]
       @quotations = current_company.quotations.customer_id_is(params[:sales_order][:customer_id])
     else
@@ -56,6 +56,7 @@ class Sales::SalesOrdersController < ApplicationController
     if params[:get_quots] && params[:get_quots].to_i == 1
       @sales_order.build_entries_from_quot
       @sales_order.entries.build
+      @currencies = current_company.currencies
       render("new", :layout => false) and return
     end
     if @sales_order.save

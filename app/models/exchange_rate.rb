@@ -5,7 +5,6 @@ class ExchangeRate < ActiveRecord::Base
   belongs_to :currency
   
   validates_presence_of :value, :effective_date
-  validates_uniqueness_of :value
   
   def tgl_active
    effective_date = Chronic.parse(effective_date)

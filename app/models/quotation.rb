@@ -18,6 +18,7 @@ class Quotation < ActiveRecord::Base
 
   def validate
     #errors.add_to_base("Customer name cannot be empty") if customer_name.blank?
+    errors.add_to_base("Quotation items cannot be empty") if entries.blank?
   end
   
   def name
