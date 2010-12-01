@@ -20,7 +20,7 @@ class Sales::SalesOrdersController < ApplicationController
   
   def new
     @sales_order = current_company.sales_orders.new
-    #@sales_order.attributes = params[:sales_order] if params[:sales_order]
+    @sales_order.attributes = params[:sales_order] if params[:sales_order]
     if params[:sales_order]
       @quotations = current_company.quotations.customer_id_is(params[:sales_order][:customer_id])
     else
@@ -28,6 +28,7 @@ class Sales::SalesOrdersController < ApplicationController
     end
     @sales_order.entries.clear
     @sales_order.entries.build
+    @sales_order.tanggal = Time.now.to_date if @sales_order.tanggal.blank?
     @customer = current_company.customers
     @assembly = current_company.assemblies
     @currencies = current_company.currencies
@@ -93,6 +94,10 @@ class Sales::SalesOrdersController < ApplicationController
   def assign_tab
     @tab = 'transactions'
     @current = 'so'
+  end
+
+  def populate_fields
+    
   end
 
 end

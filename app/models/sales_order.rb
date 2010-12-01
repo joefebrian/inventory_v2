@@ -24,9 +24,16 @@ class SalesOrder < ActiveRecord::Base
 
   def after_initialize
     if new_record?
-      self.closed = false
       self.number = suggested_number
+      self.closed = false
+      self.currency = company.currencies.default.first
+      self.currency_rate = self.currency.latest_rate.value
     end
+  end
+
+  def validate
+    #errors.add_to_base("Customer name cannot be empty") if customer_name.blank?
+    errors.add_to_base("Sales order items cannot be empty") if entries.blank?
   end
 
   def suggested_number

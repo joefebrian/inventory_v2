@@ -25,6 +25,7 @@ class Sales::QuotationsController < ApplicationController
       flash[:notice] = "Successfully created quotation."
       redirect_to sales_quotation_path(@quotation)
     else
+      @quotation.number = @quotation.suggested_number if @quotation.number.blank?
       @quotation.entries.build
       @customer = current_company.customers.all(:include => :profile)
       render :action => 'new'
