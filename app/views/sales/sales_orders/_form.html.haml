@@ -93,6 +93,14 @@
           return false;
         });
       }
+      $("#sales_order_currency_id").bind("multiselectclick", function(event, ui) {
+        $.ajax({
+          url: "/currencies/"+ui.value+"/latest_rate.json",
+          success: function(response, status) {
+            $("#sales_order_currency_rate").val(response.value);
+          }
+        });
+      });
       $('.calc').live('keyup', function() {
         var row = $(this).parents('tr');
         var price = row.find('.mr_price')[0];

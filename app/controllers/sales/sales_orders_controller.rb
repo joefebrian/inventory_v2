@@ -52,6 +52,7 @@ class Sales::SalesOrdersController < ApplicationController
       flash[:notice] = "Successfully created sales order."
       redirect_to [:sales, @sales_order]
     else
+      @sales_order.number = @sales_order.suggested_number if @sales_order.number.blank?
       @sales_order.entries.build
       @customer = current_company.customers
       @quotation = current_company.quotations

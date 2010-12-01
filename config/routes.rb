@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :trans_assemblies
   map.resources :trans_diassemblies
   map.resources :roles
-  map.resources :currencies do |currency|
+  map.resources :currencies, :member => { :latest_rate => :get } do |currency|
     currency.resources :exchange_rates
   end
   map.resources :salesmen
