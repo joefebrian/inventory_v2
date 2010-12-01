@@ -13,7 +13,7 @@ gem "subdomain-fu"
 gem "formtastic"
 gem "haml", "~> 3.0.13"
 gem "paperclip", "~> 2.3.1.1"
-
+gem "pdfkit"
 # bundler requires these gems in all environments
 # gem "nokogiri", "1.4.2"
 # gem "geokit"

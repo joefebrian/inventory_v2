@@ -42,6 +42,7 @@ GEM
     mysql (2.8.1)
     nifty-generators (0.4.2)
     paperclip (2.3.1.1)
+    pdfkit (0.4.6)
     prawn (0.8.4)
       prawn-core (>= 0.8.4, < 0.9)
       prawn-layout (>= 0.8.4, < 0.9)
@@ -90,6 +91,7 @@ DEPENDENCIES
   mysql
   nifty-generators
   paperclip (~> 2.3.1.1)
+  pdfkit
   prawn
   rails (~> 2.3.10)
   ruby-debug
