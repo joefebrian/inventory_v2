@@ -176,3 +176,70 @@ textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.
     font-family: Verdana; 
     font-size: 12px; 
 }
+
+@media print{
+  body{
+    background:#FFFFFF;
+    width:100%;
+    margin:0;
+    padding:0;
+    border:none;
+  }
+  #line items{
+    page-break-before:always;
+  }
+  
+  #banner{
+    display:none;
+  }
+  #user_nav{ 
+   display:none; 
+  }
+  #user_logo {
+    display:none;    
+  }
+  
+  #sidebar{
+    display:none; 
+  }
+  #footer{
+    display:none;
+  }
+  #breadcrumb{
+    display:none;
+  }
+
+/* @using print */
+    #main{
+        margin:auto;
+        width:900px;
+    }
+    .two_columns{
+        margin-botom: 10px;
+        overflow: hidden;
+    }
+    .two_columns p{
+        line-height: 1.2em;
+        margin-bottom:10px;
+        padding-left: 160px;
+        position:relative;
+    }
+
+
+
+
+  .plain{
+    display:none;
+  }
+  .pagination{
+    display:none
+  }
+    .inline-label {
+      float:none !important;
+      display:inline !important;
+      margin-left:2em;
+  }
+  #subheader-menu{
+    display:none;
+  }
+}

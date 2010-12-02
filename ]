@@ -17,7 +17,7 @@ class Sales::SalesOrdersController < ApplicationController
   def show
     @sales_order = current_company.sales_orders.find(params[:id])
       respond_to do |format|
-        format.html  { render "print", :layout => "print" }
+        format.html  { render "show", :layout => "print" }
         format.pdf {render "print.html.erb", :layout => "print"}
       end
   end
