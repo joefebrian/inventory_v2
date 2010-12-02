@@ -1,81 +1,32 @@
 - title "Sales Ordes"
 
-  #page-wrap
-    #customer
-      #customer-title
-        =@sales_order.customer
+#page-wrap
+#customer
+  #customer-title
+  =@sales_order.customer
 
 %table#meta
-    %tr
-        %td.meta-head Number #
-        %td= @sales_order.number
-    %tr
-        %td.meta-head Date
-        %td= @sales_order.tanggal
-    %tr
-        %td.meta-head Ammount Due
-        %td $875.00
+  %tr
+    %td.meta-head Number #
+    %td= @sales_order.number
+  %tr
+    %td.meta-head Date
+    %td= @sales_order.tanggal
+  %tr
+    %td.meta-head Ammount Due
+    %td $875.00
 
 %table#items
-    %tr
-        %th Item
-        %th Description
-        %th Unit
-        %th Quantity
-        %th Price
+  %tr
+    %th No.
+    %th Item
+    %th Description
+    %th Quantity
+    %th Price
   - @sales_order.entries.each_with_index do |entry, i|
-    %tr
-        %td.tdr.td_5= (i+1)
-        %td= link_to h(entry.item.name), entry.item
-        %td.tdr= entry.quantity
-
-<!--
-<div id="page-wrap">
-    <div style="clear:both"></div>
-    <div id="customer">
-        <div id="customer-title"><%= @sales_order.cusotmer_id %></div>
-    </div>
-
-      <table id="items">
-        <tr>
-          <th>Item</th>
-          <th>Description</th>
-          <th>Unit Cost</th>
-          <th>Quantity</th>
-          <th>Price</th>
-        </tr>
-        <tr class="item-row">
-          <td class="item-name"><div class="delete-wpr">Web Updates</div></td>
-          <td class="description">Monthly web updates for http://widgetcorp.com (Nov. 1 - Nov. 30, 2009)</td>
-          <td><div class="cost">$650.00</div></td>
-          <td><div class="qty">1</div></td>
-          <td><span class="price">$650.00</span></td>
-        </tr>
-
-        <tr id="hiderow">
-          <td colspan="5">&nbsp;</td>
-        </tr>
-
-        <tr>
-          <td colspan="2" class="blank"> </td>
-          <td colspan="2" class="total-line">Subtotal</td>
-          <td class="total-value"><div id="subtotal">$875.00</div></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="blank"> </td>
-          <td colspan="2" class="total-line">Total</td>
-          <td class="total-value"><div id="total">$875.00</div></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="blank"> </td>
-          <td colspan="2" class="total-line">Amount Paid</td>
-          <td class="total-value"><div id="paid">$0.00</div></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="blank"> </td>
-          <td colspan="2" class="total-line balance">Balance Due</td>
-          <td class="total-value balance"><div class="due">$875.00</div></td>
-        </tr>
-      </table>
-</div>
--->
+    %tr.item-row
+      %td= (i+1)
+      %td.item-name= link_to h(entry.item.name), entry.item
+      %td.description= entry.description
+      %td.qty= entry.quantity
+      %td.price= entry.price
