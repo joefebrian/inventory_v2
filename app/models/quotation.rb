@@ -13,11 +13,11 @@ class Quotation < ActiveRecord::Base
   has_many :entries, :class_name => "QuotationEntry"
   belongs_to :company
   belongs_to :customer
-  validates_presence_of :number, :customer_id
+  validates_presence_of :number
   validates_uniqueness_of :number, :scope => :company_id
 
   def validate
-    #errors.add_to_base("Customer name cannot be empty") if customer_name.blank?
+    errors.add_to_base("Customer name cannot be empty") if customer_name.blank?
     errors.add_to_base("Quotation items cannot be empty") if entries.blank?
   end
   

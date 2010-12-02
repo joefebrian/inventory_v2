@@ -60,8 +60,7 @@
                   = link_to image_tag('icons/silk/comment_filled.png'), '#', :class => "popup_handle"
                 %p.popup_note.should_hidden= ent.text_field :description, :class => "pop_input default"
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
-           
- 
+
   %fieldset.buttons
     %button{ :type => "submit", :id => 'primary-button' }
       = image_tag 'icons/silk/disk.png'
@@ -94,6 +93,14 @@
           return false;
         });
       }
+      $("#sales_order_currency_id").bind("multiselectclick", function(event, ui) {
+        $.ajax({
+          url: "/currencies/"+ui.value+"/latest_rate.json",
+          success: function(response, status) {
+            $("#sales_order_currency_rate").val(response.value);
+          }
+        });
+      });
       $('.calc').live('keyup', function() {
         var row = $(this).parents('tr');
         var price = row.find('.mr_price')[0];

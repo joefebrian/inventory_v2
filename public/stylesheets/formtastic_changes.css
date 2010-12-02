@@ -158,3 +158,8 @@ form.formtastic fieldset ol li fieldset legend.label {
   font-weight: normal; }
 form.formtastic fieldset ol li.boolean.one_checkbox label {
   width: 75%; }
+.inline-label {
+  float:none !important;
+  display:inline !important;
+  margin-left:2em;
+}

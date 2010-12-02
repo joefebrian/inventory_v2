@@ -534,7 +534,6 @@ $('#sales_return_customer_name').live('focus', function() {
   })
   .data("autocomplete")
   ._renderItem = function(ul, customers) {
-    //console.log(customer);
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")
@@ -554,7 +553,6 @@ $('#customer_down_payment_customer_name').live('focus', function() {
   })
   .data("autocomplete")
   ._renderItem = function(ul, customers) {
-    //console.log(customer);
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")
@@ -574,7 +572,6 @@ $('#direct_sale_customer_name').live('focus', function() {
   })
   .data("autocomplete")
   ._renderItem = function(ul, customers) {
-    //console.log(customer);
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")

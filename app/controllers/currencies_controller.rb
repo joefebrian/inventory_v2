@@ -46,6 +46,14 @@ class CurrenciesController < ApplicationController
     flash[:notice] = "Successfully destroyed currency."
     redirect_to currencies_url
   end
+
+  def latest_rate
+    @currency = current_company.currencies.find(params[:id])
+    @currency.latest_rate
+    respond_to do |format|
+      format.json
+    end
+  end
   
   private
   def assign_tab
