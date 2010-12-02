@@ -1,31 +1,34 @@
-- title "Sales Ordes"
+- title "Quotations"
 
 #customer
   #customer-title
-    =@sales_order.customer
+    =@quotation.customer
 
 %table#meta
   %tr
     %td.meta-head Number #
-    %td= @sales_order.number
+    %td= @quotation.number
   %tr
     %td.meta-head Date
-    %td= @sales_order.tanggal
+    %td= @quotation.tanggal_berlaku
   %tr
     %td.meta-head Ammount Due
-    %td $875.00
+    %td.cost $870,00
 
 %table#items
   %tr
     %th No.
     %th Item
-    %th Description
-    %th Quantity
-    %th Price
-  - @sales_order.entries.each_with_index do |entry, i|
+    %th Qty
+    %th Unit Price
+    %th Disc (%)
+    %th Total Price
+  - @quotation.entries.each_with_index do |entry, i|
     %tr.item-row
       %td= (i+1)
       %td.item-name=  entry.item.name
-      %td.description= entry.description
       %td.qty= entry.quantity
       %td.price= entry.price
+      %td.qty= entry.discount
+      %td.cost= entry.total_price
+
