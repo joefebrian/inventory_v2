@@ -69,6 +69,7 @@
 - content_for :javascripts do
   - javascript_tag do
     var insert_fields = true;
+    var so_get_customer_price = true;
     :plain
       var template = $('tbody tr:last-child').html();
       var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
@@ -93,7 +94,7 @@
           return false;
         });
       }
-      $("#sales_order_currency_id").bind("multiselectclick", function(event, ui) {
+      $("#sales_order_currency_id").live("multiselectclick", function(event, ui) {
         $.ajax({
           url: "/currencies/"+ui.value+"/latest_rate.json",
           success: function(response, status) {
