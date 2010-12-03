@@ -19,7 +19,8 @@ class Purchasing::PurchaseOrdersController < ApplicationController
         if(params[:type])
             format.html { render "print", :layout => "print"}
         else
-            format.html { render "show", :layout => "application"}
+            #format.html { render "show", :layout => "application"}
+            format.html { render "print", :layout => "print"}
         end
       end
   end

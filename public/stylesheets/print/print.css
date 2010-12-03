@@ -102,6 +102,7 @@ table td, table th {
     text-align: right;}
 
 #meta td.meta-head {
+    width:100px;
     text-align: left;
     background: #eee;}
 
@@ -119,10 +120,10 @@ table td, table th {
 #metaleft td {
     width: 250px;
     border:none;
-    text-align: left;}
+    text-align: right;}
 
 #metaleft td.metaleft-head {
-    width:100px
+    width:80px;
     text-align: right;
     background: #fff;}
 
