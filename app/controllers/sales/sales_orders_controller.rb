@@ -13,7 +13,7 @@ class Sales::SalesOrdersController < ApplicationController
     end
     @sales_orders.paginate(:page => params[:page])
   end
-  
+
   def show
     @sales_order = current_company.sales_orders.find(params[:id])
       respond_to do |format|
@@ -31,7 +31,7 @@ class Sales::SalesOrdersController < ApplicationController
         format.pdf { render :layout => print }  #add this line
       end
   end
-  
+
   def new
     @sales_order = current_company.sales_orders.new
     @sales_order.attributes = params[:sales_order] if params[:sales_order]
@@ -52,7 +52,7 @@ class Sales::SalesOrdersController < ApplicationController
       render :layout => false
     end
   end
-  
+
   def create
     @sales_order = current_company.sales_orders.new
     @sales_order.attributes = params[:sales_order]
@@ -77,7 +77,7 @@ class Sales::SalesOrdersController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @sales_order = current_company.sales_orders.find(params[:id])
     @sales_order.entries.build
@@ -87,7 +87,7 @@ class Sales::SalesOrdersController < ApplicationController
     @currencies = current_company.currencies
     @exchange_rate = current_company.exchange_rates
   end
-  
+
   def update
     @sales_order = current_company.sales_orders.find(params[:id])
     if @sales_order.update_attributes(params[:sales_order])
@@ -97,14 +97,14 @@ class Sales::SalesOrdersController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @sales_order = current_company.sales_orders.find(params[:id])
     @sales_order.destroy
     flash[:notice] = "Successfully destroyed sales order."
     redirect_to sales_sales_orders_url
   end
-  
+
   private
   def assign_tab
     @tab = 'transactions'
@@ -112,7 +112,8 @@ class Sales::SalesOrdersController < ApplicationController
   end
 
   def populate_fields
-    
+
   end
 
 end
+

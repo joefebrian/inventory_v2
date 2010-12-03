@@ -13,7 +13,7 @@
 #subheader
   %h3= "Material Request # #{@material_request.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_material_requests_path
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", purchasing_material_request_path(@material_request, :format => "pdf", :type =>"pdf")
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_material_request_path(@material_request)
     &bull;
@@ -57,3 +57,4 @@
           %p.inline-hints.inline-labels=h "Note: #{entry.note}" unless entry.note.blank?
         %td.tdr= entry.quantity
         %td.tdc= entry.estimated_delivery_date.to_s(:long)
+
