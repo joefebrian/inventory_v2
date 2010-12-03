@@ -1,0 +1,33 @@
+- title "Item Receive"
+
+#customer
+  #customer-title Item Receive
+
+%table#metaleft
+  %tr
+    %td.metaleft-head  From :
+    %td Anonymous
+
+%table#meta
+  %tr
+    %td.meta-head Number #
+    %td= @item_receive.number
+  %tr
+    %td.meta-head Date
+    %td= @item_receive.user_date.to_s(:long)
+
+%table#items
+  %tr
+    %th.number No.
+    %th.quantity Qty
+    %th.name Item
+    %th.desc description
+  - @item_receive.entries.each_with_index do |entry, i|
+    %tr.item-row
+      %td= (i+1)
+      %td.qty= entry.quantity
+      %td.name=  entry.item.name
+      %td.desc
+
+<p align="right">Recipient,&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
