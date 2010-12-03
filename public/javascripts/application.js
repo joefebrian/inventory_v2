@@ -139,12 +139,10 @@ $('input.item_autocomplete').live('focus', function() {
   var input = $(this);
   input.autocomplete({
     source: '/items/search.js',
-    //source: '/plus/search.js',
     focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
     select: function(event, ui) {
       $(this).val(ui.item.name);
       $(this).next().val(ui.item.id);
-      //$(this).next().next().val(ui.item.id);
       var form = $(this).parents('form');
       // run when you want to add new set of inputs
       if(window.insert_fields) {
@@ -177,6 +175,21 @@ $('input.item_autocomplete').live('focus', function() {
         if(typeof(cust_id[0]) != 'undefined') {
           $.ajax({
             url: '/customers/'+cust_id[0].value+'/price.js',
+            data: 'item_id='+ui.item.id,
+            success: function(response, status) {
+              input.parents('td').next().next().children('input').val(response);
+            }
+          });
+        } else {
+          input.parents('td').next().next().children('input').val(0);
+        }
+      }
+      // get the item price for the customer on sale order
+      if(window.so_get_customer_price) {
+        var cust_id = $('#sales_order_customer_id').val();
+        if(typeof(cust_id) != 'undefined') {
+          $.ajax({
+            url: '/customers/'+cust_id+'/price.js',
             data: 'item_id='+ui.item.id,
             success: function(response, status) {
               input.parents('td').next().next().children('input').val(response);
