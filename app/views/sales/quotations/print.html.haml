@@ -17,16 +17,16 @@
 
 %table#items
   %tr
-    %th No.
-    %th Item
-    %th Qty
-    %th Unit Price
-    %th Disc (%)
-    %th Total Price
+    %th.number No.
+    %th.name Item
+    %th.quantity Qty
+    %th.price Unit Price
+    %th.price Disc (%)
+    %th.price Total Price
   - @quotation.entries.each_with_index do |entry, i|
     %tr.item-row
       %td= (i+1)
-      %td.item-name=  entry.item.name
+      %td.name=  entry.item.name
       %td.qty= entry.quantity
       %td.price= entry.price
       %td.qty= entry.discount

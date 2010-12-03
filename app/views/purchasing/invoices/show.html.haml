@@ -13,6 +13,8 @@
 #subheader
   %h3= "Purchase Invoice # #{@invoice.number}"
   #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", purchasing_material_request_path(@material_request, :format => "pdf", :type =>"pdf")
+    &bull;
     = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_invoices_path
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_invoice_path(@invoice)
@@ -41,3 +43,4 @@
     %p
       %span.light Remark
       %strong= @invoice.remark
+

@@ -19,6 +19,8 @@
     = "Purchase Order # #{@purchase_order.number}"
     = "<span class='red-tag'>Closed</span>" if @purchase_order.closed?
   #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", purchasing_material_request_path(@material_request, :format => "pdf", :type =>"pdf")
+    &bull;
     = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_purchase_orders_path, :class => "back_link"
     &bull;
     - unless @purchase_order.closed?
@@ -78,3 +80,4 @@
           %td.tdr= local_currency(entry.purchase_price)
           %td.tdr= entry.discount
           %td.tdr= local_currency(entry.total)
+

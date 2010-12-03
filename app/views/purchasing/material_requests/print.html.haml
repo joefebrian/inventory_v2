@@ -19,14 +19,14 @@
 
 %table#items
   %tr
-    %th No.
-    %th Item
-    %th Qty
-    %th Est. Delivery Date
+    %th.number No.
+    %th.name Item
+    %th.quantity Qty
+    %th.date Est. Delivery Date
   - @material_request.entries.each_with_index do |entry, i|
     %tr.item-row
       %td= (i+1)
-      %td.item-name=  entry.item.name
+      %td.name=  entry.item.name
       %td.qty= entry.quantity
       %td.price= entry.estimated_delivery_date.to_s(:long)
 

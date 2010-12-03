@@ -15,6 +15,8 @@
   #subheader-menu
     = link_to "#{image_tag('icons/silk/arrow_left.png')} back to list", purchasing_purchase_returns_path, :class => "back_link"
     &bull;
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", purchasing_material_request_path(@material_request, :format => "pdf", :type =>"pdf")
+    &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_purchasing_purchase_return_path(@purchase_return)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", purchasing_purchase_return_path(@purchase_return), :method => :delete, :confirm => "Are you sure?"
@@ -55,3 +57,4 @@
           %td.tdr.td_5= (i+1)
           %td= link_to h(entry.plu.item.name), entry.plu
           %td.tdr= entry.quantity
+

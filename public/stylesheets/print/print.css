@@ -1,142 +1,194 @@
-* { 
-    * margin: 0; 
+* {
+    * margin: 0;
     * padding: 0; }
 
 body {
     margin-top:180px;
     font: 14px/1.4 Georgia, serif; }
 
-#page-wrap { 
-    width: 800px; 
+#page-wrap {
+    width: 800px;
     margin: 0 auto; }
 
-textarea { 
-    border: 0; 
-    font: 14px Georgia, Serif; 
-    overflow: hidden; 
+textarea {
+    border: 0;
+    font: 14px Georgia, Serif;
+    overflow: hidden;
     resize: none; }
 
-table { 
+table {
     border-collapse: collapse; }
 
-table td, table th { 
-    border: 1px solid black; 
+table td, table th {
+    border: 1px solid black;
     padding: 5px; }
 
-#header { 
-    height: 15px; 
-    width: 100%; 
-    margin: 20px 0; 
-    background: #eee; 
-    text-align: center; 
-    color: black; 
-    font: bold 15px Helvetica, Sans-Serif; 
-    text-decoration: uppercase; 
-    letter-spacing: 20px; 
+#header {
+    height: 15px;
+    width: 100%;
+    margin: 20px 0;
+    background: #eee;
+    text-align: center;
+    color: black;
+    font: bold 15px Helvetica, Sans-Serif;
+    text-decoration: uppercase;
+    letter-spacing: 20px;
     padding: 8px 0px; }
 
-#address { 
-    width: 250px; 
-    height: 150px; 
-    float: right; 
+#address {
+    width: 250px;
+    height: 150px;
+    float: right;
     text-align:right;}
 
-#customer { 
+#customer {
     overflow: hidden; }
 
-#logo { 
-    text-align: right; 
-    float: left; 
-    position: relative; 
-    margin-top: 25px; 
-    border:none; 
-    max-width: 540px; 
-    max-height: 100px; 
+#logo {
+    text-align: right;
+    float: left;
+    position: relative;
+    margin-top: 25px;
+    border:none;
+    max-width: 540px;
+    max-height: 100px;
     overflow: hidden; }
 
-#logo.edit { 
-    border: none; 
-    max-height: 125px; 
-    margin-top: 25px; 
+#logo.edit {
+    border: none;
+    max-height: 125px;
+    margin-top: 25px;
     padding: 8px 0px; }
 
-#logoctr { 
+#logoctr {
     display: none; }
 
-#logo:hover #logoctr, #logo.edit #logoctr { 
-    display: block; 
-    text-align: right; 
-    line-height: 25px; 
-    background: #eee; 
+#logo:hover #logoctr, #logo.edit #logoctr {
+    display: block;
+    text-align: right;
+    line-height: 25px;
+    background: #eee;
     padding: 0 5px; }
 
-#logohelp { 
-    text-align: left; 
-    display: none; 
-    font-style: italic; 
+#logohelp {
+    text-align: left;
+    display: none;
+    font-style: italic;
     padding: 10px 5px;}
 
-#logohelp input { 
+#logohelp input {
     margin-bottom: 5px; }
 
-.edit #logohelp { 
+.edit #logohelp {
     display: block; }
 
-.edit #save-logo, .edit #cancel-logo { 
+.edit #save-logo, .edit #cancel-logo {
     display: inline;}
 
 .edit #image, #save-logo, #cancel-logo, .edit #change-logo, .edit #delete-logo { display: none; }
 
-#customer-title { 
-    font-size: 20px; 
-    font-weight: bold; 
+#customer-title {
+    font-size: 20px;
+    font-weight: bold;
     float: left; }
 
-#meta { 
-    margin-top: 0px; 
-    width: 300px; 
+/*this is for right box*/
+#meta {
+    margin-top: 0px;
+    width: 300px;
     float: right; }
 
-#meta td { 
+#meta td {
     text-align: right;}
 
-#meta td.meta-head { 
-    text-align: left; 
+#meta td.meta-head {
+    text-align: left;
     background: #eee;}
 
-#meta td textarea { 
-    width: 100%; 
-    height: 20px; 
+#meta td textarea {
+    width: 100%;
+    height: 20px;
     text-align: right;}
 
-#items { 
+/*this is for left box*/
+#metaleft {
+    margin-top: 0px;
+    width: 350px;
+    float: left; }
+
+#metaleft td {
+    width: 250px;
+    border:none;
+    text-align: left;}
+
+#metaleft td.metaleft-head {
+    width:100px
+    text-align: right;
+    background: #fff;}
+
+#items {
     clear: both;
-    width: 100%; 
-    margin: 30px 0 0 0; 
+    width: 100%;
+    margin: 30px 0 0 0;
     border: 1px solid black;}
 
-#items th { 
+#items th.number {
+    border:1px solid #000;
+    margin-bottom: 0px;
+    width: 30px;
+    background: #eee;}
+
+#items th.name {
+    width:300px;
     border:1px solid #000;
     margin-bottom: 0px;
     background: #eee;}
 
-#items textarea { 
-    width: 80px; 
+#items th.desc {
+    width:120px;
+    border:1px solid #000;
+    margin-bottom: 0px;
+    background: #eee;}
+
+#items th.quantity {
+    width:50px;
+    border:1px solid #000;
+    margin-bottom: 0px;
+    background: #eee;}
+
+#items th.date {
+    width:80px;
+    border:1px solid #000;
+    margin-bottom: 0px;
+    background: #eee;}
+
+#items th.price {
+    width:90px;
+    border:1px solid #000;
+    margin-bottom: 0px;
+    background: #eee;}
+
+#items textarea {
+    width: 80px;
     height: 50px;}
 
-#items tr.item-row td { 
-    border: 0; 
+#items tr.item-row td {
+    border: 0;
     vertical-align: top;}
 
 #items td.description { width: 300px; }
 
-#items td.item-name { width: 175px; }
+#items td.name { width: 300px; }
 
-#items td.description textarea, #items td.item-name textarea { width: 100%; }
+#items td.desc, #items td.item-name { width: 110px; }
 
 #items td.total-line { border-right: 0; text-align: right; }
 
 #items td.total-value { border-left: 0; padding: 10px; }
+
+#items td.qty { border-left: 0; text-align:right; }
+
+#items td.price { border-left: 0; text-align:right; }
 
 #items td.total-value textarea { height: 20px; background: none; }
 
@@ -146,37 +198,38 @@ table td, table th {
 
 #terms { text-align: center; margin: 20px 0 0 0; }
 
-#terms h5 { 
-    text-transform: uppercase; 
-    font: 13px Helvetica, Sans-Serif; 
-    letter-spacing: 10px; 
-    border-bottom: 1px solid black; 
-    padding: 0 0 8px 0; 
+#terms h5 {
+    text-transform: uppercase;
+    font: 13px Helvetica, Sans-Serif;
+    letter-spacing: 10px;
+    border-bottom: 1px solid black;
+    padding: 0 0 8px 0;
     margin: 0 0 8px 0; }
 
-#terms textarea { 
-    width: 100%; 
+#terms textarea {
+    width: 100%;
     text-align: center;}
 
 textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.total-value textarea:focus, .delete:hover { background-color:#EEFF88; }
 
 .delete-wpr { position: relative; }
 
-.delete { 
-    display: block; 
-    color: #000; 
+.delete {
+    display: block;
+    color: #000;
     text-decoration: none; p
-    osition: absolute; 
-    background: #EEEEEE; 
-    font-weight: bold; 
-    padding: 0px 3px; 
-    border: 1px solid; 
-    top: -6px; 
-    left: -22px; 
-    font-family: Verdana; 
-    font-size: 12px; 
+    osition: absolute;
+    background: #EEEEEE;
+    font-weight: bold;
+    padding: 0px 3px;
+    border: 1px solid;
+    top: -6px;
+    left: -22px;
+    font-family: Verdana;
+    font-size: 12px;
 }
 
 @media print{
-  
+
 }
+

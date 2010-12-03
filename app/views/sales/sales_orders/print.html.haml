@@ -11,21 +11,20 @@
   %tr
     %td.meta-head Date
     %td= @sales_order.tanggal
-  %tr
-    %td.meta-head Ammount Due
-    %td $875.00
+
 
 %table#items
   %tr
-    %th No.
-    %th Item
-    %th Description
-    %th Quantity
-    %th Price
+    %th.number No.
+    %th.name Item
+    %th.desc Description
+    %th.quantity Quantity
+    %th.price Price
   - @sales_order.entries.each_with_index do |entry, i|
     %tr.item-row
       %td= (i+1)
-      %td.item-name=  entry.item.name
-      %td.description= entry.description
+      %td.name=  entry.item.name
+      %td.desc= entry.description
       %td.qty= entry.quantity
       %td.price= entry.price
+

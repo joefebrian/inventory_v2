@@ -5,7 +5,7 @@ before_filter :assign_tab
     @search = current_company.invoices.search(params[:search])
     @invoices = @search.paginate(:page => params[:page])
   end
-  
+
   def new
     @invoice = current_company.invoices.new
     @item_receives = current_company.item_receives.all_confirmed.reject { |ir| ir.invoices.present? }
@@ -24,6 +24,13 @@ before_filter :assign_tab
 
   def show
     @invoice = current_company.invoices.find(params[:id])
+      respond_to do |format|
+        if(params[:type])
+            format.html { render "print", :layout => "print"}
+        else
+            format.html { render "show", :layout => "application"}
+        end
+      end
   end
 
   def edit
@@ -53,3 +60,4 @@ before_filter :assign_tab
     @current = 'pinv'
   end
 end
+
