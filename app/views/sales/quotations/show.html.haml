@@ -6,11 +6,17 @@
     link_to('Quotations', sales_quotations_path), |
     "Quotations ##{@quotation.number}" ] |
 
-- content_for :top_right_link do
-  = link_to image_tag('icons/silk/page_white_acrobat.png'), '#', :title => "Download quotation in PDF format"
-  = link_to image_tag('icons/silk/email_go.png'), send_request_sales_quotation_path(@quotation), :title => "Send quotation to Customers"
-
   = sidemenu @tab
+
+#subheader
+  %h3= "Quotation # #{@quotation.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_quotation_path(@sales_order, :format => "pdf", :type =>"pdf")
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_sales_quotation_path(@sales_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", sales_quotation_path(@sales_order), :method => :delete, :confirm => "Are you sure"
+
 
 #dialog_form
   .two_columns

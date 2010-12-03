@@ -11,16 +11,23 @@ class Purchasing::MaterialRequestsController < ApplicationController
       @material_requests = @search.search(:closed => false).paginate(:page => params[:page])
     end
   end
-  
+
   def show
     @material_request = MaterialRequest.find(params[:id])
+      respond_to do |format|
+        if(params[:type])
+            format.html { render "print", :layout => "print"}
+        else
+            format.html { render "show", :layout => "application"}
+        end
+      end
   end
-  
+
   def new
     @material_request = current_company.material_requests.new
     @material_request.entries.build
   end
-  
+
   def create
     @material_request = current_company.material_requests.new(params[:material_request])
     if @material_request.save
@@ -30,12 +37,12 @@ class Purchasing::MaterialRequestsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @material_request = current_company.material_requests.find(params[:id])
     @material_request.entries.build
   end
-  
+
   def update
     @material_request = current_company.material_requests.find(params[:id])
     if @material_request.update_attributes(params[:material_request])
@@ -45,7 +52,7 @@ class Purchasing::MaterialRequestsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @material_request = current_company.material_requests.find(params[:id])
     @material_request.destroy
@@ -59,3 +66,4 @@ class Purchasing::MaterialRequestsController < ApplicationController
     @current = 'mr'
   end
 end
+

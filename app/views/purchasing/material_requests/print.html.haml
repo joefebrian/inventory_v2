@@ -1,0 +1,32 @@
+- title "Material Reuquest"
+
+#customer
+  #customer-title Material Requests
+
+%table#meta
+  %tr
+    %td.meta-head Number #
+    %td= @material_request.number
+  %tr
+    %td.meta-head Requester
+    %td= @material_request.requester
+  %tr
+    %td.meta-head Date
+    %td= @material_request.userdate.to_s(:long)
+  %tr
+    %td.meta-head Reference
+    %td.cost= @material_request.reference
+
+%table#items
+  %tr
+    %th No.
+    %th Item
+    %th Qty
+    %th Est. Delivery Date
+  - @material_request.entries.each_with_index do |entry, i|
+    %tr.item-row
+      %td= (i+1)
+      %td.item-name=  entry.item.name
+      %td.qty= entry.quantity
+      %td.price= entry.estimated_delivery_date.to_s(:long)
+
