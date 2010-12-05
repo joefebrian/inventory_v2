@@ -1,9 +1,10 @@
 class DeliveryOrder < ActiveRecord::Base
-  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes, :warehouse_id
+  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes, :warehouse_id, :sales_invoice_id
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
   belongs_to :customer
   belongs_to :sales_order
+  has_and_belongs_to_many :sales_invoices
   belongs_to :company
   belongs_to :warehouse
   validates_presence_of :number, :do_date, :warehouse_id

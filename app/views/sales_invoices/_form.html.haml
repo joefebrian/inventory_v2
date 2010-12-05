@@ -9,7 +9,7 @@
               :value => f.object.attributes['number'],
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
-    = f.input :delivery_order_id, :collection => @delivery_orders, :label => "Delivery Order", :input_html => {:class => "multiselect"} 
+    = f.input :delivery_orders, :collection => @delivery_orders, :label => "Delivery Order", :input_html => {:class => "multiselect"} 
     = f.input :due_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Due Date"  
     = f.input :ppn, :label => "Tax"
     = f.input :top, :label => "Term of Payment"
@@ -18,3 +18,33 @@
     %button{ :type => "submit" }
       = image_tag 'icons/silk/disk.png'
       Save Sales Invoices
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    :plain
+      function multiselect_response() {
+        $('#lelivery_order_sales_order_id').bind('multiselectclose', function(event, ui) {
+          var sos = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_sos" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              var customer = $(response).find('#delivery_order_customer_name_input');
+              var customer_id = $(response).find('#delivery_order_customer_id_input');
+              form.find('#delivery_order_customer_name_input').html(customer.html());
+              form.find('#delivery_order_customer_id_input').html(customer_id.html());
+              form.find('tbody').html(entries.html());
+              $('input[name=get_sos]').remove();
+            }
+          });
+          return false;
+        });
+      }
+      $(function() {
+        multiselect_response();
+      });

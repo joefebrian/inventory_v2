@@ -23,6 +23,7 @@ class SalesInvoicesController < ApplicationController
       flash[:notice] = "Successfully created sales invoice."
       redirect_to @sales_invoice
     else
+      @delivery_orders = current_company.delivery_orders
       render :action => 'new'
     end
   end

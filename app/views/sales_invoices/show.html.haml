@@ -11,14 +11,14 @@
 
 .two_columns
   %p
-    %span.light Delivery Order Number:
-    =h @sales_invoice.delivery_order.number
+    %span.light Delivery Orders:
+    =h @sales_invoice.delivery_orders.map(&:number).join(', ')
   %p
     %span.light SO Number:
     =h @sales_invoice.number
   %p
     %span.light Customer Name:
-    =h @sales_invoice.delivery_order.customer
+    =h @sales_invoice.delivery_orders.map(&:customer).uniq.join(', ')
   %p
     %span.light Due Date:
     =h @sales_invoice.due_date
@@ -33,8 +33,9 @@
       %th Item
       %th Qty
   %tbody
-  - @sales_invoice.delivery_order.entries.each_with_index do |entry, i|
-    %tr
-      %td.tdr.td_5= (i+1)
-      %td= link_to h(entry.item.name), entry.item
-      %td.tdr= entry.quantity
+    - @sales_invoice.delivery_orders.each do |delivery_order|
+      - delivery_order.entries.each_with_index do |entry, i|
+        %tr
+          %td.tdr.td_5= (i+1)
+          %td= link_to h(entry.item.name), entry.item
+          %td.tdr= entry.quantity

@@ -23,14 +23,14 @@
   %thead
     %tr
       %th Number
-      %th Code DO
+      %th Delivery Orders
       %th Due date
       %th.action Action
   %tbody
     - for sales_invoice in @sales_invoices
       %tr
         %td= link_to h(sales_invoice.number), [sales_invoice]
-        %td= h sales_invoice.delivery_order.number
+        %td= h sales_invoice.delivery_orders.map(&:number).join(', ')
         %td= h sales_invoice.due_date
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_invoice_path(sales_invoice)
