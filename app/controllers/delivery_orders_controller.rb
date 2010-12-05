@@ -21,7 +21,6 @@ class DeliveryOrdersController < ApplicationController
     else
       @sales_orders = current_company.sales_orders.all_open
     end
-    @delivery_order.entries.build
     if request.xhr?
       render :layout => false
     end
@@ -34,14 +33,12 @@ class DeliveryOrdersController < ApplicationController
       @delivery_order.customer = @delivery_order.sales_order.customer
       RAILS_DEFAULT_LOGGER.debug @delivery_order.inspect
       @delivery_order.build_entries_from_so
-      @delivery_order.entries.build
       render("new", :layout => false) and return
     end
     if @delivery_order.save
       flash[:notice] = "Successfully created delivery order."
       redirect_to @delivery_order
     else
-      @delivery_order.entries.build
       @sales_orders = current_company.sales_orders
       @customer = current_company.customers.all(:include => :profile)
       render :action => 'new'

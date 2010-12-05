@@ -8,7 +8,7 @@ class Entry < ActiveRecord::Base
   before_save :assign_item_id
   before_save :assign_company_id
   before_save :assign_value
-  after_save :track_details
+  #after_save :track_details
   has_many :details, :class_name => 'EntryDetail', :dependent => :destroy
 
   named_scope :for_transactions, lambda { |ids|

@@ -10,7 +10,7 @@ class DeliveryOrder < ActiveRecord::Base
   validates_uniqueness_of :number, :scope => :company_id
 
   def validate
-    errors.add_to_base("Selected warehouse doesn't have sufficient stock for some or all of the items") if insuficient_stock?
+    #errors.add_to_base("Selected warehouse doesn't have sufficient stock for some or all of the items") if insuficient_stock?
   end
 
   def insuficient_items
@@ -58,7 +58,7 @@ class DeliveryOrder < ActiveRecord::Base
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
-    :reject_if => lambda {|a| a['quantity'].blank? }
+    :reject_if => lambda {|a| a['quantity'].blank? || a['quantity'].to_i.zero? }
 
   def after_initialize
     if new_record?
@@ -86,13 +86,12 @@ class DeliveryOrder < ActiveRecord::Base
 
       sales_order.entries.each do |so_data|
         item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
-        self.entries.build(:item_id => so_data.item_id, :quantity => so_data.quantity - (item_dos.nil? ? 0 : item_dos[1].to_i), :plu_id => so_data.plu_id) 
+        qty = so_data.quantity - (item_dos.nil? ? 0 : item_dos[1].to_i)
+        so_data.item.plus.each do |plu|
+          self.entries.build(:item_id => so_data.item_id, :quantity => qty, :plu_id => plu.id) 
+          qty = 0
+        end
       end
-    end
-  end
-
-  def before_save
-    unless customer_id.blank?
     end
   end
 
@@ -104,9 +103,7 @@ class DeliveryOrder < ActiveRecord::Base
     if name.present?
       first, last = name.split(' ', 2)
       tmp = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
-      RAILS_DEFAULT_LOGGER.debug tmp.inspect
       self.customer_id = tmp.id
     end
   end
-
 end

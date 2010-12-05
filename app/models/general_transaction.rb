@@ -21,26 +21,26 @@ class GeneralTransaction < Transaction
     @validating_destination
   end
 
-  def before_validation
-    if transaction_type.should_validating_quantity?
-      entries.each do |ent| 
-        ent.validating_quantity = true
-        ent.warehouse_id = origin_id
-      end
-    end
-  end
+  #def before_validation
+    #if transaction_type.should_validating_quantity?
+      #entries.each do |ent| 
+        #ent.validating_quantity = true
+        #ent.warehouse_id = origin_id
+      #end
+    #end
+  #end
 
-  def before_save
-    unless transaction_type.blank?
-      self.alter_stock = transaction_type.alter_stock? ? true : false
-      case transaction_type.direction
-      when 0
-        self.origin_id = nil
-      when 1
-        self.destination_id = nil
-      end
-    end
-  end
+  #def before_save
+    #unless transaction_type.blank?
+      #self.alter_stock = transaction_type.alter_stock? ? true : false
+      #case transaction_type.direction
+      #when 0
+        #self.origin_id = nil
+      #when 1
+        #self.destination_id = nil
+      #end
+    #end
+  #end
 
   def self.next_number(company, type)
     last = GeneralTransaction.first(:conditions => { :company_id => company, :transaction_type_id => type }, :limit => 1, :order => "number DESC")

@@ -19,23 +19,32 @@
 
   - f.inputs 'Items', :class => "form_section" do
     %li
-      %table.report
+      %table.report.plain
         %thead
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
+            %th PLU
             %th Quantity
             %th
         %tfoot
           %tr
             %td &nbsp;
-            %td{ :colspan => 3 } &nbsp;
+            %td{ :colspan => 4 } &nbsp;
         %tbody
+          - curr_color = ""
+          - curr_item = nil
           - f.semantic_fields_for :entries do |ent|
-            %tr
+            - if curr_item.nil? || curr_item != ent.object.item_id
+              - curr_item = ent.object.item_id
+              - curr_color = "rgb(#{(200..255).to_a[rand(55)]},#{(200..255).to_a[rand(55)]},#{(200..255).to_a[rand(55)]})"
+            %tr{ :style => "background-color:#{curr_color} !important" }
               %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
               %td.item
-                = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                = ent.object.item_name
+              %td
+                = ent.object.plu.try(:code)
+                -#= ent.text_field :item_name, :class => "item_autocomplete", :size => 38
                 = ent.hidden_field :item_id
                 = ent.hidden_field :plu_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"

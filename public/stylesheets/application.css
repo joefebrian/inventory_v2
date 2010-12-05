@@ -244,6 +244,8 @@ table.list {
     background: rgba(95, 191, 99, 0.2); }
 table.report tr:nth-child(2n+1) td {
   background: #f2f2f2; }
+table.report.plain tr:nth-child(2n+1) td {
+  background: none; }
 table.list tr:hover td, table.list tr.odd:hover td, table.list tr.even:hover td {
   background: rgba(95, 191, 99, 0.4); }
 table.list tr td.lvl_1 {

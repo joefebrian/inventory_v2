@@ -32,7 +32,6 @@ class SalesOrder < ActiveRecord::Base
   end
 
   def validate
-    #errors.add_to_base("Customer name cannot be empty") if customer_name.blank?
     errors.add_to_base("Sales order items cannot be empty") if entries.blank?
   end
 
@@ -61,11 +60,6 @@ class SalesOrder < ActiveRecord::Base
 
   def name
     number
-  end
-
-  def before_save
-    unless customer_id.blank?
-    end
   end
 
   def customer_name
