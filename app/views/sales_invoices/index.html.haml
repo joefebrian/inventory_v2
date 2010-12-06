@@ -24,14 +24,14 @@
     %tr
       %th Number
       %th Delivery Orders
-      %th Due date
+      %th Days until due
       %th.action Action
   %tbody
     - for sales_invoice in @sales_invoices
       %tr
         %td= link_to h(sales_invoice.number), [sales_invoice]
         %td= h sales_invoice.delivery_orders.map(&:number).join(', ')
-        %td= h sales_invoice.due_date
+        %td= h sales_invoice.due_time
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_invoice_path(sales_invoice)
           = link_to image_tag('icons/silk/delete.png'), sales_invoice_path(sales_invoice), :confirm => 'Are you sure?', :method => :delete

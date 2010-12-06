@@ -20,8 +20,8 @@
     %span.light Customer Name:
     =h @sales_invoice.delivery_orders.map(&:customer).uniq.join(', ')
   %p
-    %span.light Due Date:
-    =h @sales_invoice.due_date
+    %span.light Days until due
+    =h @sales_invoice.due_time
   %p
     %span.light Tax:
     =h @sales_invoice.ppn
