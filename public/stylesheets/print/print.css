@@ -127,6 +127,23 @@ table td, table th {
     text-align: right;
     background: #fff;}
 
+/*this is for bottom box*/
+#metabottom {
+    margin-top: 0px;
+    width: 300px;
+    float: right; }
+
+#metabottom td {
+    text-align: right;
+    border-top:0px;
+    }
+
+#metabottom td.metabottom-head {
+    width:100px;
+    text-align: left;
+    background: #fff;}
+
+
 #items {
     clear: both;
     width: 100%;

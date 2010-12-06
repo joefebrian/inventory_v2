@@ -21,10 +21,10 @@
     %td= @purchase_order.term_of_payment
 %table#meta
   %tr
-    %td.meta-head Number P.O. #
+    %td.meta-head Number P.O.
     %td= @purchase_order.number
   %tr
-    %td.meta-head Number M.R. #
+    %td.meta-head Number M.R.
     %td= @purchase_order.material_request_numbers
   %tr
     %td.meta-head Date
@@ -53,5 +53,17 @@
       %td.qty= entry.discount
       %td.price= local_currency(entry.total)
 
-<p>Atas Perhatian dan Kerjasamanya Kami Ucapkan Terimakasih</p><br/><b>Hormat Kami</b><br/><br/><br/><b>FERRY</b>
+%table#metabottom
+  %tr
+    %td.metabottom-head Total
+    %td ---
+  %tr
+    %td.metabottom-head  Discount
+    %td ---
+  %tr
+    %td.metabottom-head PPN 10%
+    %td ---
+  %tr
+    %td.metabottom-head <b>Total</b>
+    %td ---
 
