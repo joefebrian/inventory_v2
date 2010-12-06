@@ -10,6 +10,7 @@
               :class => 'default' }
       %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
     = f.input :delivery_orders, :collection => @delivery_orders, :label => "Delivery Order", :input_html => {:class => "multiselect"} 
+    = f.input :user_date, :input_html => { :class => 'datepicker' }, :as => :string, :label => "Transaction date"
     = f.input :due_time, :label => "Days until due"
     = f.input :ppn, :label => "Tax"
     = f.input :top, :label => "Term of Payment"

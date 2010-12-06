@@ -23,19 +23,22 @@
 
 .two_columns
   %p
-    %span.light Delivery Orders:
+    %span.light Delivery Order Numbers
     =h @sales_invoice.delivery_orders.map(&:number).join(', ')
   %p
-    %span.light SO Number:
+    %span.light Sales Order Number
     =h @sales_invoice.number
   %p
-    %span.light Customer Name:
+    %span.light Transaction Date
+    =h @sales_invoice.user_date
+  %p
+    %span.light Customer Name
     =h @sales_invoice.delivery_orders.map(&:customer).uniq.join(', ')
   %p
     %span.light Days until due
     =h @sales_invoice.due_time
   %p
-    %span.light Tax:
+    %span.light Tax
     =h @sales_invoice.ppn
 
 %table.report
