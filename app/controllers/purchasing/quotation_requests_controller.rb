@@ -6,18 +6,25 @@ class Purchasing::QuotationRequestsController < ApplicationController
     @search = current_company.quotation_requests.search(params[:search])
     @quotation_requests = @search.paginate(:page => params[:page])
   end
-  
+
   def show
     @quotation_request = current_company.quotation_requests.find(params[:id])
     flash[:notice] = "This quotation request doesn't have intended suppliers, edit this quotation request to add suppliers" if @quotation_request.suppliers.blank?
+      respond_to do |format|
+        if(params[:type])
+            format.html { render "print", :layout => "print"}
+        else
+            format.html { render "show", :layout => "application"}
+        end
+      end
   end
-  
+
   def new
     @quotation_request = current_company.quotation_requests.new
     @quotation_request.entries.build
     @suppliers = current_company.suppliers.all(:order => :name)
   end
-  
+
   def create
     @quotation_request = current_company.quotation_requests.new(params[:quotation_request])
     if @quotation_request.save
@@ -28,12 +35,12 @@ class Purchasing::QuotationRequestsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @quotation_request = current_company.quotation_requests.find(params[:id])
     @quotation_request.entries.build
   end
-  
+
   def update
     @quotation_request = current_company.quotation_requests.find(params[:id])
     if @quotation_request.update_attributes(params[:quotation_request])
@@ -44,7 +51,7 @@ class Purchasing::QuotationRequestsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @quotation_request = current_company.quotation_requests.find(params[:id])
     @quotation_request.destroy
@@ -67,3 +74,4 @@ class Purchasing::QuotationRequestsController < ApplicationController
     @current = 'qr'
   end
 end
+

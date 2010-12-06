@@ -1,7 +1,7 @@
 class Purchasing::PurchaseOrdersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-  
+
   def index
     @search = current_company.purchase_orders.search(params[:search])
     if params[:state] == 'closed'
@@ -12,18 +12,25 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       @purchase_orders = @search.search(:closed => false).paginate(:page => params[:page])
     end
   end
-  
+
   def show
     @purchase_order = current_company.purchase_orders.find(params[:id])
+      respond_to do |format|
+        if(params[:type])
+            format.html { render "print", :layout => "print"}
+        else
+            format.html { render "show", :layout => "application"}
+        end
+      end
   end
-  
+
   def new
     @purchase_order = current_company.purchase_orders.new
     @purchase_order.entries.build
     @suppliers = current_company.suppliers.all(:include => :profile)
     @material_requests = current_company.material_requests.not_closed
   end
-  
+
   def create
     @purchase_order = current_company.purchase_orders.new(params[:purchase_order])
     @suppliers = current_company.suppliers.all(:include => :profile)
@@ -42,13 +49,13 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
     @purchase_order = current_company.purchase_orders.find(params[:id])
     @suppliers = current_company.suppliers.all(:include => :profile)
     @material_requests = current_company.material_requests.all(:conditions => ["closed = 0 OR id IN (?)", @purchase_order.material_requests.collect { |mr| mr.id }])
   end
-  
+
   def update
     @purchase_order = current_company.purchase_orders.find(params[:id])
     @suppliers = current_company.suppliers.all(:include => :profile)
@@ -64,7 +71,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       render "edit"
     end
   end
-  
+
   def destroy
     @purchase_order = current_company.purchase_orders.find(params[:id])
     @purchase_order.destroy
@@ -95,3 +102,4 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @current = 'po'
   end
 end
+

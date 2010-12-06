@@ -1,22 +1,29 @@
 class Purchasing::ItemReceivesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-  
+
   def index
     @search = current_company.item_receives.search(params[:search])
     @item_receives = @search.paginate(:page => params[:page])
   end
-  
+
   def show
     @item_receive = current_company.item_receives.find(params[:id])
+      respond_to do |format|
+        if(params[:type])
+            format.html { render "print", :layout => "print"}
+        else
+            format.html { render "show", :layout => "application"}
+        end
+      end
   end
-  
+
   def new
     @item_receive = current_company.item_receives.new
     @purchase_orders = current_company.purchase_orders.not_closed
     @warehouses = current_company.warehouses
   end
-  
+
   def create
     @item_receive = current_company.item_receives.new(params[:item_receive])
     @item_receive.confirmed = false
@@ -38,13 +45,13 @@ class Purchasing::ItemReceivesController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @item_receive = current_company.item_receives.find(params[:id])
     @purchase_orders = current_company.purchase_orders.all(:conditions => ["closed = 0 OR id = ?", @item_receive.purchase_order])
     @warehouses = current_company.warehouses
   end
-  
+
   def update
     @item_receive = current_company.item_receives.find(params[:id])
     if @item_receive.update_attributes(params[:item_receive])
@@ -55,7 +62,7 @@ class Purchasing::ItemReceivesController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @item_receive = current_company.item_receives.find(params[:id])
     @item_receive.destroy
@@ -84,3 +91,4 @@ class Purchasing::ItemReceivesController < ApplicationController
     @current = 'ir'
   end
 end
+
