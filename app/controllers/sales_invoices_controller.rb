@@ -13,7 +13,6 @@ class SalesInvoicesController < ApplicationController
   
   def new
     @sales_invoice = current_company.sales_invoices.new
-    @sales_invoice.due_date = Time.now.to_date
     @delivery_orders = current_company.delivery_orders
   end
   
