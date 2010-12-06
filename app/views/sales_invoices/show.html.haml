@@ -7,7 +7,19 @@
 
   = sidemenu @tab
 
-= hint "Click 'edit' to edit"
+
+= hint 'Click "Edit" to edit item receive'
+
+#subheader
+  %h3
+    = "Sales Invoice # #{@sales_invoice.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_invoice_path(@sales_invoice, :format => "pdf", :type =>"pdf")
+    &bull;
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", sales_invoice_path
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_sales_invoice_path(@sales_invoice)
+    &bull;
 
 .two_columns
   %p
@@ -39,3 +51,4 @@
           %td.tdr.td_5= (i+1)
           %td= link_to h(entry.item.name), entry.item
           %td.tdr= entry.quantity
+

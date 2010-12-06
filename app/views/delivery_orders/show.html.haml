@@ -12,6 +12,8 @@
 #subheader
   %h3= "Delivery Order # #{@delivery_order.number}"
   #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", delivery_order_path(@delivery_order, :format => "pdf", :type =>"pdf")
+    &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_delivery_order_path(@delivery_order)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", delivery_order_path(@delivery_order), :method => :delete, :confirm => "Are you sure"
@@ -48,3 +50,4 @@
       %td.tdr.td_5= (i+1)
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
+
