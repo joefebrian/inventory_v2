@@ -52,26 +52,24 @@
           =link_to "Sales Invoices", sales_invoices_path, :class => current['invoices']
           %div
         %li
-          =link_to "Sales Returns", sales_returns_path, :class => current['sr']
+          =link_to "Sales Retur", sales_returns_path, :class => current['sr']
           %div
         %li
           =link_to "Direct Sales", direct_sales_path, :class => current['ds']
           %div
-        %li
-          =link_to  "Customer Down Payments", customer_down_payments_path, :class => current['cdp']
-          %div
-        %li
-          =link_to "Close SO", '#'
-          %div
+      -# %li
+      -#    =link_to  "Customer Down Payments", customer_down_payments_path, :class => current['cdp']
+      -#    %div
+
 
     %li
-      =link_to "Credit / Debit Note", credit_debit_notes_path, :class => current['cndn'] 
+      =link_to "Credit / Debit Note", credit_debit_notes_path, :class => current['cndn']
       %div
     %li
-      =link_to "Transaction Assembling", trans_assemblies_path, :class => current['trass'] 
+      =link_to "Transaction Assembling", trans_assemblies_path, :class => current['trass']
       %div
     %li
-      =link_to "Transaction Diassembling", trans_diassemblies_path, :class => current['tradis']  
+      =link_to "Transaction Diassembling", trans_diassemblies_path, :class => current['tradis']
       %div
     %li.submenu_handler
       =link_to "Production", '#', :class => current['prod']
@@ -89,3 +87,4 @@
         %li
           =link_to "Penerimaan Hasil Produksi", '#'
           %div
+

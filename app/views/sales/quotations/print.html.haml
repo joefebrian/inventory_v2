@@ -1,8 +1,22 @@
 - title "Quotations"
 
 #customer
-  #customer-title
-    =@quotation.customer
+  #customer-title Quotation
+
+
+%table#metaleft
+  %tr
+    %td.metaleft-head To :
+    %td= @quotation.customer
+  %tr
+    %td.metaleft-head ATTN :
+    %td --
+  %tr
+    %td.metaleft-head Fax.NO :
+    %td
+  %tr
+    %td.metaleft-head PHN.NO :
+    %td
 
 %table#meta
   %tr
@@ -12,8 +26,13 @@
     %td.meta-head Date
     %td= @quotation.tanggal_berlaku
   %tr
-    %td.meta-head Ammount Due
-    %td.cost $870,00
+    %td.meta-head From
+    %td.cost --
+
+
+<br/><br/><br/><br/><br/><br/><br/>
+<p>Dengan Hormat,</p>
+<p>Bersama ini kami sampaikan penawaran harga peralatan hydrant untuk proyek "Hotel Amaris Bandung" sebagai berikut :
 
 %table#items
   %tr
@@ -31,4 +50,6 @@
       %td.price= entry.price
       %td.qty= entry.discount
       %td.cost= entry.total_price
+
+<p>Atas Perhatian dan Kerjasamanya Kami Ucapkan Terimakasih</p><br/><b>Hormat Kami</b><br/><br/><br/><b>FERRY</b>
 

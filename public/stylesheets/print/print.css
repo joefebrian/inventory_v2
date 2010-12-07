@@ -225,10 +225,26 @@ table td, table th {
     margin: 0 0 8px 0; }
 
 #terms textarea {
-    width: 100%;
+    width: 33%;
     text-align: center;}
 
 textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.total-value textarea:focus, .delete:hover { background-color:#EEFF88; }
+
+#tandatangan {
+    margin-top: 0px;
+    width: 100%;
+    float: right; }
+
+#tandatangan td {
+    text-align: right;
+    border:0px;
+    }
+
+#tandatangan td.tandatangan-head {
+    width:100px;
+    text-align: left;
+    background: #fff;}
+
 
 .delete-wpr { position: relative; }
 

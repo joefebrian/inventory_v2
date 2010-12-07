@@ -6,16 +6,23 @@ class SalesInvoicesController < ApplicationController
     @search = current_company.sales_invoices.search(params[:search])
     @sales_invoices = @search.paginate(:page => params[:page])
   end
-  
+
   def show
     @sales_invoice = current_company.sales_invoices.find(params[:id])
+      respond_to do |format|
+        if(params[:type])
+            format.html { render "print", :layout => "print"}
+        else
+            format.html { render "show", :layout => "application"}
+        end
+      end
   end
-  
+
   def new
     @sales_invoice = current_company.sales_invoices.new
     @delivery_orders = current_company.delivery_orders
   end
-  
+
   def create
     @sales_invoice = current_company.sales_invoices.new(params[:sales_invoice])
     if @sales_invoice.save
@@ -26,11 +33,11 @@ class SalesInvoicesController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @sales_invoice = current_company.sales_invoices.find(params[:id])
   end
-  
+
   def update
     @sales_invoice = current_company.sales_invoices.find(params[:id])
     if @sales_invoice.update_attributes(params[:sales_invoice])
@@ -40,14 +47,14 @@ class SalesInvoicesController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @sales_invoice = current_company.sales_invoices.find(params[:id])
     @sales_invoice.destroy
     flash[:notice] = "Successfully destroyed sales invoice."
     redirect_to sales_invoices_url
   end
-  
+
   private
   def assign_tab
     @tab = 'transactions'
@@ -55,3 +62,4 @@ class SalesInvoicesController < ApplicationController
   end
 
 end
+

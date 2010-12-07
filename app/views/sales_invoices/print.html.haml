@@ -1,0 +1,70 @@
+- title "Sales Invoice"
+
+#customer
+  #customer-title Invoice
+
+%table#metaleft
+  %tr
+    %td.metaleft-head To :
+    %td= @sales_invoice.delivery_orders.map(&:customer).uniq.join(', ')
+  %tr
+    %td.metaleft-head Fax.NO :
+    %td
+  %tr
+    %td.metaleft-head PHN.NO :
+    %td
+
+%table#meta
+  %tr
+    %td.meta-head Number #
+    %td= @sales_invoice.number
+  %tr
+    %td.meta-head DO Number
+    %td= @sales_invoice.delivery_orders.map(&:number).join(', ')
+  %tr
+    %td.meta-head Date
+    %td= @sales_invoice.user_date
+  %tr
+    %td.meta-head Days until Due
+    %td= @sales_invoice.due_time
+  %tr
+    %td.meta-head Tax
+    %td= @sales_invoice.ppn
+
+
+
+%table#items
+  %tr
+    %th.number No.
+    %th.name Item
+    %th.quantity Qty
+    %th.price Unit Price
+    %th.price Total
+  - @sales_invoice.delivery_orders.each do |delivery_order|
+    - delivery_order.entries.each_with_index do |entry, i|
+      %tr.item-row
+        %td= (i+1)
+        %td.name=  entry.item.name
+        %td.qty= entry.quantity
+        %td.price --
+        %td.price --
+
+%table#metabottom
+  %tr
+    %td.metabottom-head Total
+    %td ---
+  %tr
+    %td.metabottom-head  Discount
+    %td ---
+  %tr
+    %td.metabottom-head PPN 10%
+    %td ---
+  %tr
+    %td.metabottom-head <b>Total</b>
+    %td ---
+
+
+<br/><br/><br/><br/><br/><br/><br/>
+<hr><b>Terms 2 hari</b><br/><br/>
+<br/><br/><br/>
+
