@@ -1,17 +1,24 @@
 - title "Sales Ordes"
 
 #customer
-  #customer-title
-    =@sales_order.customer
+  #customer-title Sales Order
 
 %table#meta
   %tr
     %td.meta-head Number #
     %td= @sales_order.number
   %tr
+    %td.meta-head Number #
+    %td= @sales_order.quotation.nil? ? 'Without Quotation' : @sales_order.quotation.number
+  %tr
+    %td.meta-head Number #
+    %td= @sales_order.customer
+  %tr
     %td.meta-head Date
     %td= @sales_order.tanggal
-
+  %tr
+    %td.meta-head Terms
+    %td= @sales_order.top
 
 %table#items
   %tr

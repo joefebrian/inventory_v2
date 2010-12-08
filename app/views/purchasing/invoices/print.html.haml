@@ -1,0 +1,53 @@
+- title "Invoice"
+
+#customer
+  #customer-title Invoice
+
+
+%table#meta
+  %tr
+    %td.meta-head Number #
+    %td= @invoice.number
+  %tr
+    %td.meta-head Supplier Invoice Number
+    %td= @invoice.supplier_invoice_number
+  %tr
+    %td.meta-head Date
+    %td= @invoice.user_date.to_s(:long)
+  %tr
+    %td.meta-head Days until Due
+    %td= @invoice.due_time
+  %tr
+    %td.meta-head Total Value
+    %td= local_currency(@invoice.total_value)
+
+%table#items
+  %tr
+    %th.number No.
+    %th.name Item
+    %th.quantity Qty
+    %th.price Unit Price
+    %th.price Total
+  - @invoice.item_receives.each do |item_receive|
+    - item_receive.entries.each_with_index do |entry, i|
+      %tr.item-row
+        %td= (i+1)
+        %td.name=  entry.item.name
+        %td.qty= entry.quantity
+        %td.price --
+        %td.price --
+
+%table#metabottom
+  %tr
+    %td.metabottom-head Total
+    %td
+  %tr
+    %td.metabottom-head  Discount
+    %td ---
+  %tr
+    %td.metabottom-head PPN 10%
+    %td ---
+  %tr
+    %td.metabottom-head <b>Total</b>
+    %td ---
+

@@ -28,7 +28,7 @@ before_filter :assign_tab
         if(params[:type])
             format.html { render "print", :layout => "print"}
         else
-            format.html { render "show", :layout => "application"}
+            format.html { render "print", :layout => "print"}
         end
       end
   end
