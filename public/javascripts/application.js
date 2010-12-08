@@ -211,6 +211,27 @@ $('input.item_autocomplete').live('focus', function() {
   };
 });
 
+$('input.item_autocomplete_plu').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/items/search.js?item=all',
+    focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
+    select: function(event, ui) {
+      $(this).val(ui.item.name);
+      $(this).next().val(ui.item.id);
+      var form = $(this).parents('form');
+      return false;
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, item) {
+    return $("<li></li>")
+    .data("item.autocomplete", item)
+    .append("<a>" + item.name_with_code + "</a>")
+    .appendTo(ul);
+  };
+});
+
 $('.unit_remover').live('click', function() {
   $(this).parents('li, tr').find('input[name*=_destroy]').val('1').andSelf().fadeOut('fast');
   return false;

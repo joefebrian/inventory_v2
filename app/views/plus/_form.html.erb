@@ -8,7 +8,7 @@
         <%= f.input :code, :input_html => { :class => 'default' } %>
         <li class="string required">
           <label for="plu_item_name">Item name<span class="required"> *</span></label>
-          <%= f.text_field :item_name, :class => "item_autocomplete", :style => "width:35% !important" %>
+          <%= f.text_field :item_name, :class => "item_autocomplete_plu", :style => "width:35% !important" %>
           <%= f.hidden_field :item_id %>
         </li>
         <%= f.input :supplier, :collection => @suppliers, :input_html => { :class => "select filter" }, :required => true %>
