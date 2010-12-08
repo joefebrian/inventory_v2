@@ -108,6 +108,7 @@ class Company < ActiveRecord::Base
     create_default_transactions
     create_default_warehouse
     create_default_roles
+    create_default_user
   end
 
   private
@@ -139,5 +140,9 @@ class Company < ActiveRecord::Base
 
   def create_default_roles
     roles.create(:name => 'admin')
+  end
+  
+  def create_default_user
+    users.create(:username => 'admin', :password => 'admin', :password_confirmation => 'admin')
   end
 end
