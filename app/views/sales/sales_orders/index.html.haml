@@ -28,13 +28,17 @@
   %tr
     %th Number
     %th Quotation
+    %th Customer
     %th Tanggal
+    %th Total
     %th.actions Actions
   - for sales_order in @sales_orders
     %tr
       %td= link_to h(sales_order.number), [:sales, sales_order]
-      %td= h sales_order.quotation.nil? ? 'Without Quotation' : sales_order.quotation.number
-      %td= h sales_order.tanggal
+      %td= h sales_order.quotation.nil? ? '-' : sales_order.quotation.number
+      %td= h sales_order.customer.profile.full_name
+      %td.tdc= h sales_order.tanggal
+      %td.tdr= local_currency(sales_order.grand_total)
       %td.actions
         = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(sales_order)
         = link_to image_tag('icons/silk/delete.png'), sales_sales_order_path(sales_order), :confirm => 'Are you sure?', :method => :delete

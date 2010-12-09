@@ -84,5 +84,9 @@ class SalesOrder < ActiveRecord::Base
   def all_entries_delivered?
     undelivered_entries.blank?
   end
+  
+  def grand_total
+    entries.map(&:total_price).sum
+  end
 
 end

@@ -40,9 +40,19 @@
       %th No.
       %th Item
       %th Qty
+      %th @Price
+      %th Disc.
+      %th SubTotal
+  %tfoot
+    %tr
+      %td.tdr{ :colspan => 5 } TOTAL
+      %td.tdr= local_currency(@sales_order.grand_total)
   %tbody
   - @sales_order.entries.each_with_index do |entry, i|
     %tr
       %td.tdr.td_5= (i+1)
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
+      %td.tdr= local_currency(entry.price)
+      %td.tdr= entry.discount.zero? ? "-" : "#{entry.discount} %"
+      %td.tdr= local_currency(entry.total_price)
