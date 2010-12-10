@@ -3,7 +3,7 @@ body {
   font-family: "Trebuchet MS", Tahoma, Verdana, Helvetica, Arial;
   font-size: 12px; }
 
-a img, button img {
+img, a img, button img {
   border: none;
   vertical-align: text-top; }
 
@@ -1007,4 +1007,34 @@ ol {
   #subheader-menu{
     display:none;
   }
+}
+
+ol#dashboard {
+	list-style:none;
+}
+ol#dashboard li {
+	border-top:solid 1px #000;
+	padding:1em;
+}
+ol#dashboard li ol li { border:none; padding:0 0 2px; }
+ol#dashboard li:first-child {
+	border-top:none;
+}
+ol#dashboard li h2 {
+	margin-bottom:.4em;
+}
+ol#dashboard li:hover {
+	background-color:#ddd;
+}
+form.dashboard_search input[type=text], form.dashboard_search input[type=submit] {
+	font-size:1.5em;
+}
+form.dashboard_search input[type=submit] {
+	padding:1px 10px;
+}
+form.dashboard_search p {
+	margin-bottom:3px;
+}
+form.dashboard_search input[type=text] {
+	width:20em;
 }

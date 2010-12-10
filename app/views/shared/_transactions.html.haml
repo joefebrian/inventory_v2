@@ -1,4 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'pur' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil}
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil}
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -14,7 +14,7 @@
         %div
   - unless current_company.inventory_only?
     %li.submenu_handler
-      = link_to "Purchasing", '#', :class => current['pur']
+      = link_to "Purchasing", purchasing_path, :class => current['purchasing']
       %div
       %ul.submenu
         %li
@@ -36,7 +36,7 @@
           = link_to "Invoices", purchasing_invoices_path, :class => current['pinv']
           %div
     %li.submenu_handler
-      =link_to "Sales", '#', :class => current['sal']
+      =link_to "Sales", sales_path, :class => current['sales']
       %div
       %ul.submenu
         %li

@@ -69,6 +69,10 @@ ActionController::Routing::Routes.draw do |map|
     page.reports 'reports', :id => 'reports'
     page.administrations 'administrations', :id => 'administrations'
   end
+  map.sales 'sales', :controller => :pages, :action => 'sales'
+  map.purchasing 'purchasing', :controller => :pages, :action => 'purchasing'
+  map.connect '/sales/search', :controller => :pages, :action => 'sales_search'
+  map.connect '/purchasing/search', :controller => :pages, :action => 'purchasing_search'
   map.resources 'hpp', :controller => 'hpp'
   map.dashboard 'dashboard', :controller => :pages
   map.signin "signin", :controller => :user_sessions, :action => :new

@@ -1,0 +1,54 @@
+<% title "Sales" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [link_to('Transactions', transactions_path), "Sales"] %>
+<% end %>
+
+<ol id="dashboard">
+  <li>
+    <h2>Quotation</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", sales_quotations_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Quotation", new_sales_quotation_path %> &bull; Latest transaction: <%= @quotation.nil? ? "No record" : link_to(@quotation.number, [:sales, @quotation]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Sales Order</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", sales_sales_orders_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Sales Order", new_sales_sales_order_path %> &bull; Latest transaction: <%= @sales_order.nil? ? "No record" : link_to(@sales_order.number, [:sales, @sales_order])%>
+    </p>
+  </li>
+  <li>
+    <h2>Delivery Order</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", delivery_orders_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Delivery Order", new_delivery_order_path %> &bull; Latest transaction: <%= @delivery_order.nil? ? "No record" : link_to(@delivery_order.number, @delivery_order)%>
+    </p>
+  </li>
+  <li>
+    <h2>Sales Invoice</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", sales_invoices_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Sales Invoice", new_sales_invoice_path %> &bull; Latest transaction: <%= @sales_invoice.nil? ? "No record" : link_to(@sales_invoice.number, @sales_invoice)%>
+    </p>
+  </li>
+  <li>
+    <h2>Sales Return</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", sales_returns_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Sales Return", new_sales_return_path %> &bull; Latest transaction: <%= @sales_return.nil? ? "No record" : link_to(@sales_return.number, @sales_return)%>
+    </p>
+  </li>
+  <li>
+    <h2>Direct Sale</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", direct_sales_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Direct Sale", new_direct_sale_path %> &bull; Latest transaction: <%= @direct_sale.nil? ? "No record" : link_to(@direct_sale.number, @direct_sale)%>
+    </p>
+  </li>
+  <li>
+    <h2>Search Sales Transaction</h2>
+    <% form_tag '/sales/search', :class => "dashboard_search" do %>
+      <p>
+        <%= text_field_tag 'term', @term, :class => :big %>
+        <%= submit_tag "Search" %>
+      </p>
+      <p class="inline-hints light">Enter the transaction number you wish to search</p>
+    <% end %>
+  </li>
+</ol>

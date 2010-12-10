@@ -1,0 +1,54 @@
+<% title "Purchasing" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [link_to('Transactions', transactions_path), "Purchasing"] %>
+<% end %>
+
+<ol id="dashboard">
+  <li>
+    <h2>Material Request</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", purchasing_material_requests_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Material Request", new_purchasing_material_request_path %> &bull; Latest transaction: <%= @material_request.nil? ? "No record" : link_to(@material_request.number, [:purchasing, @material_request]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Quotation Request</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", purchasing_quotation_requests_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Quotation Request", new_purchasing_quotation_request_path %> &bull; Latest transaction: <%= @quotation_request.nil? ? "No record" : link_to(@quotation_request.number, [:purchasing, @quotation_request]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Purchase Order</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", purchasing_purchase_orders_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Purchase Order", new_purchasing_purchase_order_path %> &bull; Latest transaction: <%= @purchase_order.nil? ? "No record" : link_to(@purchase_order.number, [:purchasing, @purchase_order]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Item Receive</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", purchasing_item_receives_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Item Receive", new_purchasing_item_receife_path %> &bull; Latest transaction: <%= @item_receive.nil? ? "No record" : link_to(@item_receive.number, [:purchasing, @item_receive]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Purchase Return</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", purchasing_purchase_returns_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Purchase Return", new_purchasing_purchase_return_path %> &bull; Latest transaction: <%= @purchase_return.nil? ? "No record" : link_to(@purchase_return.number, [:purchasing, @purchase_return]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Invoice</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", purchasing_invoices_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Invoice", new_purchasing_invoice_path %> &bull; Latest transaction: <%= @invoice.nil? ? "No record" : link_to(@invoice.number, [:purchasing, @invoice]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Search Purchasing Transaction</h2>
+    <% form_tag '/purchasing/search', :class => "dashboard_search" do %>
+      <p>
+        <%= text_field_tag 'term', @term, :class => :big %>
+        <%= submit_tag "Search" %>
+      </p>
+      <p class="inline-hints light">Enter the transaction number you wish to search</p>
+    <% end %>
+  </li>
+</ol>

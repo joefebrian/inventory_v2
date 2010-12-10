@@ -1,0 +1,66 @@
+<% title "Sales :: Search Results" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [link_to('Transactions', transactions_path), link_to("Sales", sales_path), "Search Results"] %>
+<% end %>
+
+<ol id="dashboard">
+  <li>
+    <h2><%= link_to "Quotations", sales_quotations_path %></h2>
+    <ol>
+      <% for rec in @results[:quotations] %>
+        <li><%= link_to rec.number, [:sales, rec]%></li>
+      <% end %>
+    </ol>
+  </li>
+  <li>
+    <h2><%= link_to "Sales Orders", sales_sales_orders_path %></h2>
+    <ol>
+      <% for rec in @results[:sales_orders] %>
+        <li><%= link_to rec.number, [:sales, rec]%></li>
+      <% end %>
+    </ol>
+  </li>
+  <li>
+    <h2><%= link_to "Delivery Orders", delivery_orders_path %></h2>
+    <ol>
+      <% for rec in @results[:delivery_orders] %>
+        <li><%= link_to rec.number, rec%></li>
+      <% end %>
+    </ol>
+  </li>
+  <li>
+    <h2><%= link_to "Sales Invoices", sales_invoices_path %></h2>
+    <ol>
+      <% for rec in @results[:sales_invoices] %>
+        <li><%= link_to rec.number, rec%></li>
+      <% end %>
+    </ol>
+  </li>
+  <li>
+    <h2><%= link_to "Sales Returns", sales_returns_path %></h2>
+    <ol>
+      <% for rec in @results[:sales_returns] %>
+        <li><%= link_to rec.number, rec%></li>
+      <% end %>
+    </ol>
+  </li>
+  <li>
+    <h2><%= link_to "Direct Sales", direct_sales_path %></h2>
+    <ol>
+      <% for rec in @results[:direct_sales] %>
+        <li><%= link_to rec.number, rec%></li>
+      <% end %>
+    </ol>
+  </li>
+  <li>
+    <h2>Search Sales Transaction</h2>
+    <% form_tag '/sales/search', :class => "dashboard_search" do %>
+      <p>
+        <%= text_field_tag 'term', @term, :class => :big %>
+        <%= submit_tag "Search" %>
+      </p>
+      <p class="inline-hints light">Enter the transaction number you wish to search</p>
+    <% end %>
+  </li>
+</ol>

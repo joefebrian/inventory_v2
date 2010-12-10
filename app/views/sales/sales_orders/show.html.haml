@@ -20,19 +20,19 @@
 .two_columns
   %p
     %span.light Quotation Number:
-    =h @sales_order.quotation.nil? ? 'Without Quotation' : @sales_order.quotation.number
+    =h @sales_order.quotation.nil? ? '-' : link_to(@sales_order.quotation.number, sales_quotation_path(@sales_order.quotation))
   %p
-    %span.light Number:
-    =h @sales_order.number
-  %p
-    %span.light Date:
+    %span.light Date
     =h @sales_order.tanggal
   %p
-    %span.light Customer Name:
+    %span.light Customer Name
     =h @sales_order.customer
   %p
-    %span.light Payment Terms:
+    %span.light Payment Terms
     =h @sales_order.top
+  %p
+    %span.light Delivery Order issued
+    = @sales_order.delivery_orders.collect { |dlo| link_to dlo.number, dlo }.join(', ')
 
 %table.report
   %thead
@@ -54,5 +54,5 @@
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
       %td.tdr= local_currency(entry.price)
-      %td.tdr= entry.discount.zero? ? "-" : "#{entry.discount} %"
+      %td.tdr= entry.discount.blank? || entry.discount.zero? ? "-" : "#{entry.discount} %"
       %td.tdr= local_currency(entry.total_price)

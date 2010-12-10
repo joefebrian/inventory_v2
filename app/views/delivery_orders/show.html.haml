@@ -21,13 +21,10 @@
 .two_columns
   %p
     %span.light Sales Order Number:
-    =h @delivery_order.sales_order.number
-  %p
-    %span.light DO Number:
-    =h @delivery_order.number
+    = link_to @delivery_order.sales_order.number, sales_sales_order_path(@delivery_order.sales_order)
   %p
     %span.light Customer Name:
-    =h @delivery_order.customer_id
+    = link_to @delivery_order.customer.profile.full_name, @delivery_order.customer
   %p
     %span.light Date:
     =h @delivery_order.do_date

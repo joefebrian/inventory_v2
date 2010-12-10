@@ -24,16 +24,13 @@
 .two_columns
   %p
     %span.light Delivery Order Numbers
-    =h @sales_invoice.delivery_orders.map(&:number).join(', ')
-  %p
-    %span.light Sales Order Number
-    =h @sales_invoice.number
+    = @sales_invoice.delivery_orders.collect { |dlo| link_to dlo.number, dlo }.join(', ')
   %p
     %span.light Transaction Date
     =h @sales_invoice.user_date
   %p
     %span.light Customer Name
-    =h @sales_invoice.delivery_orders.map(&:customer).uniq.join(', ')
+    = @sales_invoice.delivery_orders.collect { |dlo| link_to dlo.customer.profile.full_name, dlo.customer }.uniq.join(', ')
   %p
     %span.light Days until due
     =h @sales_invoice.due_time
