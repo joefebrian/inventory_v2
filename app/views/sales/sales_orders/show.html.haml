@@ -54,5 +54,7 @@
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
       %td.tdr= local_currency(entry.price)
-      %td.tdr= entry.discount.zero? ? "-" : "#{entry.discount} %"
+      - # %td.tdr= entry.discount.zero? ? "-" : "#{entry.discount} %"
+      %td.tdr --
       %td.tdr= local_currency(entry.total_price)
+

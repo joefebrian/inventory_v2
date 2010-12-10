@@ -1,4 +1,4 @@
-- title "Sales Return"
+- title "Sales Retur"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
@@ -10,8 +10,10 @@
 = hint "Click 'edit' to edit"
 
 #subheader
-  %h3= "Sales Return # #{@sales_return.number}"
+  %h3= "Sales Retur # #{@sales_return.number}"
   #subheader-menu
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_return_path(@sales_return, :format => "pdf", :type =>"pdf")
+    &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_sales_return_path(@sales_return)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", sales_return_path(@sales_return), :method => :delete, :confirm => "Are you sure"
@@ -22,7 +24,7 @@
     =h @sales_return.number
   %p
     %span.light Customer Name:
-    =h @sales_return.customer_id
+    =h @sales_return.customer
   %p
     %span.light Date:
     =h @sales_return.tanggal
@@ -42,3 +44,4 @@
       %td.tdr.td_5= (i+1)
       %td= link_to h(entry.item.name), entry.item
       %td.tdr= entry.quantity
+

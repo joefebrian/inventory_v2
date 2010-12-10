@@ -9,7 +9,7 @@ class SalesInvoice < ActiveRecord::Base
   def nama
     number
   end
-  
+
   def after_initialize
     self.number = suggested_number if new_record?
   end
@@ -26,12 +26,15 @@ class SalesInvoice < ActiveRecord::Base
    date = Chronic.parse(due_date)
   end
 
+
+
+
   #def build_entries_from_do
     #entries.clear
     #unless delivery_order_id.blank?
-     
+
       #data_do = DeliveryOrder.all(:conditions => {:sales_order_id => sales_order_id}).collect{|d| d.id}
-      #item_do = DeliveryOrderEntry.calculate(:sum, 
+      #item_do = DeliveryOrderEntry.calculate(:sum,
                                            #:quantity,
                                            #:conditions => {:delivery_order_id => data_do},
                                            #:group => :item_id)
@@ -40,10 +43,12 @@ class SalesInvoice < ActiveRecord::Base
       #sales_order.entries.each do |so_data|
         #item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
         #self.entries.build(:item_id => so_data.item_id,
-                           #:quantity => so_data.quantity - item_dos[1].to_i) 
- 
+                           #:quantity => so_data.quantity - item_dos[1].to_i)
+
       #end
     #end
   #end
 
+
 end
+
