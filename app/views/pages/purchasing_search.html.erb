@@ -4,6 +4,8 @@
   <%= breadcrumb [link_to('Transactions', transactions_path), link_to("Purchasing", purchasing_path), "Search Results"] %>
 <% end %>
 
+<% hint "" %>
+
 <ol id="dashboard">
   <li>
     <h2><%= link_to "Material Requests", purchasing_material_requests_path %></h2>
