@@ -22,6 +22,7 @@
       = f.collection_select :currency_id, @currencies, :id, :name, {}, :class => "select filter"
       = f.label :currency_rate, "Rate", :class => 'inline-label'
       = f.text_field :currency_rate
+    = f.input :additional_charge
 
   - f.inputs 'Items', :class => "form_section" do
     %li
