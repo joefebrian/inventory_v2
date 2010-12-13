@@ -15,7 +15,7 @@
     = f.input :do_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :warehouse, :collection => @warehouses, :input_html => { :class => "select filter" }
     = f.input :reference
-    = f.input :description, :input_html => { :rows => 3 }
+    = f.input :description, :input_html => { :rows => 3 }, :label => "Remark"
 
   - f.inputs 'Items', :class => "form_section" do
     %li

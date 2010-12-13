@@ -1,5 +1,5 @@
 class SalesInvoice < ActiveRecord::Base
-  attr_accessible :company_id, :delivery_order_ids, :number, :ppn, :due_date, :top
+  attr_accessible :company_id, :delivery_order_ids, :number, :ppn, :due_date, :top, :sales_commission
   has_and_belongs_to_many :delivery_orders
   belongs_to :sales_order
   belongs_to :company
