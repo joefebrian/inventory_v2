@@ -12,26 +12,23 @@ class TransAssembliesController < ApplicationController
   end
   
   def new
-    @trans_assembly = current_company.trans_assemblies.new
-    @trans_assembly.entries.build
+    @trans_assembly = current_company.trans_assemblies.new(:quantity => 1, :date => Time.now.to_date)
     @warehouses = current_company.warehouses
     @assemblies = current_company.assemblies
   end
   
   def create
     @trans_assembly = current_company.trans_assemblies.new(params[:trans_assembly])
+    @assemblies = current_company.assemblies
     if params[:get_ones] && params[:get_ones].to_i == 1
-      @trans_assembly.build_entries_from_one
-      @trans_assembly.entries.build
+      @trans_assembly.build_entries_from_assembly
       render("new", :layout => false) and return
     end
     if @trans_assembly.save
       flash[:notice] = "Successfully created trans assembly."
       redirect_to @trans_assembly
     else
-      @trans_assembly.entries.build
       @warehouses = current_company.warehouses
-      @assemblies = current_company.assemblies
       render :action => 'new'
     end
   end

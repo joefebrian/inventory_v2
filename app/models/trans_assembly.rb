@@ -27,16 +27,12 @@ class TransAssembly < ActiveRecord::Base
    date = Chronic.parse(date)
   end
 
-  def build_entries_from_one
+  def build_entries_from_assembly
     entries.clear
     unless assembly.blank?
-      items = AssemblyEntry.calculate(:sum,
-                                             :quantity,
-                                             :conditions => { :assembly_id => assembly_id },
-                                             :group => :item_id)
-      items.each do |item_id, qty|
-        self.entries.build(:item_id => item_id,
-                           :quantity => qty)
+      assy_entries = AssemblyEntry.all(:conditions => { :assembly_id => assembly_id }, :group => :item_id)
+      assy_entries.each do |entry|
+        self.entries.build(:item_id => entry.item_id, :quantity => (entry.quantity * quantity.to_i == 0 ? 1 : quantity))
       end
     end
   end
