@@ -5,6 +5,7 @@ class PagesController < ApplicationController
       @tab = 'dashboard'
       @unconfirmed_item_receives = current_company.item_receives.unconfirmed
       @open_purchase_orders = current_company.purchase_orders.all_open
+      @minus_items = current_company.items.reject { |i| i.stock > 0 }
     else
       redirect_to signin_path
     end

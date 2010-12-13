@@ -29,3 +29,25 @@
     <% end %>
   </ol>
 <% end %>
+
+<% unless @minus_items.blank? %>
+  <h3 id="">Items with stock &lt;= 0</h3>
+  <table class="report">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Item Code</th>
+        <th>Item Name</th>
+        <th>Current Stock</th>
+      </tr>
+    <thead>
+    <% @minus_items.each_with_index do |item, i| %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= item.code %></td>
+        <td><%= item.name %></td>
+        <td><%= item.stock %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
