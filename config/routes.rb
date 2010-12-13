@@ -71,8 +71,10 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.sales 'sales', :controller => :pages, :action => 'sales'
   map.purchasing 'purchasing', :controller => :pages, :action => 'purchasing'
-  map.connect '/sales/search', :controller => :pages, :action => 'sales_search'
-  map.connect '/purchasing/search', :controller => :pages, :action => 'purchasing_search'
+  map.assy 'assy', :controller => :pages, :action => 'assembling_disassembling'
+  map.connect 'sales/search', :controller => :pages, :action => 'sales_search'
+  map.connect 'purchasing/search', :controller => :pages, :action => 'purchasing_search'
+  map.connect 'assy/search', :controller => :pages, :action => 'assy_search'
   map.resources 'hpp', :controller => 'hpp'
   map.dashboard 'dashboard', :controller => :pages
   map.signin "signin", :controller => :user_sessions, :action => :new

@@ -1,4 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil}
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil, 'assy' => nil}
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -57,19 +57,13 @@
         %li
           =link_to "Direct Sales", direct_sales_path, :class => current['ds']
           %div
-      -# %li
-      -#    =link_to  "Customer Down Payments", customer_down_payments_path, :class => current['cdp']
-      -#    %div
 
 
     %li
       =link_to "Credit / Debit Note", credit_debit_notes_path, :class => current['cndn']
       %div
     %li
-      =link_to "Transaction Assembling", trans_assemblies_path, :class => current['trass']
-      %div
-    %li
-      =link_to "Transaction Diassembling", trans_diassemblies_path, :class => current['tradis']
+      =link_to "Assembling / Disassembling", assy_path, :class => current['assy']
       %div
     %li.submenu_handler
       =link_to "Production", '#', :class => current['prod']

@@ -1,0 +1,32 @@
+<% title "Assembling / Disassembling" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [link_to('Transactions', transactions_path), "Assembling Disassembling"] %>
+<% end %>
+
+<% hint "" %>
+
+<ol id="dashboard">
+  <li>
+    <h2>Assembling</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", trans_assemblies_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Assembling", new_trans_assembly_path %> &bull; Latest transaction: <%= @assembling.nil? ? "No record" : link_to(@assembling.number, @assembling) %>
+    </p>
+  </li>
+  <li>
+    <h2>Disassembling</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", trans_diassemblies_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Disassembling", new_trans_diassembly_path %> &bull; Latest transaction: <%= @diassembling.nil? ? "No record" : link_to(@diassembling.number, @diassembling) %>
+    </p>
+  </li>
+  <li>
+    <h2>Search Assembling / Disassembling</h2>
+    <% form_tag '/assy/search', :class => "dashboard_search" do %>
+      <p>
+        <%= text_field_tag 'term', @term, :class => :big %>
+        <%= submit_tag "Search" %>
+      </p>
+      <p class="inline-hints light">Enter the assembling or disassembling transaction number you wish to search</p>
+    <% end %>
+  </li>
+</ol>

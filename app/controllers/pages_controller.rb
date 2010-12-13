@@ -69,5 +69,21 @@ class PagesController < ApplicationController
     @results[:invoices] = current_company.invoices.number_like(params[:term]) || []
     @term = params[:term]
   end
+  
+  def assembling_disassembling
+    @tab = 'transactions'
+    @current = 'assy'
+    @assembling = current_company.trans_assemblies.last
+    @disassembling = current_company.trans_diassemblies.last
+  end
+  
+  def assy_search
+    @tab = 'transactions'
+    @current = 'purchasing'
+    @results = {}
+    @results[:assembling] = current_company.trans_assemblies.number_like(params[:term]) || []
+    @results[:diassembling] = current_company.trans_diassemblies.number_like(params[:term]) || []
+    @term = params[:term]
+  end
 
 end
