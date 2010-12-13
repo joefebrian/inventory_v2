@@ -1,0 +1,35 @@
+- title "Purchase Retur"
+
+#customer
+  #customer-title Purchase Retur
+
+
+%table#meta
+  %tr
+    %td.meta-head Number
+    %td= @purchase_return.number
+  %tr
+    %td.meta-head PO Number
+    %td= @purchase_return.purchase_order.nil? ? '-' : @purchase_return.purchase_order.number
+  %tr
+    %td.meta-head Date
+    %td= @purchase_return.user_date.to_s(:long)
+  %tr
+    %td.meta-head Supplier Name
+    %td= @purchase_return.supplier.name_and_address
+
+
+%table#items
+  %tr
+    %th.number No.
+    %th.name Item
+    %th.quantity Qty
+  - @purchase_return.entries.each_with_index do |entry, i|
+    %tr.item-row
+      %td= (i+1)
+      %td.name=  entry.item.name
+      %td.qty= entry.quantity
+
+%p Remark :
+%p= @purchase_return.remark
+

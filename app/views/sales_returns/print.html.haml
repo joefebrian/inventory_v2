@@ -1,0 +1,33 @@
+- title "Sales Retur"
+
+#customer
+  #customer-title Sales Retur
+
+
+%table#meta
+  %tr
+    %td.meta-head SR Number
+    %td= @sales_return.number
+  %tr
+    %td.meta-head Customer Name
+    %td= @sales_return.customer
+  %tr
+    %td.meta-head Date
+    %td= @sales_return.tanggal
+
+
+
+%table#items
+  %tr
+    %th.number No.
+    %th.name Item
+    %th.quantity Qty
+    - @sales_return.entries.each_with_index do |entry, i|
+      %tr.item-row
+        %td= (i+1)
+        %td.name=  entry.item.name
+        %td.qty= entry.quantity
+
+%p Keterangan:
+%p= @sales_return.description
+

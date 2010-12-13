@@ -34,19 +34,19 @@
         %td= (i+1)
         %td.name=  entry.item.name
         %td.qty= entry.quantity
-        %td.price --
-        %td.price --
+        %td.price= entry.item_receive.purchase_order.entries
+        %td.price= local_currency(entry.total)
 
 %table#metabottom
   %tr
     %td.metabottom-head Total
-    %td
+    %td= local_currency(Invoice.grand_total(current_company))
   %tr
     %td.metabottom-head  Discount
     %td ---
   %tr
     %td.metabottom-head PPN 10%
-    %td ---
+    %td --
   %tr
     %td.metabottom-head <b>Total</b>
     %td ---

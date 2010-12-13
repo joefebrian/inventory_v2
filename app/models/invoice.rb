@@ -32,4 +32,6 @@ class Invoice < ActiveRecord::Base
   def self.grand_total(company)
     Company.find(company).invoices.collect { |inv| inv.total_value }.sum
   end
+
 end
+
