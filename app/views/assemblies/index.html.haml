@@ -26,7 +26,7 @@
   - for assembly in @assemblies
     %tr
       %td= link_to h(assembly.type)
-      %td= h assembly.number
+      %td= link_to assembly.number, assembly
       %td= h assembly.name
       %td= h assembly.code
       %td.actions

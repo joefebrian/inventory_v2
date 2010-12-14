@@ -1,7 +1,7 @@
 - semantic_form_for @assembly do |f|
   = f.error_messages
   - f.inputs "Formula data", :class => "form_section" do
-    = f.input :tipe, :as => :select, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" , :input_html => {:class => "select"} 
+    = f.input :tipe, :as => :radio, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" , :input_html => {:class => "select"} 
     %li#general_transaction_number_input.string.required
       %label{ :for => 'assembly_number' } Number <span class="required">*</span>
       %input{ :type => :text, :size => 50,
