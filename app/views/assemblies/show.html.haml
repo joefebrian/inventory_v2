@@ -26,11 +26,9 @@
     %p
       %span.light.transaction_label Code
       %strong= @assembly.code
-
-%p
-  %span.light.transaction_label Description
-%p{ :style => "overflow:hidden; margin-bottom:20px;" }
-  %strong= @assembly.description
+    %p
+      %span.light.transaction_label Description
+      %strong= @assembly.description
 
 %table.report
   %thead

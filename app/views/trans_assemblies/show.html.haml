@@ -2,8 +2,8 @@
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
-    link_to('Transaction Assemblies', trans_assemblies_path), |
-    "Transaction Assemblies ##{@trans_assembly.number}" ] |
+    link_to('Assemblies', trans_assemblies_path), |
+    "Transaction # #{@trans_assembly.number}" ] |
 
   = sidemenu @tab
 
@@ -19,19 +19,16 @@
       %span.light.transaction_label Warehouse
       %strong= @trans_assembly.warehouse.name
     %p
-      %span.light.transaction_label Code Assemblies
+      %span.light.transaction_label End Product
       %strong
         = @trans_assembly.assembly.name 
         = link_to ("(#{@trans_assembly.assembly.number})"), @trans_assembly.assembly 
     %p
       %span.light.transaction_label Quantity
       %strong= @trans_assembly.quantity
-%p
-  %span.light.transaction_label Description
-%p{ :style => "overflow:hidden; margin-bottom:20px;" }
-  %strong= @trans_assembly.description
-
-
+    %p
+      %span.light.transaction_label Description
+      %strong= @trans_assembly.description
 
 %table.report
   %thead
