@@ -53,7 +53,7 @@ class AssembliesController < ApplicationController
     @assembly = current_company.assemblies.find(params[:id])
     @assembly.destroy
     flash[:notice] = "Successfully destroyed assembling."
-    redirect_to assembly_url
+    redirect_to assemblies_url
   end 
   
   private

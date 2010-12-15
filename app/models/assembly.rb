@@ -6,7 +6,7 @@ class Assembly < ActiveRecord::Base
   has_many :trans_assemblies
   
   has_many :entries, :class_name => "AssemblyEntry"
-  validates_presence_of :number, :tipe, :item_id, :name
+  validates_presence_of :number, :item_id, :name
   validates_uniqueness_of :number, :scope => :company_id
   validates_uniqueness_of :name, :scope => :company_id
 

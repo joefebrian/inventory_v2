@@ -11,16 +11,6 @@
         = f.text_field :date, :class => "datepicker"
         %br
         %p.inline-hints.inline-labels Date
-    %li.string
-      = f.label :assembly_id, "End Product"
-      .inline
-        = f.collection_select :assembly_id, @assemblies, :id, :name, {}, :class => "select filter"
-        %br
-        %p.inline-hints.inline-labels Assembling Formula
-      .inline
-        = f.text_field :quantity
-        %br
-        %p.inline-hints.inline-labels Quantity
  
     = f.input :warehouse, :collection => @warehouses, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"}
     = f.input :description, :input_html => { :rows => 3 }

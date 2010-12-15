@@ -47,6 +47,7 @@ class ItemsController < ApplicationController
   
   def create
     @item = current_company.items.new(params[:item])
+    @item.is_stock = true
     @item.company = current_company
     if @item.save
       flash[:notice] = "Successfully created item."
