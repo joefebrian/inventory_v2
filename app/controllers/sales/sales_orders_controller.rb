@@ -20,17 +20,12 @@ class Sales::SalesOrdersController < ApplicationController
         if(params[:type])
             format.html { render "print", :layout => "print"}
         else
-            format.html { render "show", :layout => "application"}
+            #format.html { render "show", :layout => "application"}
+            format.html { render "print", :layout => "print"}
         end
       end
   end
 
-  def print
-    @sales_order = current_company.sales_orders.find(params[:id])
-      respond_to do |format|
-        format.pdf { render :layout => print }  #add this line
-      end
-  end
 
   def new
     @sales_order = current_company.sales_orders.new

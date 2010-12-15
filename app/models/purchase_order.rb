@@ -92,7 +92,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def entries_plu_satisfied?
     entries.each do |entry|
-      # false if the quantity left for this entry's item is 
+      # false if the quantity left for this entry's item is
       return false unless entry.item.plu_for(supplier).present?
     end
     true
@@ -106,4 +106,6 @@ class PurchaseOrder < ActiveRecord::Base
     self.total = total_value
     save(false)
   end
+
 end
+

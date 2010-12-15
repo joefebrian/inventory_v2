@@ -56,16 +56,16 @@
 %table#metabottom
   %tr
     %td.metabottom-head Total
-    %td --
+    %td= local_currency(@purchase_order.total_value)
   %tr
     %td.metabottom-head  Discount
-    %td ---
+    %td= local_currency(0)
   %tr
     %td.metabottom-head PPN 10%
-    %td ---
+    %td= local_currency(@purchase_order.total_value/10)
   %tr
     %td.metabottom-head <b>Total</b>
-    %td ---
+    %td= local_currency((@purchase_order.total_value)+(@purchase_order.total_value/10))
 
 
 <br/><br/><br/><br/><br/><br/><br/>
