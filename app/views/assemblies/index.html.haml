@@ -12,20 +12,18 @@
 = hint 'Click "Create Formula Assembling" button to add new Formula Assembling'
 
 #subheader
-  %h3 Formula Assembling
+  %h3 Assembled Item Formula
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/add.png')} Create Assembly Formula ", new_assembly_path, :class => 'main_link'
+    = link_to "#{image_tag('icons/silk/add.png')} Create New Formula ", new_assembly_path, :class => 'main_link'
 
 %table.list
   %tr
-    %th Type
     %th Number
     %th Name
     %th End Product
     %th.actions Actions
   - for assembly in @assemblies
     %tr
-      %td= link_to h(assembly.type)
       %td= link_to assembly.number, assembly
       %td= h assembly.name
       %td= h assembly.item.try(:name)

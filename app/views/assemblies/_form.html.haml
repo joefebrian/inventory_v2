@@ -3,13 +3,16 @@
   - f.inputs "Formula data", :class => "form_section" do
     -#= f.input :tipe, :as => :radio, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" , :input_html => {:class => "select"} 
     = f.input :number
-    = f.input :category_id, :as => :select, :collection => @category, :label => "Category Name", :include_blank => "select Category", :input_html => {:class => "select filter"}
-    = f.input :item_name, :label => "End Product", :input_html => { :class => "item_autocomplete", :style => "width:35% !important;" }
-    = f.input :item_id, :as => :hidden
-    = f.input :name  
+    = f.input :name
+    %li#assembly_item_name_input.string.required
+      %label{ :for => "assembly_item_name" } 
+        End Product / Item
+        %span.required *
+      = f.text_field :item_name, :class => "item_autocomplete", :style => "width:35% !important;"
+      = f.hidden_field :item_id
     = f.input :description, :input_html => { :rows => 3 }
 
-  - f.inputs 'Items', :class => "form_section" do
+  - f.inputs 'Formula Components', :class => "form_section" do
     %li
       %table.report
         %thead
