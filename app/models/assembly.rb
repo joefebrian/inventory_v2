@@ -1,11 +1,12 @@
 class Assembly < ActiveRecord::Base
-  attr_accessible :company_id, :category_id, :tipe, :number, :code, :name, :description, :entries_attributes
+  attr_accessible :company_id, :category_id, :tipe, :number, :item_id, :name, :description, :entries_attributes
   belongs_to :company
   belongs_to :category
+  belongs_to :item
   has_many :trans_assemblies
   
   has_many :entries, :class_name => "AssemblyEntry"
-  validates_presence_of :number, :tipe, :code, :name, :category_id
+  validates_presence_of :number, :tipe, :item_id, :name, :category_id
   validates_uniqueness_of :number, :scope => :company_id
   validates_uniqueness_of :name, :scope => :company_id
 
@@ -21,8 +22,15 @@ class Assembly < ActiveRecord::Base
     "#{prefix}.#{next_available}"
   end
   
- def after_save 
-   Item.create(:category_id => category_id, :company_id => company_id, :code => code, :name => name, :description => description, :is_stock => true)
+ #def after_save 
+   #Item.create(:category_id => category_id, :company_id => company_id, :code => code, :name => name, :description => description, :is_stock => true)
+ #end
+
+ def item_name
+   item.try(:name)
+ end
+
+ def item_name=(item_name)
  end
 
 end

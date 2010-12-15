@@ -1,17 +1,11 @@
 - semantic_form_for @assembly do |f|
   = f.error_messages
   - f.inputs "Formula data", :class => "form_section" do
-    = f.input :tipe, :as => :radio, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" , :input_html => {:class => "select"} 
-    %li#general_transaction_number_input.string.required
-      %label{ :for => 'assembly_number' } Number <span class="required">*</span>
-      %input{ :type => :text, :size => 50,
-              :name => 'assembly[number]',
-              :id => 'assembly_number',
-              :value => f.object.attributes['number'],
-              :class => 'default' }
-      %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
+    -#= f.input :tipe, :as => :radio, :collection => [['Assembling', 'Ass'],['Production','Prod']], :label => "Type", :include_blank => "select type" , :input_html => {:class => "select"} 
+    = f.input :number
     = f.input :category_id, :as => :select, :collection => @category, :label => "Category Name", :include_blank => "select Category", :input_html => {:class => "select filter"}
-    = f.input :code, :input_html => {:id => 'default', :class => 'item_autocomplete', :style => 'width:35% !important'}
+    = f.input :item_name, :label => "End Product", :input_html => { :class => "item_autocomplete", :style => "width:35% !important;" }
+    = f.input :item_id, :as => :hidden
     = f.input :name  
     = f.input :description, :input_html => { :rows => 3 }
 
@@ -48,13 +42,11 @@
   - javascript_tag do
     :plain
       var insert_fields = true;
-      var get_customer_price = true;
       var template = $('tbody tr:last-child').html();
       var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
       var regexp2 = new RegExp("_(\\d+)_", "g");
       var new_id = $('tbody tr').length;
       $(function() {
         $('.select').bind('multiselectclick', function(event, ui) {
-          // $(this).multiselect('close');
         });
       });
