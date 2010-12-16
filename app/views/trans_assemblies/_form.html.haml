@@ -20,8 +20,8 @@
       %table.report
         %thead
           %tr
-            %th.td_5 #
-            %th Assembled Item Name
+            %th.tdl.td_20 Assembled Item Name
+            %th End Product
             %th Quantity
         %tfoot
           %tr
@@ -29,15 +29,14 @@
             %td{ :colspan => 3 } &nbsp;
         %tbody
           - unless @trans_assembly.entries.blank?
-            - idx = 0
             - f.semantic_fields_for :entries do |ent|
-              - idx += 1
               %tr
-                %td.tdc.td_5= idx
                 %td.item
-                  = ent.text_field :item_id, :class => "assembled_item_autocomplete"
+                  = ent.text_field :assembly_name, :class => "assembled_item_autocomplete"
+                  = ent.hidden_field :assembly_id
+                %td.assembly_end_product= ent.object.item_name
                 %td.tdr.td_15
-                  = ent.text_field :quantity, :class => "numbers"
+                  = ent.text_field :quantity, :class => "numbers", :size => 5
 
 
   %fieldset.buttons
@@ -49,6 +48,10 @@
 - content_for :javascripts do
   - javascript_tag do
     var insert_fields = true;
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
     :plain
       function get_entries(form) {
         form.append('<input type="hidden" name="get_ones" value="1"/>');
@@ -73,3 +76,36 @@
           return false;
         });
       });
+      $('input.assembled_item_autocomplete').live('focus', function() {
+        var input = $(this);
+        input.autocomplete({
+          source: '/assemblies/search.js',
+          focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
+          select: function(event, ui) {
+            //console.log(ui);
+            $(this).val(ui.item.name);
+            $(this).next().val(ui.item.id);
+            $(this).parents('tr').find('.assembly_end_product').html(ui.item.item_name);
+            var form = $(this).parents('form');
+            // run when you want to add new set of inputs
+            if(window.insert_fields) {
+              var elem = template.replace(regexp1, "[" + new_id + "]");
+              elem = elem.replace(regexp2, "_" + new_id + "_");
+              elem = "<tr>" + elem + "</tr>";
+              input.parents('tr').after(elem);
+              $('.should_hidden').hide();
+              attach_datepicker();
+              new_id++;
+            }
+            return false;
+          }
+        })
+        .data("autocomplete")
+        ._renderItem = function(ul, item) {
+          return $("<li></li>")
+          .data("item.autocomplete", item)
+          .append("<a>" + item.name + "</a>")
+          .appendTo(ul);
+        };
+      });
+

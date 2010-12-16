@@ -32,5 +32,4 @@ class Assembly < ActiveRecord::Base
 
  def item_name=(item_name)
  end
-
 end

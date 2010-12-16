@@ -1,10 +1,9 @@
 class TransAssembly < ActiveRecord::Base
-  attr_accessible :company_id, :warehouse_id, :assembly_id, :number, :quantity, :date, :description, :entries_attributes
+  attr_accessible :company_id, :warehouse_id, :number, :date, :description, :entries_attributes
   belongs_to :company
   belongs_to :warehouse
-  belongs_to :assembly
   has_many :entries, :class_name => "TransAssembliesEntry"
-  validates_presence_of :number, :quantity, :warehouse_id, :assembly_id
+  validates_presence_of :number, :warehouse_id
   validates_uniqueness_of :number, :scope => :company_id
   
   accepts_nested_attributes_for :entries,

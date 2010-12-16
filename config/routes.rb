@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
     currency.resources :exchange_rates
   end
   map.resources :salesmen
-  map.resources :assemblies
+  map.resources :assemblies, :collection => { :search => :get }
   map.resources :services
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
