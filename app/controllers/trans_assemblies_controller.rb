@@ -13,6 +13,7 @@ class TransAssembliesController < ApplicationController
   
   def new
     @trans_assembly = current_company.trans_assemblies.new(:quantity => 1, :date => Time.now.to_date)
+    @trans_assembly.entries.build
     @warehouses = current_company.warehouses
     @assemblies = current_company.assemblies
   end

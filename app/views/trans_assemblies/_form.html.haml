@@ -21,8 +21,7 @@
         %thead
           %tr
             %th.td_5 #
-            %th Item Code
-            %th Item Name
+            %th Assembled Item Name
             %th Quantity
         %tfoot
           %tr
@@ -35,13 +34,10 @@
               - idx += 1
               %tr
                 %td.tdc.td_5= idx
-                %td= ent.object.item.code
                 %td.item
-                  = ent.object.item_name
-                  = ent.hidden_field :item_id
+                  = ent.text_field :item_id, :class => "assembled_item_autocomplete"
                 %td.tdr.td_15
-                  = ent.object.quantity
-                  = ent.hidden_field :quantity
+                  = ent.text_field :quantity, :class => "numbers"
 
 
   %fieldset.buttons
