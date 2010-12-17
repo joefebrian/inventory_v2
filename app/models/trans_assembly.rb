@@ -3,6 +3,7 @@ class TransAssembly < ActiveRecord::Base
   belongs_to :company
   belongs_to :warehouse
   has_many :entries, :class_name => "TransAssembliesEntry"
+  has_many :progress_entries, :class_name => "AssemblyProgressEntry"
   validates_presence_of :number, :warehouse_id
   validates_uniqueness_of :number, :scope => :company_id
   

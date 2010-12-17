@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  trans_assembly_id: 1
+  assembly_id: 1
+  quantity: 1
+  progress_date: 2010-12-17
+
+two:
+  trans_assembly_id: 1
+  assembly_id: 1
+  quantity: 1
+  progress_date: 2010-12-17
