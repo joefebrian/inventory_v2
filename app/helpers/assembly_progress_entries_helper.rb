@@ -1,0 +1,2 @@
+module AssemblyProgressEntriesHelper
+end

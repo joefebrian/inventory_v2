@@ -64,7 +64,7 @@ class TransAssembliesController < ApplicationController
   private
   def assign_tab
     @tab = 'transactions'
-    @current = 'trass'
+    @current = 'assy'
   end
 
 end
