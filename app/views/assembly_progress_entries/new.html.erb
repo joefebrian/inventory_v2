@@ -1,2 +1,41 @@
-<h1>AssemblyProgressEntries#new</h1>
-<p>Find me in app/views/assembly_progress_entries/new.html.erb</p>
+<% title "Assembly # #{@assembly.number} completion progress" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path), link_to("Assemblies", trans_assemblies_path), link_to(@assembly.number, @assembly), link_to("Progress", trans_assembly_assembly_progress_entries_path(@assembly)) ] %>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Assembly # <%= @assembly.number %> Completion Progress</h3>
+</div>
+
+<%= hint "" %>
+
+<div id="dialog_form">
+  <% form_for @assembly, :url => trans_assembly_assembly_progress_entries_path(@assembly), :html => { :method => :post } do |f| %>
+    <table class="report">
+      <thead>
+        <tr>
+          <th>Formula</th>
+          <th>Assembled Item</th>
+          <th>Completed</th>
+          <th>Progress Qty</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="tdr"><%= f.submit "Save Progress" %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% f.fields_for :progress_entries do |pe| %>
+          <tr>
+            <td><%= pe.object.assembly_entry.assembly.name %></td>
+            <td><%= pe.object.assembly_entry.assembly.item_name %></td>
+            <td class="tdr"><%= pe.object.assembly_entry.completed %></td>
+            <td class="td_15 tdr"><%= pe.text_field :quantity, :size => 10, :class => "numbers" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

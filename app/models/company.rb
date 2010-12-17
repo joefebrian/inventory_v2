@@ -38,6 +38,7 @@ class Company < ActiveRecord::Base
   has_many :exchange_rates, :dependent => :destroy
   has_many :roles, :dependent => :destroy
   has_many :trans_assemblies, :dependent => :destroy
+  has_many :assembly_progress_entries, :through => :trans_assemblies, :source => :progress_entries
   has_many :item_receives, :class_name => "ItemReceive", :dependent => :destroy
   has_many :trans_diassemblies, :dependent => :destroy
   has_many :delivery_orders, :dependent => :destroy

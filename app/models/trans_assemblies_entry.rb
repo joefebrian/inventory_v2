@@ -13,4 +13,8 @@ class TransAssembliesEntry < ActiveRecord::Base
     assembly.try(:item).try(:name)
   end
 
+  def completed
+    0
+  end
+
 end

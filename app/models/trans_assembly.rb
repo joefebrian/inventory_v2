@@ -1,5 +1,5 @@
 class TransAssembly < ActiveRecord::Base
-  attr_accessible :company_id, :warehouse_id, :number, :date, :description, :entries_attributes
+  attr_accessible :company_id, :warehouse_id, :number, :date, :description, :entries_attributes, :progress_entries_attributes
   belongs_to :company
   belongs_to :warehouse
   has_many :entries, :class_name => "TransAssembliesEntry"
@@ -10,6 +10,8 @@ class TransAssembly < ActiveRecord::Base
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda {|at| at['quantity'].blank? || at['quantity'].to_i == 0}
+
+  accepts_nested_attributes_for :progress_entries, :allow_destroy => true
 
   def after_initialize
     self.number = suggested_number if new_record?

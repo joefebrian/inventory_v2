@@ -1,2 +1,51 @@
-<h1>AssemblyProgressEntries#index</h1>
-<p>Find me in app/views/assembly_progress_entries/index.html.erb</p>
+<% title "Assembly # #{@assembly.number} completion progress" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path), link_to("Assemblies", trans_assemblies_path), link_to(@assembly.number, @assembly), "Progress" ] %>
+  <div id="top_right_link">
+    <% form_for @search do |f| %>
+      <%= f.text_field :assembly_number_like %>
+      <%= f.submit 'search' %>
+    <% end %>
+  </div>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Assembly # <%= @assembly.number %> Completion Progress</h3>
+  <div id='subheader-menu'>
+    <%= link_to "+ New Progress", new_trans_assembly_assembly_progress_entry_path(@assembly) %>
+  </div>
+</div>
+
+<%= hint "" %>
+
+<table class="list" id="items">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Formula</th>
+      <th>Assembled Item</th>
+      <th>Total Qty</th>
+      <th class="tdc">Completed</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5">
+      </td>
+    </tr>
+  </tfoot>
+
+  <tbody>
+    <% @assembly.entries.each_with_index do |entry, i| %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= entry.assembly.name %></td>
+        <td><%= entry.assembly.item_name %></td>
+        <td class="tdr"><%= entry.quantity %></td>
+        <td class="tdr"><%= entry.completed %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
