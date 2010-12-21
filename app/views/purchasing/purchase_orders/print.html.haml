@@ -8,45 +8,44 @@
     %td.metaleft-head To :
     %td= @purchase_order.supplier.name
   %tr
-    %td.metaleft-head ATTN :
+    %td.metaleft-head U.P. :
     %td
   %tr
-    %td.metaleft-head Fax.NO :
+    %td.metaleft-head Fax :
     %td
   %tr
-    %td.metaleft-head PHN.NO :
+    %td.metaleft-head Telp :
     %td
   %tr
-    %td.metaleft-head TOP :
+    %td.metaleft-head Pembayaran :
     %td= @purchase_order.term_of_payment
 %table#meta
   %tr
-    %td.meta-head Number P.O.
+    %td.meta-head Nomor P.O.
     %td= @purchase_order.number
   %tr
-    %td.meta-head Number M.R.
+    %td.meta-head Nomor M.R.
     %td= @purchase_order.material_request_numbers
   %tr
-    %td.meta-head Date
+    %td.meta-head Tanggal
     %td= @purchase_order.po_date.to_s(:long)
   %tr
     %td.meta-head From
-    %td
-  %tr
-    %td.meta-head CC
     %td
 
 %table#items
   %tr
     %th.number No.
+    %th.number Kode Barang
     %th.name Item
     %th.quantity Qty
-    %th.price Unit Price
+    %th.price Harga Satuan
     %th.number Disc (%)
     %th.price Total
   - @purchase_order.entries.each_with_index do |entry, i|
     %tr.item-row
       %td= (i+1)
+      %td.qty=  entry.item.code
       %td.name=  entry.item.name
       %td.qty= entry.quantity
       %td.price= local_currency(entry.purchase_price)
@@ -69,7 +68,41 @@
 
 
 <br/><br/><br/><br/><br/><br/><br/>
-<hr><b>Lampirkan PO ini saat Penagihan</b><br/><br/>
-<table id="tandatangan"><tr><td class="table">Diminta Oleh</td><td class="table">Diajukan Oleh</td><td class="table">Approval</td></tr></table>
-<br/><br/><br/>
+<hr><b>"Lampirkan PO ini saat Penagihan"</b><br/><br/><br/>
+%table#metaleft
+  %tr
+    %td.metaleft-head Catatan :
+    %td= @purchase_order.notes
+<br/><br/><br/><br/><br/>
 
+%table#tandatangan
+  %tr
+    %td.table Diterima Oleh
+    %td.table Diminta Oleh
+    %td.table Diajukan Oleh
+    %td.table Approval
+  %tr
+    %td
+    %td
+    %td
+    %td
+  %tr
+    %td
+    %td
+    %td
+    %td
+  %tr
+    %td
+    %td
+    %td
+    %td
+  %tr
+    %td
+    %td
+    %td
+    %td
+  %tr
+    %td.table (...................)
+    %td.table (..................)
+    %td.table (..................)
+    %td.table (..................)

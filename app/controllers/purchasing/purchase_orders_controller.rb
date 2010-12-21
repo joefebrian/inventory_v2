@@ -18,7 +18,7 @@ class Purchasing::PurchaseOrdersController < ApplicationController
       respond_to do |format|
         if(params[:type])
             format.html { render "print", :layout => "print"}
-        else
+      else
             format.html { render "show", :layout => "application"}
         end
       end
@@ -102,4 +102,3 @@ class Purchasing::PurchaseOrdersController < ApplicationController
     @current = 'po'
   end
 end
-

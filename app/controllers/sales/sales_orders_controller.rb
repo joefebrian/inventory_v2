@@ -111,4 +111,3 @@ class Sales::SalesOrdersController < ApplicationController
   end
 
 end
-
