@@ -1,7 +1,7 @@
 - title "Quotation Request"
 
 #customer
-  #customer-title Quotation Requests
+  #customer-title PERMINTAAN PENAWARAN HARGA
 
 %table#metaleft
   %tr
@@ -30,6 +30,9 @@
   %tr
     %td.meta-head CC
     %td
+<br/><br/><br/> <br/><br/><br/><br/>     
+<p>Dengan Hormat,</p>
+<p>Mohon Diberikan penawaran harga untuk barang-barang sebagai berikut:</p>
 
 %table#items
   %tr
@@ -39,8 +42,8 @@
   - @quotation_request.entries.each_with_index do |entry, i|
     %tr.item-row
       %td= (i+1)
-      %td.name=  entry.item.name
+      %td.name= entry.item.name
       %td.qty= entry.quantity
 
-<p>Atas Perhatian dan Kerjasamanya Kami Ucapkan Terimakasih</p><br/><b>Hormat Kami</b><br/><br/><br/><b>FERRY</b>
+<p>Atas Perhatian dan Kerjasamanya Kami Ucapkan Terimakasih</p><br/>Hormat Kami<br/><br/><br/>
 

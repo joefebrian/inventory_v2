@@ -20,8 +20,7 @@ class Sales::SalesOrdersController < ApplicationController
         if(params[:type])
             format.html { render "print", :layout => "print"}
         else
-            #format.html { render "show", :layout => "application"}
-            format.html { render "print", :layout => "print"}
+            format.html { render "show", :layout => "application"}
         end
       end
   end

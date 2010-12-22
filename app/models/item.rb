@@ -46,7 +46,9 @@ class Item < ActiveRecord::Base
   def name_with_category
     "#{name} (#{category_tree})"
   end
-
+  def unit_type
+      @unit_name || unit.try
+  end
   def category_code=(catcode)
     self.category = Category.find_by_code(catcode.split.first) unless catcode.blank?
   end
