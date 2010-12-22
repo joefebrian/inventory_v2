@@ -13,7 +13,7 @@ class Customer < ActiveRecord::Base
   validates_uniqueness_of :code, :scope => :company_id
   accepts_nested_attributes_for :profile
   accepts_nested_attributes_for :tax_profile
-  
+
   accepts_nested_attributes_for :special_prices, :allow_destroy => true, :reject_if => lambda { |at| at[:price].blank? }
 
   def after_initialize

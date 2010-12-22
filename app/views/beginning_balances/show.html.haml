@@ -27,7 +27,9 @@
       %p
         %span.light.transaction_label Created :
         %strong= @beginning_balance.created_at.to_s(:long)
-    .single_column
+      %p
+        %span.light.transaction_label Warehouse :
+        %strong= @beginning_balance.destination_warehouse.name
       %p
         %span.light.transaction_label Remark :
         %strong= @beginning_balance.remark

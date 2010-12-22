@@ -10,6 +10,8 @@
 #subheader
   %h3= "Assembly # #{@trans_assembly.number}"
   #subheader-menu
+    = link_to "Progress", trans_assembly_assembly_progress_entries_path(@trans_assembly)
+    &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_trans_assembly_path(@trans_assembly)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", trans_assembly_path(@trans_assembly), :method => :delete, :confirm => "Are you sure"
@@ -34,12 +36,12 @@
       %th No.
       %th Assembling Formula
       %th End Product / Item
-      %th Quantity
+      %th Qty / Completed
   %tbody
   - @trans_assembly.entries.each_with_index do |entry, i|
     %tr
       %td.tdl.td_5= (i+1)
       %td= link_to h(entry.assembly.name), entry.assembly
       %td= link_to h(entry.assembly.item_name), entry.assembly.item
-      %td.tdc= entry.quantity
+      %td.tdc= "#{entry.quantity} / #{entry.completed}"
 

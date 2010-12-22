@@ -1,4 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil, 'assy' => nil}
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil, 'assy' => nil, 'wo' => nil}
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -66,11 +66,11 @@
       =link_to "Assembling / Disassembling", assy_path, :class => current['assy']
       %div
     %li.submenu_handler
-      =link_to "Production", '#', :class => current['prod']
+      =link_to "Production", production_path, :class => current['prod']
       %div
       %ul.submenu
         %li
-          =link_to "Working Order", '#'
+          =link_to "Work Order", production_work_orders_path, :class => current['wo']
           %div
         %li
           =link_to "Permintaan Barang Produksi", '#'

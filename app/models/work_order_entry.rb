@@ -1,7 +1,6 @@
-class TransAssembliesEntry < ActiveRecord::Base
-  belongs_to :trans_assembly
+class WorkOrderEntry < ActiveRecord::Base
   belongs_to :assembly
-  has_many :progress_entries, :class_name => "AssemblyProgressEntry", :foreign_key => "assembly_entry_id"
+  belongs_to :work_order
 
   def assembly_name
     assembly.try(:name)
@@ -17,5 +16,4 @@ class TransAssembliesEntry < ActiveRecord::Base
   def completed
     progress_entries.sum(:quantity)
   end
-
 end

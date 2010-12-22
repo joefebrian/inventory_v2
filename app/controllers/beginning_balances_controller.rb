@@ -14,6 +14,7 @@ class BeginningBalancesController < ApplicationController
     @categories = current_company.leaf_categories
     @beginning_balance = current_company.beginning_balances.new
     @beginning_balance.number = BeginningBalance.suggested_number(current_company)
+    @warehouses = current_company.warehouses
   end
   
   def create
@@ -22,13 +23,14 @@ class BeginningBalancesController < ApplicationController
     if params[:get_mrs] && params[:get_mrs].to_i == 1
       @categories = current_company.leaf_categories
       @beginning_balance.build_entries_from_categories
-      @beginning_balance.entries.build
+      #@beginning_balance.entries.build
       render("new", :layout => false) and return
     end
     if @beginning_balance.save
       flash[:notice] = "Successfully created beginning balance."
       redirect_to beginning_balances_url
     else
+      @warehouses = current_company.warehouses
       @categories = current_company.leaf_categories
       render :action => 'new'
     end

@@ -16,6 +16,7 @@
           %li.string
             = label_tag :categories
             %strong{ :style => "font-weight:bold;" }= @beginning_balance.categories.collect { |cat| link_to(cat.fullcode, cat) }.join(', ')
+        = f.input :destination_warehouse, :as => :select, :collection => @warehouses, :input_html => { :class => "select filter" }
         = f.input :remark, :input_html => { :rows => 3 }
 
     %fieldset.form_section

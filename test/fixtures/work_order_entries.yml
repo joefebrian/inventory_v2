@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  work_order_id: 1
+  assembly_id: 1
+  quantity: 1
+
+two:
+  work_order_id: 1
+  assembly_id: 1
+  quantity: 1

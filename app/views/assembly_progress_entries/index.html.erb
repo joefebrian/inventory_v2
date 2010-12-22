@@ -43,7 +43,7 @@
         <td><%= entry.assembly.name %></td>
         <td><%= entry.assembly.item_name %></td>
         <td class="tdr"><%= entry.quantity %></td>
-        <td class="tdr"><%= entry.completed %></td>
+        <td class="tdr"><%= entry.completed %> (<%= link_to "detail", "#" %>)</td>
       </tr>
     <% end %>
   </tbody>

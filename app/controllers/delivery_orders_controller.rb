@@ -38,7 +38,6 @@ class DeliveryOrdersController < ApplicationController
     @delivery_order.attributes = params[:delivery_order]
     if params[:get_sos] && params[:get_sos].to_i == 1
       @delivery_order.customer = @delivery_order.sales_order.customer
-      RAILS_DEFAULT_LOGGER.debug @delivery_order.inspect
       @delivery_order.build_entries_from_so
       render("new", :layout => false) and return
     end

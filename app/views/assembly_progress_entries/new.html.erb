@@ -32,7 +32,10 @@
             <td><%= pe.object.assembly_entry.assembly.name %></td>
             <td><%= pe.object.assembly_entry.assembly.item_name %></td>
             <td class="tdr"><%= pe.object.assembly_entry.completed %></td>
-            <td class="td_15 tdr"><%= pe.text_field :quantity, :size => 10, :class => "numbers" %></td>
+            <td class="td_15 tdr">
+              <%= pe.text_field :quantity, :size => 10, :class => "numbers" %>
+              <%= pe.hidden_field :assembly_entry_id %>
+            </td>
           </tr>
         <% end %>
       </tbody>

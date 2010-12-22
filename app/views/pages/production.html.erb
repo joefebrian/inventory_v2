@@ -1,0 +1,26 @@
+<% title "Production" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [link_to('Transactions', transactions_path), "Production"] %>
+<% end %>
+
+<% hint "" %>
+
+<ol id="dashboard">
+  <li>
+    <h2>Work Order</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", production_work_orders_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Work Order", new_production_work_order_path %> &bull; Latest transaction: <%= @work_order.nil? ? "No record" : link_to(@work_order.number, [:production, @work_order]) %>
+    </p>
+  </li>
+  <li>
+    <h2>Search Production</h2>
+    <% form_tag '/production/search', :class => "dashboard_search" do %>
+      <p>
+        <%= text_field_tag 'term', @term, :class => :big %>
+        <%= submit_tag "Search" %>
+      </p>
+      <p class="inline-hints light">Enter the production number you wish to search</p>
+    <% end %>
+  </li>
+</ol>

@@ -18,8 +18,8 @@
   %thead
     %tr
       %th Number
+      %th Warehouse
       %th Created
-      %th Last Update
       %th.actions Actions
   %tfoot
     %tr
@@ -38,6 +38,6 @@
       - for beginning_balance in @beginning_balances
         %tr
           %td= link_to beginning_balance.number, beginning_balance
+          %td= beginning_balance.destination_warehouse.name
           %td= beginning_balance.created_at
-          %td= beginning_balance.updated_at
           %td.actions= link_to image_tag('icons/silk/application_form_edit.png'), edit_beginning_balance_path(beginning_balance)

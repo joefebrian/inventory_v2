@@ -86,4 +86,8 @@ class PagesController < ApplicationController
     @term = params[:term]
   end
 
+  def production
+    @tab = 'transactions'
+    @current = 'prod'
+  end
 end
