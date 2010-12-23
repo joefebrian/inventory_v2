@@ -38,10 +38,15 @@ class MaterialRequest < ActiveRecord::Base
 
   def build_assembly_entries
     if work_order_id.present?
+      components = []
+      item_ids = AssemblyEntry.all(:conditions => {:assembly_id => work_order.entries.collect {|e| e.assembly_id}}, :group => :item_id)
       WorkOrder.find(work_order_id).entries.each do |ent|
-        # TODO get the assembly components and turn them into this material request entries
-        #ent.assembly.
-        self.entries.build(:item_id => ent.assembly.item.id, :quantity => ent.quantity)
+        ent.assembly.entries.each do |comp|
+          components << { :item_id => comp.item_id, :quantity => (comp.quantity * ent.quantity) }
+        end
+      end
+      components.each do |x|
+        self.entries.build(:item_id => x[:item_id], :quantity => x[:quantity])
       end
     end
   end

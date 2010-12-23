@@ -747,7 +747,7 @@ div.inline {
   margin-right: 1em;
   min-width: 100px; }
 
-input.item_autocomplete {
+input.item_autocomplete, input.item_autocomplete_plu {
   width: 98% !important; }
 
 form.formtastic .ui-multiselect-checkboxes label {

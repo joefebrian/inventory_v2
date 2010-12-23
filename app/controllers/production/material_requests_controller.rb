@@ -16,7 +16,7 @@ class Production::MaterialRequestsController < ApplicationController
     @material_request = current_company.material_requests.productions.new(params[:material_request])
     @work_orders = current_company.work_orders
     if params[:get_wo]
-      @material_request.build_wo_entries
+      @material_request.build_assembly_entries
       @material_request.description = 'Auto'
       render 'new', :layout => false and return
     end
