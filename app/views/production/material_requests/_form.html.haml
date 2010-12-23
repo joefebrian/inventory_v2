@@ -1,0 +1,58 @@
+- semantic_form_for [:production, @material_request] do |f|
+  = f.error_messages
+  - f.inputs "Material Request", :class => "form_section" do
+    = f.input :number
+    = f.input :work_order_id, :as => :select, :collection => @work_orders.collect {|wo| [wo.number, wo.id]}, :input_html => { :class => "select filter" }
+    = f.input :description, :input_html => { :rows => 3 }
+  %fieldset.form_section
+    %legend End Products
+    %ol
+      %li.string
+        %table.report
+          %thead
+            %tr
+              %th Item
+              %th.td_10 Quantity
+              %th.td_20 Estimated Delivery
+          %tfoot
+            %tr
+              %td{ :colspan => 3 }
+          %tbody
+            - f.semantic_fields_for :entries do |ent|
+              %tr
+                %td
+                  = ent.object.item.name_with_code
+                  = ent.hidden_field :item_id
+                  = ent.hidden_field :quantity
+                  = ent.hidden_field :estimated_delivery_date
+                %td.tdr= ent.object.quantity
+                %td.tdc= ent.object.estimated_delivery_date
+  %fieldset.buttons
+    %button#primary-button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save work order
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    :plain
+        $('#material_request_work_order_id').bind('multiselectclose', function(event, ui) {
+          var mrs = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_wo" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_wo]').remove();
+            }
+          });
+          return false;
+        });

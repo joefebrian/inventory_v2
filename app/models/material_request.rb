@@ -1,6 +1,7 @@
 class MaterialRequest < ActiveRecord::Base
-  attr_accessible :company_id, :number, :userdate, :reference, :requester, :description, :entries_attributes
+  attr_accessible :company_id, :number, :userdate, :reference, :requester, :description, :entries_attributes, :work_order_id
   belongs_to :company
+  belongs_to :work_order
   has_many :entries, :class_name => "MaterialRequestEntry"
   has_and_belongs_to_many :purchase_orders
 
@@ -10,6 +11,8 @@ class MaterialRequest < ActiveRecord::Base
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
     :reject_if => lambda { |att| att['item_id'].blank? || att['quantity'].blank? }
+
+  named_scope :productions, :conditions => { :production => true }
 
   #before_save :parse_userdate
 
@@ -31,6 +34,16 @@ class MaterialRequest < ActiveRecord::Base
 
   def name
     number
+  end
+
+  def build_assembly_entries
+    if work_order_id.present?
+      WorkOrder.find(work_order_id).entries.each do |ent|
+        # TODO get the assembly components and turn them into this material request entries
+        #ent.assembly.
+        self.entries.build(:item_id => ent.assembly.item.id, :quantity => ent.quantity)
+      end
+    end
   end
 
   def quantity_left_for(item)

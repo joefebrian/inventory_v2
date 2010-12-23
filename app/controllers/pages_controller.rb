@@ -89,5 +89,6 @@ class PagesController < ApplicationController
   def production
     @tab = 'transactions'
     @current = 'prod'
+    @work_order = current_company.work_orders.last
   end
 end
