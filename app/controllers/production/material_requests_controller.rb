@@ -21,6 +21,10 @@ class Production::MaterialRequestsController < ApplicationController
       render 'new', :layout => false and return
     end
   end
+
+  def show
+    @material_request = current_company.material_requests.productions.find(params[:id])
+  end
   
   private
   def assign_tab

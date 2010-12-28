@@ -16,4 +16,12 @@ class WorkOrderEntry < ActiveRecord::Base
   def completed
     progress_entries.sum(:quantity)
   end
+
+  def required_materials
+   materials = {}
+   assembly.entries.each do |e|
+     materials[e.item_id] = e.quantity * quantity
+   end
+   materials
+  end
 end

@@ -14,6 +14,12 @@
     </p>
   </li>
   <li>
+    <h2>Permintaan Bahan Produksi</h2>
+    <p>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", production_material_requests_path %> &bull; Latest transaction: <%= @material_request.nil? ? "No record" : link_to(@material_request.number, [:production, @material_request]) %>
+    </p>
+  </li>
+  <li>
     <h2>Search Production</h2>
     <% form_tag '/production/search', :class => "dashboard_search" do %>
       <p>
