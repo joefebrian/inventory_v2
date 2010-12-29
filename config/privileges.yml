@@ -1,28 +1,37 @@
 privileges:
   masters:
-    - item
-    - service
-    - category
-    - warehouse
-    - supplier
-    - plu
-    - salesman
-    - customer
-    - currency
-    - exchange_rate
-    - transaction_type
-    - price_list
-    - assy_formulae
-    - user
-    - role
-    - company
+    Item: item
+    Service: service
+    Category: category
+    Warehouse: warehouse
+    Supplier: supplier
+    PLU: plu
+    Salesman: salesman
+    Customer: customer
+    Currency: currency
+    'Exchange Rate': exchange_rate
+    'Transaction Type': transaction_type
+    'Price List': price_list
+    'Assembly Formula': assy_formulae
+    User: user
+    Role: role
+    Company: company
   transactions:
-    - beginning_balance
-    - general_transaction
-    - material_request
-    - quotation_request
-    - purchase_order
-    - item_receive
-    - purchase_return
-    - quotation
-    - sales_order
+    'Beginning Balance': beginning_balance
+    'General Transaction': general_transaction
+    'Material Request': material_request
+    'Quotation Request': quotation_request
+    'Purchase Order': purchase_order
+    'Item Receive': item_receive
+    'Purchase Return': purchase_return
+    Quotation: quotation
+    'Sales Order': sales_order
+    Assembling: trans_assemblies
+    Disassembling: trans_diassemblies
+    'Work Order': work_orders
+    'Credit / Debit Note': credit_debit_note
+    'Purchase Invoice': invoice
+    'Delivery Order': delivery_order
+    'Sales Invoice': sales_invoice
+    'Sales Return': sales_return
+    'Direct Sale': direct_sale

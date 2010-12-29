@@ -7,11 +7,11 @@
       %li
         %label= key.titleize
         .group
-          - val.each do |priv|
+          - val.each do |title, priv|
             %label{ :for => "#{priv}_resource" }
               = check_box_tag 'role[privilege_resources][]', priv, @role.has_privilege?(priv), :id => "#{priv}_resource"
               &nbsp;
-              = priv.titleize
+              = title
   %fieldset.buttons
     %button{ :type => :submit, :id => 'primary-button' }
       = image_tag 'icons/silk/disk.png'

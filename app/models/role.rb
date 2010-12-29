@@ -18,8 +18,9 @@ class Role < ActiveRecord::Base
 
   def sorted_privileges
     priv = {}
+    resources = privileges.collect { |p| p.resource }
     PRIVILEGES.each do |key, val|
-      priv[key] = (privileges.collect { |p| p.resource } & val)
+      priv[key] = val.select { |k,v| resources.include? v }
     end
     priv
   end

@@ -21,4 +21,4 @@
     .single-column
       %span.light= key.titleize
       .group
-        = val.collect { |p| p.titleize }.join(', ')
+        = val.collect { |k, v| k }.join(', ')

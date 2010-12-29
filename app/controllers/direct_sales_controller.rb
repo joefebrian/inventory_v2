@@ -1,6 +1,7 @@
 class DirectSalesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
 
   def index
     @search = current_company.direct_sales.search(params[:search])
