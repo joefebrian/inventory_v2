@@ -4,7 +4,7 @@ class Transaction < ActiveRecord::Base
   has_many :entries
   accepts_nested_attributes_for :entries, :allow_destroy => true, :reject_if => proc { |a| a['quantity'].blank? }
 
-  default_scope :order => "created_at"
+  default_scope :order => "transactions.created_at"
   named_scope :inward, :conditions => [ "origin_id IS NULL AND destination_id > ?", 0 ], :order => :created_at
   named_scope :outward, :conditions => [ "origin_id > ? AND destination_id IS NULL", 0 ], :order => :created_at
   named_scope :transfer, :conditions => [ "origin_id > ? AND destination_id > ?", 0, 0 ], :order => :created_at
@@ -23,7 +23,8 @@ class Transaction < ActiveRecord::Base
     { :conditions => { :origin_id => origin.is_a?(Warehouse) ? origin.id : origin } }
   }
 
-  named_scope :altering_stock, :conditions => { :alter_stock => true }
+  named_scope :altering_stock, :joins => :transaction_type, :conditions => ["transaction_types.alter_stock = ?", true]
+  named_scope :not_altering_stock, :joins => :transaction_type, :conditions => ["transaction_types.alter_stock = ?", false]
 
   named_scope :since, lambda { |time|
     return {} if time.blank?
@@ -80,6 +81,10 @@ class Transaction < ActiveRecord::Base
 
   def transfer?
     !origin_id.nil? && !destination_id.nil?
+  end
+
+  def alter_stock?
+    transaction_type.alter_stock
   end
 
   def run_trackers

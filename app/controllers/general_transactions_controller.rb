@@ -29,6 +29,7 @@ class GeneralTransactionsController < ApplicationController
     else
       @hint = 'new_general_transaction'.to_sym
       @plus = current_company.plus.all(:include => :item)
+      @transaction_types = current_company.transaction_types.selectable
       @number_suggestion = @general_transaction.transaction_type.next_available_number
       render :action => 'new'
     end
