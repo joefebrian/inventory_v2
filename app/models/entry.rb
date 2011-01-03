@@ -70,7 +70,7 @@ class Entry < ActiveRecord::Base
 
   def assign_value
     if transaction.inward? && value.blank?
-      last_entry = Entry.item_id_is(item_id).transaction_origin_id_null.transaction_destination_id_not_null.transaction_alter_stock_is(true).last
+      last_entry = Entry.item_id_is(item_id).transaction_origin_id_null.transaction_destination_id_not_null.transaction_altering_stock.last
       self.value = last_entry.blank? ? 0 : last_entry.value
     end
   end

@@ -64,7 +64,6 @@ class ItemReceive < ActiveRecord::Base
     trans.transaction_type = ttype
     trans.number = GeneralTransaction.next_number(company, ttype)
     trans.destination_id = warehouse_id
-    trans.alter_stock = true
     trans.remark = "Auto-generated from Item Receive # #{number} date #{created_at.to_s(:long)}"
     trans.save
     entries.each do |entry|
@@ -99,6 +98,12 @@ class ItemReceive < ActiveRecord::Base
   end
 
   def populate_total
+    self.total = entries.collect { |e| e.total }.sum
+    save
+  end
+
+  def auto_confirm
+    self.confirmed = true
     self.total = entries.collect { |e| e.total }.sum
     save
   end
