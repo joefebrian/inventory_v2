@@ -13,6 +13,7 @@
       <li class="inline">
         <span class="label">Status</span>
         <%= f.check_box(:active) %> <%= f.label :active, "Set as active" %> 
+        <%= f.check_box(:assembly) %> <%= f.label :assembly, "Set as assembled item" %> 
       </li>
       <%= f.input :purchase_price, :input_html => { :class => "numbers" } %>
       <li class="inline" id="dimension">

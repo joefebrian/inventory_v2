@@ -16,8 +16,8 @@
                 :class => 'default' }
         %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggestion}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
 
-      = f.input :originator_warehouse, :include_blank => false, :input_html => { :class => 'select filter plu_source' }, :collection => @warehouses
-      = f.input :destination_warehouse, :include_blank => false, :input_html => { :class => 'select filter' }, :collection => @warehouses
+      = f.input :originator_warehouse, :include_blank => true, :input_html => { :class => 'select filter plu_source' }, :collection => @warehouses
+      = f.input :destination_warehouse, :include_blank => true, :input_html => { :class => 'select filter' }, :collection => @warehouses
       = f.input :remark, :input_html => { :rows => 2 }
 
     %fieldset.form_section
