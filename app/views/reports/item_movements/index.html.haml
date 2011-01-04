@@ -7,27 +7,34 @@
     = image_tag 'indicator.gif'
     Loading...
 
-%fieldset.plain.report
+%fieldset.form_section
   %legend
     Filter
-  - form_tag generate_reports_item_movements_path, :method => :get do
-    %p.date_range
-      = label_tag 'from', 'Report from '
-      = text_field_tag 'from', @from, :class => 'datepicker'
-      = label_tag 'to', 'To', :class => 'inline'
-      = text_field_tag 'to', @to, :class => 'datepicker'
-    %p
-      - option_tags = [['All category', '']]
-      - @categories.each {|cat| option_tags << ["#{'&nbsp;&nbsp;' * cat.level}#{cat.name} - #{cat.fullcode}", cat.id] }
-      = label_tag 'category', ' Category '
-      = select_tag 'category', options_for_select(option_tags, nil, false)
-    %p
-      - option_tags = [['All warehouse', '']]
-      - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
-      = label_tag 'warehouse', 'Warehouse'
-      = select_tag 'warehouse', options_for_select(option_tags)
-    %p
-      %strong Transaction types:
+  .two_columns
+    - form_tag generate_reports_item_movements_path, :method => :get do
+      %p.date_range
+        %span
+          = label_tag 'from', 'Report from '
+        = text_field_tag 'from', @from, :class => 'datepicker'
+        = label_tag 'to', ' To ', :class => 'inline'
+        = text_field_tag 'to', @to, :class => 'datepicker'
+      %p
+        - option_tags = [['All category', '']]
+        - @categories.each {|cat| option_tags << ["#{cat.fullcode}", cat.id] }
+        %span
+          = label_tag 'category', ' Category '
+        = select_tag 'category', options_for_select(option_tags)
+      %p
+        - option_tags = [['All warehouse', '']]
+        - @warehouses.each { |wh| option_tags << [ "#{wh.name}", wh.id ] }
+        %span
+          = label_tag 'warehouse', 'Warehouse'
+        = select_tag 'warehouse', options_for_select(option_tags)
+
+%fieldset.form_section
+  %legend
+    Filter
+          
     %table#transaction_types.form
       %tr
         %th= check_box_tag "all", nil, nil, :id => "all"

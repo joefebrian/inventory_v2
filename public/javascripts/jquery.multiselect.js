@@ -1,19 +1,23 @@
 /*
- * jQuery MultiSelect UI Widget 1.5
+ * jQuery MultiSelect UI Widget 1.8
  * Copyright (c) 2010 Eric Hynds
  *
  * http://www.erichynds.com/jquery/jquery-ui-multiselect-widget/
  *
  * Depends:
- *   - jQuery 1.4.2
- *   - jQuery UI 1.8 (widget factory and effects if you want to use them)
+ *   - jQuery 1.4.2+
+ *   - jQuery UI 1.8 widget factory
+ *
+ * Optional:
+ *   - jQuery UI effects
+ *   - jQuery UI position utility
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  *
 */
-(function($){
+(function($, undefined){
 
 var multiselectID = 0;
 
@@ -22,9 +26,9 @@ $.widget("ech.multiselect", {
 	// default options
 	options: {
 		header: true,
-		height: 175, // height of the checkbox container (scroll) in pixels
-		minWidth: 225, // min width of the entire widget in pixels. setting to 'auto' will disable
-		classes: '', // additional class(es) to apply to the button & menu
+		height: 175,
+		minWidth: 225,
+		classes: '',
 		checkAllText: 'Check all',
 		uncheckAllText: 'Uncheck all',
 		noneSelectedText: 'Select options',
@@ -38,113 +42,63 @@ $.widget("ech.multiselect", {
 	},
 
 	_create: function(){
-		var self = this,
-			el = this.element,
-			o = this.options,
-			html = [],
-			optgroups = [], 
-			title = el.attr('title'),
-			id = el.id || multiselectID++; // unique ID for the label & option tags
+		var el = this.element.hide(),
+			o = this.options;
 		
 		this.speed = $.fx.speeds._default; // default speed for effects
 		this._isOpen = false; // assume no
 	
-		// the actual button
-		html.push('<button type="button" class="ui-multiselect ui-widget ui-state-default ui-corner-all');
-		if( o.classes.length ){
-			html.push(' ' + o.classes);
-		}
-		html.push('"');
-		if( title.length ){
-			html.push(' title="'+title+'"');
-		}
-		html.push('><span class="ui-icon ui-icon-triangle-2-n-s"></span><span>'+ o.noneSelectedText +'</span></button>');
-		
-		// start menu container
-		html.push('<div class="ui-multiselect-menu ui-widget ui-widget-content ui-corner-all ' +(o.classes.length ? o.classes : '')+ '">');
-	
-		// header
-		html.push('<div class="ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix">');
-		html.push('<ul class="ui-helper-reset">');
-		if(o.header === true && o.multiple ){
-			html.push('<li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>' + o.checkAllText + '</span></a></li>');
-			html.push('<li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>' + o.uncheckAllText + '</span></a></li>');
-		} else if(typeof o.header === "string"){
-			html.push('<li>'+o.header+'</li>');
-		}
-		html.push('<li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>');
-		html.push('</ul>');
-		html.push('</div>');
-
-		// checkboxes
-		html.push('<ul class="ui-multiselect-checkboxes ui-helper-reset">');
-		
-		// loop through each option tag
-		el.find('option').each(function(i){
-			var $this = $(this), 
-				title = $this.html(),
-				value = this.value, 
-				inputID = this.id || "ui-multiselect-"+id+"-option-"+i, 
-				$parent = $this.parent(), 
-				isDisabled = $this.is(':disabled'), 
-				labelClasses = ['ui-corner-all'];
+		var 
+			button = (this.button = $('<button type="button"><span class="ui-icon ui-icon-triangle-2-n-s"></span></button>'))
+				.addClass('ui-multiselect ui-widget ui-state-default ui-corner-all')
+				.addClass( o.classes )
+				.attr({ 'title':el.attr('title'), 'aria-haspopup':true })
+				.insertAfter( el ),
 			
-			if( $parent.is('optgroup') ){
-				var label = $parent.attr('label');
+			buttonlabel = (this.buttonlabel = $('<span />'))
+				.html( o.noneSelectedText )
+				.appendTo( button ),
 				
-				if( $.inArray(label,optgroups) === -1 ){
-					html.push('<li class="ui-multiselect-optgroup-label"><a href="#">' + label + '</a></li>');
-					optgroups.push(label);
-				}
-			}
-		
-			if( value.length > 0 ){
-				if( isDisabled ){
-					labelClasses.push('ui-state-disabled');
-				}
+			menu = (this.menu = $('<div />'))
+				.addClass('ui-multiselect-menu ui-widget ui-widget-content ui-corner-all')
+				.addClass( o.classes )
+				.insertAfter( button ),
 				
-				html.push('<li class="'+(isDisabled ? 'ui-multiselect-disabled' : '')+'">');
-				html.push('<label for="'+inputID+'" class="'+labelClasses.join(' ')+ '"><input id="'+inputID+'" type="'+(o.multiple ? "checkbox" : "radio")+'" value="'+value+'" title="'+title+'"');
-				if( $this.is(':selected') ){
-					html.push(' checked="checked"');
-				}
-				if( isDisabled ){
-					html.push(' disabled="disabled"');
-				}
-				html.push(' />'+title+'</label></li>');
-			}
-		});
-		
-		// close everything off
-		html.push('</ul></div>');
-		
-		// cache elements
-		this.button			= el.hide().after( html.join('') ).next('button');
-		this.menu			= this.button.next('div.ui-multiselect-menu');
-		this.labels			= this.menu.find('label');
-		this.buttonlabel 	= this.button.find('span').eq(-1);
-		
-		// cache radios for single select
-		if( !o.multiple ){
-			this.radios = this.menu.find(":radio");
-		}
-
-		// set widths
-		this._setButtonWidth();
-		this._setMenuWidth();
+			header = (this.header = $('<div />'))
+				.addClass('ui-widget-header ui-corner-all ui-multiselect-header ui-helper-clearfix')
+				.appendTo( menu ),
+				
+			headerLinkContainer = (this.headerLinkContainer = $('<ul />'))
+				.addClass('ui-helper-reset')
+				.html(function(){
+					if( o.header === true ){
+						return '<li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>' + o.checkAllText + '</span></a></li><li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>' + o.uncheckAllText + '</span></a></li>';
+					} else if(typeof o.header === "string"){
+						return '<li>' + o.header + '</li>';
+					} else {
+						return '';
+					}
+				})
+				.append('<li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>')
+				.appendTo( header ),
+			
+			checkboxContainer = (this.checkboxContainer = $('<ul />'))
+				.addClass('ui-multiselect-checkboxes ui-helper-reset')
+				.appendTo( menu );
 		
 		// perform event bindings
 		this._bindEvents();
 		
-		// update the number of selected elements when the page initially loads,
-		// and use that as the defaultValue.  necessary for form resets when
-		// options are pre-selected.
-		this.button[0].defaultValue = this.update();
+		// build menu
+		this.refresh( true );
 	},
 	
 	_init: function(){
-		if( !this.options.header ){
-			this.menu.find('div.ui-multiselect-header').hide();
+		if( this.options.header === false ){
+			this.header.hide();
+		}
+		if( !this.options.multiple ){
+			this.headerLinkContainer.find('.ui-multiselect-all, .ui-multiselect-none').hide();
 		}
 		if( this.options.autoOpen ){
 			this.open();
@@ -154,222 +108,83 @@ $.widget("ech.multiselect", {
 		}
 	},
 	
-	// binds events
-	_bindEvents: function(){
-		var self = this, button = this.button;
+	refresh: function( init ){
+		var el = this.element,
+			o = this.options,
+			menu = this.menu,
+			button = this.button,
+			checkboxContainer = this.checkboxContainer,
+			optgroups = [],
+			id = el.attr('id') || multiselectID++; // unique ID for the label & option tags
 		
-		function clickHandler( e ){
-			self[ self._isOpen ? 'close' : 'open' ]();
-			return false;
-		}
+		checkboxContainer.empty();
 		
-		// webkit doesn't like it when you click on the span :(
-		button.find('span').bind('click.multiselect', clickHandler);
-		
-		// button events
-		button.bind({
-			click: clickHandler,
-			keypress: function(e){
-				switch(e.keyCode){
-					case 27: // esc
-					case 38: // up
-					case 37: // left
-						self.close();
-						break;
-					case 39: // right
-					case 40: // down
-						self.open();
-						break;
-				}
-			},
-			mouseenter: function(){
-				if(!button.hasClass('ui-state-disabled')){
-					$(this).addClass('ui-state-hover');
-				}
-			},
-			mouseleave: function(){
-				$(this).removeClass('ui-state-hover');
-			},
-			focus: function(){
-				if(!button.hasClass('ui-state-disabled')){
-					$(this).addClass('ui-state-focus');
-				}
-			},
-			blur: function(){
-				$(this).removeClass('ui-state-focus');
-			}
-		});
-
-		// header links
-		this.menu.find('div.ui-multiselect-header a').bind('click.multiselect', function(e){
-	
-			// close link
-			if( $(this).hasClass('ui-multiselect-close') ){
-				self.close();
-		
-			// check all / uncheck all
-			} else {
-				self[ $(this).hasClass('ui-multiselect-all') ? 'checkAll' : 'uncheckAll' ]();
-			}
-		
-			e.preventDefault();
-		})
-		
-		// optgroup label toggle support
-		.end()
-		.find('li.ui-multiselect-optgroup-label a').bind('click.multiselect', function(e){
-			var $this = $(this),
-				$inputs = $this.parent().nextUntil('li.ui-multiselect-optgroup-label').find('input:visible');
+		// build items
+		this.element.find('option').each(function(i){
+			var $this = $(this), 
+				title = $this.html(),
+				value = this.value, 
+				inputID = this.id || 'ui-multiselect-'+id+'-option-'+i, 
+				$parent = $this.parent(), 
+				isDisabled = $this.is(':disabled'), 
+				labelClasses = ['ui-corner-all'],
+				label, input, li;
+			
+			// is this an optgroup?
+			if( $parent.is('optgroup') ){
+				var optLabel = $parent.attr('label');
 				
-			self._toggleChecked( $inputs.filter(':checked').length !== $inputs.length, $inputs );
-			self._trigger('optgrouptoggle', e, {
-				inputs: $inputs.get(),
-				label: $this.parent().text(),
-				checked: $inputs[0].checked
-			});
-			
-			e.preventDefault();
-		})
-		
-		// labels/checkbox events
-		.end()
-		.delegate('label', 'mouseenter', function(){
-			if( !$(this).hasClass('ui-state-disabled') ){
-				self.labels.removeClass('ui-state-hover');
-				$(this).addClass('ui-state-hover').find('input').focus();
-			}
-		})
-		.delegate('label', 'keydown', function(e){
-			switch(e.keyCode){
-				case 9: // tab
-				case 27: // esc
-					self.close();
-					break;
-				case 38: // up
-				case 40: // down
-				case 37: // left
-				case 39: // right
-					self._traverse(e.keyCode, this);
-					break;
-				case 13: // enter
-					e.preventDefault();
-					$(this).find('input').trigger('click');
-					break;
-			}
-		})
-		.delegate(':checkbox, :radio', 'click', function(e){
-			var $this = $(this),
-				val = this.value,
-				checked = this.checked;
-			
-			// bail if this input is disabled or the event is cancelled
-			if( $this.is(':disabled') || self._trigger('click', e, { value:this.value, text:this.title, checked:checked }) === false ){
-				e.preventDefault();
-				return;
+				// has this optgroup been added already?
+				if( $.inArray(optLabel, optgroups) === -1 ){
+					$('<li><a href="#">' + optLabel + '</a></li>')
+						.addClass('ui-multiselect-optgroup-label')
+						.appendTo( checkboxContainer );
+					
+					optgroups.push( optLabel );
+				}
 			}
 			
-			// inputs don't have a name attr so they won't be submitted
-			// in the form.  for single select, handle functionality
-			if( !self.options.multiple ){
-				self.radios.not(this).removeAttr('checked');
-			}
-			
-			// set the original option tag to selected
-			self.element.find('option').filter(function(){
-				return this.value === val;
-			}).attr('selected', (checked ? 'selected' : ''));
-			
-			// issue 14: if this event is natively fired, the box will be checked
-			// before running the update.  using trigger(), the events fire BEFORE
-			// the box is checked. http://dev.jquery.com/ticket/3827
-			self.update( !e.originalEvent ? checked ? -1 : 1 : 0 );
-		});
-		
-		// close each widget when clicking on any other element/anywhere else on the page
-		$(document).bind('click.multiselect', function(e){
-			var $target = $(e.target);
-			
-			if(self._isOpen && !$target.closest('div.ui-multiselect-menu').length && !$target.is('button.ui-multiselect')){
-				self.close();
+			if( value.length > 0 ){
+				if( isDisabled ){
+					labelClasses.push('ui-state-disabled');
+				}
+				
+				li = $('<li />')
+					.addClass(isDisabled ? 'ui-multiselect-disabled' : '')
+					.appendTo( checkboxContainer );
+					
+				label = $('<label />')
+					.attr('for', inputID)
+					.addClass(labelClasses.join(' '))
+					.appendTo( li );
+				
+				// attr's are inlined to support form reset.  double checked attr is to support chrome bug - see #46
+				$('<input type="'+(o.multiple ? 'checkbox' : 'radio')+'" '+(this.selected ? 'checked="checked"' : '')+ ' name="multiselect_'+id + '" />')
+					.attr({ id:inputID, checked:this.selected, title:title, disabled:isDisabled, 'aria-disabled':isDisabled, 'aria-selected':this.selected })
+					.val( value )
+					.appendTo( label )
+					.after('<span>'+title+'</span>');
 			}
 		});
-	},
-
-	// set button width
-	_setButtonWidth: function(){
-		var width = this.element.outerWidth(),
-			o = this.options;
-			
-		if( /\d/.test(o.minWidth) && width < o.minWidth){
-			width = o.minWidth;
-		}
+		
+		// cache some moar useful elements
+		this.labels = menu.find('label');
 		
 		// set widths
-		this.button.width( width );
-	},
-	
-	// set menu width
-	_setMenuWidth: function(){
-		var m = this.menu,
-			width = this.button.outerWidth()
-				-parseInt(m.css('padding-left'),10)
-				-parseInt(m.css('padding-right'),10)
-				-parseInt(m.css('border-right-width'),10)
-				-parseInt(m.css('border-left-width'),10);
-				
-		m.width( width || this.button.outerWidth() );
-	},
-	
-	// move up or down within the menu
-	_traverse: function(keycode, start){
-		var $start = $(start),
-			moveToLast = (keycode === 38 || keycode === 37) ? true : false,
-			
-			// select the first li that isn't an optgroup label / disabled
-			$next = $start.parent()[moveToLast ? 'prevAll' : 'nextAll']('li:not(.ui-multiselect-disabled, .ui-multiselect-optgroup-label)')[ moveToLast ? 'last' : 'first']();
+		this._setButtonWidth();
+		this._setMenuWidth();
 		
-		// if at the first/last element
-		if( !$next.length ){
-			var $container = this.menu.find('ul:last');
-			
-			// move to the first/last
-			this.menu.find('label')[ moveToLast ? 'last' : 'first' ]().trigger('mouseover');
-			
-			// set scroll position
-			$container.scrollTop( moveToLast ? $container.height() : 0 );
-			
-		} else {
-			$next.find('label').trigger('mouseover');
+		// remember default value
+		button[0].defaultValue = this.update();
+		
+		// broadcast refresh event; useful for widgets
+		if( !init ){
+			this._trigger('refresh');
 		}
 	},
-
-	_toggleChecked: function(flag, group){
-		var $inputs = (group && group.length) 
-			? group
-			: this.labels.find('input');
-		
-		// reduce set to first input if single select and checkAll
-		if( !this.options.multiple && flag ){
-			$inputs = $inputs.eq(0);
-		}
-		
-		// toggle state on inputs
-		$inputs.not(':disabled').attr('checked', (flag ? 'checked' : '')); 
-		
-		this.update();
-		
-		// toggle state on original option tags
-		this.element.find('option').not(':disabled').attr('selected', (flag ? 'selected' : ''));
-	},
-
-	_toggleDisabled: function(flag){
-		this.button.attr('disabled', (flag ? 'disabled' : ''))[ flag ? 'addClass' : 'removeClass' ]('ui-state-disabled');
-		this.menu.find('input').attr('disabled', (flag ? 'disabled' : '')).parent()[ flag ? 'addClass' : 'removeClass' ]('ui-state-disabled');
-		this.element.attr('disabled', (flag ? 'disabled' : ''));
-	},
-
-	// updates the number of selected items in the button
-	update: function( offset ){
+	
+	// updates the button text.  call refresh() to rebuild
+	update: function(){
 		var o = this.options,
 			$inputs = this.labels.find('input'),
 			$checked = $inputs.filter(':checked'),
@@ -390,6 +205,244 @@ $.widget("ech.multiselect", {
 		
 		this.buttonlabel.html( value );
 		return value;
+	},
+	
+	// binds events
+	_bindEvents: function(){
+		var self = this, button = this.button;
+		
+		function clickHandler(){
+			self[ self._isOpen ? 'close' : 'open' ]();
+			return false;
+		}
+		
+		// webkit doesn't like it when you click on the span :(
+		button.find('span').bind('click.multiselect', clickHandler);
+		
+		// button events
+		button.bind({
+			click: clickHandler,
+			keypress: function(e){
+				switch(e.which){
+					case 27: // esc
+					case 38: // up
+					case 37: // left
+						self.close();
+						break;
+					case 39: // right
+					case 40: // down
+						self.open();
+						break;
+				}
+			},
+			mouseenter: function(){
+				if( !button.hasClass('ui-state-disabled') ){
+					$(this).addClass('ui-state-hover');
+				}
+			},
+			mouseleave: function(){
+				$(this).removeClass('ui-state-hover');
+			},
+			focus: function(){
+				if( !button.hasClass('ui-state-disabled') ){
+					$(this).addClass('ui-state-focus');
+				}
+			},
+			blur: function(){
+				$(this).removeClass('ui-state-focus');
+			}
+		});
+
+		// header links
+		this.header
+			.delegate('a', 'click.multiselect', function(e){
+				// close link
+				if( $(this).hasClass('ui-multiselect-close') ){
+					self.close();
+			
+				// check all / uncheck all
+				} else {
+					self[ $(this).hasClass('ui-multiselect-all') ? 'checkAll' : 'uncheckAll' ]();
+				}
+			
+				e.preventDefault();
+			});
+		
+		// optgroup label toggle support
+		this.menu
+			.delegate('li.ui-multiselect-optgroup-label a', 'click.multiselect', function(e){
+				var $this = $(this),
+					$inputs = $this.parent().nextUntil('li.ui-multiselect-optgroup-label').find('input:visible:not(:disabled)');
+				
+				// toggle inputs
+				self._toggleChecked( $inputs.filter(':checked').length !== $inputs.length, $inputs );
+				
+				// trigger event
+				self._trigger('optgrouptoggle', e, {
+					inputs: $inputs.get(),
+					label: $this.parent().text(),
+					checked: $inputs[0].checked
+				});
+				
+				e.preventDefault();
+			})
+			.delegate('label', 'mouseenter', function(){
+				if( !$(this).hasClass('ui-state-disabled') ){
+					self.labels.removeClass('ui-state-hover');
+					$(this).addClass('ui-state-hover').find('input').focus();
+				}
+			})
+			.delegate('label', 'keydown', function(e){
+				switch(e.which){
+					case 9: // tab
+					case 27: // esc
+						self.close();
+						break;
+					case 38: // up
+					case 40: // down
+					case 37: // left
+					case 39: // right
+						self._traverse(e.which, this);
+						e.preventDefault();
+						break;
+					case 13: // enter
+						e.preventDefault();
+						$(this).find('input').trigger('click');
+						break;
+				}
+			})
+			.delegate(':checkbox, :radio', 'click', function(e){
+				var $this = $(this),
+					val = this.value,
+					checked = this.checked,
+					tags = self.element.find('option');
+				
+				// bail if this input is disabled or the event is cancelled
+				if( $this.is(':disabled') || self._trigger('click', e, { value:val, text:this.title, checked:checked }) === false ){
+					e.preventDefault();
+					return;
+				}
+				
+				// make sure the original option tags are unselected first 
+				// in a single select
+				if( !self.options.multiple ){
+					tags.not(function(){
+						return this.value === val;
+					}).removeAttr('selected');
+				}
+				
+				// toggle aria state
+				$this.attr('aria-selected', checked);
+				
+				// set the original option tag to selected
+				tags.filter(function(){
+					return this.value === val;
+				}).attr('selected', (checked ? 'selected' : ''));
+				
+				// setTimeout is to fix multiselect issue #14 and #47. caused by jQuery issue #3827
+				// http://bugs.jquery.com/ticket/3827 
+				setTimeout($.proxy(self.update, self), 10);
+			});
+		
+		// close each widget when clicking on any other element/anywhere else on the page
+		$(document).bind('click.multiselect', function(e){
+			var $target = $(e.target);
+			
+			if(self._isOpen && !$.contains(self.menu[0], e.target) && !$target.is('button.ui-multiselect')){
+				self.close();
+			}
+		});
+		
+		// deal with form resets.  the problem here is that buttons aren't
+		// restored to their defaultValue prop on form reset, and the reset
+		// handler fires before the form is actually reset.  delaying it a bit
+		// gives the form inputs time to clear.
+		$(this.element[0].form).bind('reset', function(){
+			setTimeout(function(){ self.update(); }, 10);
+		});
+	},
+
+	// set button width
+	_setButtonWidth: function(){
+		var width = this.element.outerWidth(),
+			o = this.options;
+			
+		if( /\d/.test(o.minWidth) && width < o.minWidth){
+			width = o.minWidth;
+		}
+		
+		// set widths
+		this.button.width( width );
+	},
+	
+	// set menu width
+	_setMenuWidth: function(){
+		var m = this.menu,
+			width = this.button.outerWidth()-
+				parseInt(m.css('padding-left'),10)-
+				parseInt(m.css('padding-right'),10)-
+				parseInt(m.css('border-right-width'),10)-
+				parseInt(m.css('border-left-width'),10);
+				
+		m.width( width || this.button.outerWidth() );
+	},
+	
+	// move up or down within the menu
+	_traverse: function(which, start){
+		var $start = $(start),
+			moveToLast = which === 38 || which === 37,
+			
+			// select the first li that isn't an optgroup label / disabled
+			$next = $start.parent()[moveToLast ? 'prevAll' : 'nextAll']('li:not(.ui-multiselect-disabled, .ui-multiselect-optgroup-label)')[ moveToLast ? 'last' : 'first']();
+		
+		// if at the first/last element
+		if( !$next.length ){
+			var $container = this.menu.find('ul:last');
+			
+			// move to the first/last
+			this.menu.find('label')[ moveToLast ? 'last' : 'first' ]().trigger('mouseover');
+			
+			// set scroll position
+			$container.scrollTop( moveToLast ? $container.height() : 0 );
+			
+		} else {
+			$next.find('label').trigger('mouseover');
+		}
+	},
+
+	_toggleChecked: function(flag, group){
+		var $inputs = (group && group.length) ?
+			group :
+			this.labels.find('input');
+		
+		// toggle state on inputs
+		$inputs
+			.not(':disabled')
+			.attr({ 'checked':flag, 'aria-selected':flag }); 
+		
+		this.update();
+		
+		var values = $inputs.map(function(){
+			return this.value;
+		}).get();
+		
+		// toggle state on original option tags
+		this.element.find('option').filter(function(){
+			return !this.disabled && $.inArray(this.value, values) > -1;
+		}).attr({ 'selected':flag, 'aria-selected':flag });
+	},
+
+	_toggleDisabled: function( flag ){
+		this.button
+			.attr({ 'disabled':flag, 'aria-disabled':flag })[ flag ? 'addClass' : 'removeClass' ]('ui-state-disabled');
+		
+		this.menu
+			.find('input')
+			.attr({ 'disabled':flag, 'aria-disabled':flag })
+			.parent()[ flag ? 'addClass' : 'removeClass' ]('ui-state-disabled');
+		
+		this.element
+			.attr({ 'disabled':flag, 'aria-disabled':flag });
 	},
 	
 	// open the menu
@@ -413,7 +466,7 @@ $.widget("ech.multiselect", {
 				$this.multiselect('close');
 			}
 		});
-
+		
 		var $container = menu.find('ul:last'),
 			effect = o.show,
 			pos = button.position();
@@ -461,7 +514,7 @@ $.widget("ech.multiselect", {
 			return;
 		}
 	
-		var self = this, o = this.options, effect = o.hide, speed = this.speed;
+		var o = this.options, effect = o.hide, speed = this.speed;
 		
 		// figure out opening effects/speeds
 		if( $.isArray(o.hide) ){
@@ -521,30 +574,30 @@ $.widget("ech.multiselect", {
 		var menu = this.menu;
 		
 		switch(key){
-			case "header":
+			case 'header':
 				menu.find('div.ui-multiselect-header')[ value ? 'show' : 'hide' ]();
 				break;
-			case "checkAllText":
+			case 'checkAllText':
 				menu.find('a.ui-multiselect-all span').eq(-1).text(value);
 				break;
-			case "uncheckAllText":
+			case 'uncheckAllText':
 				menu.find('a.ui-multiselect-none span').eq(-1).text(value);
 				break;
-			case "height":
+			case 'height':
 				menu.find('ul:last').height( parseInt(value,10) );
 				break;
-			case "minWidth":
+			case 'minWidth':
 				this.options[ key ] = parseInt(value,10);
 				this._setButtonWidth();
 				this._setMenuWidth();
 				break;
-			case "selectedText":
-			case "selectedList":
-			case "noneSelectedText":
+			case 'selectedText':
+			case 'selectedList':
+			case 'noneSelectedText':
 				this.options[key] = value; // these all needs to update immediately for the update() call
 				this.update();
 				break;
-			case "classes":
+			case 'classes':
 				menu.add(this.button).removeClass(this.options.classes).addClass(value);
 				break;
 		}

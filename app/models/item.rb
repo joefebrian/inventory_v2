@@ -69,8 +69,8 @@ class Item < ActiveRecord::Base
     finish = finish.blank? ? 'today' : finish.kind_of?(Time) ? finish.to_s(:db) : finish
     date_start = Chronic.parse(start).beginning_of_day
     date_end = Chronic.parse(finish).end_of_day
-    ins = company.entries.item_id_is(id).transaction_inward.transaction_alter_stock_is(true).transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
-    out = company.entries.item_id_is(id).transaction_outward.transaction_alter_stock_is(true).transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
+    ins = company.entries.item_id_is(id).transaction_inward.transaction_altering_stock.transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
+    out = company.entries.item_id_is(id).transaction_outward.transaction_altering_stock.transaction_created_at_gte(date_start).transaction_created_at_lte(date_end).sum(:quantity)
     ins - out
   end
 

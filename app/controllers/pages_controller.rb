@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   before_filter :authenticate, :except => [:index]
+
   def index
     if current_user
       @tab = 'dashboard'

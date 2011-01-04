@@ -1,7 +1,7 @@
 class Purchasing::MaterialRequestsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-  load_and_authorize_resource
+  load_and_authorize_resource :class => 'Company'
 
   def index
     @search = current_company.material_requests.search(params[:search])
