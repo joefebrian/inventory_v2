@@ -21,7 +21,7 @@ class Plu < ActiveRecord::Base
   end
 
   def item_name_with_code
-    item.name_with_code
+    item.try(:name_with_code)
   end
 
   def item_name_with_plu_code
