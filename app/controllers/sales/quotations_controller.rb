@@ -1,6 +1,7 @@
 class Sales::QuotationsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
 
   def index
     @search = current_company.quotations.search(params[:search])

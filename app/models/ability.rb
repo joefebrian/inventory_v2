@@ -11,5 +11,6 @@ class Ability
         end
       end
     end
+    can :read, Company
   end
 end

@@ -11,10 +11,8 @@ class Invoice < ActiveRecord::Base
   end
 
   def after_initialize
-    if new_record?
-      self.number = next_available_number
-      self.user_date = Time.now.to_date
-    end
+    self.number = next_available_number if new_record?
+    self.user_date = Time.now.to_date
   end
 
   def next_available_number

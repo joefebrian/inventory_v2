@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
   helper_method :current_user_session, :current_user, :current_company, :authenticate, :random_css_color
 
+  load_and_authorize_resource :class => 'Company'
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message
     redirect_to dashboard_path

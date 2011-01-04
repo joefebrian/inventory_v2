@@ -1,6 +1,7 @@
 class TransDiassembliesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource
 
   def index
     @trans_diassemblies = current_company.trans_diassemblies.all
@@ -60,7 +61,7 @@ class TransDiassembliesController < ApplicationController
   private
   def assign_tab
     @tab = 'transactions'
-    @current = 'tradis'
+    @current = 'assy'
   end
 
 end
