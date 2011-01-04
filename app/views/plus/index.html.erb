@@ -39,7 +39,7 @@
     <% for plu in @plus %>
       <tr>
         <td><%= link_to plu.code, plu %></td>
-        <td><strong><%=h plu.item.name %></strong> <em>(<%=h plu.item.code %>)</em></td>
+        <td><strong><%=h plu.item.try(:name) %></strong> <em>(<%=h plu.item.try(:code) %>)</em></td>
         <td><%=h plu.supplier.try(:name) %></td>
         <td><%=h plu.payment_term %></td>
          <td class="actions">

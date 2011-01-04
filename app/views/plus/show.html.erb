@@ -30,7 +30,7 @@
   <div class="two_columns">
     <p>
       <span class="light transaction_label">Item</span>
-      <strong><%= link_to @plu.item.name, @plu.item %></strong>
+      <strong><%= link_to @plu.item.try(:name), @plu.item %></strong>
     </p>
     <p>
       <span class="light transaction_label">Payment Term</span>
