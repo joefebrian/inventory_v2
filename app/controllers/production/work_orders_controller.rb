@@ -1,7 +1,8 @@
 class Production::WorkOrdersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-  load_and_authorize_resource :class => 'Company'
+  load_and_authorize_resource
+  load_and_authorize_resource :company, :through => :work_order
 
   def index
     @search = current_company.work_orders.search(params[:search])
