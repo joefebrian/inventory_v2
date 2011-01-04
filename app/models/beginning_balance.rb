@@ -4,7 +4,6 @@ class BeginningBalance < Transaction
   has_many :entries, :foreign_key => :transaction_id, :dependent => :destroy
   has_and_belongs_to_many :categories
   validates_presence_of :number
-  before_save :assign_alter_stock
 
   def category_name
     @category_name || entries.first.try(:item).try(:category).try(:name)
@@ -26,8 +25,4 @@ class BeginningBalance < Transaction
     "#{prefix}.#{next_available}"
   end
 
-  private
-  def assign_alter_stock
-    self.alter_stock = true
-  end
 end
