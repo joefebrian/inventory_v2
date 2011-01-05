@@ -70,10 +70,8 @@ class DeliveryOrder < ActiveRecord::Base
 
   def suggested_number
     last_number = company.delivery_orders.last.try(:number)
-    next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
-    time = Time.now
-    prefix = "#{TRANS_PREFIX[:delivery_orders]}.#{time.strftime('%Y%m')}"
-    "#{prefix}.#{next_available}"
+    last_number = "#{TRANS_PREFIX[:delivery_orders]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    new_number(last_number)
   end
 
   def build_entries_from_so

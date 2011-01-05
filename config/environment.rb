@@ -78,3 +78,14 @@ SubdomainFu.tld_sizes = { :development => 1, :test => 1, :production => 1 }
     #end
   #end
 #end
+
+def new_number(last)
+  prefix, time, index = last.split('.')
+  month = time[4..5]
+  if month.to_i != Time.now.strftime('%m').to_i
+    index = '00001'
+  else
+    index = sprintf('%05d', index.to_i + 1)
+  end
+  "#{prefix}.#{Time.now.strftime('%Y%m')}.#{index}"
+end

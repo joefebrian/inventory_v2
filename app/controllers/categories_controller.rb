@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
   before_filter :categories_list, :except => [:show, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource :through => :current_company
 
   def index
     @search = current_company.categories.search(params[:search])

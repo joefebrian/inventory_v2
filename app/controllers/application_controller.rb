@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
-  helper_method :current_user_session, :current_user, :current_company, :authenticate, :random_css_color
+  helper_method :current_user_session, :current_user, :current_company, :authenticate, :random_css_color, :new_number
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = exception.message

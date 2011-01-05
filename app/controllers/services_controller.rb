@@ -1,6 +1,7 @@
 class ServicesController < ApplicationController
   before_filter :set_tab
   before_filter :authenticate
+  load_and_authorize_resource :class => 'Item', :through => :current_company
 
   def index
     @search = current_company.items.services.search(params[:search])
