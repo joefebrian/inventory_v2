@@ -7,7 +7,7 @@
     = f.input :due_time, :label => "Days until due"
     = f.input :item_receives, :collection => @item_receives, :input_html => { :class => "multiselect filter" }
     = f.input :remark, :input_html => { :rows => 2 }
-    = f.input :vat, :label => "VAT (%)"
+    = f.input :vat, :label => "Tax (%)"
   %fieldset.buttons
     %button{ :type => "submit", :id => "primary-button" }
       = image_tag('icons/silk/disk.png')

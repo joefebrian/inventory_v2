@@ -1,8 +1,7 @@
 class DeliveryOrdersController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-  load_and_authorize_resource
-  load_and_authorize_resource :company, :through => :delivery_order
+  load_and_authorize_resource :through => :current_company
 
   def index
     @search = current_company.delivery_orders.search(params[:search])

@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :read, Company
     if user.roles?('admin')
       can :manage, :all
     else
@@ -11,6 +12,5 @@ class Ability
         end
       end
     end
-    can :read, Company
   end
 end
