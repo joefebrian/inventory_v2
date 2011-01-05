@@ -1,6 +1,7 @@
 class GeneralTransactionsController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
+  load_and_authorize_resource :through => :current_company
 
   def index
     @search = current_company.general_transactions.search(params[:search])

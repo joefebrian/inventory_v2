@@ -1,8 +1,7 @@
 class TransAssembliesController < ApplicationController
   before_filter :authenticate
   before_filter :assign_tab
-  load_and_authorize_resource
-  load_and_authorize_resource :company, :through => :trans_assembly
+  load_and_authorize_resource :through => :current_company
   
   def index
     @search = current_company.trans_assemblies.search(params[:search])
