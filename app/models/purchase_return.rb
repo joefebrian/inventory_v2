@@ -21,7 +21,7 @@ class PurchaseReturn < ActiveRecord::Base
   end
 
   def suggested_number
-    last_number = company.purchase_returns.last.try(:number)
+    last_number = company.purchase_returns.all(:order => :created_at).last.try(:number)
     last_number = "#{TRANS_PREFIX[:purchase_returns]}.#{time.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end

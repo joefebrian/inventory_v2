@@ -13,11 +13,9 @@ class WorkOrder < ActiveRecord::Base
   end
 
   def suggested_number
-    last_number = company.work_orders.last.try(:number)
-    next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
-    time = Time.now
-    prefix = "#{TRANS_PREFIX[:work_orders]}.#{time.strftime('%Y%m')}"
-    "#{prefix}.#{next_available}"
+    last_number = company.work_orders.all(:order => :created_at).last.try(:number)
+    last_number = "#{TRANS_PREFIX[:work_orders]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    new_number(last_number)
   end
 
   def generate_production_material_request

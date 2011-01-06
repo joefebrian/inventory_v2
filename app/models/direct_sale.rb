@@ -25,7 +25,7 @@ class DirectSale < ActiveRecord::Base
   end
 
   def suggested_number
-    last_number = company.direct_sales.last.try(:number)
+    last_number = company.direct_sales.all(:order => :created_at).last.try(:number)
     next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
     time = Time.now
     prefix = "#{TRANS_PREFIX[:direct_sales]}.#{time.strftime('%Y%m')}"

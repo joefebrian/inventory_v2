@@ -17,11 +17,9 @@ class CreditDebitNote < ActiveRecord::Base
   end
   
   def suggested_number
-    last_number = company.credit_debit_notes.last.try(:number)
-    next_available = last_number.nil? ? '00001' : sprintf('%05d', last_number.split('.').last.to_i + 1)
-    time = Time.now
-    prefix = "#{TRANS_PREFIX[:cndn]}.#{time.strftime('%Y%m')}"
-    "#{prefix}.#{next_available}"
+    last_number = company.credit_debit_notes.all(:order => :created_at).last.try(:number)
+    last_number = "#{TRANS_PREFIX[:cndn]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    new_number(last_number)
   end
 
 end

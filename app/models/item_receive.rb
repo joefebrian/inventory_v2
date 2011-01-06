@@ -35,7 +35,7 @@ class ItemReceive < ActiveRecord::Base
   end
 
   def suggested_number
-    last_number = company.item_receives.last.try(:number)
+    last_number = company.item_receives.all(:order => :created_at).last.try(:number)
     last_number = "#{TRANS_PREFIX[:item_receives]}.#{time.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
