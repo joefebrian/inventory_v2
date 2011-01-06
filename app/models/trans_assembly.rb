@@ -19,7 +19,7 @@ class TransAssembly < ActiveRecord::Base
 
   def suggested_number
     last_number = company.trans_assemblies.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:trans_assemblies]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:trans_assemblies]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 

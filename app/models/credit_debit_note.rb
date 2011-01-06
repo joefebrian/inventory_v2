@@ -18,7 +18,7 @@ class CreditDebitNote < ActiveRecord::Base
   
   def suggested_number
     last_number = company.credit_debit_notes.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:cndn]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:cndn]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 

@@ -17,7 +17,7 @@ class Invoice < ActiveRecord::Base
 
   def next_available_number
     last_number = company.invoices.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:purchase_invoices]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:purchase_invoices]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 

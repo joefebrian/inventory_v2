@@ -26,7 +26,7 @@ class MaterialRequest < ActiveRecord::Base
 
   def suggested_number
     last_number = company.material_requests.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:material_request]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:material_request]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 

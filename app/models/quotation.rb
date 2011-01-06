@@ -38,7 +38,7 @@ class Quotation < ActiveRecord::Base
 
   def suggested_number
     last_number = company.quotations.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:quotation]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:quotation]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 

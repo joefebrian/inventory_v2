@@ -70,7 +70,7 @@ class DeliveryOrder < ActiveRecord::Base
 
   def suggested_number
     last_number = company.delivery_orders.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:delivery_orders]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:delivery_orders]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 

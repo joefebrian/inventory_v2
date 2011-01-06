@@ -16,7 +16,7 @@ class SalesInvoice < ActiveRecord::Base
 
   def suggested_number
     last_number = company.sales_invoices.all(:order => :created_at).last.try(:number)
-    last_number = "#{TRANS_PREFIX[:sales_invoices]}.#{time.strftime('%Y%m')}.00000" unless last_number
+    last_number = "#{TRANS_PREFIX[:sales_invoices]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
 
