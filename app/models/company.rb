@@ -48,7 +48,7 @@ class Company < ActiveRecord::Base
   has_many :sales_prices, :dependent => :destroy
   has_many :work_orders, :dependent => :destroy
 
-  default_scope :order => :created_at
+  #default_scope :order => :created_at
   after_create :create_defaults
 
   def next_stock

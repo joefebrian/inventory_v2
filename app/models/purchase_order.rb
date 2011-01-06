@@ -25,7 +25,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def suggested_number
-    last_number = company.purchase_orders.last.try(:number)
+    last_number = company.purchase_orders.all(:limit => 1).try(:number)
     last_number = "#{TRANS_PREFIX[:purchase_orders]}.#{Time.now.strftime('%Y%m')}.00000" unless last_number
     new_number(last_number)
   end
