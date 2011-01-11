@@ -50,7 +50,7 @@ class SalesOrder < ActiveRecord::Base
         self.entries.build(:item_id => entry.item_id,
                            :quantity => entry.quantity,
                            :price => entry.price,
-                           :diskon => entry.discount,
+                           :discount => entry.discount,
                            :total_price => entry.total_price)
       end
     end

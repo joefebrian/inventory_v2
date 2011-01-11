@@ -41,7 +41,7 @@
   - @trans_assembly.entries.each_with_index do |entry, i|
     %tr
       %td.tdl.td_5= (i+1)
-      %td= link_to h(entry.assembly.name), entry.assembly
+      %td= link_to h(entry.assembly.try(:name)), entry.assembly
       %td= link_to h(entry.assembly.item_name), entry.assembly.item
       %td.tdc= "#{entry.quantity} / #{entry.completed}"
 

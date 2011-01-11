@@ -3,15 +3,15 @@
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
     link_to('Production', production_path), |
-    link_to('Material Requests', production_material_requests_path), |
+    link_to('Permintaan Bahan Produksi', production_material_requests_path), |
     "#{@material_request.number}" ] |
 
   = sidemenu @tab
 
 #subheader
-  %h3= "Material Request # #{@material_request.number}"
+  %h3= "Permintaan Bahan Produksi # #{@material_request.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_production_material_request_path(@material_request)
+    = link_to "#{image_tag('icons/silk/tick.png')} Confirm", edit_production_material_request_path(@material_request)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", [:production, @material_request], :method => :delete, :confirm => "Are you sure"
 
@@ -28,6 +28,19 @@
     %p
       %span.light.transaction_label Remark
       %strong= @material_request.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @material_request.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdl.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdc= entry.quantity
 
 %table.report
   %thead
