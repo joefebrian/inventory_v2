@@ -41,7 +41,6 @@ class DeliveryOrder < ActiveRecord::Base
     trans.transaction_type = ttype
     trans.number = GeneralTransaction.next_number(company, ttype)
     trans.origin_id = warehouse_id
-    trans.alter_stock = true
     trans.remark = "Auto-generated from Delivery Order # #{number} date #{created_at.to_s(:long)}"
     entries.each do |entry|
       trans.entries.build(:plu_id => entry.plu_id, :quantity => entry.quantity)
