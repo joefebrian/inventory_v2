@@ -1,4 +1,4 @@
-- title "Production :: Material Request # #{@material_request.number}"
+- title "Produksi :: Permintaan Bahan Produksi :: Konfirmasi # #{@material_request.number}"
 
 - content_for :breadcrumb do
   = breadcrumb [ link_to('Transactions', transactions_path), |
@@ -9,16 +9,8 @@
   = sidemenu @tab
 
 #subheader
-  %h3= "Permintaan Bahan Produksi # #{@material_request.number}"
+  %h3= "Permintaan Bahan Produksi :: Konfirmasi # #{@material_request.number}"
   #subheader-menu
-    - if @material_request.closed?
-      %strong Confirmed 
-      &bull;
-      = link_to "#{image_tag('icons/silk/brick_add.png')} Progress", production_work_order_completions_path(@material_request.work_order)
-      &bull;
-    - else
-      = link_to "#{image_tag('icons/silk/tick.png')} Confirm", confirmation_production_material_request_path(@material_request)
-      &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", [:production, @material_request], :method => :delete, :confirm => "Are you sure"
 
 = hint ""
@@ -65,3 +57,10 @@
       %td= link_to h(entry.item.name), entry.item
       %td.tdc= entry.quantity
 
+
+- semantic_form_for [:production, @material_request], :url => confirm_production_material_request_path(@material_request) do |f|
+  = f.error_messages
+  %fieldset.buttons
+    %button#primary-button{ :type => "submit" }
+      = image_tag 'icons/silk/tick.png'
+      Confirm

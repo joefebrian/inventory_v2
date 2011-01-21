@@ -1,4 +1,4 @@
-- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil, 'assy' => nil, 'wo' => nil, 'prod_mr' => nil}
+- current = { 'gt' => nil, 'bb' => nil, 'tt' => nil, 'tr' => nil, 'in' => nil, 'io' => nil, 'purchasing' => nil, 'mr' => nil, 'sales' => nil, 'qr' => nil, 'so' => nil, 'po' => nil, 'prod' => nil, 'trass' => nil, 'tradis' => nil, 'do' => nil, 'invoices' => nil, 'sr' => nil, 'cdp' => nil, :cndn => nil, 'ds' => nil, 'pniv' => nil, 'assy' => nil, 'wo' => nil, 'prod_mr' => nil, 'prod_completion' => nil }
 
 - current[@current] = 'current'
 %ul#sidemenu
@@ -76,6 +76,6 @@
           =link_to "Permintaan Bahan Produksi", production_material_requests_path, :class => current['prod_mr']
           %div
         %li
-          =link_to "Penerimaan Hasil Produksi", '#'
+          =link_to "Penerimaan Hasil Produksi", '#', :class => current['prod_completion']
           %div
 

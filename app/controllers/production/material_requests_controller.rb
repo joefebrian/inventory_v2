@@ -27,6 +27,22 @@ module Production
     def show
       @material_request = current_company.material_requests.productions.find(params[:id])
     end
+
+    def confirmation
+      @material_request = current_company.material_requests.productions.find(params[:id])
+    end
+
+    def confirm
+      @material_request = current_company.material_requests.productions.find(params[:id])
+      @material_request.closed = true
+      if @material_request.save(false)
+        flash[:success] = "Confirmed"
+        # kurangi stock
+        redirect_to production_material_requests_path
+      else
+        render 'confirmation'
+      end
+    end
     
     private
     def assign_tab

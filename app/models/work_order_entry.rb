@@ -17,6 +17,14 @@ class WorkOrderEntry < ActiveRecord::Base
     progress_entries.sum(:quantity)
   end
 
+  def completions
+    work_order.completions.all(:conditions => { :assembly_id => assembly.id }, :order => :created_at)
+  end
+
+  def complete?
+    completions.map(&:quantity).sum == quantity
+  end
+
   def required_materials
    materials = {}
    assembly.entries.each do |e|

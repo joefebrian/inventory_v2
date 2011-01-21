@@ -1,0 +1,50 @@
+<% title 'Production :: Completion' %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to('Transaction', transactions_path), link_to('Production', production_path), link_to(@work_order.number, [:production, @work_order]),  link_to('Completions', production_work_order_completions_path(@work_order))] %>
+  <div id="top_right_link">
+  </div>
+  <%= sidemenu @tab %>
+<% end %>
+<%= hint '' %>
+
+<div id="subheader">
+  <h3>Work Order <%= @work_order.number %> completion progress</h3>
+</div>
+
+<% form_for @work_order, :url => production_work_order_completions_path(@work_order), :html => { :method => :post } do |f| %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>End Product</th>
+        <th>Total Quantity</th>
+        <th>Completed</th>
+        <th>Progress</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td colspan="3" class="tdr buttons">
+          <button type="submit" id="primary-button"><%= image_tag "icons/silk/disk.png" %> Save progress</button>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% f.fields_for :completions do |fc| %>
+        <% if fc.object.new_record? %>
+          <tr>
+            <td>
+              <%= fc.hidden_field :assembly_id %>
+              <%= fc.hidden_field :work_order_id %>
+              <%= fc.object.assembly.name %>
+            </td>
+            <td class="numbers"><%= fc.object.total_quantity %></td>
+            <td class="numbers"><%= fc.object.completed %></td>
+            <td class="td_10"><%= fc.text_field :quantity, :class => "numbers" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

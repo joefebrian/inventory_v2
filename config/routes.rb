@@ -31,8 +31,10 @@ ActionController::Routing::Routes.draw do |map|
     sales.resources  :sales_orders
   end
   map.namespace(:production) do |production|
-    production.resources :work_orders
-    production.resources :material_requests
+    production.resources :work_orders do |wo|
+      wo.resources :completions
+    end
+    production.resources :material_requests, :member => { :confirmation => :get, :confirm => :put }
   end
   map.resources :customers, :collection => {:prices => :get, :search => :get }, :member => {:price => :get} do |customer|
     customer.resource :profile
