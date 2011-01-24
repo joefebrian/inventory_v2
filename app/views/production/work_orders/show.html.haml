@@ -11,6 +11,9 @@
 #subheader
   %h3= "Work Order # #{@work_order.number}"
   #subheader-menu
+    - unless @work_order.completed?
+      = link_to "#{image_tag('icons/silk/brick_add.png')} Progress", production_work_order_completions_path(@work_order)
+      &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_production_work_order_path(@work_order)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", [:production, @work_order], :method => :delete, :confirm => "Are you sure"
@@ -36,6 +39,7 @@
       %th Assembling Formula
       %th End Product / Item
       %th Qty
+      %th Completed
   %tbody
   - @work_order.entries.each_with_index do |entry, i|
     %tr
@@ -43,4 +47,4 @@
       %td= link_to h(entry.assembly.name), entry.assembly
       %td= link_to h(entry.assembly.item_name), entry.assembly.item
       %td.tdc= entry.quantity
-
+      %td.numbers= entry.completions.map(&:quantity).sum

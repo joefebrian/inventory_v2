@@ -41,4 +41,8 @@ class WorkOrder < ActiveRecord::Base
     end
     mr.save(false)
   end
+
+  def completed?
+    entries.detect { |e| !e.complete? }.nil?
+  end
 end

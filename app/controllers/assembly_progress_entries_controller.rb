@@ -8,7 +8,7 @@ class AssemblyProgressEntriesController < ApplicationController
 
   def new
     @assembly = current_company.trans_assemblies.find(params[:trans_assembly_id])
-    @assembly.entries.each { |e| @assembly.progress_entries.build(:assembly_entry_id => e.assembly_id, :quantity => 0) }
+    @assembly.entries.each { |e| @assembly.progress_entries.build(:assembly_entry_id => e.id, :quantity => 0) }
     @assembly.progress_entries.reject! { |e| !e.new_record? }
   end
 
