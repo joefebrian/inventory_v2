@@ -12,7 +12,7 @@
 
 <div id="dialog_form">
   <% form_for @assembly, :url => trans_assembly_assembly_progress_entries_path(@assembly), :html => { :method => :post } do |f| %>
-    <table class="report">
+    <table class="list">
       <thead>
         <tr>
           <th>Formula</th>
@@ -23,7 +23,11 @@
       </thead>
       <tfoot>
         <tr>
-          <td colspan="4" class="tdr"><%= f.submit "Save Progress" %></td>
+          <td colspan="4" class="tdr buttons">
+            <button type="submit" id="primary-button">
+              <%= image_tag 'icons/silk/disk.png' %> Save progress
+            </button>
+          </td>
         </tr>
       </tfoot>
       <tbody>

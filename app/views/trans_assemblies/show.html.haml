@@ -10,7 +10,7 @@
 #subheader
   %h3= "Assembly # #{@trans_assembly.number}"
   #subheader-menu
-    = link_to "Progress", trans_assembly_assembly_progress_entries_path(@trans_assembly)
+    = link_to "#{image_tag('icons/silk/brick_add.png')} Progress", trans_assembly_assembly_progress_entries_path(@trans_assembly)
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_trans_assembly_path(@trans_assembly)
     &bull;
