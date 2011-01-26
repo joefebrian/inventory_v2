@@ -58,7 +58,7 @@ class Item < ActiveRecord::Base
   end
 
   def stock
-    ins = company.entries.item_id_is(17).transaction_type_is('BeginningBalance').sum(:quantity)
+    ins = company.entries.item_id_is(id).transaction_type_is('BeginningBalance').sum(:quantity)
     ins += company.entries.item_id_is(id).transaction_inward.transaction_altering_stock.sum(:quantity)
     out = company.entries.item_id_is(id).transaction_outward.transaction_altering_stock.sum(:quantity)
     ins - out

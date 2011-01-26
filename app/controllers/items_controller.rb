@@ -122,10 +122,14 @@ class ItemsController < ApplicationController
 
   def search
     @keyword = params[:term]
+    items = current_company.items
+    unless params[:supp].empty?
+      items = current_company.suppliers.id_is(params[:supp]).first.items
+    end
     if params[:item] == 'all'
-      @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword)[0...10]
+      @items = @keyword.nil? ? {} : items.name_or_code_like(@keyword)[0...10]
     else
-      @items = @keyword.nil? ? {} : current_company.items.name_or_code_like(@keyword).reject {|o| !o.has_plu?}[0...10]
+      @items = @keyword.nil? ? {} : items.name_or_code_like(@keyword).reject {|o| !o.has_plu?}[0...10]
     end
     respond_to do |format|
       format.html { render :layout => false }

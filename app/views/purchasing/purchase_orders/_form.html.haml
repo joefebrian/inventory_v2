@@ -1,5 +1,6 @@
 - semantic_form_for [:purchasing, @purchase_order] do |f|
   = f.error_messages
+  = hidden_field_tag "item_supp"
   - f.inputs "Purchase Order", :class => "form_section" do
     %li.string
       = f.label :number, "Number", :class => "required"
@@ -78,11 +79,13 @@
         var selected_supplier = $('#purchase_order_supplier_id').multiselect('getChecked');
         if(selected_supplier.length) {
           $('#supplier_address').html(suppliers[selected_supplier[0].value].address);
+          $('#item_supp').val(suppliers[selected_supplier[0].value].id);
         }
         $('#purchase_order_supplier_id')
         .bind('multiselectclick', function(event, ui) {
           if(typeof(suppliers[ui.value]) != 'undefined') {
             $('#supplier_address').html(suppliers[ui.value].address);
+            $('#item_supp').val(ui.value);
             $(this).multiselect('close');
           }
         });
@@ -98,7 +101,7 @@
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
               $('input[name=get_mrs]').remove();
-              $('.tracker_quantity').validate({ required: true, max: 12 });
+              //$('.tracker_quantity').validate({ required: true, max: 12 });
             }
           });
           return false;

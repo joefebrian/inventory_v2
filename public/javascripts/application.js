@@ -137,8 +137,9 @@ $('input.plu_autocomplete').live('focus', function() {
 
 $('input.item_autocomplete').live('focus', function() {
   var input = $(this);
+  var supp = input.parents('form').find('#item_supp').val();
   input.autocomplete({
-    source: '/items/search.js',
+    source: '/items/search.js?supp=' + supp,
     focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
     select: function(event, ui) {
       $(this).val(ui.item.name);
