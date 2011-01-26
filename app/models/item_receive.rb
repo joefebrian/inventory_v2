@@ -88,7 +88,7 @@ class ItemReceive < ActiveRecord::Base
   end
 
   def to_s
-    number
+    "#{number} (Total: #{total})"
   end
 
   def total_po
