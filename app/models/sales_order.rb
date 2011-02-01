@@ -72,9 +72,14 @@ class SalesOrder < ActiveRecord::Base
   def undelivered_entries
     do_entries = DeliveryOrderEntry.calculate(:sum, :quantity, :conditions => { 'delivery_orders.sales_order_id' => id }, :group => :item_id, :include => :delivery_order)
     undelivered = {}; entries.collect do |entry|
-      if do_entries.present? && (!do_entries.include? entry.item_id.to_i || do_entries[entry.item_id] < entry.quantity)
-        undelivered[entry.item_id] = entry.quantity - do_entries[entry.item_id]
+      if do_entries.present? && do_entries[entry.item_id.to_i] && do_entries[entry.item_id.to_i] < entry.quantity
+        undelivered[entry.item_id.to_i] = entry.quantity - do_entries[entry.item_id.to_i]
+      else
+        undelivered[entry.item_id.to_i] = entry.quantity
       end
+      #if do_entries.present? && do_entries[entry.item_id] && do_entries[entry.item_id] < entry.quantity
+        #undelivered[entry.item_id] = entry.quantity - do_entries[entry.item_id]
+      #end
     end
     undelivered
   end

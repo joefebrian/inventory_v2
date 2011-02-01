@@ -42,11 +42,9 @@
               %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
               %td.item
                 = ent.object.item_name
-              %td
-                = ent.object.plu.try(:code)
-                -#= ent.text_field :item_name, :class => "item_autocomplete", :size => 38
+              %td.tdr
+                = ent.input :plu, :as => :select, :collection => ent.object.item.plus.collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
                 = ent.hidden_field :item_id
-                = ent.hidden_field :plu_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
               %td.tdr
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"

@@ -85,10 +85,7 @@ class DeliveryOrder < ActiveRecord::Base
       sales_order.entries.each do |so_data|
         item_dos = item_do.detect{|do_data1, do_data2| do_data1 == so_data.item_id.to_i}
         qty = so_data.quantity - (item_dos.nil? ? 0 : item_dos[1].to_i)
-        so_data.item.plus.each do |plu|
-          self.entries.build(:item_id => so_data.item_id, :quantity => qty, :plu_id => plu.id) 
-          qty = 0
-        end
+        self.entries.build(:item_id => so_data.item_id, :quantity => qty) 
       end
     end
   end

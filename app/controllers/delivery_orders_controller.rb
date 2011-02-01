@@ -21,7 +21,7 @@ class DeliveryOrdersController < ApplicationController
 
   def new
     @customer = current_company.customers.all(:include => :profile)
-    @delivery_order = current_company.delivery_orders.new
+    @delivery_order = current_company.delivery_orders.new(:do_date => Time.now.to_date)
     @delivery_order.attributes = params[:delivery_order] if params[:delivery_order]
     @warehouses = current_company.warehouses.all
     if params[:delivery_order]

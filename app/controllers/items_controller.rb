@@ -123,7 +123,7 @@ class ItemsController < ApplicationController
   def search
     @keyword = params[:term]
     items = current_company.items
-    unless params[:supp].empty?
+    unless params[:supp].empty? || params[:supp] == 'undefined'
       items = current_company.suppliers.id_is(params[:supp]).first.items
     end
     if params[:item] == 'all'

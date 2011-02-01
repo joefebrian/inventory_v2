@@ -11,5 +11,9 @@ class Salesman < ActiveRecord::Base
   def to_s
     profile.full_name
   end
+
+  def fullname
+    profile.full_name
+  end
   
 end
