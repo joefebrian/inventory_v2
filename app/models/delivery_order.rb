@@ -24,6 +24,7 @@ class DeliveryOrder < ActiveRecord::Base
     insuficient_items.blank?
   end
 
+  before_save :sum_total_per_entries
   after_save :close_so
   after_save :alter_stock
 
@@ -32,6 +33,14 @@ class DeliveryOrder < ActiveRecord::Base
       sales_order.closed = true
       sales_order.closing_note = "Closed automatically by Delivery Order # #{number}"
       sales_order.save!
+    end
+  end
+
+  def sum_total_per_entries
+    entries.each do |entry|
+      so_entry = sales_order.entries.first(:conditions => {:item_id => entry.item_id})
+      price_per_entry = so_entry.total_price / so_entry.quantity
+      entry.total_value = price_per_entry * entry.quantity
     end
   end
 
@@ -100,5 +109,9 @@ class DeliveryOrder < ActiveRecord::Base
       tmp = Company.find(company_id).customers.first(:joins => :profile, :conditions => { 'profiles.first_name' => first, 'profiles.last_name' => last })
       self.customer_id = tmp.id
     end
+  end
+
+  def total_value
+    entries.sum(:total_value)
   end
 end
