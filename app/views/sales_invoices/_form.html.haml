@@ -1,4 +1,8 @@
 - semantic_form_for @sales_invoice do |f|
+  %script{ :type => "text/javascript" }
+    var do_totals = {};
+    - for deli in @delivery_orders
+      = "do_totals[#{deli.id}] = #{deli.total_value};"
   =f.error_messages
   -f.inputs do
     %li#general_transaction_number_input.string.required
@@ -16,6 +20,9 @@
     = f.input :ppn, :label => "Tax (%)"
     = f.input :top, :label => "Term of Payment"
     = f.input :sales_commission
+    %li
+      %label Total
+      #js_total 0
 
   %fieldset.buttons
     %button{ :type => "submit" }
@@ -27,27 +34,20 @@
     var insert_fields = true;
     :plain
       function multiselect_response() {
-        $('#lelivery_order_sales_order_id').bind('multiselectclose', function(event, ui) {
+        $('#sales_invoice_delivery_order_ids').bind('multiselectclose', function(event, ui) {
           var sos = $(this).multiselect('getChecked');
-          var form = $(this).parents('form');
-          form.append('<input type="hidden" name="get_sos" value="1"/>');
-          $.ajax({
-            url: form[0].action,
-            type: 'post',
-            data: form.serialize(),
-            success: function(response, status) {
-              var entries = $(response).find('tbody');
-              var customer = $(response).find('#delivery_order_customer_name_input');
-              var customer_id = $(response).find('#delivery_order_customer_id_input');
-              form.find('#delivery_order_customer_name_input').html(customer.html());
-              form.find('#delivery_order_customer_id_input').html(customer_id.html());
-              form.find('tbody').html(entries.html());
-              $('input[name=get_sos]').remove();
-            }
+          var total = 0;
+          sos.each(function(x, e) {
+            total += do_totals[e.value];
           });
+          $('#js_total').html((total).formatMoney(2,'.',','));
           return false;
         });
       }
       $(function() {
         multiselect_response();
       });
+      Number.prototype.formatMoney = function(c, d, t){
+      var n =   this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+      return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+      };
