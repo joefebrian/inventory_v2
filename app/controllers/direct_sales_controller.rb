@@ -21,6 +21,9 @@ class DirectSalesController < ApplicationController
 
   def new
     @direct_sale = current_company.direct_sales.new
+    @direct_sale.tanggal = Time.now.to_date
+    @direct_sale.currency = current_company.currencies.default.first
+    @direct_sale.currency_rate = @direct_sale.currency.latest_rate.value
     @direct_sale.entries.build
     @customer = current_company.customers
   end

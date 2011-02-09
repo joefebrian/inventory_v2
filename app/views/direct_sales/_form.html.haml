@@ -14,7 +14,7 @@
     = f.input :customer_id, :as => :hidden
     = f.input :customer_name, :label => "Customer Name", :as => :string
     = f.input :salesman, :collection => @salesman, :label => "Salesman", :include_blank => "select Salesman", :input_html => { :class => "select filter"}
-    = f.input :currency, :label => "Currency", :collection => @currencies, :include_blank => "Currency", :input_html => { :class => "select filter"}
+    = f.input :currency, :label => "Currency", :collection => @currencies, :include_blank => "Currency", :input_html => { :class => "select "}
     = f.input :currency_rate, :label => "Rate"
     = f.input :top, :label => "Payment Term"
     = f.input :description, :input_html => { :rows => 3 }
@@ -65,28 +65,20 @@
 - content_for :javascripts do
   - javascript_tag do
     var insert_fields = true;
+    var latest_rates = {};
+    - for curr in current_company.currencies
+      = "latest_rates[#{curr.id}] = #{curr.latest_rate.value};"
     :plain
       var template = $('tbody tr:last-child').html();
       var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
       var regexp2 = new RegExp("_(\\d+)_", "g");
       var new_id = $('tbody tr').length;
       function multiselect_response() {
-        $('.multiselect').bind('multiselectclose', function(event, ui) {
-          var quots = $(this).multiselect('getChecked');
-          var form = $(this).parents('form');
-          form.append('<input type="hidden" name="get_quots" value="1"/>');
-          $.ajax({
-            url: form[0].action,
-            type: 'post',
-            data: form.serialize(),
-            success: function(response, status) {
-              var entries = $(response).find('tbody');
-              form.find('tbody').html(entries.html());
-              $('input[name=get_quots]').remove();
-              $('.tracker_quantity').validate({ required: true, max: 12 });
-            }
-          });
-          return false;
+        $('#direct_sale_currency_id').bind('multiselectclick', function(event, ui) {
+          var curr = $(this).multiselect('getChecked');
+          $('#direct_sale_currency_rate').val(latest_rates[curr[0].value]);
+          $(this).multiselect('close');
+          //return false;
         });
       }
       $('.calc').live('keyup', function() {

@@ -51,6 +51,12 @@ module Sales
 
     def create
       @sales_order = current_company.sales_orders.new
+      @salesman = current_company.salesmen
+      @customer = current_company.customers
+      @quotation = current_company.quotations
+      @assembly = current_company.assemblies
+      @currencies = current_company.currencies
+      @exchange_rate = current_company.exchange_rates
       @sales_order.attributes = params[:sales_order]
       if params[:get_quots] && params[:get_quots].to_i == 1
         @sales_order.build_entries_from_quot
@@ -64,12 +70,6 @@ module Sales
       else
         @sales_order.number = @sales_order.suggested_number if @sales_order.number.blank?
         @sales_order.entries.build(:discount => 0, :quantity => 0)
-        @customer = current_company.customers
-        @quotation = current_company.quotations
-        @assembly = current_company.assemblies
-        @currencies = current_company.currencies
-        @exchange_rate = current_company.exchange_rates
-        @salesman = current_company.salesmen
         render :action => 'new'
       end
     end
