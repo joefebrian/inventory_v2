@@ -145,6 +145,6 @@ class Company < ActiveRecord::Base
   end
   
   def create_default_user
-    users.create(:username => 'admin', :password => 'admin', :password_confirmation => 'admin')
+    users.create(:username => 'admin', :password => 'admin', :password_confirmation => 'admin', :email => "admin@example.com")
   end
 end

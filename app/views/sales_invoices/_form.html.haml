@@ -40,7 +40,7 @@
           sos.each(function(x, e) {
             total += do_totals[e.value];
           });
-          $('#js_total').html((total).formatMoney(2,'.',','));
+          $('#js_total').html((total).formatMoney(0,',','.'));
           return false;
         });
       }

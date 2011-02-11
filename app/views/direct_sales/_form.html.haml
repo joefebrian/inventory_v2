@@ -77,7 +77,7 @@
         $('#direct_sale_currency_id').bind('multiselectclick', function(event, ui) {
           var curr = $(this).multiselect('getChecked');
           $('#direct_sale_currency_rate').val(latest_rates[curr[0].value]);
-          $(this).multiselect('close');
+          //$(this).multiselect('close');
           //return false;
         });
       }
@@ -95,7 +95,7 @@
         form.find('.sub_total').each(function(index, element) {
           if (element.value != '') total += parseInt(element.value);
         });
-        form.find('#total_price').html(total);
+        form.find('#total_price').html((total).formatMoney(0,',','.'));
       });
       $(function() {
         multiselect_response();

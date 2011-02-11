@@ -25,4 +25,13 @@ class BeginningBalance < Transaction
     "#{prefix}.#{next_available}"
   end
 
+  #def populate_hpp
+    #entries.each do |entry|
+      #if entry.item.latest_hpp > 0
+        #prev_stock = entry.item.stock - entry.quantity
+        #total_latest = prev_stock * entry.item.latest_hpp
+        #total_current = entry.quantity * entry.value
+        #current_hpp = (total_latest + total_current) / prev_stock + quantity
+      #end
+  #end
 end

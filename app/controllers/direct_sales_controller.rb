@@ -24,7 +24,7 @@ class DirectSalesController < ApplicationController
     @direct_sale.tanggal = Time.now.to_date
     @direct_sale.currency = current_company.currencies.default.first
     @direct_sale.currency_rate = @direct_sale.currency.latest_rate.value
-    @direct_sale.entries.build
+    @direct_sale.entries.build(:quantity => 0, :price => 0, :diskon => 0)
     @customer = current_company.customers
   end
 
@@ -34,7 +34,7 @@ class DirectSalesController < ApplicationController
       flash[:notice] = "Successfully created Direct Sales."
       redirect_to direct_sale_path(@direct_sale)
     else
-      @direct_sale.entries.build
+      @direct_sale.entries.build(:quantity => 0, :price => 0, :diskon => 0)
       render :action => 'new'
     end
   end

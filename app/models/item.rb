@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   has_many :customer_prices
   has_many :material_request_entries
   has_many :material_requests, :through => :material_request_entries
+  has_many :hpps
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"
   validates_presence_of :category_id, :message => "category can't be blank"
@@ -61,6 +62,13 @@ class Item < ActiveRecord::Base
     ins = company.entries.item_id_is(id).transaction_type_is('BeginningBalance').sum(:quantity)
     ins += company.entries.item_id_is(id).transaction_inward.transaction_altering_stock.sum(:quantity)
     out = company.entries.item_id_is(id).transaction_outward.transaction_altering_stock.sum(:quantity)
+    ins - out
+  end
+
+  def stock_at(time)
+    ins = company.entries.item_id_is(id).transaction_type_is('BeginningBalance').sum(:quantity)
+    ins += company.entries.item_id_is(id).transaction_inward.transaction_altering_stock.updated_at_lte(time).sum(:quantity)
+    out = company.entries.item_id_is(id).transaction_outward.transaction_altering_stock.updated_at_lte(time).sum(:quantity)
     ins - out
   end
 
@@ -142,5 +150,19 @@ class Item < ActiveRecord::Base
 
   def has_plu?
     plus.present?
+  end
+
+  def latest_hpp
+    hpps.last.nil? ? 0 : hpps.last.value
+  end
+
+  def calculate_hpp
+    eom = Time.now.last_month.end_of_month
+    start_value = hpps.last.nil? ? 0 : hpps.last.value
+    start_stock = stock_at(eom)
+    recent_transactions = company.transactions.inward.created_at_gte(eom)
+    if recent_transactions.present?
+      
+    end
   end
 end
