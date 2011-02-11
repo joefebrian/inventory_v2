@@ -111,6 +111,9 @@ class Company < ActiveRecord::Base
     create_default_warehouse
     create_default_roles
     create_default_user
+    u = user.first
+    u.roles << roles.first
+    u.save
   end
 
   private
