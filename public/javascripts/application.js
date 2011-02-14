@@ -143,8 +143,10 @@ $('input.plu_autocomplete').live('focus', function() {
 $('input.item_autocomplete').live('focus', function() {
   var input = $(this);
   var supp = input.parents('form').find('#item_supp').val();
+  var assy = input.parents('form').find('#assy').val();
+  var all_item = input.parents('form').find('#all_item').val();
   input.autocomplete({
-    source: '/items/search.js?supp=' + supp,
+    source: '/items/search.js?supp=' + supp + '&assy=' + assy + '&all_item=' + all_item,
     focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
     select: function(event, ui) {
       $(this).val(ui.item.name);

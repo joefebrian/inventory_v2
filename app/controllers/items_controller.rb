@@ -123,14 +123,20 @@ class ItemsController < ApplicationController
   def search
     @keyword = params[:term]
     items = current_company.items
-    unless params[:supp].empty? || params[:supp] == 'undefined'
-      items = current_company.suppliers.id_is(params[:supp]).first.items
+    if params[:supp]
+      unless params[:supp].empty? || params[:supp] == 'undefined'
+        items = current_company.suppliers.id_is(params[:supp]).first.items
+      end
     end
-    if params[:item] == 'all'
-      @items = @keyword.nil? ? {} : items.name_or_code_like(@keyword)[0...10]
+    if params[:assy]
+      items = items.assembly_is(true)
+    end
+    if params[:all_item] || params[:item]
+      items = @keyword.nil? ? {} : items.name_or_code_like(@keyword)
     else
-      @items = @keyword.nil? ? {} : items.name_or_code_like(@keyword).reject {|o| !o.has_plu?}[0...10]
+      items = @keyword.nil? ? {} : items.name_or_code_like(@keyword).reject {|o| !o.has_plu?}
     end
+    @items = items[0...10]
     respond_to do |format|
       format.html { render :layout => false }
       format.js { 
