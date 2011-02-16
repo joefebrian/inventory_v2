@@ -11,14 +11,15 @@ class BeginningBalancesController < ApplicationController
   def show
     @beginning_balance = BeginningBalance.find(params[:id])
   end
-  
+
   def new
     @categories = current_company.leaf_categories
     @beginning_balance = current_company.beginning_balances.new
     @beginning_balance.number = BeginningBalance.suggested_number(current_company)
+    @beginning_balance.destination_warehouse = current_company.default_warehouse
     @warehouses = current_company.warehouses
   end
-  
+
   def create
     @beginning_balance = current_company.beginning_balances.new(params[:beginning_balance])
     @beginning_balance.destination_warehouse = current_company.default_warehouse

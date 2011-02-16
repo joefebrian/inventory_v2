@@ -49,7 +49,6 @@ class Company < ActiveRecord::Base
   has_many :work_orders, :dependent => :destroy
   has_many :services, :dependent => :destroy
 
-  #default_scope :order => :created_at
   after_create :create_defaults
 
   def next_stock
@@ -147,7 +146,7 @@ class Company < ActiveRecord::Base
   def create_default_roles
     roles.create(:name => 'admin')
   end
-  
+
   def create_default_user
     users.create(:username => 'admin', :password => 'admin', :password_confirmation => 'admin', :email => "admin@example.com")
   end

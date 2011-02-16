@@ -8,20 +8,22 @@ class GeneralTransactionsController < ApplicationController
     @search = @search.transaction_type_editable_is(true)
     @general_transactions = @search.paginate(:page => params[:page])
   end
-  
+
   def show
     @general_transaction = current_company.general_transactions.find(params[:id])
   end
-  
+
   def new
     @general_transaction = current_company.general_transactions.new
+    @general_transaction.originator_warehouse = current_company.default_warehouse
+    @general_transaction.destination_warehouse = current_company.default_warehouse
     @general_transaction.entries.build
     @transaction_types = current_company.transaction_types.selectable
     @warehouses = current_company.warehouses
     @plus = current_company.plus.all(:include => :item)
     @hint = 'new_general_transaction'.to_sym
   end
-  
+
   def create
     @general_transaction = current_company.general_transactions.new(params[:general_transaction])
     if @general_transaction.save
@@ -35,11 +37,11 @@ class GeneralTransactionsController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @general_transaction = current_company.general_transactions.find(params[:id])
   end
-  
+
   def update
     @general_transaction = current_company.general_transactions.find(params[:id])
     if @general_transaction.update_attributes(params[:general_transaction])
@@ -49,7 +51,7 @@ class GeneralTransactionsController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @general_transaction = current_company.general_transactions.find(params[:id])
     @general_transaction.destroy
