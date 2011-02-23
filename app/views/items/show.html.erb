@@ -46,15 +46,28 @@
         <strong><%= @item.name %></strong>
       </p>
       <p>
-        <span class="light ">Purchase Price</span>
-        <strong><%= @item.purchase_price %></strong>
+        <span class="light ">Latest sales price (HPP)</span>
+        <strong><%= local_currency(@item.latest_hpp) %></strong>
       </p>
       <p>
         <span class="light ">Description</span>
         <strong><%=h @item.description %></strong>
       </p>
+      <p>
+        <span class="light ">Stock on-hand</span>
+        <strong><%=h @item.stock %></strong>
+      </p>
+      <p>
+        <span class="light">Units</span>
+        <ol>
+          <% for unit in @item.units %>
+            <li><%= unit.name %></li>
+          <% end %>
+        </ol>
+      </p>
   </fieldset>
 
+  <!--
   <fieldset class="form_section">
     <legend>Item Units</legend>
     <% unless @item.units.blank? %>
@@ -73,7 +86,7 @@
   </fieldset>
 
   <fieldset class="form_section">
-    <legend>Stock</legend>
+    <legend>Supplier</legend>
     <div class="two_columns">
       <p>
         <span class="light">Overall</span>
@@ -85,3 +98,4 @@
       </p>
     </div>
   </fieldset>
+  -->

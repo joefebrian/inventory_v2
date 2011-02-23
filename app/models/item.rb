@@ -3,6 +3,7 @@ class Item < ActiveRecord::Base
   belongs_to :category
   has_many :units
   has_many :plus
+  has_many :suppliers, :through => :plus, :group => :supplier_id
   has_many :customer_prices
   has_many :material_request_entries
   has_many :material_requests, :through => :material_request_entries
@@ -153,16 +154,24 @@ class Item < ActiveRecord::Base
   end
 
   def latest_hpp
-    hpps.last.nil? ? 0 : hpps.last.value
+    last = hpps.last(:order => "created_at DESC")
+    last.nil? ? 0 : last.value
   end
 
   def calculate_hpp
     eom = Time.now.last_month.end_of_month
-    start_value = hpps.last.nil? ? 0 : hpps.last.value
+    bom = Time.now.beginning_of_month
+    start_value = latest_hpp
     start_stock = stock_at(eom)
-    recent_transactions = company.transactions.inward.created_at_gte(eom)
-    if recent_transactions.present?
-      
+    recent_transactions = company.entries.transaction_inward.transaction_created_at_gte(bom).item_id_is(id)
+    current_stock = 0
+    current_value = 0
+    recent_transactions.each do |entry|
+      current_stock = start_stock + entry.quantity
+      current_value = (((start_value * start_stock) + (entry.quantity * entry.value)) / current_stock).to_f.ceil
+      start_stock = current_stock
+      start_value = current_value
     end
+    hpps.create(:company_id => company_id, :value => current_value)
   end
 end

@@ -4,7 +4,7 @@ class Supplier < ActiveRecord::Base
   belongs_to :profile
   has_and_belongs_to_many :quotation_requests
   has_many :plus
-  has_many :items, :through => :plus
+  has_many :items, :through => :plus, :group => :item_id
   has_many :purchase_orders
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"
@@ -23,8 +23,4 @@ class Supplier < ActiveRecord::Base
   def total_credit
     purchase_orders.closed.collect { |po| po.total_value }.sum
   end
-
-  #def items
-    #Item.find(plus.map(&:id))
-  #end
 end

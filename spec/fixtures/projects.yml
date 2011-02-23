@@ -1,0 +1,13 @@
+one:
+  company_id: 1
+  number: MyString
+  name: MyString
+  customer_id: 1
+  description: MyText
+
+two:
+  company_id: 1
+  number: MyString
+  name: MyString
+  customer_id: 1
+  description: MyText

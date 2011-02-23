@@ -6,7 +6,7 @@ class ItemReceive < ActiveRecord::Base
   has_many :entries, :class_name => "ItemReceiveEntry", :dependent => :destroy
   has_and_belongs_to_many :invoices, :join_table => "invoices_item_receives"
   has_many :suppliers, :through => :purchase_order
-  
+
   validates_presence_of :number
   validates_presence_of :user_date
   validates_presence_of :purchase_order_id
@@ -49,7 +49,7 @@ class ItemReceive < ActiveRecord::Base
   end
 
   def check_plu
-    purchase_order.entries_plu_satisfied?    
+    purchase_order.entries_plu_satisfied?
   end
 
   def close_purchase_order
@@ -63,11 +63,11 @@ class ItemReceive < ActiveRecord::Base
     trans.number = GeneralTransaction.next_number(company, ttype)
     trans.destination_id = warehouse_id
     trans.remark = "Auto-generated from Item Receive # #{number} date #{created_at.to_s(:long)}"
-    trans.save
     entries.each do |entry|
       plu = company.plus.first(:conditions => { :item_id => entry.item_id, :supplier_id => purchase_order.supplier_id })
-      trans.entries.create(:plu_id => plu.id, :quantity => entry.quantity)
+      trans.entries.build(:plu_id => plu.id, :quantity => entry.quantity, :value => (entry.total / entry.quantity))
     end
+    trans.save(false)
   end
 
   def confirmed_and_alter_stock

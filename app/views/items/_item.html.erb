@@ -9,6 +9,7 @@
   <td><%= link_to item.code, item, :class => "item_detail" %></td>
   <td><%=h item.name %></td>
   <td class="tdc"><%=h item.stock %></td>
+  <td class="numbers"><%=h local_currency(item.latest_hpp) %></td>
   <td class="actions">
     <%= unless item.category.nil?
           link_to_if(item.active?, image_tag('icons/silk/lock.png'), deactivate_category_item_path(item.category, item)) do

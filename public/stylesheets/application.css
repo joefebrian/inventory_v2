@@ -3,7 +3,7 @@ body {
   font-family: "Trebuchet MS", Tahoma, Verdana, Helvetica, Arial;
   font-size: 12px; }
 
-img, a img, button img {
+a img, button img {
   border: none;
   vertical-align: text-top; }
 
@@ -244,8 +244,6 @@ table.list {
     background: rgba(95, 191, 99, 0.2); }
 table.report tr:nth-child(2n+1) td {
   background: #f2f2f2; }
-table.report.plain tr:nth-child(2n+1) td {
-  background: none; }
 table.list tr:hover td, table.list tr.odd:hover td, table.list tr.even:hover td {
   background: rgba(95, 191, 99, 0.4); }
 table.list tr td.lvl_1 {
@@ -747,7 +745,7 @@ div.inline {
   margin-right: 1em;
   min-width: 100px; }
 
-input.item_autocomplete, input.item_autocomplete_plu {
+input.item_autocomplete {
   width: 98% !important; }
 
 form.formtastic .ui-multiselect-checkboxes label {
@@ -821,14 +819,14 @@ form.formtastic .uneditable {
   display: inline-block;
   margin-bottom: 5px; }
 
-#subheader {
+#subheader, .subheader {
   margin-bottom: 15px;
   overflow: hidden;
   padding: 5px 0; }
-  #subheader h3 {
+  #subheader h3, .subheader h3 {
     float: left;
     margin-bottom: 0; }
-  #subheader #subheader-menu {
+  #subheader #subheader-menu, .subheader #subheader-menu {
     float: right;
     line-height: 26px; }
 
@@ -941,100 +939,13 @@ ol {
     ol.dashboard + hr {
       margin-bottom: 20px; }
 
-
-@media print{
-  body{
-    background:#FFFFFF;
-    width:100%;
-    margin:0;
-    padding:0;
-    border:none;
-  }
-  #line items{
-    page-break-before:always;
-  }
-  
-  #banner{
-    display:none;
-  }
-  #user_nav{ 
-   display:none; 
-  }
-  #user_logo {
-    display:none;    
-  }
-  
-  #sidebar{
-    display:none; 
-  }
-  #footer{
-    display:none;
-  }
-  #breadcrumb{
-    display:none;
-  }
-
-/* @using print */
-    #main{
-        margin:auto;
-        width:900px;
-    }
-    .two_columns{
-        margin-botom: 10px;
-        overflow: hidden;
-    }
-    .two_columns p{
-        line-height: 1.2em;
-        margin-bottom:10px;
-        padding-left: 160px;
-        position:relative;
-    }
-
-
-
-
-  .plain{
-    display:none;
-  }
-  .pagination{
-    display:none
-  }
-    .inline-label {
-      float:none !important;
-      display:inline !important;
-      margin-left:2em;
-  }
-  #subheader-menu{
-    display:none;
-  }
-}
-
-ol#dashboard {
-	list-style:none;
-}
-ol#dashboard li {
-	border-top:solid 1px #000;
-	padding:1em;
-}
-ol#dashboard li ol li { border:none; padding:0 0 2px; }
-ol#dashboard li:first-child {
-	border-top:none;
-}
-ol#dashboard li h2 {
-	margin-bottom:.4em;
-}
-ol#dashboard li:hover {
-	background-color:#ddd;
-}
-form.dashboard_search input[type=text], form.dashboard_search input[type=submit] {
-	font-size:1.5em;
-}
-form.dashboard_search input[type=submit] {
-	padding:1px 10px;
-}
-form.dashboard_search p {
-	margin-bottom:3px;
-}
-form.dashboard_search input[type=text] {
-	width:20em;
-}
+table.detailed {
+  width: 100%;
+  margin-bottom: 1em; }
+  table.detailed tr td {
+    padding: 0.5em;
+    border: solid 2px #4e4e4e; }
+  table.detailed tr td.keys {
+    background-color: #4e4e4e;
+    color: white;
+    width: 30%; }

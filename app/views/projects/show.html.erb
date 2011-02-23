@@ -1,0 +1,57 @@
+<% title "Project #{@project.name}" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: #{@project.name}" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", projects_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_path(@project), :title => "Edit project #{@project.number}" %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    @project.number ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "Click 'edit' to edit this project" %>
+
+<table class="detailed">
+  <tr>
+    <td class="keys">Number</td>
+    <td class="value"><%=h @project.number %></td>
+  </tr>
+  <tr>
+    <td class="keys">Name</td>
+    <td class="value"><%=h @project.name %></td>
+  </tr>
+  <tr>
+    <td class="keys">Customer</td>
+    <td class="value"><%= link_to @project.customer.fullname, @project.customer %> ( <%=h @project.customer.profile.phone %>, <%=h @project.customer.profile.address %>)</td>
+  </tr>
+  <tr>
+    <td class="keys">Description</td>
+    <td class="value"><%=h @project.description %></td>
+  </tr>
+</table>
+
+<div class='subheader'>
+  <h3>Materials</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit material", edit_project_material_request_path(@project), :title => "Edit project #{@project.number} materials" %>
+  </div>
+</div>
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+
+  <% @project.material_request.entries.each do |e| %>
+    <tr>
+      <td><%=h e.item.name %></td>
+      <td><%=h e.quantity %></td>
+    </tr>
+  <% end %>
+</table>

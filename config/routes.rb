@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :projects do |prj|
+    prj.resource :material_request, :controller => "project_material"
+  end
+
   map.resources :sales_prices
   map.resources :direct_sales
   map.resources :customer_down_payments

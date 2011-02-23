@@ -32,7 +32,7 @@
     - for item_receive in @item_receives
       %tr
         %td= link_to h(item_receive.number), purchasing_item_receife_path(item_receive)
-        %td= h item_receive.purchase_order.number
+        %td= h item_receive.try(:purchase_order).try(:number)
         %td= h item_receive.user_date
         %td= h item_receive.remark
         %td.actions

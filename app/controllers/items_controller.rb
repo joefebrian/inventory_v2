@@ -128,10 +128,10 @@ class ItemsController < ApplicationController
         items = current_company.suppliers.id_is(params[:supp]).first.items
       end
     end
-    if params[:assy]
+    if params[:assy] && params[:assy].to_i == 1
       items = items.assembly_is(true)
     end
-    if params[:all_item] || params[:item]
+    if params[:all_item] || (params[:item] && params[:item].to_i == 1)
       items = @keyword.nil? ? {} : items.name_or_code_like(@keyword)
     else
       items = @keyword.nil? ? {} : items.name_or_code_like(@keyword).reject {|o| !o.has_plu?}
@@ -139,12 +139,10 @@ class ItemsController < ApplicationController
     @items = items[0...10]
     respond_to do |format|
       format.html { render :layout => false }
-      format.js { 
-        # @html = render_to_string :partial => "items_result"
-      }
+      format.js
     end
   end
-  
+
   def picker
     @items = current_company.items.id_in(params[:items])
     respond_to do |format|

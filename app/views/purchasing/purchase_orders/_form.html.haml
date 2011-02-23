@@ -86,7 +86,6 @@
           if(typeof(suppliers[ui.value]) != 'undefined') {
             $('#supplier_address').html(suppliers[ui.value].address);
             $('#item_supp').val(ui.value);
-            $(this).multiselect('close');
           }
         });
         $('.multiselect').bind('multiselectclose', function(event, ui) {
@@ -101,7 +100,6 @@
               var entries = $(response).find('tbody');
               form.find('tbody').html(entries.html());
               $('input[name=get_mrs]').remove();
-              //$('.tracker_quantity').validate({ required: true, max: 12 });
             }
           });
           return false;

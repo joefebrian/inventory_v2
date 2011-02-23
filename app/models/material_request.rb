@@ -2,10 +2,14 @@ class MaterialRequest < ActiveRecord::Base
   attr_accessible :company_id, :number, :userdate, :reference, :requester, :description, :entries_attributes, :work_order_id
   belongs_to :company
   belongs_to :work_order
+  belongs_to :project
   has_many :entries, :class_name => "MaterialRequestEntry"
   has_and_belongs_to_many :purchase_orders
 
-  validates_presence_of :number, :userdate, :reference, :requester
+  validates_presence_of :number, :unless => :is_project? 
+  validates_presence_of :userdate
+  validates_presence_of :reference, :unless => :is_project?
+  validates_presence_of :requester, :unless => :is_project?
   validates_uniqueness_of :number, :scope => :company_id
 
   accepts_nested_attributes_for :entries,
@@ -15,6 +19,9 @@ class MaterialRequest < ActiveRecord::Base
   named_scope :productions, :conditions => { :production => true }
 
   #before_save :parse_userdate
+  def is_project?
+    !project.nil?
+  end
 
   def after_initialize
     if new_record?

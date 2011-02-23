@@ -14,3 +14,18 @@
   %h3 HPP
   #subheader-menu
     = link_to "#{image_tag('icons/silk/add.png')} Generate HPP", new_hpp_path, :class => 'main_link'
+
+%table.list
+  %thead
+    %tr
+      %th Item
+      %th Latest HPP
+  %tfoot
+    %tr
+      %td{ :colspan => 2 }
+        = will_paginate @hpps
+  %tbody
+    - for hpp in @hpps
+      %tr
+        %td= hpp.item.name
+        %td= hpp.value
