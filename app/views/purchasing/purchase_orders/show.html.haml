@@ -52,8 +52,11 @@
       %span.light Remark
       %strong= @purchase_order.notes
     %p
-      %span.light Total Value
-      %strong= local_currency(@purchase_order.total)
+      %span.light= "Total Value"
+      - if @purchase_order.with_tax?
+        %strong= "#{local_currency(@purchase_order.total)} (inc. #{PPN}% tax)"
+      - else
+        %strong= local_currency(@purchase_order.total)
     - if @purchase_order.closed?
       %p
         %span.light Closing Note
@@ -71,6 +74,14 @@
         %th Price
         %th Disc (%)
         %th Total
+    %tfoot
+      - if @purchase_order.with_tax?
+        %tr
+          %td{ :colspan => 5, :class => "tdr" }= "Tax (#{PPN}%)"
+          %td.numbers= "#{local_currency(@purchase_order.total_value * PPN / 100)}"
+      %tr
+        %td{ :colspan => 5, :class => "tdr" } TOTAL
+        %td.numbers= local_currency(@purchase_order.total)
     %tbody
       - @purchase_order.entries.each_with_index do |entry, i|
         %tr

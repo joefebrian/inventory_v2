@@ -65,7 +65,7 @@ module Purchasing
 
       updated = @purchase_order.update_attributes(params[:purchase_order])
       if updated
-        @purchase_order.populate_total
+        #@purchase_order.populate_total
         flash[:success] = "Purchase Order updated"
         redirect_to [:purchasing, @purchase_order]
       else

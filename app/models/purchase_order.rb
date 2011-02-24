@@ -11,6 +11,7 @@ class PurchaseOrder < ActiveRecord::Base
   validates_presence_of :po_date
 
   after_save :close_material_requests
+  after_validation :populate_total
 
   named_scope :all_closed, :conditions => { :closed => true }
   named_scope :all_open, :conditions => { :closed => false }
@@ -101,8 +102,9 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def populate_total
-    self.total = total_value
-    save(false)
+    self.total = with_tax ? ((total_value * 10 / 100) + total_value) : total_value
+    true
+    #save(false)
   end
 
 end
