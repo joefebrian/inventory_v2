@@ -934,9 +934,16 @@ ol, ul {
 
 ol {
   list-style-type: decimal; }
-  ol.dashboard {
-    margin-bottom: 1em; }
-    ol.dashboard + hr {
+  ol#dashboard {
+    margin-bottom: 1em;
+    list-style: decimal outside none; }
+    ol#dashboard li {
+      margin-left: 2em;
+      padding: 1em 0;
+      border-bottom: solid 1px black; }
+      ol#dashboard li h2 {
+        margin-bottom: 0.5em; }
+    ol#dashboard + hr {
       margin-bottom: 20px; }
 
 table.detailed {

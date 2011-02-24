@@ -51,7 +51,7 @@ class PagesController < ApplicationController
   def purchasing
     @tab = 'transactions'
     @current = 'purchasing'
-    @material_request = current_company.material_requests.last
+    @material_request = current_company.material_requests.number_not_nil.last
     @quotation_request = current_company.quotation_requests.last
     @purchase_order = current_company.purchase_orders.last
     @item_receive = current_company.item_receives.last

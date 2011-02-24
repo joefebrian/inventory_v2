@@ -954,8 +954,15 @@ ol, ul
 
 ol
   list-style-type: decimal
-  &.dashboard
+  &#dashboard
     margin-bottom: 1em
+    list-style: decimal outside none
+    li
+      margin-left: 2em
+      padding: 1em 0
+      border-bottom: solid 1px #000
+      h2
+        margin-bottom: .5em
     + hr
       margin-bottom: 20px
 
