@@ -5,6 +5,6 @@ module ApplicationHelper
   end
 
   def local_currency(number)
-    number_to_currency(number, :unit => 'Rp. ', :delimiter => '.', :separator => ',')
+    number_to_currency(number, :unit => 'Rp. ', :delimiter => '.', :separator => ',', :precision => 0)
   end
 end

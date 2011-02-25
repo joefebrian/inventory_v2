@@ -17,13 +17,10 @@ module Purchasing
 
     def show
       @purchase_order = current_company.purchase_orders.find(params[:id])
-        respond_to do |format|
-          if(params[:type])
-              format.html { render "print", :layout => "print"}
-        else
-              format.html { render "show", :layout => "application"}
-          end
-        end
+      respond_to do |format|
+        format.html
+        format.pdf { render :pdf => "PO-#{@purchase_order.number}" }
+      end
     end
 
     def new
@@ -44,7 +41,6 @@ module Purchasing
         render('new') and return
       end
       if @purchase_order.save
-        @purchase_order.populate_total
         flash[:success] = "Purchase Order saved"
         redirect_to [:purchasing, @purchase_order]
       else
@@ -65,7 +61,6 @@ module Purchasing
 
       updated = @purchase_order.update_attributes(params[:purchase_order])
       if updated
-        #@purchase_order.populate_total
         flash[:success] = "Purchase Order updated"
         redirect_to [:purchasing, @purchase_order]
       else

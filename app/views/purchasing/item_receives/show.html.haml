@@ -18,8 +18,9 @@
     = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", purchasing_item_receife_path(@item_receive, :format => "pdf", :type =>"pdf")
     &bull;
     = link_to "#{image_tag('icons/silk/arrow_left.png')} back", purchasing_item_receife_path
-    &bull;
-    = link_to "#{image_tag('icons/silk/tick.png')} Confirm", confirmation_purchasing_item_receife_path
+    - unless @item_receive.confirmed?
+      &bull;
+      = link_to "#{image_tag('icons/silk/tick.png')} Confirm", confirmation_purchasing_item_receife_path
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_purchasing_item_receife_path(@item_receive)
     &bull;

@@ -92,17 +92,24 @@ class ItemReceive < ActiveRecord::Base
   end
 
   def total_po
-    purchase_order.total_value
+    purchase_order.total
   end
 
   def populate_total
     self.total = entries.collect { |e| e.total }.sum
-    save
   end
 
   def auto_confirm
     self.confirmed = true
-    self.total = entries.collect { |e| e.total }.sum
+    populate_total
     save
+  end
+
+  def recalculate
+    entries.each do |e|
+      e.recalculate
+    end
+    total = entries.collect { |e| e.total }.sum
+    save(false)
   end
 end

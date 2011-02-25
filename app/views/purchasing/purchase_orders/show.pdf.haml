@@ -1,0 +1,72 @@
+- title "Purchase Order"
+
+%h1#form-title= "Purchase Order # #{@purchase_order.number}"
+
+%table.form-header-4
+  %tr
+    %td.key To :
+    %td.value= @purchase_order.supplier.name
+    %td.key Nomor PO :
+    %td.value= @purchase_order.number
+  %tr
+    %td.key U.P. :
+    %td.value= @purchase_order.attention
+    %td.key Nomor MR :
+    %td.value= @purchase_order.material_request_numbers
+  %tr
+    %td.key Telp :
+    %td.value= @purchase_order.supplier.profile.phone
+    %td.key Tanggal :
+    %td.value= @purchase_order.po_date.to_s(:long)
+  %tr
+    %td.key Fax :
+    %td.value= @purchase_order.supplier.profile.fax
+    %td.key Pembayaran :
+    %td.value= @purchase_order.term_of_payment
+
+%table.form-trans-detail
+  %tr
+    %th.td-3 No.
+    %th.td-10 Kode
+    %th Nama Barang
+    %th.td-5 Qty
+    %th.td-15 Harga Satuan
+    %th.td-10 Disc (%)
+    %th.td-15 Subtotal
+  - @purchase_order.entries.each_with_index do |entry, i|
+    %tr.item-row
+      %td.number.index= (i+1)
+      %td=  entry.item.code
+      %td=  entry.item.name
+      %td.number= entry.quantity
+      %td.number= local_currency(entry.purchase_price)
+      %td.number= entry.discount
+      %td.number= local_currency(entry.total)
+  %tr.summary
+    %td{ :colspan => 6, :class => 'number' } TOTAL
+    %td.number= local_currency(@purchase_order.total_value)
+  - if @purchase_order.with_tax?
+    %tr.summary
+      %td{ :colspan => 6, :class => 'number' }= "PPN (#{PPN}%)"
+      %td.number= local_currency(@purchase_order.tax_value)
+  %tr.summary
+    %td{ :colspan => 6, :class => 'number prominent' } Grand TOTAL
+    %td.number.prominent= local_currency(@purchase_order.total)
+
+%h5 Catatan
+%p.notes
+  Lampirkan PO ini saat Penagihan
+  %br
+  = @purchase_order.notes
+
+%table.form-signs
+  %tr
+    %td Diterima Oleh
+    %td Diminta Oleh
+    %td Diajukan Oleh
+    %td Approval
+  %tr.signs
+    %td (...................)
+    %td (..................)
+    %td (..................)
+    %td (..................)

@@ -2,17 +2,10 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
   <head profile="http://www.w3.org/2005/10/profile">
-    <title><%= h(yield(:title) || "Inventory") %></title>
-    <link rel="shortcut icon" type="image/x-icon" href="/images/red_heart.ico" />
-    <%= stylesheet_link_tag "print/print", :media => 'all' %>
-    <%= yield(:head) %>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <%= wicked_pdf_stylesheet_link_tag "print" -%>
 </head>
 <body>
     <div id="page-wrap">
-        <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        <% end %>
         <%= yield %>
     </div>
 </body>

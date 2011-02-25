@@ -16,4 +16,10 @@ class ItemReceiveEntry < ActiveRecord::Base
     po_entry = item_receive.purchase_order.entries.find_by_item_id(item)
     self.total = (po_entry.total / po_entry.quantity) * quantity
   end
+
+  def recalculate
+    po_entry = item_receive.purchase_order.entries.find_by_item_id(item)
+    total = (po_entry.total / po_entry.quantity) * quantity
+    save(false)
+  end
 end

@@ -102,9 +102,12 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def populate_total
-    self.total = with_tax ? ((total_value * 10 / 100) + total_value) : total_value
+    self.total = with_tax ? (tax_value + total_value) : total_value
     true
-    #save(false)
+  end
+
+  def tax_value
+    with_tax? ? (total_value * PPN) / 100 : 0
   end
 
 end
