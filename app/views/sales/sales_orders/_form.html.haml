@@ -24,6 +24,7 @@
       = f.text_field :currency_rate
     = f.input :additional_charge
     = f.input :additional_discount
+    = f.input :with_tax, :label => "with tax (#{PPN}%)"
 
   - f.inputs 'Items', :class => "form_section" do
     %li

@@ -1,5 +1,5 @@
 class SalesOrder < ActiveRecord::Base
-  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :currency_id, :currency_rate, :order_ref, :salesman_id, :entries_attributes, :customer_name, :additional_charge, :additional_discount
+  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :currency_id, :currency_rate, :order_ref, :salesman_id, :entries_attributes, :customer_name, :additional_charge, :additional_discount, :with_tax
   has_many :entries, :class_name => "SalesOrderEntry"
   has_many :delivery_orders
   belongs_to :company
@@ -87,9 +87,21 @@ class SalesOrder < ActiveRecord::Base
   def all_entries_delivered?
     undelivered_entries.blank?
   end
+
+  def total_value
+    entries.map(&:total_price).sum
+  end
   
   def grand_total
-    (entries.map(&:total_price).sum + additional_charge) - additional_discount
+    (total_value + additional_charge) - additional_discount
+  end
+
+  def tax_value
+    with_tax? ? (grand_total * 10 / 100) : 0
+  end
+
+  def grand_total_plus_tax
+    grand_total + tax_value
   end
 
 end

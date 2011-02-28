@@ -11,7 +11,7 @@
 #subheader
   %h3= "Sales Order # #{@sales_order.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_sales_order_path(@sales_order, :format => "pdf", :type =>"pdf")
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_sales_order_path(@sales_order, :format => "pdf")
     &bull;
     = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_sales_sales_order_path(@sales_order)
     &bull;
@@ -45,8 +45,18 @@
       %th SubTotal
   %tfoot
     %tr
+      %td.tdr{ :colspan => 5 } Additional Charge
+      %td.tdr= local_currency(@sales_order.additional_charge)
+    %tr
+      %td.tdr{ :colspan => 5 } Additional Discount (-)
+      %td.tdr= local_currency(@sales_order.additional_discount)
+    - if @sales_order.with_tax?
+      %tr
+        %td.tdr{ :colspan => 5 }= "PPN (#{PPN}%)"
+        %td.tdr= local_currency(@sales_order.tax_value)
+    %tr
       %td.tdr{ :colspan => 5 } TOTAL
-      %td.tdr= local_currency(@sales_order.grand_total)
+      %td.tdr= local_currency(@sales_order.grand_total_plus_tax)
   %tbody
   - @sales_order.entries.each_with_index do |entry, i|
     %tr

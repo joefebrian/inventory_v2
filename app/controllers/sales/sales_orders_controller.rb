@@ -19,11 +19,8 @@ module Sales
     def show
       @sales_order = current_company.sales_orders.find(params[:id])
         respond_to do |format|
-          if(params[:type])
-              format.html { render "print", :layout => "print"}
-          else
-              format.html { render "show", :layout => "application"}
-          end
+          format.html
+          format.pdf { render :pdf => "SO-#{@sales_order.number}" }
         end
     end
 
@@ -82,6 +79,7 @@ module Sales
       @assembly = current_company.assemblies
       @currencies = current_company.currencies
       @exchange_rate = current_company.exchange_rates
+      @salesman = current_company.salesmen
     end
 
     def update

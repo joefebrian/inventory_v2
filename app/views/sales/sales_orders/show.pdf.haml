@@ -1,0 +1,73 @@
+- title "Sales Order"
+
+%h1#form-title= "Sales Order # #{@sales_order.number}"
+
+%table.form-header-4
+  %tr
+    %td.key To :
+    %td.value= @sales_order.customer.fullname
+    %td.key Nomor SO :
+    %td.value= @sales_order.number
+  %tr
+    %td.key Address :
+    %td.value= @sales_order.customer.profile.address
+    %td.key Nomor Quotation :
+    %td.value= @sales_order.quotation.try(:number)
+  %tr
+    %td.key Telp :
+    %td.value= @sales_order.customer.profile.phone
+    %td.key Tanggal :
+    %td.value= @sales_order.tanggal.to_s(:long)
+  %tr
+    %td.key Fax :
+    %td.value= @sales_order.customer.profile.fax
+    %td.key Term of Payment :
+    %td.value= @sales_order.top
+
+%table.form-trans-detail
+  %tr
+    %th.td-3 No.
+    %th.td-10 Kode
+    %th Nama Barang
+    %th.td-5 Qty
+    %th.td-15 Harga Satuan
+    %th.td-10 Disc (%)
+    %th.td-15 Subtotal
+  - @sales_order.entries.each_with_index do |entry, i|
+    %tr.item-row
+      %td.number.index= (i+1)
+      %td=  entry.item.code
+      %td=  entry.item.name
+      %td.number= entry.quantity
+      %td.number= local_currency(entry.price)
+      %td.number= entry.discount
+      %td.number= local_currency(entry.total_price)
+  %tr.summary
+    %td{ :colspan => 6, :class => 'number' } TOTAL
+    %td.number= local_currency(@sales_order.total_value)
+  %tr.summary
+    %td{ :colspan => 6, :class => 'number' } Additional Charge
+    %td.number= local_currency(@sales_order.additional_charge)
+  %tr.summary
+    %td{ :colspan => 6, :class => 'number' } Additional Discount (-)
+    %td.number= local_currency(@sales_order.additional_discount)
+  - if @sales_order.with_tax?
+    %tr.summary
+      %td{ :colspan => 6, :class => 'number' }= "PPN (#{PPN}%)"
+      %td.number= local_currency(@sales_order.tax_value)
+  %tr.summary
+    %td{ :colspan => 6, :class => 'number prominent' } Grand TOTAL
+    %td.number.prominent= local_currency(@sales_order.grand_total_plus_tax)
+
+%table.form-signs
+  %tr
+    %td Diterima Oleh
+    %td Diminta Oleh
+    %td Diajukan Oleh
+    %td Approval
+  %tr.signs
+    %td (...................)
+    %td (..................)
+    %td (..................)
+    %td (..................)
+
