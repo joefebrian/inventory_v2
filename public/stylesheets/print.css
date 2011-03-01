@@ -33,11 +33,13 @@ table tr th {
   text-align: center;
   background: #4c4c4c;
   color: #ffffff;
+  vertical-align: top;
 }
 .td-3 { width: 3%; }
 .td-5 { width: 5%; }
 .td-10 { width: 10%; }
 .td-15 { width: 15%; }
+.td-20 { width: 20%; }
 table.form-header-4 td {
   border: none;
 }
@@ -64,7 +66,7 @@ td.number { text-align: right; }
 tr.summary td {
   border: none;
 }
-.prominent { font-size: 14px; font-weight: bold; }
+.prominent { font-size: 12px; font-weight: bold; }
 .notes {
   font-size: 10px;
   font-style: italic;

@@ -11,7 +11,7 @@ class PurchaseOrder < ActiveRecord::Base
   validates_presence_of :po_date
 
   after_save :close_material_requests
-  after_validation :populate_total
+  before_save :populate_total
 
   named_scope :all_closed, :conditions => { :closed => true }
   named_scope :all_open, :conditions => { :closed => false }
@@ -98,10 +98,11 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def total_value
-    entries.sum :total
+    @total_value ||= entries.sum(:total)
   end
 
   def populate_total
+    @total_value = entries.map(&:populate_total).sum if new_record?
     self.total = with_tax ? (tax_value + total_value) : total_value
     true
   end

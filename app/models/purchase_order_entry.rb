@@ -6,7 +6,7 @@ class PurchaseOrderEntry < ActiveRecord::Base
   accepts_nested_attributes_for :trackers,
     :allow_destroy => true
   
-  before_save :populate_total
+  #before_save :populate_total
 
   def item_name
     item.try(:name)

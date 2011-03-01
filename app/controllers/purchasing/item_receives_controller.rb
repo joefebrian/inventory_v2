@@ -27,6 +27,7 @@ module Purchasing
     end
 
     def create
+      params[:item_receive]["confirmed"] = true
       @item_receive = current_company.item_receives.new(params[:item_receive])
       @item_receive.confirmed = false
       @purchase_orders = current_company.purchase_orders
@@ -40,7 +41,7 @@ module Purchasing
         end
       end
       if @item_receive.save
-        @item_receive.auto_confirm
+        #@item_receive.auto_confirm
         flash[:notice] = "Item receive created"
         redirect_to purchasing_item_receife_path(@item_receive)
       else

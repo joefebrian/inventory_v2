@@ -12,8 +12,7 @@ class ItemReceive < ActiveRecord::Base
   validates_presence_of :purchase_order_id
   validates_presence_of :warehouse_id
 
-  after_save :close_purchase_order
-  after_update :confirmed_and_alter_stock
+  after_create :finishing
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,
@@ -56,9 +55,17 @@ class ItemReceive < ActiveRecord::Base
     purchase_order.close
   end
 
+  def finishing
+    populate_total
+    alter_stock
+    close_purchase_order
+  end
+
   def alter_stock
+    trans = company.general_transactions.first(:conditions => { :transaction_ref => number })
     ttype = TransactionType.first(:conditions => { :company_id => company.id, :code => "AUTO-ITR" })
-    trans = company.general_transactions.new
+    trans = company.general_transactions.new unless trans
+    trans.transaction_ref = number
     trans.transaction_type = ttype
     trans.number = GeneralTransaction.next_number(company, ttype)
     trans.destination_id = warehouse_id
