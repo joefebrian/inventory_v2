@@ -1,0 +1,77 @@
+<% title "Project #{@project.name} lot items" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: #{@project.name} :: Lot items" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", @project %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    link_to(@project.number, @project),
+    "Edit lot items" ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<% form_for @project, :url => project_lot_items_path(@project), :html => { :method => :post } do |f| %>
+  <%= f.error_messages %>
+  <table class="report">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Value</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td colspan="3">
+          <button type="submit">Save lot items</button>
+          <%= link_to "+ add new lot", '#', :id => "add_new_lot" %>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% f.fields_for :lot_items do |mre| %>
+        <tr>
+          <td>
+            <%= mre.text_field :title, :style => "width:99%;" %>
+            <%= mre.hidden_field :_destroy %>
+          </td>
+          <td class="tdc td_20">
+            <%= mre.text_field :value, :class => "numbers", :style => "width:99%;" %>
+          </td>
+          <td><%= link_to image_tag("icons/silk/cross.png"), "#", :class => "remove_lot" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    $(function() {
+      $('#add_new_lot').click(function() {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $('tbody tr:last-child').after(elem);
+        new_id++;
+        return false;
+      });
+    });
+    $('.remove_lot').live('click', function() {
+      $(this).parents('tr').find('input[name*=_destroy]').val(1);
+      $(this).parents('tr').hide();
+      return false;
+    });
+  <% end %>
+<% end %>

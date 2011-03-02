@@ -42,7 +42,7 @@
     <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit material", edit_project_material_request_path(@project), :title => "Edit project #{@project.number} materials" %>
   </div>
 </div>
-<table>
+<table class="list">
   <tr>
     <th>Item</th>
     <th>Quantity</th>
@@ -51,7 +51,27 @@
   <% @project.material_request.entries.each do |e| %>
     <tr>
       <td><%=h e.item.name %></td>
-      <td><%=h e.quantity %></td>
+      <td class="numbers"><%=h e.quantity %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div class='subheader'>
+  <h3>Lot Items</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit lot items", project_lot_items_path(@project), :title => "Edit project #{@project.number} lot items" %>
+  </div>
+</div>
+<table class="list">
+  <tr>
+    <th>Description</th>
+    <th>Value</th>
+  </tr>
+
+  <% @project.lot_items.each do |e| %>
+    <tr>
+      <td><%=h e.title %> (1 Lot)</td>
+      <td class="numbers"><%=h local_currency(e.value) %></td>
     </tr>
   <% end %>
 </table>

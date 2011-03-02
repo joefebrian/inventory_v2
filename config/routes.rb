@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :projects do |prj|
     prj.resource :material_request, :controller => "project_material"
+    prj.resources :lot_items, :controller => "project_lot_items"
   end
 
   map.resources :sales_prices

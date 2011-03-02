@@ -1,11 +1,13 @@
 class Project < ActiveRecord::Base
-  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name
+  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_items_attributes
   belongs_to :customer
   belongs_to :company
   has_one :material_request
+  has_many :lot_items
 
   validates_presence_of :number, :name, :customer_name
-  accepts_nested_attributes_for :material_request
+  accepts_nested_attributes_for :material_request, :allow_destroy => true
+  accepts_nested_attributes_for :lot_items, :allow_destroy => true, :reject_if => lambda { |att| att['title'].blank? || att['value'].blank? || att['value'].to_i <= 0 }
 
   def customer_name
     customer.try(:fullname)
