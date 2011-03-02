@@ -4,16 +4,15 @@ class ProjectMaterialController < ApplicationController
   load_and_authorize_resource :project, :through => :current_company
 
   def edit
-    @material_request = current_company.projects.find(params[:project_id]).material_request
-    @material_request.entries.build
+    @project.material_request.entries.build
   end
 
   def update
-    @material_request = current_company.projects.find(params[:project_id]).material_request
-    if @material_request.update_attributes(params[:material_request])
+    if @project.update_attributes(params[:project])
       flash[:success] = "Material updated"
-      redirect_to project_material_request_path(@material_request.project)
+      redirect_to project_path(@project)
     else
+      @project.material_request.entries.build
       render :action => "edit"
     end
   end

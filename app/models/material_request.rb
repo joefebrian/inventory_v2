@@ -10,7 +10,7 @@ class MaterialRequest < ActiveRecord::Base
   validates_presence_of :userdate
   validates_presence_of :reference, :unless => :is_project?
   validates_presence_of :requester, :unless => :is_project?
-  validates_uniqueness_of :number, :scope => :company_id
+  validates_uniqueness_of :number, :scope => :company_id, :unless => :is_project?
 
   accepts_nested_attributes_for :entries,
     :allow_destroy => true,

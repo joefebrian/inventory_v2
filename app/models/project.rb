@@ -1,9 +1,11 @@
 class Project < ActiveRecord::Base
-  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_items_attributes
+  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_items_attributes, :material_request_attributes
   belongs_to :customer
   belongs_to :company
   has_one :material_request
   has_many :lot_items
+
+  after_create :create_materials_list
 
   validates_presence_of :number, :name, :customer_name
   accepts_nested_attributes_for :material_request, :allow_destroy => true

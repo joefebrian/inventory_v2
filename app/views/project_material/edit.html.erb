@@ -3,7 +3,7 @@
 <div id='subheader'>
   <h3><%=h "#{@project.number} :: #{@project.name}" %></h3>
   <div id='subheader-menu'>
-    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", projects_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", @project %> &bull;
     <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit material", edit_project_material_request_path(@project), :title => "Edit project #{@project.number} materials" %>
   </div>
 </div>
@@ -18,30 +18,64 @@
 <%= sidemenu %>
 <%= hint "Click 'edit' to edit this project" %>
 
-<% form_for @material_request, :url => project_material_request_path(@material_request.project) do |f| %>
+<% form_for @project, :url => project_material_request_path(@project) do |f| %>
   <%= f.error_messages %>
-  <table class="report">
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Quantity</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr><td colspan="2"><button type="submit">Save materials</button></td></tr>
-    </tfoot>
-    <tbody>
-      <% f.fields_for :entries do |mre| %>
+  <% f.fields_for :material_request do |mr| %>
+    <table class="report">
+      <thead>
         <tr>
-          <td>
-            <%= mre.text_field :item_name, :class => "item_autocomplete", :size => 58 %>
-            <%= mre.hidden_field :item_id %>
-          </td>
-          <td class="tdc">
-            <%= mre.text_field :quantity, :class => "numbers mr_qty", :size => 5 %>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <button type="submit">Save project materials</button>
+            <%= link_to "+ add material", '#', :id => "add_new_material" %>
           </td>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tfoot>
+      <tbody>
+        <% mr.fields_for :entries do |mre| %>
+          <tr>
+            <td>
+              <%= mre.text_field :item_name, :class => "item_autocomplete", :size => 58 %>
+              <%= mre.hidden_field :item_id %>
+              <%= mre.hidden_field :_destroy %>
+            </td>
+            <td class="tdc">
+              <%= mre.text_field :quantity, :class => "numbers mr_qty", :size => 5 %>
+            </td>
+            <td><%= link_to image_tag("icons/silk/cross.png"), "#", :class => "remove_material" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    $(function() {
+      $('#add_new_material').click(function() {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $('tbody tr:last-child').after(elem);
+        new_id++;
+        return false;
+      });
+    });
+    $('.remove_material').live('click', function() {
+      $(this).parents('tr').find('input[name*=_destroy]').val(1);
+      $(this).parents('tr').hide();
+      return false;
+    });
+  <% end %>
 <% end %>
