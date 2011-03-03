@@ -24,11 +24,11 @@
   </tr>
   <tr>
     <td class="keys">Date</td>
-    <td class="value"><%=h @project.work_order.user_date %></td>
+    <td class="value"><%=h @project.work_order.user_date.to_s(:long) %></td>
   </tr>
   <tr>
     <td class="keys">Validity</td>
-    <td class="value"><%= @project.work_order.valid_since %> - <%= @project.work_order.valid_thru %></td>
+    <td class="value"><%= @project.work_order.valid_since.to_s(:long) %> - <%= @project.work_order.valid_thru.to_s(:long) %></td>
   </tr>
   <tr>
     <td class="keys">Payment Term</td>
