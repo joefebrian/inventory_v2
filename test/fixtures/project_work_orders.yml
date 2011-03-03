@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_id: 1
+  number: MyString
+  user_date: 2011-03-03
+  valid_since: 2011-03-03
+  valid_thru: 2011-03-03
+  payment_term: MyString
+
+two:
+  project_id: 1
+  number: MyString
+  user_date: 2011-03-03
+  valid_since: 2011-03-03
+  valid_thru: 2011-03-03
+  payment_term: MyString

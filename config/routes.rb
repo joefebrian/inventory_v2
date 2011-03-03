@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :projects do |prj|
     prj.resource :material_request, :controller => "project_material"
+    prj.resource :work_order, :class_name => "ProjectWorkOrder", :controller => "project_work_order"
     prj.resources :lot_items, :controller => "project_lot_items"
   end
 

@@ -1,0 +1,70 @@
+<% title "Project #{@project.name}" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: #{@project.name} :: SPK" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", @project %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    link_to(@project.number, @project),
+    "Edit SPK" ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<% semantic_form_for @project, :url => project_work_order_path(@project) do |f| %>
+  <%= f.error_messages %>
+  <% f.semantic_fields_for :work_order do |wo| %>
+    <% wo.inputs "SPK", :class => "form_section" do  %>
+      <%= wo.input :number %>
+      <%= wo.input :user_date, :label => "Date", :as => :string, :input_html => { :class => "datepicker" } %>
+      <li class="string required">
+        <%= wo.label :active_from, "Valid", :class => "required" %>
+        <div class="inline">
+          <%= wo.text_field :valid_since, :size => 20, :class => "datepicker" %><br/>
+          <p class="inline-hints inline-labels">From</p>
+        </div>
+        <div class="inline">
+          <%= wo.text_field :valid_thru, :size => 20, :class => "datepicker" %><br/>
+          <p class="inline-hints inline-labels">Until</p>
+        </div>
+      </li>
+      <%= wo.input :payment_term, :as => :text, :input_html => { :rows => 2 } %>
+    <% end %>
+    <fieldset class="buttons">
+      <button type="submit" id="primary-button">
+        <%= image_tag 'icons/silk/disk.png' %>
+        Save price list
+      </button>
+    </fieldset>
+  <% end %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    $(function() {
+      $('#add_new_material').click(function() {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $('tbody tr:last-child').after(elem);
+        new_id++;
+        return false;
+      });
+    });
+    $('.remove_material').live('click', function() {
+      $(this).parents('tr').find('input[name*=_destroy]').val(1);
+      $(this).parents('tr').hide();
+      return false;
+    });
+  <% end %>
+<% end %>

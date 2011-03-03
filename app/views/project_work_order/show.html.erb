@@ -1,0 +1,38 @@
+<% title "Project #{@project.name} SPK" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: #{@project.name} :: SPK" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", @project %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_work_order_path(@project), :title => "Edit project #{@project.number} SPK" %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    link_to(@project.number, @project), "SPK" ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<table class="detailed">
+  <tr>
+    <td class="keys">Number</td>
+    <td class="value"><%=h @project.work_order.number %></td>
+  </tr>
+  <tr>
+    <td class="keys">Date</td>
+    <td class="value"><%=h @project.work_order.user_date %></td>
+  </tr>
+  <tr>
+    <td class="keys">Validity</td>
+    <td class="value"><%= @project.work_order.valid_since %> - <%= @project.work_order.valid_thru %></td>
+  </tr>
+  <tr>
+    <td class="keys">Payment Term</td>
+    <td class="value"><%=h @project.work_order.payment_term %></td>
+  </tr>
+</table>
+

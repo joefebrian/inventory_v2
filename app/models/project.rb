@@ -1,8 +1,9 @@
 class Project < ActiveRecord::Base
-  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_items_attributes, :material_request_attributes
+  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_items_attributes, :material_request_attributes, :work_order_attributes
   belongs_to :customer
   belongs_to :company
   has_one :material_request
+  has_one :work_order, :class_name => "ProjectWorkOrder"
   has_many :lot_items
 
   after_create :create_materials_list
@@ -10,7 +11,7 @@ class Project < ActiveRecord::Base
   validates_presence_of :number, :name, :customer_name
   accepts_nested_attributes_for :material_request, :allow_destroy => true
   accepts_nested_attributes_for :lot_items, :allow_destroy => true, :reject_if => lambda { |att| att['title'].blank? || att['value'].blank? || att['value'].to_i <= 0 }
-
+  accepts_nested_attributes_for :work_order, :allow_destroy => true
   def customer_name
     customer.try(:fullname)
   end
