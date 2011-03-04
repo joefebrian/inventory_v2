@@ -40,7 +40,8 @@
 <div class='subheader'>
   <h3>Materials</h3>
   <div id='subheader-menu'>
-    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit material", edit_project_material_request_path(@project), :title => "Edit project #{@project.number} materials" %>
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit material", project_materials_path(@project), :title => "Edit project #{@project.number} materials" %> &bull;
+    <%= link_to "material requests", project_material_requests_path(@project) %>
   </div>
 </div>
 <table class="list">
@@ -49,10 +50,10 @@
     <th>Quantity</th>
   </tr>
 
-  <% @project.material_request.entries.each do |e| %>
+  <% @project.materials.each do |e| %>
     <tr>
-      <td><%=h e.item.name %></td>
-      <td class="numbers"><%=h e.quantity %></td>
+      <td><%= link_to e.title, e.item %></td>
+      <td class="numbers"><%=h e.value %></td>
     </tr>
   <% end %>
 </table>

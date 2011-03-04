@@ -820,7 +820,7 @@ form.formtastic .uneditable {
   margin-bottom: 5px; }
 
 #subheader, .subheader {
-  margin-bottom: 15px;
+  line-height: 24px;
   overflow: hidden;
   padding: 5px 0; }
   #subheader h3, .subheader h3 {
@@ -948,7 +948,7 @@ ol {
 
 table.detailed {
   width: 100%;
-  margin-bottom: 1em; }
+  margin-bottom: 20px; }
   table.detailed tr td {
     padding: 0.5em;
     border: solid 2px #4e4e4e; }

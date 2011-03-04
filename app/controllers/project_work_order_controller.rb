@@ -28,7 +28,7 @@ class ProjectWorkOrderController < ApplicationController
 
   def _init_work_order
     if @project.work_order.nil?
-      wo = current_company.project_work_orders.new(:project_id => @project.id, :user_date => Time.now.to_date)
+      wo = current_company.project_work_orders.new(:project_id => @project.id, :user_date => Time.now.to_date, :valid_since => Time.now, :valid_thru => Time.now)
       wo.save(false)
       @project.reload
     end
