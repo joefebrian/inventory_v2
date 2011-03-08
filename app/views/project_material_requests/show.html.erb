@@ -1,0 +1,65 @@
+<% title "Project #{@project.name} material request #{@material_request.number}" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: #{@project.name} :: #{@material_request.number}" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", project_material_requests_path(@project) %>
+    &bull;
+    <%= link_to("#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_material_request_path(@project, @material_request)) %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    link_to(@project.number, @project),
+    "#{@material_request.number}" ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<fieldset class="form_section">
+  <legend>Material Request</legend>
+  <div class="two_columns">
+    <p>
+      <span class="light">Number</span>
+      <strong><%=h @material_request.number %></strong>
+    </p>
+    <p>
+      <span class="light">Date</span>
+      <strong><%=h @material_request.userdate.to_s(:long) %></strong>
+    </p>
+  </div>
+  <p class="single-column">
+    <span class="light">Description</span>
+    <strong><%=h @material_request.description %></strong>
+  </p>
+</fieldset>
+
+<fieldset class="form_section">
+  <legend>Items</legend>
+  <table class="report">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Item</th>
+        <th>Qty</th>
+        <th>Est. Delivery Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @material_request.entries.each_with_index do |entry, i| %>
+        <tr>
+          <td class="tdr td_5"><%= (i+1) %></td>
+          <td>
+            <p><%= link_to h(entry.item.name), entry.item %></p>
+            <p class="inline-hints inline-labels"><%=h "Note: #{entry.note}" unless entry.note.blank? %></p>
+          </td>
+          <td class="tdr"><%=h entry.quantity %></td>
+          <td class="tdc"><%=h entry.estimated_delivery_date.to_s(:long) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</fieldset>

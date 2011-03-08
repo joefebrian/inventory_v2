@@ -38,7 +38,7 @@
       <tr>
         <td class="td_5 numbers"><%= (i+1) %></td>
         <td>
-          <strong><%= link_to h(material_request.number), [:purchasing, material_request] %></strong>
+          <strong><%= link_to h(material_request.number), project_material_request_path(@project, material_request) %></strong>
           <%- if material_request.closed? %>
             <span class="red-tag">closed</span>
           <% end %>
@@ -51,8 +51,8 @@
           </span>
         </td>
         <td class="actions">
-          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_purchasing_material_request_path(material_request) %>
-          <%= link_to image_tag('icons/silk/delete.png'), purchasing_material_request_path(material_request), :confirm => 'Are you sure?', :method => :delete %>
+          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_project_material_request_path(@project, material_request) %>
+          <%= link_to image_tag('icons/silk/delete.png'), project_material_request_path(@project, material_request), :confirm => 'Are you sure?', :method => :delete %>
         </td>
       </tr>
     <% end %>

@@ -17,7 +17,7 @@
 <%= sidemenu %>
 <%= hint "" %>
 
-<% form_for @project, :url => project_lot_items_path(@project), :html => { :method => :post } do |f| %>
+<% form_for @project, :url => project_lot_materials_path(@project), :html => { :method => :post } do |f| %>
   <%= f.error_messages %>
   <table class="report">
     <thead>
@@ -30,13 +30,13 @@
     <tfoot>
       <tr>
         <td colspan="3">
-          <button type="submit">Save lot items</button>
+          <button type="submit">Save lot materials</button>
           <%= link_to "+ add new lot", '#', :id => "add_new_lot" %>
         </td>
       </tr>
     </tfoot>
     <tbody>
-      <% f.fields_for :lot_items do |mre| %>
+      <% f.fields_for :lot_materials do |mre| %>
         <tr>
           <td>
             <%= mre.text_field :title, :style => "width:99%;" %>

@@ -4,8 +4,8 @@ class ProjectLotItemsController < ApplicationController
   load_and_authorize_resource :project, :through => :current_company
 
   def index
-    @lot_items = @project.lot_items
-    @project.lot_items.build
+    @lot_materials = @project.lot_materials
+    @project.lot_materials.build
   end
 
   def create
