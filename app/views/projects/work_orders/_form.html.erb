@@ -1,0 +1,90 @@
+<% semantic_form_for [:production, @work_order] do |f| %>
+  <%= f.error_messages %>
+  <% f.inputs "Work Order", :class => "form_section" do %>
+    <%= f.input :number %>
+    <%= f.input :requester %>
+    <%= f.input :remark, :input_html => { :rows => 3 } %>
+  <% end %>
+  <fieldset class="form_section">
+    <legend>End Products</legend>
+    <ol>
+      <li class="string">
+        <table class="report">
+          <thead>
+            <tr>
+              <th class="td_40">Formula</th>
+              <th class="td_40">End Product</th>
+              <th class="actions td_20">Quantity</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="3" ></td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <% f.semantic_fields_for :entries do |ent| %>
+              <tr>
+                <td>
+                  <%= ent.text_field :assembly_name, :class => "assembled_item_autocomplete", :style => "width:100%;"%>
+                  <%= ent.hidden_field :assembly_id %>
+                </td>
+                <td class="assembly_end_product"><%= ent.object.item_name %></td>
+                <td class="tdr">
+                  <%= ent.text_field :quantity, :class => "numbers", :size => 5 %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+    </ol>
+  </fieldset>
+  <fieldset class="buttons">
+    <button id="primary-button"  type= "submit"> 
+      <%= image_tag 'icons/silk/disk.png' %>
+      Save work order
+    </button>
+  </fieldset>
+<% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var insert_fields = true;
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    $('input.assembled_item_autocomplete').live('focus', function() {
+      var input = $(this);
+      input.autocomplete({
+        source: '/assemblies/search.js',
+        focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
+        select: function(event, ui) {
+          $(this).val(ui.item.name);
+          $(this).next().val(ui.item.id);
+          $(this).parents('tr').find('.assembly_end_product').html(ui.item.item_name);
+          var form = $(this).parents('form');
+          // run when you want to add new set of inputs
+          if(window.insert_fields) {
+            var elem = template.replace(regexp1, "[" + new_id + "]");
+            elem = elem.replace(regexp2, "_" + new_id + "_");
+            elem = "<tr>" + elem + "</tr>";
+            input.parents('tr').after(elem);
+            $('.should_hidden').hide();
+            attach_datepicker();
+            new_id++;
+          }
+          return false;
+        }
+      })
+      .data("autocomplete")
+      ._renderItem = function(ul, item) {
+        return $("<li></li>")
+        .data("item.autocomplete", item)
+        .append("<a>" + item.name + "</a>")
+        .appendTo(ul);
+      };
+    });
+  <% end %>
+<% end %>

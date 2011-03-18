@@ -1,6 +1,7 @@
 class WorkOrderEntry < ActiveRecord::Base
   belongs_to :assembly
   belongs_to :work_order
+  belongs_to :item
 
   def assembly_name
     assembly.try(:name)

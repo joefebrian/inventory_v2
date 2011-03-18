@@ -174,4 +174,10 @@ class Item < ActiveRecord::Base
     end
     hpps.create(:company_id => company_id, :value => current_value)
   end
+
+  def assembly_formulas
+    if assembly
+      company.assemblies.item_id_is(id)
+    end
+  end
 end

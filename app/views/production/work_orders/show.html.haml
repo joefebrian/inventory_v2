@@ -22,6 +22,10 @@
 
 #dialog_form
   .two_columns
+    - if @work_order.project
+      %p
+        %span.light.transaction_label Project
+        %strong= link_to @work_order.project.number, @work_order.project
     %p
       %span.light.transaction_label Number
       %strong= @work_order.number

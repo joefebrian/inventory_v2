@@ -1,5 +1,6 @@
 class WorkOrder < ActiveRecord::Base
   belongs_to :company
+  belongs_to :project
   has_many :entries, :class_name => "WorkOrderEntry", :dependent => :destroy
   has_many :completions, :class_name => "WorkOrderCompletion", :dependent => :destroy
   has_one :meterial_request

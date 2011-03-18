@@ -9,4 +9,8 @@ class ProjectMaterial < LotItem
   def unrequested_quantity
     value - requested_quantity
   end
+
+  def processed_quantity
+    project.work_orders.entries_item_id_is(item_id).sum(:quantity).to_i
+  end
 end

@@ -1,6 +1,11 @@
 - semantic_form_for [:production, @work_order] do |f|
   = f.error_messages
   - f.inputs "Work Order", :class => "form_section" do
+    - if @work_order.project
+      %li
+        %label Project
+        = link_to "#{@work_order.project.number} (#{@work_order.project.name} for #{@work_order.project.customer.fullname})", @work_order.project
+        = f.input :project_id, :as => :hidden
     = f.input :number
     = f.input :requester
     = f.input :remark, :input_html => { :rows => 3 }
@@ -21,9 +26,13 @@
             - f.semantic_fields_for :entries do |ent|
               %tr
                 %td
-                  = ent.text_field :assembly_name, :class => "assembled_item_autocomplete", :style => "width:100%;"
-                  = ent.hidden_field :assembly_id
-                %td.assembly_end_product= ent.object.item_name
+                  - if @work_order.project
+                    = ent.input :assembly_id, :collection => ent.object.item.assembly_formulas.collect {|frm| [frm.name, frm.id]}, :as => :select, :include_blank => false, :label => false
+                    = ent.hidden_field :item_id
+                  - else
+                    = ent.text_field :assembly_name, :class => "assembled_item_autocomplete", :style => "width:100%;"
+                    = ent.hidden_field :assembly_id
+                %td.assembly_end_product= ent.object.item.name
                 %td.tdr
                   = ent.text_field :quantity, :class => "numbers", :size => 5
   %fieldset.buttons

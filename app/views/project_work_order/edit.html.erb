@@ -17,24 +17,24 @@
 <%= sidemenu %>
 <%= hint "" %>
 
-<% semantic_form_for @project, :url => project_work_order_path(@project) do |f| %>
+<% semantic_form_for @project, :url => project_spk_path(@project) do |f| %>
   <%= f.error_messages %>
-  <% f.semantic_fields_for :work_order do |wo| %>
-    <% wo.inputs "SPK", :class => "form_section" do  %>
-      <%= wo.input :number %>
-      <%= wo.input :user_date, :label => "Date", :as => :string, :input_html => { :class => "datepicker" } %>
+  <% f.semantic_fields_for :spk do |spk| %>
+    <% spk.inputs "SPK", :class => "form_section" do  %>
+      <%= spk.input :number %>
+      <%= spk.input :user_date, :label => "Date", :as => :string, :input_html => { :class => "datepicker" } %>
       <li class="string required">
-        <%= wo.label :active_from, "Valid", :class => "required" %>
+        <%= spk.label :active_from, "Valid", :class => "required" %>
         <div class="inline">
-          <%= wo.text_field :valid_since, :size => 20, :class => "datepicker" %><br/>
+          <%= spk.text_field :valid_since, :size => 20, :class => "datepicker" %><br/>
           <p class="inline-hints inline-labels">From</p>
         </div>
         <div class="inline">
-          <%= wo.text_field :valid_thru, :size => 20, :class => "datepicker" %><br/>
+          <%= spk.text_field :valid_thru, :size => 20, :class => "datepicker" %><br/>
           <p class="inline-hints inline-labels">Until</p>
         </div>
       </li>
-      <%= wo.input :payment_term, :as => :text, :input_html => { :rows => 2 } %>
+      <%= spk.input :payment_term, :as => :text, :input_html => { :rows => 2 } %>
     <% end %>
     <fieldset class="buttons">
       <button type="submit" id="primary-button">
