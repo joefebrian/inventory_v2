@@ -5,6 +5,7 @@
     <%= f.input :name %>
     <%= f.input :customer_id, :as => :hidden %>
     <%= f.input :customer_name, :label => "Customer name", :as => :string %>
+    <%= f.input :salesman, :collection => @salesman.collect {|e| ["#{e.fullname} (#{e.profile.address})", e.id]}, :label => "Salesman", :input_html => { :class => "select filter"} %>
     <%= f.input :description, :input_html => { :rows => 3 } %>
   <% end %>
   <fieldset class="buttons">

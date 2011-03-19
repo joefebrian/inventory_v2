@@ -1,19 +1,33 @@
 - title "Sales Orders"
 
-- content_for :breadcrumb do
-  = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Sales', 'Sales Order' ] |
-  #top_right_link
-    - form_for @search do |f|
-      = f.text_field :number_like
-      = f.submit 'search'
+- if @project
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      link_to("Projects", projects_path), |
+      link_to(@project.number, @project), |
+      'Sales Orders' ] |
+    #top_right_link
+      - form_for @search do |f|
+        = f.text_field :number_like
+        = f.submit 'search'
+-else
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      'Sales', 'Sales Order' ] |
+    #top_right_link
+      - form_for @search do |f|
+        = f.text_field :number_like
+        = f.submit 'search'
 
   = sidemenu @tab
 
 = hint 'Click "Create Sales Order" button to add new Sales Order'
 
 #subheader
-  %h3 Transaction Sales Order
+  - if @project
+    %h3 Project Sales Orders
+  - else
+    %h3 Transaction Sales Order
   #subheader-menu
     %strong Showing :
     = link_to_if((params[:state] != 'all'), "all", sales_sales_orders_path(:state => "all"))
@@ -22,20 +36,29 @@
     &bull;
     = link_to_if((params[:state] && params[:state] != 'open'), "open", sales_sales_orders_path(:state => "open"))
     &bull;
-    = link_to "#{image_tag('icons/silk/add.png')} Create Sales Order", new_sales_sales_order_path, :class => 'main_link'
+    - if @project
+      = link_to "#{image_tag('icons/silk/add.png')} Create Sales Order", new_project_sales_order_path(@project), :class => 'main_link'
+    - else
+      = link_to "#{image_tag('icons/silk/add.png')} Create Sales Order", new_sales_sales_order_path, :class => 'main_link'
 
 %table.list
   %tr
     %th Number
-    %th Quotation
+    - unless @project
+      %th Quotation
     %th Customer
     %th Tanggal
     %th Total
     %th.actions Actions
   - for sales_order in @sales_orders
     %tr
-      %td= link_to h(sales_order.number), [:sales, sales_order]
-      %td= h sales_order.quotation.nil? ? '-' : sales_order.quotation.number
+      - if @project
+        %td
+          = link_to h(sales_order.number), [@project, sales_order]
+      - else
+        %td
+          = link_to h(sales_order.number), [:sales, sales_order]
+        %td= h sales_order.quotation.nil? ? '-' : sales_order.quotation.number
       %td= h sales_order.customer.profile.full_name
       %td.tdc= h sales_order.tanggal
       %td.tdr= local_currency(sales_order.grand_total)

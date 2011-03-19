@@ -1,5 +1,5 @@
 class SalesOrder < ActiveRecord::Base
-  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :currency_id, :currency_rate, :order_ref, :salesman_id, :entries_attributes, :customer_name, :additional_charge, :additional_discount, :with_tax
+  attr_accessible :company_id, :quotation_id, :number, :tanggal, :top, :advance, :status, :customer_id, :retensi, :currency_id, :currency_rate, :order_ref, :salesman_id, :entries_attributes, :customer_name, :additional_charge, :additional_discount, :with_tax, :project_id
   has_many :entries, :class_name => "SalesOrderEntry"
   has_many :delivery_orders
   belongs_to :company
@@ -8,6 +8,7 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :currency
   belongs_to :quotation
   belongs_to :salesman
+  belongs_to :project
   validates_presence_of :number, :currency_id, :currency_rate
   validates_uniqueness_of :number, :scope => :company_id
 

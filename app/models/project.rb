@@ -1,12 +1,14 @@
 class Project < ActiveRecord::Base
-  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_materials_attributes, :materials_attributes, :spk_attributes
+  attr_accessible :company_id, :number, :name, :customer_id, :description, :customer_name, :lot_materials_attributes, :materials_attributes, :spk_attributes, :salesman_id
   belongs_to :customer
   belongs_to :company
+  belongs_to :salesman
   has_one :spk, :class_name => "ProjectWorkOrder"
   has_many :materials, :class_name => "ProjectMaterial"
   has_many :lot_materials
   has_many :material_requests
   has_many :work_orders
+  has_many :sales_orders
 
   validates_presence_of :number, :name, :customer_name
   accepts_nested_attributes_for :lot_materials, :allow_destroy => true, :reject_if => lambda { |att| att['title'].blank? || att['value'].blank? || att['value'].to_i <= 0 }

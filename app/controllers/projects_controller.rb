@@ -13,10 +13,12 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    @salesman = current_company.salesmen
     @project = current_company.projects.new
   end
 
   def create
+    @salesman = current_company.salesmen
     @project = current_company.projects.new(params[:project])
     if @project.save
       flash[:notice] = "Successfully created project."
@@ -27,10 +29,12 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @salesman = current_company.salesmen
     @project = current_company.projects.find(params[:id])
   end
 
   def update
+    @salesman = current_company.salesmen
     @project = current_company.projects.find(params[:id])
     if @project.update_attributes(params[:project])
       flash[:notice] = "Successfully updated project."

@@ -1,10 +1,18 @@
 - title "Sales Order"
 
-- content_for :breadcrumb do
-  = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Sales', |
-    link_to('Sales Order', sales_sales_orders_path), |
-    "Sales Orders # #{@sales_order.number}" ] |
+- if @sales_order.project
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      link_to("Projects", projects_path), |
+      link_to(@project.number, @project), |
+      link_to('Sales Orders', project_sales_orders_path(@project)), |
+      @sales_order.number ] |
+- else
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      'Sales', |
+      link_to('Sales Order', sales_sales_orders_path), |
+      "Sales Orders # #{@sales_order.number}" ] |
 
   = sidemenu @tab
 
@@ -13,13 +21,21 @@
   #subheader-menu
     = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download", sales_sales_order_path(@sales_order, :format => "pdf")
     &bull;
-    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_sales_sales_order_path(@sales_order)
+    - if @project
+      = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_sales_order_path(@project, @sales_order)
+    - else 
+      = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_sales_sales_order_path(@sales_order)
     &bull;
     = link_to "#{image_tag('icons/silk/delete.png')} delete", sales_sales_order_path(@sales_order), :method => :delete, :confirm => "Are you sure"
 
 .two_columns
-  %p
-    %span.light Quotation Number:
+  - if @sales_order.project
+    %p
+      %span.light Project Number:
+      =h link_to @project.number, @project
+  - else
+    %p
+      %span.light Quotation Number:
     =h @sales_order.quotation.nil? ? '-' : link_to(@sales_order.quotation.number, sales_quotation_path(@sales_order.quotation))
   %p
     %span.light Date

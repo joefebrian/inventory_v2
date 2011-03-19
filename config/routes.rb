@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     prj.resources :lot_materials, :controller => "project_lot_items"
     prj.resources :material_requests, :controller => "project_material_requests"
     prj.resources :work_orders, :controller => "production/work_orders"
+    prj.resources :sales_orders, :controller => "sales/sales_orders"
   end
 
   map.resources :sales_prices
