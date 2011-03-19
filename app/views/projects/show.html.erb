@@ -34,7 +34,7 @@
   </tr>
   <tr>
     <td class="keys">Salesman</td>
-    <td class="value"><%=h @project.salesman.fullname %></td>
+    <td class="value"><%=h @project.salesman.try(:fullname) %></td>
   </tr>
   <tr>
     <td class="keys">Description</td>
