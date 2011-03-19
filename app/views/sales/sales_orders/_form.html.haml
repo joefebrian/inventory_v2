@@ -22,7 +22,7 @@
       %li.string
         = f.label :salesman_id
         = f.hidden_field :salesman_id
-        = link_to "#{@project.salesman.fullname} (#{@project.salesman.profile.address})", @project.salesman
+        = link_to "#{@project.salesman.fullname} (#{@project.salesman.profile.address})", @project.salesman if @project.salesman
     - else
       = f.input :customer_id, :as => :hidden
       = f.input :customer_name, :label => "Customer Name", :as => :string
