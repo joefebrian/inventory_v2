@@ -16,6 +16,7 @@ class SalesOrderEntry < ActiveRecord::Base
   end
 
   def undelivered_quantity
+    return quantity if delivered_quantity.nil?
     quantity - delivered_quantity
   end
 end

@@ -74,7 +74,7 @@
       <td><%= link_to e.title, e.item %></td>
       <td class="numbers"><%=h e.value %></td>
       <td class="numbers"><%=h e.requested_quantity %></td>
-      <td class="numbers"><%=h e.delivered_quantity %></td>
+      <td class="numbers"><%=h e.delivered_quantity.blank? ? 0 : e.delivered_quantity %></td>
     </tr>
   <% end %>
 </table>

@@ -86,7 +86,7 @@
       %td
         = link_to h(entry.item.name), entry.item
         = "(PLU: #{entry.plu_id.nil? ? 'unprepared' : link_to(h(entry.plu.code), entry.plu)})"
-      %td.tdc= "#{entry.quantity} / #{entry.delivered_quantity}"
+      %td.tdc= "#{entry.quantity} / #{entry.delivered_quantity.blank? ? 0 : entry.delivered_quantity}"
       %td.tdr= local_currency(entry.price)
       %td.tdr= entry.discount.blank? || entry.discount.zero? ? "-" : "#{entry.discount} %"
       %td.tdr= local_currency(entry.total_price)
