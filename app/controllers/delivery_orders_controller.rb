@@ -5,18 +5,17 @@ class DeliveryOrdersController < ApplicationController
 
   def index
     @search = current_company.delivery_orders.search(params[:search])
-    @delivery_orders = @search.paginate(:page => params[:page])
+    if params[:sales_order_id]
+      @sales_order = current_company.sales_orders.find(params[:sales_order_id])
+      @delivery_orders = @search.all(:conditions => { :sales_order_id => params[:sales_order_id] }).paginate(:page => params[:page])
+    else
+      @delivery_orders = @search.paginate(:page => params[:page])
+    end
   end
 
   def show
     @delivery_order = current_company.delivery_orders.find(params[:id])
-      respond_to do |format|
-        if(params[:type])
-            format.html { render "print", :layout => "print"}
-        else
-            format.html { render "show", :layout => "application"}
-        end
-      end
+    @sales_order = current_company.sales_orders.find(params[:sales_order_id]) if params[:sales_order_id]
   end
 
   def new
@@ -28,6 +27,15 @@ class DeliveryOrdersController < ApplicationController
       @sales_orders = current_company.sales_orders.all_open.customer_id_is(params[:delivery_order][:customer_id])
     else
       @sales_orders = current_company.sales_orders.all_open
+    end
+    if params[:sales_order_id]
+      @sales_order = current_company.sales_orders.find(params[:sales_order_id])
+      @delivery_order.sales_order_id = @sales_order.id
+      @delivery_order.customer_id = @sales_order.customer_id
+      @delivery_order.reference = "Project no. #{@sales_order.project.try(:number)}"
+      @sales_order.entries.each do |e|
+        @delivery_order.entries.build(:plu_id => e.plu_id, :item_id => e.item_id, :quantity => e.quantity)
+      end
     end
     if request.xhr?
       render :layout => false
@@ -44,7 +52,7 @@ class DeliveryOrdersController < ApplicationController
     end
     if @delivery_order.save
       flash[:notice] = "Successfully created delivery order."
-      redirect_to @delivery_order
+      redirect_to params[:sales_order_id] ? sales_sales_order_delivery_orders_path(params[:sales_order_id]) : @delivery_order
     else
       @sales_orders = current_company.sales_orders
       @customer = current_company.customers.all(:include => :profile)

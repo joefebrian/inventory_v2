@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
     prj.resources :material_requests, :controller => "project_material_requests"
     prj.resources :work_orders, :controller => "production/work_orders"
     prj.resources :sales_orders, :controller => "sales/sales_orders"
+    prj.resources :delivery_orders, :controller => "sales/delivery_orders"
   end
 
   map.resources :sales_prices
@@ -37,7 +38,9 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.namespace(:sales) do |sales|
     sales.resources :quotations, :member => { :send_request => :get }
-    sales.resources  :sales_orders
+    sales.resources  :sales_orders, :member => { :preparation => :get, :prepared => :put } do |so|
+      so.resources :delivery_orders
+    end
   end
   map.namespace(:production) do |production|
     production.resources :work_orders do |wo|

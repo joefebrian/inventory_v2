@@ -1,10 +1,16 @@
 - title "New Delivery Order"
 
 - content_for :breadcrumb do
-  = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Sales', |
-    link_to('Delivery Orders', delivery_orders_path), |
-    'New Delivery Orders' ] |
+  - if @sales_order
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      link_to(@sales_order.number, (@sales_order.project.nil? ? [:sales, @sales_order] : project_sales_order_path(@sales_order.project, @sales_order))), |
+      link_to('Delivery Orders', sales_sales_order_delivery_orders_path(@sales_order)), |
+      'New' ] |
+  - else
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      'Sales', |
+      link_to('Delivery Orders', delivery_orders_path), |
+      'New' ] |
 
   = sidemenu @tab
 

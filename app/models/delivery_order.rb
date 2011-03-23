@@ -7,6 +7,7 @@ class DeliveryOrder < ActiveRecord::Base
   has_and_belongs_to_many :sales_invoices
   belongs_to :company
   belongs_to :warehouse
+  belongs_to :project
   validates_presence_of :number, :do_date, :warehouse_id
   validates_uniqueness_of :number, :scope => :company_id
 

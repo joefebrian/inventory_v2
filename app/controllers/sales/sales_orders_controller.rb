@@ -83,7 +83,7 @@ module Sales
       if @sales_order.save
         flash[:notice] = "Successfully created sales order."
         if @sales_order.project
-          redirect_to project_sales_orders_path(@sales_order.project)
+          redirect_to project_sales_order_path(@sales_order.project, @sales_order)
         else
           redirect_to [:sales, @sales_order]
         end
@@ -122,6 +122,20 @@ module Sales
       redirect_to sales_sales_orders_url
     end
 
+    def preparation
+      @sales_order = current_company.sales_orders.find(params[:id])
+    end
+
+    def prepared
+      @sales_order = current_company.sales_orders.find(params[:id])
+      if @sales_order.update_attributes(params[:sales_order])
+        flash[:success] = "Sales Order #{@sales_order.number} prepared"
+        redirect_to @sales_order.project.nil? ? [:sales, @sales_order] : project_sales_order_path(@sales_order.project, @sales_order)
+      else
+        render :action => "preparation"
+      end
+    end
+
     private
     def assign_tab
       @tab = 'transactions'
@@ -129,7 +143,6 @@ module Sales
     end
 
     def populate_fields
-
     end
 
   end

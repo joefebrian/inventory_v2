@@ -1,6 +1,6 @@
 - title "Sales Order"
 
-- if @sales_order.project
+- if @project
   - content_for :breadcrumb do
     = breadcrumb [ link_to('Transactions', transactions_path), |
       link_to("Projects", projects_path), |
@@ -19,7 +19,12 @@
 #subheader
   %h3= "Sales Order # #{@sales_order.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download", sales_sales_order_path(@sales_order, :format => "pdf")
+    = link_to "delivery orders", sales_sales_order_delivery_orders_path(@sales_order)
+    &bull;
+    - if @sales_order.plu_complete?
+      = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download", sales_sales_order_path(@sales_order, :format => "pdf")
+    - else
+      = link_to "prepare", preparation_sales_sales_order_path(@sales_order)
     &bull;
     - if @project
       = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_sales_order_path(@project, @sales_order)
@@ -29,14 +34,14 @@
     = link_to "#{image_tag('icons/silk/delete.png')} delete", sales_sales_order_path(@sales_order), :method => :delete, :confirm => "Are you sure"
 
 .two_columns
-  - if @sales_order.project
+  - if @project
     %p
       %span.light Project Number:
       =h link_to @project.number, @project
   - else
     %p
       %span.light Quotation Number:
-    =h @sales_order.quotation.nil? ? '-' : link_to(@sales_order.quotation.number, sales_quotation_path(@sales_order.quotation))
+      =h @sales_order.quotation.nil? ? '-' : link_to(@sales_order.quotation.number, sales_quotation_path(@sales_order.quotation))
   %p
     %span.light Date
     =h @sales_order.tanggal
@@ -77,7 +82,9 @@
   - @sales_order.entries.each_with_index do |entry, i|
     %tr
       %td.tdr.td_5= (i+1)
-      %td= link_to h(entry.item.name), entry.item
+      %td
+        = link_to h(entry.item.name), entry.item
+        = "(PLU: #{entry.plu_id.nil? ? 'unprepared' : link_to(h(entry.plu.code), entry.plu)})"
       %td.tdr= entry.quantity
       %td.tdr= local_currency(entry.price)
       %td.tdr= entry.discount.blank? || entry.discount.zero? ? "-" : "#{entry.discount} %"

@@ -1,8 +1,13 @@
 - title "Delivery Orders"
 
 - content_for :breadcrumb do
-  = breadcrumb [ link_to('Transactions', transactions_path), |
-    'Sales', 'Delivery Orders' ] |
+  - if @sales_order
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      link_to(@sales_order.number, [:sales, @sales_order]), |
+      'Delivery Orders' ] |
+  - else
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      'Sales', 'Delivery Orders' ] |
   #top_right_link
     - form_for @search do |f|
       = f.text_field :number_like
@@ -13,24 +18,24 @@
 = hint 'Click "Create Delivery Order" button to add new Delivery Order'
 
 #subheader
-  %h3 Delivery Order
+  %h3 Delivery Orders
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/add.png')} Create Delivery Order", new_delivery_order_path, :class => 'main_link'
+    = link_to "#{image_tag('icons/silk/add.png')} Create Delivery Order", new_sales_sales_order_delivery_order_path(@sales_order), :class => 'main_link'
 
 
 %table.list
   %thead
     %tr
       %th Number
-      %th Code SO
+      %th SO Number
       %th Date
       %th.action Action
   %tbody
     - for delivery_order in @delivery_orders
       %tr
-        %td= link_to h(delivery_order.number), [delivery_order]
-        %td= h delivery_order.sales_order.number
-        %td= h delivery_order.do_date
+        %td= link_to h(delivery_order.number), sales_sales_order_delivery_order_path(delivery_order.sales_order, delivery_order)
+        %td= link_to h(delivery_order.sales_order.number), delivery_order.sales_order.project.nil? ? [:sales, delivery_order.sales_order] : project_sales_order_path(delivery_order.sales_order.project, delivery_order.sales_order)
+        %td= h delivery_order.do_date.to_s(:long)
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_delivery_order_path(delivery_order)
           = link_to image_tag('icons/silk/delete.png'), delivery_order_path(delivery_order), :confirm => 'Are you sure?', :method => :delete

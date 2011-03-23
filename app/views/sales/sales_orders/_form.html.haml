@@ -3,15 +3,18 @@
   - f.inputs 'Sales Order', :class => "form_section" do
     %li#general_transaction_number_input.string.required
       %label{ :for => 'sales_order_number' } Number <span class="required">*</span>
-      %input{ :type => :text, :size => 50,
-              :name => 'sales_order[number]',
-              :id => 'sales_order_number',
-              :value => f.object.attributes['number'],
-              :class => 'default' }
-      %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
+      .inline
+        %input{ :type => :text, :size => 50,
+                :name => 'sales_order[number]',
+                :id => 'sales_order_number',
+                :value => f.object.attributes['number'],
+                :class => 'default' }
+        %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
+      .inline{ :style => "min-width:190px;" }
+        = f.label :tanggal, "Date", :class => "required"
+        = f.text_field :tanggal, :class => "datepicker"
 
     = f.input :order_ref, :label => "Order Ref"
-    = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
     = f.input :quotation, :collection => @quotations, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"} unless @project
     - if @project
       %li.string
@@ -60,14 +63,12 @@
             %tr
               %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
               %td.item
-                = ent.hidden_field :item_id
                 - if @project
-                  = ent.input :plu_id, :as => :select, :collection => ent.object.item.plus.collect {|p| [p.code, p.id]}, :label => false, :include_blank => false
-                  %span.inline-hints.light
-                    = ent.object.item.name
+                  = link_to ent.object.item.name, ent.object.item
                 - else
-                  = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
                   = ent.hidden_field :plu_id
+                  = ent.text_field :item_name, :class => "item_autocomplete", :size => 58
+                = ent.hidden_field :item_id
               %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty calc"
               %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "numbers mr_price calc"
               %td.tdr.td_5= ent.text_field :discount, :size => 5, :class => "numbers mr_disc calc"

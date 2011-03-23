@@ -1,9 +1,16 @@
 - title "Delivery Order"
 
-- content_for :breadcrumb do
-  = breadcrumb [ link_to('Transactions', transactions_path), |
-    link_to('Delivery Order', delivery_orders_path), |
-    "Delivery Order # #{@delivery_order.number}" ] |
+- if @sales_order
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      link_to(@sales_order.number, @sales_order.project.nil? ? [:sales, @sales_order] : project_sales_order_path(@sales_order.project, @sales_order)), |
+      link_to('Delivery Order', sales_sales_order_delivery_orders_path(@sales_order)), |
+      @delivery_order.number ] |
+- else
+  - content_for :breadcrumb do
+    = breadcrumb [ link_to('Transactions', transactions_path), |
+      link_to('Delivery Order', delivery_orders_path), |
+      "Delivery Order # #{@delivery_order.number}" ] |
 
   = sidemenu @tab
 
@@ -19,6 +26,10 @@
     = link_to "#{image_tag('icons/silk/delete.png')} delete", delivery_order_path(@delivery_order), :method => :delete, :confirm => "Are you sure"
 
 .two_columns
+  - if @delivery_order.sales_order.try(:project)
+    %p
+      %span.light Project
+      = link_to @delivery_order.sales_order.project.number, @delivery_order.sales_order.project
   %p
     %span.light Sales Order Number:
     = link_to @delivery_order.sales_order.number, sales_sales_order_path(@delivery_order.sales_order)
@@ -27,7 +38,7 @@
     = link_to @delivery_order.customer.profile.full_name, @delivery_order.customer
   %p
     %span.light Date:
-    =h @delivery_order.do_date
+    =h @delivery_order.do_date.to_s(:long)
   %p
     %span.light reference:
     =h @delivery_order.reference

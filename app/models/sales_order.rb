@@ -105,4 +105,8 @@ class SalesOrder < ActiveRecord::Base
     grand_total + tax_value
   end
 
+  def plu_complete?
+    entries.detect { |e| e.plu_id.nil? }.blank?
+  end
+
 end

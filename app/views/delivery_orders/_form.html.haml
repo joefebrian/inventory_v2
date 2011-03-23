@@ -1,18 +1,30 @@
-- semantic_form_for @delivery_order do |f|
+- semantic_form_for @delivery_order, :url => (@sales_order ? sales_sales_order_delivery_orders_path(@sales_order) : sales_delivery_orders_path) do |f|
   = f.error_messages
   - f.inputs 'Delivery Order', :class => "form_section" do
     %li#general_transaction_number_input.string.required
-      %label{ :for => 'delivery_order_number' } Number <span class="required">*</span>
-      %input{ :type => :text, :size => 50,
-              :name => 'delivery_order[number]',
-              :id => 'delivery_order_number',
-              :value => f.object.attributes['number'],
-              :class => 'default' }
-      %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
+      = f.label :number, "Number", :class => "required"
+      .inline
+        %input{ :type => :text, :size => 50,
+                :name => 'delivery_order[number]',
+                :id => 'delivery_order_number',
+                :value => f.object.attributes['number'],
+                :class => 'default' }
+        %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
+      .inline{ :style => "min-width:190px" }
+        = f.label :do_date, "Date", :class => "required"
+        = f.text_field :do_date, :class => "datepicker"
     = f.input :customer_id, :as => :hidden 
-    = f.input :customer_name, :label => "Customer Name", :as => :string
-    = f.input :sales_order, :collection => @sales_orders, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => { :class => "select filter"}
-    = f.input :do_date, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
+    - if @sales_order
+      %li.string
+        = f.label :customer_id, "Customer"
+        = link_to @sales_order.customer.fullname, @sales_order.customer
+      %li.string
+        = f.label :sales_order_id, "Sales Order"
+        = f.hidden_field :sales_order_id
+        = link_to @sales_order.number, (@sales_order.project.nil? ? [:sales, @sales_order] : project_sales_order_path(@sales_order.project, @sales_order))
+    - else
+      = f.input :customer_name, :label => "Customer Name", :as => :string
+      = f.input :sales_order, :collection => @sales_orders, :label => "Sales Order Number", :include_blank => "select Sales Order", :input_html => { :class => "select filter"}
     = f.input :warehouse, :collection => @warehouses, :input_html => { :class => "select filter" }
     = f.input :reference
     = f.input :description, :input_html => { :rows => 3 }, :label => "Remark"
@@ -43,7 +55,10 @@
               %td.item
                 = ent.object.item_name
               %td.tdr
-                = ent.input :plu, :as => :select, :collection => ent.object.item.plus.collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
+                - if @sales_order
+                  = link_to ent.object.plu.code, ent.object.plu
+                - else
+                  = ent.input :plu, :as => :select, :collection => ent.object.item.plus.collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
                 = ent.hidden_field :item_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
               %td.tdr
