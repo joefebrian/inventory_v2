@@ -38,6 +38,7 @@
     %p
       %span.light Project Number:
       =h link_to @project.number, @project
+      =h "(Overall Progress: #{@project.overall_progress}%)"
   - else
     %p
       %span.light Quotation Number:
@@ -60,7 +61,7 @@
     %tr
       %th No.
       %th Item
-      %th Qty
+      %th Qty / Delivered
       %th @Price
       %th Disc.
       %th SubTotal
@@ -85,7 +86,7 @@
       %td
         = link_to h(entry.item.name), entry.item
         = "(PLU: #{entry.plu_id.nil? ? 'unprepared' : link_to(h(entry.plu.code), entry.plu)})"
-      %td.tdr= entry.quantity
+      %td.tdc= "#{entry.quantity} / #{entry.delivered_quantity}"
       %td.tdr= local_currency(entry.price)
       %td.tdr= entry.discount.blank? || entry.discount.zero? ? "-" : "#{entry.discount} %"
       %td.tdr= local_currency(entry.total_price)

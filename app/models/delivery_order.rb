@@ -28,6 +28,11 @@ class DeliveryOrder < ActiveRecord::Base
   before_save :sum_total_per_entries
   after_save :close_so
   after_save :alter_stock
+  after_save :update_sales_order_delivered_quantity
+
+  def update_sales_order_delivered_quantity
+    sales_order.update_delivered
+  end
 
   def close_so
     if sales_order.all_entries_delivered?

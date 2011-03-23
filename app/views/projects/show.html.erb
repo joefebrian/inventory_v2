@@ -40,6 +40,14 @@
     <td class="keys">Description</td>
     <td class="value"><%=h @project.description %></td>
   </tr>
+  <tr>
+    <td class="keys">Overall Progress</td>
+    <td class="value">
+      <span style="float:left; line-height: 1.4em;"><%= @project.overall_progress %>%</span>
+      <%= hidden_field_tag "project_overall_progress", @project.overall_progress %>
+      <div id="project_progress_bar"></div>
+    </td>
+  </tr>
 </table>
 
 <div class='subheader'>
@@ -58,7 +66,7 @@
     <th>Item</th>
     <th>Quantity</th>
     <th>Requested</th>
-    <th>Remaining</th>
+    <th>Delivered</th>
   </tr>
 
   <% @project.materials.each do |e| %>
@@ -66,7 +74,7 @@
       <td><%= link_to e.title, e.item %></td>
       <td class="numbers"><%=h e.value %></td>
       <td class="numbers"><%=h e.requested_quantity %></td>
-      <td class="numbers"><%=h e.unrequested_quantity %></td>
+      <td class="numbers"><%=h e.delivered_quantity %></td>
     </tr>
   <% end %>
 </table>
@@ -90,3 +98,12 @@
     </tr>
   <% end %>
 </table>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    $(function() {
+    var progress = $("#project_overall_progress").val();
+    $("#project_progress_bar").progressbar({ value: parseFloat(progress)});
+    });
+  <% end %>
+<% end %>

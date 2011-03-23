@@ -9,7 +9,6 @@ class Project < ActiveRecord::Base
   has_many :material_requests
   has_many :work_orders
   has_many :sales_orders
-  has_many :delivery_orders
 
   validates_presence_of :number, :name, :customer_name
   accepts_nested_attributes_for :lot_materials, :allow_destroy => true, :reject_if => lambda { |att| att['title'].blank? || att['value'].blank? || att['value'].to_i <= 0 }
@@ -35,5 +34,17 @@ class Project < ActiveRecord::Base
 
   def required_production_material?
     materials.detect { |m| m.item.assembly? }
+  end
+
+  def delivery_orders
+    sales_orders.collect { |so| so.delivery_orders }.flatten
+  end
+
+  def update_delivered_materials
+    materials.each { |m| m.update_delivered_quantity }
+  end
+
+  def overall_progress
+    materials.map(&:progress).sum / materials.count
   end
 end

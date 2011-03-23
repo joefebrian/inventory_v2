@@ -34,7 +34,7 @@ class DeliveryOrdersController < ApplicationController
       @delivery_order.customer_id = @sales_order.customer_id
       @delivery_order.reference = "Project no. #{@sales_order.project.try(:number)}"
       @sales_order.entries.each do |e|
-        @delivery_order.entries.build(:plu_id => e.plu_id, :item_id => e.item_id, :quantity => e.quantity)
+        @delivery_order.entries.build(:plu_id => e.plu_id, :item_id => e.item_id, :quantity => e.undelivered_quantity)
       end
     end
     if request.xhr?

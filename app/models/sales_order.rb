@@ -75,12 +75,7 @@ class SalesOrder < ActiveRecord::Base
     undelivered = {}; entries.collect do |entry|
       if do_entries.present? && do_entries[entry.item_id.to_i] && do_entries[entry.item_id.to_i] < entry.quantity
         undelivered[entry.item_id.to_i] = entry.quantity - do_entries[entry.item_id.to_i]
-      #else
-        #undelivered[entry.item_id.to_i] = entry.quantity
       end
-      #if do_entries.present? && do_entries[entry.item_id] && do_entries[entry.item_id] < entry.quantity
-        #undelivered[entry.item_id] = entry.quantity - do_entries[entry.item_id]
-      #end
     end
     undelivered
   end
@@ -107,6 +102,11 @@ class SalesOrder < ActiveRecord::Base
 
   def plu_complete?
     entries.detect { |e| e.plu_id.nil? }.blank?
+  end
+
+  def update_delivered
+    entries.each { |e| e.update_delivered }
+    project.update_delivered_materials unless project.nil?
   end
 
 end
