@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:sales) do |sales|
     sales.resources :quotations, :member => { :send_request => :get }
     sales.resources  :sales_orders, :member => { :preparation => :get, :prepared => :put } do |so|
-      so.resources :delivery_orders
+      so.resources :delivery_orders, :controller => "delivery_orders"
     end
     sales.resources :delivery_orders do |order|
       order.resource :invoice, :class_name => "SalesInvoice", :controller => "invoice"
