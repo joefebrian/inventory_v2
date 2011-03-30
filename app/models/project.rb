@@ -47,6 +47,6 @@ class Project < ActiveRecord::Base
 
   def overall_progress
     progress = materials.map(&:progress).sum
-    progress == 0 ? 0 : progress / materials.count
+    progress == 0 ? 0.0 : (progress / materials.count).to_f
   end
 end
