@@ -1,0 +1,67 @@
+<% semantic_form_for @invoice, :url => [:sales, @delivery_order, :invoice] do |f| %>
+  <% javascript_tag do %>
+    var do_totals = {};
+    <% for deli in @invoice.delivery_orders %>
+      <%= "do_totals[#{deli.id}] = #{deli.total_value};" %>
+    <% end %>
+  <% end %>
+
+  <%= f.error_messages %>
+  <% f.inputs do %>
+    <li id="general_transaction_number_input" class="string required">
+      <label for='sales_invoice_number'>Number <span class="required">*</span></label>
+      <%= f.text_field :number, :size => 50, :class => "default" %>
+      <p class="inline-errors"><%= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available" %></p>
+    </li>
+    <%= f.input :delivery_orders, :collection => @invoice.delivery_orders.collect {|d| ["#{d.number} (Total: #{local_currency(d.total_value)})", d.id]}, :label => "Delivery Order", :input_html => {:class => "multiselect"} %>
+    <%= f.input :user_date, :input_html => { :class => 'datepicker' }, :as => :string, :label => "Transaction date" %>
+    <%= f.input :due_time, :label => "Days until due" %>
+    <%= f.input :discount %>
+    <%= f.input :top, :label => "Term of Payment" %>
+    <%= f.input :sales_commission %>
+    <li>
+      <label>Total</label>
+      <div id="js_total">0</div>
+    </li>
+  <% end %>
+
+  <fieldset class="buttons">
+    <button type="submit">
+      <%= image_tag 'icons/silk/disk.png' %>
+      Save Sales Invoices
+    </button>
+  </fieldset>
+<% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var insert_fields = true;
+    function multiselect_response() {
+      $('#sales_invoice_delivery_order_ids').bind('multiselectclose', function(event, ui) {
+        var sos = $(this).multiselect('getChecked');
+        var total = 0;
+        sos.each(function(x, e) {
+          total += do_totals[e.value];
+        });
+        total -= parseInt($("#sales_invoice_discount").val());
+        $('#js_total').html((total).formatMoney(0,',','.'));
+        return false;
+      });
+    }
+    function sum_total() {
+      var initial_total = 0;
+      jQuery.each(do_totals, function(i,v) { initial_total += v; });
+      initial_total -= parseInt($("#sales_invoice_discount").val());
+      $('#js_total').html((initial_total).formatMoney(0,',','.'));
+    }
+    $(function() {
+      sum_total();
+      multiselect_response();
+
+      $("#sales_invoice_discount").live('keyup', function() {
+        sum_total();
+      });
+    });
+  <% end %>
+<% end %>
+

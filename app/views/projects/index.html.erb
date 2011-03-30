@@ -23,7 +23,7 @@
 <table class="list" id="projects">
   <thead>
     <tr>
-      <th>Number</th>
+      <th>Number / Progress</th>
       <th>Customer</th>
       <th>Name</th>
       <th class="">Description</th>
@@ -41,7 +41,7 @@
   <tbody>
     <% for project in @projects %>
       <tr>
-        <td><%= link_to project.number, project %></td>
+        <td><%= link_to project.number, project %> (<%= project.overall_progress.to_f.round(2) %> %)</td>
         <td><%=h project.customer.fullname %></td>
         <td><%=h project.name %></td>
         <td><%=h project.description %></td>

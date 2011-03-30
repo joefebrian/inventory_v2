@@ -6,7 +6,8 @@
     <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", projects_path %> &bull;
     <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_path(@project), :title => "Edit project #{@project.number}" %> &bull;
     <%= link_to "SPK", project_spk_path(@project) %> &bull;
-    <%= link_to "SO", project_sales_orders_path(@project) %>
+    <%= link_to "SO", project_sales_orders_path(@project) %> &bull;
+    <%= link_to "DO", project_delivery_orders_path(@project) %>
   </div>
 </div>
 
@@ -43,8 +44,8 @@
   <tr>
     <td class="keys">Overall Progress</td>
     <td class="value">
-      <span style="float:left; line-height: 1.4em;"><%= @project.overall_progress %>%</span>
-      <%= hidden_field_tag "project_overall_progress", @project.overall_progress %>
+      <span style="float:left; line-height: 1.4em;"><%= @project.overall_progress.round(2) %>%</span>
+      <%= hidden_field_tag "project_overall_progress", @project.overall_progress.round(2) %>
       <div id="project_progress_bar"></div>
     </td>
   </tr>

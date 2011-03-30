@@ -21,8 +21,11 @@ class SalesInvoicesController < ApplicationController
   end
 
   def new
-    @sales_invoice = current_company.sales_invoices.new
+    @sales_invoice = current_company.sales_invoices.new(:user_date => Time.now.to_date, :discount => 0)
     @delivery_orders = current_company.delivery_orders
+    if params[:do_ids]
+      @sales_invoice.delivery_order_ids = params[:do_ids]
+    end
   end
 
   def create

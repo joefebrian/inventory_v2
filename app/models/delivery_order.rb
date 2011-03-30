@@ -1,10 +1,10 @@
 class DeliveryOrder < ActiveRecord::Base
-  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes, :warehouse_id, :sales_invoice_id
+  attr_accessible :company_id, :customer_id, :customer_name, :sales_order_id, :number, :do_date, :reference, :description, :entries_attributes, :warehouse_id, :sales_invoice_id, :project_id
 
   has_many :entries, :class_name => "DeliveryOrderEntry"
   belongs_to :customer
   belongs_to :sales_order
-  has_and_belongs_to_many :sales_invoices
+  belongs_to :sales_invoice
   belongs_to :company
   belongs_to :warehouse
   belongs_to :project
@@ -120,4 +120,8 @@ class DeliveryOrder < ActiveRecord::Base
   def total_value
     entries.sum(:total_value)
   end
+
+  def grand_total; total_value; end
+
+  def invoice; sales_invoice; end
 end

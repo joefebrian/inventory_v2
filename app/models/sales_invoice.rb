@@ -1,6 +1,6 @@
 class SalesInvoice < ActiveRecord::Base
   attr_accessible :company_id, :delivery_order_ids, :number, :ppn, :due_time, :top, :sales_commission, :user_date, :discount
-  has_and_belongs_to_many :delivery_orders
+  has_many :delivery_orders
   belongs_to :sales_order
   belongs_to :company
   validates_presence_of :number
@@ -24,8 +24,9 @@ class SalesInvoice < ActiveRecord::Base
    date = Chronic.parse(due_date)
   end
 
-
-
+  def grand_total
+    delivery_orders.map(&:grand_total).sum - discount
+  end
 
   #def build_entries_from_do
     #entries.clear
@@ -46,7 +47,6 @@ class SalesInvoice < ActiveRecord::Base
       #end
     #end
   #end
-
 
 end
 

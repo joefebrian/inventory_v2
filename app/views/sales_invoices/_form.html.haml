@@ -1,7 +1,7 @@
 - semantic_form_for @sales_invoice do |f|
   %script{ :type => "text/javascript" }
     var do_totals = {};
-    - for deli in @delivery_orders
+    - for deli in @sales_invoice.delivery_orders
       = "do_totals[#{deli.id}] = #{deli.total_value};"
   =f.error_messages
   -f.inputs do
@@ -17,7 +17,6 @@
     = f.input :user_date, :input_html => { :class => 'datepicker' }, :as => :string, :label => "Transaction date"
     = f.input :due_time, :label => "Days until due"
     = f.input :discount
-    = f.input :ppn, :label => "Tax (%)"
     = f.input :top, :label => "Term of Payment"
     = f.input :sales_commission
     %li
@@ -40,10 +39,22 @@
           sos.each(function(x, e) {
             total += do_totals[e.value];
           });
+          total -= parseInt($("#sales_invoice_discount").val());
           $('#js_total').html((total).formatMoney(0,',','.'));
           return false;
         });
       }
+      function sum_total() {
+        var initial_total = 0;
+        jQuery.each(do_totals, function(i,v) { initial_total += v; });
+        initial_total -= parseInt($("#sales_invoice_discount").val());
+        $('#js_total').html((initial_total).formatMoney(0,',','.'));
+      }
       $(function() {
+        sum_total();
         multiselect_response();
+
+        $("#sales_invoice_discount").live('keyup', function() {
+          sum_total();
+        });
       });

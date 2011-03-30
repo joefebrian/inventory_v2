@@ -14,6 +14,7 @@
         = f.label :do_date, "Date", :class => "required"
         = f.text_field :do_date, :class => "datepicker"
     = f.input :customer_id, :as => :hidden 
+    = f.input :project_id, :as => :hidden 
     - if @sales_order
       %li.string
         = f.label :customer_id, "Customer"
@@ -60,6 +61,7 @@
                 - else
                   = ent.input :plu, :as => :select, :collection => ent.object.item.plus.collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
                 = ent.hidden_field :item_id
+                = ent.hidden_field :plu_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
               %td.tdr
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"

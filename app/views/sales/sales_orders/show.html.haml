@@ -19,9 +19,9 @@
 #subheader
   %h3= "Sales Order # #{@sales_order.number}"
   #subheader-menu
-    = link_to "delivery orders", sales_sales_order_delivery_orders_path(@sales_order)
-    &bull;
     - if @sales_order.plu_complete?
+      = link_to "delivery orders", sales_sales_order_delivery_orders_path(@sales_order)
+      &bull;
       = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download", sales_sales_order_path(@sales_order, :format => "pdf")
     - else
       = link_to "prepare", preparation_sales_sales_order_path(@sales_order)
@@ -38,7 +38,7 @@
     %p
       %span.light Project Number:
       =h link_to @project.number, @project
-      =h "(Overall Progress: #{@project.overall_progress}%)"
+      =h "(Overall Progress: #{@project.overall_progress.round(2)}%)"
   - else
     %p
       %span.light Quotation Number:

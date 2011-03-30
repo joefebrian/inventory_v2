@@ -4,13 +4,16 @@ class DeliveryOrdersController < ApplicationController
   load_and_authorize_resource :through => :current_company
 
   def index
-    @search = current_company.delivery_orders.search(params[:search])
     if params[:sales_order_id]
       @sales_order = current_company.sales_orders.find(params[:sales_order_id])
-      @delivery_orders = @search.all(:conditions => { :sales_order_id => params[:sales_order_id] }).paginate(:page => params[:page])
+      @search = @sales_order.delivery_orders.search(params[:search])
+    elsif params[:project_id]
+      @project = current_company.projects.find(params[:project_id])
+      @search = @project.delivery_orders.search(params[:search])
     else
-      @delivery_orders = @search.paginate(:page => params[:page])
+      @search = current_company.delivery_orders.search(params[:search])
     end
+    @delivery_orders = @search.paginate(:page => params[:page])
   end
 
   def show
@@ -32,7 +35,8 @@ class DeliveryOrdersController < ApplicationController
       @sales_order = current_company.sales_orders.find(params[:sales_order_id])
       @delivery_order.sales_order_id = @sales_order.id
       @delivery_order.customer_id = @sales_order.customer_id
-      @delivery_order.reference = "Project no. #{@sales_order.project.try(:number)}"
+      @delivery_order.project_id = @sales_order.project.id if @sales_order.project
+      @delivery_order.reference = "Project no. #{@sales_order.project.try(:number)}" if @sales_order.project
       @sales_order.entries.each do |e|
         @delivery_order.entries.build(:plu_id => e.plu_id, :item_id => e.item_id, :quantity => e.undelivered_quantity)
       end

@@ -41,6 +41,9 @@ ActionController::Routing::Routes.draw do |map|
     sales.resources  :sales_orders, :member => { :preparation => :get, :prepared => :put } do |so|
       so.resources :delivery_orders
     end
+    sales.resources :delivery_orders do |order|
+      order.resource :invoice, :class_name => "SalesInvoice", :controller => "invoice"
+    end
   end
   map.namespace(:production) do |production|
     production.resources :work_orders do |wo|
