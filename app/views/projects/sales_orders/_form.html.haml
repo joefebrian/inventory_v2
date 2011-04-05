@@ -1,0 +1,169 @@
+- semantic_form_for [@project, @sales_order] do |f|
+  = f.error_messages
+  - f.inputs 'Sales Order', :class => "form_section" do
+    %li#general_transaction_number_input.string.required
+      %label{ :for => 'sales_order_number' } Number
+      = f.object.number
+      = f.hidden_field :project_id
+      = f.hidden_field :number
+      = f.hidden_field :tanggal
+      = f.hidden_field :customer_id
+      = f.hidden_field :salesman_id
+      = f.hidden_field :currency_id
+      = f.hidden_field :currency_rate
+    %li.string
+      = f.label :customer_id
+      = link_to @project.customer.fullname, @project.customer
+    %li.string
+      = f.label :salesman_id
+      = link_to "#{@project.salesman.fullname} (#{@project.salesman.profile.address})", @project.salesman if @project.salesman
+    %li.string
+      = f.label :additional_charge, "Additional"
+      .inline
+        = f.text_field :additional_charge
+        %br
+        %p.inline-hints.inline-labels Charge
+      .inline
+        = f.text_field :additional_discount
+        %br
+        %p.inline-hints.inline-labels Discount
+    = f.input :top, :label => "Term of Payment"
+    = f.input :order_ref, :label => "Order Ref"
+    %li.string.optional
+      = f.label :currency_id, "Currency"
+      #currency-display.inline
+        %span= f.object.currency.name
+        = link_to_function "(change currency)", "$('#currency-changer').dialog('open');"
+    = f.input :with_tax, :label => "with tax (#{PPN}%)"
+
+  - f.inputs 'Items', :class => "form_section" do
+    %li
+      %table.report
+        %thead
+          %tr
+            %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
+            %th Item / PLU Code
+            %th.td_5 Qty
+            %th Unit Price
+            %th.td_10 Disc (%)
+            %th Total Price
+            %th Desc.
+        %tfoot
+          %tr
+            %td &nbsp;
+            %td.tdr{ :colspan => 4 } Grand Total : 
+            %td#total_price.tdr
+            %td
+        %tbody
+          - f.semantic_fields_for :entries do |ent|
+            %tr
+              %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
+              %td.item
+                = link_to ent.object.item.name, ent.object.item
+                = ent.hidden_field :item_id
+              %td.tdr.td_5= ent.text_field :quantity, :size => 5, :class => "numbers mr_qty calc"
+              %td.tdr.td_15= ent.text_field :price, :size => 15, :class => "numbers mr_price calc"
+              %td.tdr.td_5= ent.text_field :discount, :size => 5, :class => "numbers mr_disc calc"
+              %td.tdr.td_5= ent.text_field :total_price, :size => 15, :class => "number sub_total"
+              %td.tdr.td_7
+                - if ent.object.description.blank?
+                  = link_to image_tag('icons/silk/comment.png'), '#', :class => "popup_handle"
+                - else
+                  = link_to image_tag('icons/silk/comment_filled.png'), '#', :class => "popup_handle"
+                %p.popup_note.should_hidden= ent.text_field :description, :class => "pop_input default"
+                = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"
+
+  %fieldset.buttons
+    %button{ :type => "submit", :id => 'primary-button' }
+      = image_tag 'icons/silk/disk.png'
+      Save Sales Order
+
+#currency-changer{ :title => "Change Currency" }
+  %form
+    %fieldset
+      = label_tag "cur_type", "Currency"
+      = select_tag "cur_type", options_for_select(@currencies.collect {|c| [c.name, c.id]})
+      = label_tag "cur_rate", "Rate"
+      = text_field_tag "cur_rate"
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    var so_get_customer_price = true;
+    :plain
+      var template = $('tbody tr:last-child').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      var new_id = $('tbody tr').length;
+      function multiselect_response() {
+        $('.multiselect').bind('multiselectclose', function(event, ui) {
+          var quots = $(this).multiselect('getChecked');
+          var form = $(this).parents('form');
+          form.append('<input type="hidden" name="get_quots" value="1"/>');
+          $.ajax({
+            url: form[0].action,
+            type: 'post',
+            data: form.serialize(),
+            success: function(response, status) {
+              var entries = $(response).find('tbody');
+              form.find('tbody').html(entries.html());
+              $('input[name=get_quots]').remove();
+              $('.tracker_quantity').validate({ required: true, max: 12 });
+            }
+          });
+          return false;
+        });
+      }
+      $("#sales_order_currency_id").live("multiselectclick", function(event, ui) {
+        $.ajax({
+          url: "/currencies/"+ui.value+"/latest_rate.json",
+          success: function(response, status) {
+            $("#sales_order_currency_rate").val(response.value);
+          }
+        });
+      });
+      $("#cur_type").live('change', function() {
+        $.ajax({
+          url: "/currencies/"+$(this).val()+"/latest_rate.json",
+          success: function(response, status) {
+            $("#cur_rate").val(response.exchange_rate.value);
+          }
+        });
+      });
+      $('.calc').live('keyup', function() {
+        var row = $(this).parents('tr');
+        var price = row.find('.mr_price')[0];
+        var qty = row.find('.mr_qty')[0];
+        var disc = row.find('.mr_disc')[0];
+        var before_disc = parseInt(price.value) * parseInt(qty.value);
+        var disc_val = (before_disc * parseInt(disc.value)) / 100;
+        var after_disc = before_disc - disc_val;
+        row.find('.sub_total').val(after_disc);
+        var total = 0;
+        var form = $(this).parents('form')
+        form.find('.sub_total').each(function(index, element) {
+          if (element.value != '') total += parseInt(element.value);
+        });
+        form.find('#total_price').html((total).formatMoney(0));
+      });
+      $(function() {
+        $("#currency-changer").dialog({
+          autoOpen: false,
+          modal: true,
+          width: 450,
+          height: 100,
+          resizable: false,
+          buttons: {
+            "Change": function(){
+              var cur_id = $("#cur_type").val();
+              var cur_rate = $("#cur_rate").val();
+              $("#sales_order_currency_id").val(cur_id);
+              $("#sales_order_currency_rate").val(cur_rate);
+              $("#currency-display span").html($("#cur_type option[value=" + cur_id + "]").html() + " @" + cur_rate);
+              $(this).dialog("close");
+            },
+            "Cancel": function() { $(this).dialog("close"); }
+          }
+        });
+        multiselect_response();
+      });

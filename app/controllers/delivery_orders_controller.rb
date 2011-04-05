@@ -89,6 +89,10 @@ class DeliveryOrdersController < ApplicationController
     redirect_to delivery_orders_url
   end
 
+  def plu_confirmation
+    @delivery_order = current_company.delivery_orders.find(params[:id])
+  end
+
   private
   def assign_tab
     @tab = 'transactions'

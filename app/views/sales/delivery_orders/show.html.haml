@@ -1,0 +1,60 @@
+- title "Delivery Order"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Sales', sales_path), |
+    link_to('Delivery Orders', sales_delivery_orders_path), |
+    @delivery_order.number ] |
+
+  = sidemenu @tab
+
+= hint "Click 'edit' to edit"
+
+#subheader
+  %h3= "Delivery Order # #{@delivery_order.number}"
+  #subheader-menu
+    - if @delivery_order.plu_completed?
+      = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} PDF", sales_delivery_order_path(@delivery_order, :format => "pdf")
+      &bull;
+      - if @delivery_order.invoice
+        = link_to "#{image_tag('icons/silk/money.png')} invoice", sales_delivery_order_invoice_path(@delivery_order)
+      - else
+        = link_to "#{image_tag('icons/silk/money_add.png')} create invoice", new_sales_delivery_order_invoice_path(@delivery_order)
+    - else
+      = link_to "confirm PLU", plu_confirmation_sales_delivery_order_path(@delivery_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_sales_delivery_order_path(@delivery_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", [:sales, @delivery_order], :method => :delete, :confirm => "Are you sure"
+
+.two_columns
+  %p
+    %span.light Sales Order Number:
+    = link_to @delivery_order.sales_order.number, sales_sales_order_path(@delivery_order.sales_order)
+  %p
+    %span.light Customer Name:
+    = link_to @delivery_order.customer.profile.full_name, @delivery_order.customer
+  %p
+    %span.light Date:
+    =h @delivery_order.do_date.to_s(:long)
+  %p
+    %span.light reference:
+    =h @delivery_order.reference
+  %p
+    %span.light Description:
+    =h @delivery_order.description
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+  - @delivery_order.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td
+        = link_to h(entry.item.name), entry.item
+        = "(PLU: #{entry.plu_id.nil? ? 'unconfirmed' : link_to(entry.plu.code, entry.plu)})"
+      %td.tdr= entry.quantity
+

@@ -1,0 +1,14 @@
+<% title "New Sales Invoice" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to('Sales', sales_path),
+    link_to("Delivery Orders", sales_delivery_orders_path),
+    link_to(@delivery_order.number, [:sales, @delivery_order]),
+    'New Sales Invoice' ] %>
+<% end %>
+
+<%= sidemenu @tab %>
+
+<%= hint "Sales Invoices" %>
+
+<%= render :partial => 'form' %>

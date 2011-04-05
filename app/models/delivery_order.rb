@@ -124,4 +124,8 @@ class DeliveryOrder < ActiveRecord::Base
   def grand_total; total_value; end
 
   def invoice; sales_invoice; end
+
+  def plu_completed?
+    entries.detect { |e| e.plu_id.nil? }.nil?
+  end
 end

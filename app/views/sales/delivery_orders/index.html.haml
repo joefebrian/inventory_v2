@@ -1,0 +1,61 @@
+- title "Delivery Orders"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Sales", sales_path), 'Delivery Orders' ] |
+  #top_right_link
+    - form_for @search do |f|
+      = f.text_field :number_like
+      = f.submit 'search'
+
+  = sidemenu @tab
+
+= hint 'Click "Create Delivery Order" button to add new Delivery Order'
+
+#subheader
+  %h3 Delivery Orders
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/add.png')} Create Delivery Order", new_sales_delivery_order_path, :class => 'main_link'
+
+
+%table.list
+  %thead
+    %tr
+      %th &nbsp;
+      %th Number
+      %th SO Number
+      %th Date
+      %th Invoice
+      %th.action Action
+  %tfoot
+    %tr
+      %td{ :colspan => 6 }
+        %button{ :id => "create_inv" }
+          Create invoice from selected delivery order
+  %tbody
+    - for delivery_order in @delivery_orders
+      %tr
+        %td= check_box_tag("invoicing[]", delivery_order.id, false, :class => "invoicing_check") if delivery_order.invoice.nil?
+        %td= link_to h(delivery_order.number), [:sales, delivery_order]
+        %td= link_to h(delivery_order.sales_order.number), [:sales, delivery_order.sales_order]
+        %td= h delivery_order.do_date.to_s(:long)
+        %td= h link_to(delivery_order.invoice.try(:number), sales_delivery_order_invoice_path(delivery_order)) unless delivery_order.invoice.nil?
+        %td.actions
+          = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_delivery_order_path(delivery_order)
+          = link_to image_tag('icons/silk/delete.png'), [:sales, delivery_order], :confirm => 'Are you sure?', :method => :delete
+
+- content_for :javascripts do
+  - javascript_tag do
+    = "var url = '#{new_sales_invoice_url}'"
+    :plain
+      function create_invoice_from_selected() {
+        var checked_do = $(".invoicing_check:checked")
+        var query = '';
+        jQuery.each(checked_do, function(i,v) {
+          query += 'do_ids[]=' + v.value + '&';
+        });
+        if (checked_do.length) { window.location = url + '?' + query; }
+        else return false;
+      }
+      $(function() {
+        $('#create_inv').click(function() { create_invoice_from_selected(); });
+      });

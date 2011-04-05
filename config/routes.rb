@@ -5,29 +5,15 @@ ActionController::Routing::Routes.draw do |map|
     prj.resources :lot_materials, :controller => "project_lot_items"
     prj.resources :material_requests, :controller => "project_material_requests"
     prj.resources :work_orders, :controller => "production/work_orders"
-    prj.resources :sales_orders, :controller => "sales/sales_orders"
-    prj.resources :delivery_orders, :controller => "sales/delivery_orders"
+    prj.resources :sales_orders, :controller => "projects/sales_orders" do |so|
+      so.resources :delivery_orders, :controller => "projects/sales_orders/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
+        dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/sales_orders/delivery_orders/invoice"
+      end
+    end
+    prj.resources :delivery_orders, :controller => "projects/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
+      dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/delivery_orders/invoice"
+    end
   end
-
-  map.resources :sales_prices
-  map.resources :direct_sales
-  map.resources :customer_down_payments
-  map.resources :sales_returns
-  map.resources :credit_debit_notes
-  map.resources :sales_invoices
-  map.resources :delivery_orders
-  map.resources :item_receives
-  map.resources :trans_assemblies do |assy|
-    assy.resources :assembly_progress_entries, :as => "progress"
-  end
-  map.resources :trans_diassemblies
-  map.resources :roles
-  map.resources :currencies, :member => { :latest_rate => :get } do |currency|
-    currency.resources :exchange_rates
-  end
-  map.resources :salesmen
-  map.resources :assemblies, :collection => { :search => :get }
-  map.resources :services
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }
@@ -39,10 +25,12 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace(:sales) do |sales|
     sales.resources :quotations, :member => { :send_request => :get }
     sales.resources  :sales_orders, :member => { :preparation => :get, :prepared => :put } do |so|
-      so.resources :delivery_orders, :controller => "delivery_orders"
+      so.resources :delivery_orders, :controller => "sales_orders/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
+        dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "sales/sales_orders/delivery_orders/invoice"
+      end
     end
-    sales.resources :delivery_orders do |order|
-      order.resource :invoice, :class_name => "SalesInvoice", :controller => "invoice"
+    sales.resources :delivery_orders, :member => { :plu_confirmation => :get } do |order|
+      order.resource :invoice, :class_name => "SalesInvoice", :controller => "delivery_orders/invoice"
     end
   end
   map.namespace(:production) do |production|
@@ -58,26 +46,6 @@ ActionController::Routing::Routes.draw do |map|
       :only => [:index, :new, :create],
       :collection => { :edit_prices => :get, :update_prices => :put }
   end
-
-  map.resources :price_lists
-  map.resources :general_transactions, :member => { :detail => :get }
-  map.resources :transaction_types
-  map.resources :beginning_balances
-  map.resources :placements
-  map.resources :plus, :collection => { :search => :get }
-  map.resources :suppliers
-  map.connect 'created_transactions', :controller => :transactions, :action => :created
-  map.resources :warehouses, :member => { :plu_available => :get, :setdefault => :get, :setasdefault => :put } do |warehouse|
-    warehouse.resources :locations
-  end
-  map.resources :user_sessions
-  map.resources :items, :collection => { :lookup => :get, :search => :get, :picker => :get }, :member => { :customer_prices => :get }
-  map.resources :categories, :member => {:items_for_begining_balance => :get}, :collection => {:search => :get} do |category|
-    category.resources :items, :member => { :activate => :get, :deactivate => :get }
-  end
-  map.resources :companies
-  map.resources :users
-
   map.namespace(:reports) do |report|
     report.resources :on_hands
     report.resources :item_movements, :collection => { :generate => :get, :excel => :get }
@@ -86,21 +54,58 @@ ActionController::Routing::Routes.draw do |map|
     report.resources :quotations
     report.resources :delivery_orders
   end
+  map.resources :trans_assemblies do |assy|
+    assy.resources :assembly_progress_entries, :as => "progress"
+  end
+  map.resources :currencies, :member => { :latest_rate => :get } do |currency|
+    currency.resources :exchange_rates
+  end
+  map.resources :warehouses, :member => { :plu_available => :get, :setdefault => :get, :setasdefault => :put } do |warehouse|
+    warehouse.resources :locations
+  end
+  map.resources :categories, :member => {:items_for_begining_balance => :get}, :collection => {:search => :get} do |category|
+    category.resources :items, :member => { :activate => :get, :deactivate => :get }
+  end
+
+  map.resources :sales_prices
+  map.resources :direct_sales
+  map.resources :customer_down_payments
+  map.resources :sales_returns
+  map.resources :credit_debit_notes
+  map.resources :sales_invoices
+  map.resources :item_receives
+  map.resources :trans_diassemblies
+  map.resources :roles
+  map.resources :salesmen
+  map.resources :assemblies, :collection => { :search => :get }
+  map.resources :services
+  map.resources :price_lists
+  map.resources :general_transactions, :member => { :detail => :get }
+  map.resources :transaction_types
+  map.resources :beginning_balances
+  map.resources :placements
+  map.resources :plus, :collection => { :search => :get }
+  map.resources :suppliers
+  map.resources :user_sessions
+  map.resources :items, :collection => { :lookup => :get, :search => :get, :picker => :get }, :member => { :customer_prices => :get }
+  map.resources :companies
+  map.resources :users
 
   map.with_options(:controller => :pages, :action => :show) do |page|
     page.transactions 'transactions', :id => 'transactions'
     page.reports 'reports', :id => 'reports'
     page.administrations 'administrations', :id => 'administrations'
   end
-  map.sales 'sales', :controller => :pages, :action => 'sales'
-  map.purchasing 'purchasing', :controller => :pages, :action => 'purchasing'
-  map.assy 'assy', :controller => :pages, :action => 'assembling_disassembling'
-  map.production 'production', :controller => :pages, :action => 'production'
+  map.connect 'created_transactions', :controller => :transactions, :action => :created
   map.connect 'sales/search', :controller => :pages, :action => 'sales_search'
   map.connect 'purchasing/search', :controller => :pages, :action => 'purchasing_search'
   map.connect 'assy/search', :controller => :pages, :action => 'assy_search'
   map.connect 'production/search', :controller => :pages, :action => 'production_search'
   map.resources 'hpp', :controller => 'hpp'
+  map.sales 'sales', :controller => :pages, :action => 'sales'
+  map.purchasing 'purchasing', :controller => :pages, :action => 'purchasing'
+  map.assy 'assy', :controller => :pages, :action => 'assembling_disassembling'
+  map.production 'production', :controller => :pages, :action => 'production'
   map.dashboard 'dashboard', :controller => :pages
   map.signin "signin", :controller => :user_sessions, :action => :new
   map.signout "signout", :controller => :user_sessions, :action => :destroy

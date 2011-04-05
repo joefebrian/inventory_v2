@@ -1,0 +1,41 @@
+- title "Sales Orders"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Projects", projects_path), |
+    link_to(@project.number, @project), |
+    'Sales Orders' ] |
+
+= sidemenu @tab
+
+= hint 'Click "Create Sales Order" button to add new Sales Order'
+
+#subheader
+  %h3 Project Sales Orders
+  #subheader-menu
+    %strong Showing :
+    = link_to_if((params[:state] != 'all'), "all", sales_sales_orders_path(:state => "all"))
+    &bull;
+    = link_to_if((params[:state] != 'closed'), "closed", sales_sales_orders_path(:state => "closed"))
+    &bull;
+    = link_to_if((params[:state] && params[:state] != 'open'), "open", sales_sales_orders_path(:state => "open"))
+    &bull;
+    = link_to "#{image_tag('icons/silk/add.png')} Create Sales Order", new_project_sales_order_path(@project), :class => 'main_link'
+
+%table.list
+  %tr
+    %th Number
+    %th Customer
+    %th Tanggal
+    %th Total
+    %th.actions Actions
+  - for sales_order in @sales_orders
+    %tr
+      %td= link_to h(sales_order.number), [@project, sales_order]
+      %td= h sales_order.customer.profile.full_name
+      %td.tdc= h sales_order.tanggal
+      %td.tdr= local_currency(sales_order.grand_total)
+      %td.actions
+        = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(sales_order)
+        = link_to image_tag('icons/silk/delete.png'), sales_sales_order_path(sales_order), :confirm => 'Are you sure?', :method => :delete
+
+

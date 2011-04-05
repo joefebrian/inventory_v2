@@ -1,0 +1,72 @@
+- title "Sales Order"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Projects", projects_path), |
+    link_to(@project.number, @project), |
+    link_to('Sales Orders', project_sales_orders_path(@project)), |
+    @sales_order.number ] |
+
+= sidemenu @tab
+
+#subheader
+  %h3= "Sales Order # #{@sales_order.number}"
+  #subheader-menu
+    = link_to "delivery orders", project_sales_order_delivery_orders_path(@project, @sales_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} download", project_sales_order_path(@project, @sales_order, :format => "pdf")
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_sales_order_path(@project, @sales_order)
+    &bull;
+    = link_to "#{image_tag('icons/silk/delete.png')} delete", [@project, @sales_order], :method => :delete, :confirm => "Are you sure"
+
+.two_columns
+  %p
+    %span.light Project Number:
+    =h link_to @project.number, @project
+    =h "(Overall Progress: #{@project.overall_progress.round(2)}%)"
+  %p
+    %span.light Date
+    =h @sales_order.tanggal.to_s(:long)
+  %p
+    %span.light Customer Name
+    =h @sales_order.customer.profile.full_name
+  %p
+    %span.light Payment Terms
+    =h @sales_order.top
+  %p
+    %span.light Delivery Order issued
+    = @sales_order.delivery_orders.collect { |dlo| link_to(dlo.number, [@project, @sales_order, dlo]) }.join(', ')
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty / Delivered
+      %th @Price
+      %th Disc.
+      %th SubTotal
+  %tfoot
+    %tr
+      %td.tdr{ :colspan => 5 } Additional Charge
+      %td.tdr= local_currency(@sales_order.additional_charge)
+    %tr
+      %td.tdr{ :colspan => 5 } Additional Discount (-)
+      %td.tdr= local_currency(@sales_order.additional_discount)
+    - if @sales_order.with_tax?
+      %tr
+        %td.tdr{ :colspan => 5 }= "PPN (#{PPN}%)"
+        %td.tdr= local_currency(@sales_order.tax_value)
+    %tr
+      %td.tdr{ :colspan => 5 } TOTAL
+      %td.tdr= local_currency(@sales_order.grand_total_plus_tax)
+  %tbody
+  - @sales_order.entries.each_with_index do |entry, i|
+    %tr
+      %td.tdr.td_5= (i+1)
+      %td= link_to h(entry.item.name), entry.item
+      %td.tdc= "#{entry.quantity} / #{entry.delivered_quantity.blank? ? 0 : entry.delivered_quantity}"
+      %td.tdr= local_currency(entry.price)
+      %td.tdr= entry.discount.blank? || entry.discount.zero? ? "-" : "#{entry.discount} %"
+      %td.tdr= local_currency(entry.total_price)
+

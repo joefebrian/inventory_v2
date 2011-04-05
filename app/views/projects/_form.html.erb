@@ -1,7 +1,11 @@
 <% semantic_form_for @project do |f| %>
   <% f.inputs do %>
     <%= f.error_messages %>
-    <%= f.input :number %>
+    <li class="string">
+      <label>Number</label>
+      <%= f.object.number %>
+      <%= f.input :number, :as => :hidden %>
+    </li>
     <%= f.input :name %>
     <%= f.input :customer_id, :as => :hidden %>
     <%= f.input :customer_name, :label => "Customer name", :as => :string %>

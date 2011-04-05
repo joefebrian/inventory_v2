@@ -1,0 +1,61 @@
+- title "Sales Invoices"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to("Projects", projects_path), |
+    link_to(@project.number, @project), |
+    link_to("Delivery Orders", [@project, :delivery_orders]), |
+    link_to(@delivery_order.number, [@project, @delivery_order]), |
+    @invoice.number ] |
+
+= sidemenu @tab
+
+
+= hint 'Click "Edit" to edit item receive'
+
+#subheader
+  %h3
+    = "Sales Invoice # #{@invoice.number}"
+  #subheader-menu
+    = link_to "#{image_tag('icons/silk/arrow_left.png')} back", [@project, @delivery_order]
+    &bull;
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} PDF", project_delivery_order_invoice_path(@project, @delivery_order, :format => "pdf")
+    &bull;
+    = link_to "#{image_tag('icons/silk/application_form_edit.png')} Edit", edit_project_delivery_order_invoice_path(@project, @delivery_order)
+
+.two_columns
+  %p
+    %span.light Project 
+    = link_to @project.number, @project
+  %p
+    %span.light Sales Order 
+    = link_to @delivery_order.sales_order.number, [@project, @delivery_order.sales_order]
+  %p
+    %span.light Delivery Order Numbers
+    = @invoice.delivery_orders.collect { |dlo| link_to(dlo.number, [@project, dlo]) }.join(', ')
+  %p
+    %span.light Transaction Date
+    =h @invoice.user_date.to_s(:long)
+  %p
+    %span.light Customer Name
+    = @invoice.delivery_orders.collect { |dlo| link_to dlo.customer.profile.full_name, dlo.customer }.uniq.join(', ')
+  %p
+    %span.light Days until due
+    =h pluralize @invoice.due_time, "Day"
+  %p
+    %span.light Grand Total
+    %strong= local_currency @invoice.grand_total
+
+%table.report
+  %thead
+    %tr
+      %th No.
+      %th Item
+      %th Qty
+  %tbody
+    - @invoice.delivery_orders.each do |delivery_order|
+      - delivery_order.entries.each_with_index do |entry, i|
+        %tr
+          %td.tdr.td_5= (i+1)
+          %td= link_to h(entry.item.name), entry.item
+          %td.tdr= entry.quantity
+

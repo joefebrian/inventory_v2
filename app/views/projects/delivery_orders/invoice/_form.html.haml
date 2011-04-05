@@ -1,0 +1,72 @@
+- semantic_form_for @invoice, :url => [@project, @delivery_order, :invoice] do |f|
+  %script{ :type => "text/javascript" }
+    var do_totals = {};
+    - for deli in @invoice.delivery_orders
+      = "do_totals[#{deli.id}] = #{deli.total_value};"
+  =f.error_messages
+  -f.inputs "Sales Invoice", :class => "form_section" do
+    %li.string
+      = f.label :project_id
+      = link_to f.object.delivery_orders.first.project.number, f.object.delivery_orders.first.project
+    %li.string
+      = f.label :sales_order_id
+      = link_to f.object.delivery_orders.first.sales_order.number, project_sales_order_path(f.object.delivery_orders.first.project, f.object.delivery_orders.first.sales_order)
+    %li.string
+      = f.label :delivery_order_ids, "Delivery Orders"
+      = link_to f.object.delivery_orders.first.number, project_sales_order_delivery_order_path(f.object.delivery_orders.first.project, f.object.delivery_orders.first.sales_order, f.object.delivery_orders.first)
+    %li#general_transaction_number_input.string.required
+      = f.label :number, "Number", :class => "required"
+      .inline
+        %input{ :type => :text, :size => 45,
+                :name => 'sales_invoice[number]',
+                :id => 'sales_invoice_number',
+                :value => f.object.attributes['number'],
+                :readonly => "readonly",
+                :class => 'default' }
+        %p.inline-errors= f.error_message_on :number
+      .inline{ :style => "min-width:190px;" }
+        = f.label :user_date, "Date", :class => "required"
+        = f.text_field :user_date, :class => "datepicker"
+    = f.input :due_time, :label => "Days until due"
+    = f.input :discount
+    = f.input :top, :label => "Term of Payment"
+    = f.input :sales_commission
+    %li
+      %label Total
+      #js_total 0
+
+  %fieldset.buttons
+    %button{ :type => "submit" }
+      = image_tag 'icons/silk/disk.png'
+      Save Sales Invoices
+
+- content_for :javascripts do
+  - javascript_tag do
+    var insert_fields = true;
+    :plain
+      function multiselect_response() {
+        $('#sales_invoice_delivery_order_ids').bind('multiselectclose', function(event, ui) {
+          var sos = $(this).multiselect('getChecked');
+          var total = 0;
+          sos.each(function(x, e) {
+            total += do_totals[e.value];
+          });
+          total -= parseInt($("#sales_invoice_discount").val());
+          $('#js_total').html((total).formatMoney(0,',','.'));
+          return false;
+        });
+      }
+      function sum_total() {
+        var initial_total = 0;
+        jQuery.each(do_totals, function(i,v) { initial_total += v; });
+        initial_total -= parseInt($("#sales_invoice_discount").val());
+        $('#js_total').html((initial_total).formatMoney(0,',','.'));
+      }
+      $(function() {
+        sum_total();
+        multiselect_response();
+
+        $("#sales_invoice_discount").live('keyup', function() {
+          sum_total();
+        });
+      });

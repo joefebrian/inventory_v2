@@ -46,7 +46,7 @@
           =link_to "Sales Orders", sales_sales_orders_path, :class => current['so']
           %div
         %li
-          =link_to "Delivery Orders", delivery_orders_path, :class => current['do']
+          =link_to "Delivery Orders", sales_delivery_orders_path, :class => current['do']
           %div
         %li
           =link_to "Sales Invoices", sales_invoices_path, :class => current['invoices']
@@ -78,10 +78,6 @@
         %li
           =link_to "Penerimaan Hasil Produksi", '#', :class => current['prod_completion']
           %div
-    %li.submenu_handler
+    %li
       =link_to "Projects", projects_path, :class => current['prj']
       %div
-      %ul.submenu
-        %li
-          =link_to "#", '#'
-          %div

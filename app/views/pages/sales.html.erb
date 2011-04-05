@@ -22,7 +22,7 @@
   <li>
     <h2>Delivery Order</h2>
     <p>
-      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", delivery_orders_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Delivery Order", new_delivery_order_path %> &bull; Latest transaction: <%= @delivery_order.nil? ? "No record" : link_to(@delivery_order.number, @delivery_order)%>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", sales_delivery_orders_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Delivery Order", new_sales_delivery_order_path %> &bull; Latest transaction: <%= @delivery_order.nil? ? "No record" : link_to(@delivery_order.number, [:sales, @delivery_order])%>
     </p>
   </li>
   <li>

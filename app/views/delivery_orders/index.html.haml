@@ -51,7 +51,7 @@
     - for delivery_order in @delivery_orders
       %tr
         %td= check_box_tag("invoicing[]", delivery_order.id, false, :class => "invoicing_check") if delivery_order.invoice.nil?
-        %td= link_to h(delivery_order.number), sales_sales_order_delivery_order_path(delivery_order.sales_order, delivery_order)
+        %td= link_to h(delivery_order.number), delivery_order
         %td= link_to h(delivery_order.sales_order.number), delivery_order.sales_order.project.nil? ? [:sales, delivery_order.sales_order] : project_sales_order_path(delivery_order.sales_order.project, delivery_order.sales_order)
         %td= h delivery_order.do_date.to_s(:long)
         %td= h link_to(delivery_order.invoice.try(:number), sales_delivery_order_invoice_path(delivery_order)) unless delivery_order.invoice.nil?

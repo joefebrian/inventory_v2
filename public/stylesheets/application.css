@@ -569,7 +569,16 @@ fieldset.plain {
 .ui-widget-content {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.8); }
+  -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
+  padding: 5px; }
+
+.ui-widget-content.ui-dialog-content, .ui-widget-content.ui-dialog-buttonpane {
+  box-shadow: 0 0 rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 0 0 rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 0 0 rgba(0, 0, 0, 0.8); }
+
+.ui-dialog-titlebar-close {
+  float: right; }
 
 p.date_range input[type="text"] {
   width: 86px; }
@@ -761,7 +770,8 @@ form.formtastic .ui-multiselect-menu {
 .ui-multiselect-checkboxes {
   overflow: auto !important; }
   .ui-multiselect-checkboxes label input {
-    margin-right: 1em !important; }
+    margin-right: 1em !important;
+    width: auto !important; }
 
 #top_right_link {
   float: right; }

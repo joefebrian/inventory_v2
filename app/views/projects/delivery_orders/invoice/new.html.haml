@@ -1,0 +1,15 @@
+- title "New Sales Invoice"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    link_to("Projects", projects_path), |
+    link_to(@project.number, @project), |
+    link_to("Delivery Orders", [@project, :delivery_orders]), |
+    link_to(@delivery_order.number, [@project, @delivery_order]), |
+    'New' ] |
+
+  = sidemenu @tab
+
+= hint ""
+
+= render :partial => 'form'

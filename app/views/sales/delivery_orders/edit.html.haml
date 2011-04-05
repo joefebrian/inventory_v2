@@ -1,0 +1,15 @@
+- title "Edit Delivery Order"
+
+- content_for :breadcrumb do
+  = breadcrumb [ link_to('Transactions', transactions_path), |
+    'Sales', |
+    link_to('Delivery Order', delivery_order_path), |
+    link_to(@delivery_order.number, delivery_order_path(@delivery_order)), |
+    'Edit Delivery Order' ] |
+
+  = sidemenu @tab
+
+- content_for :main_act do
+  = link_to "#{image_tag('icons/silk/page_white_text.png')} Delivery Order Detail", delivery_order_path(@delivery_order), :class => 'main_link'
+
+= render :partial => 'form'

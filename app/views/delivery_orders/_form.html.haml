@@ -8,6 +8,7 @@
                 :name => 'delivery_order[number]',
                 :id => 'delivery_order_number',
                 :value => f.object.attributes['number'],
+                :readonly => "readonly",
                 :class => 'default' }
         %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
       .inline{ :style => "min-width:190px" }
@@ -37,31 +38,19 @@
           %tr
             %th.td_5= check_box_tag 'check_all', 1, nil, :id => "check_master"
             %th Item
-            %th PLU
             %th Quantity
             %th
         %tfoot
           %tr
             %td &nbsp;
-            %td{ :colspan => 4 } &nbsp;
+            %td{ :colspan => 3 } &nbsp;
         %tbody
-          - curr_color = ""
-          - curr_item = nil
           - f.semantic_fields_for :entries do |ent|
-            - if curr_item.nil? || curr_item != ent.object.item_id
-              - curr_item = ent.object.item_id
-              - curr_color = "rgb(#{(200..255).to_a[rand(55)]},#{(200..255).to_a[rand(55)]},#{(200..255).to_a[rand(55)]})"
-            %tr{ :style => "background-color:#{curr_color} !important" }
+            %tr
               %td.tdc.td_5= ent.check_box :_destroy, :class => "check_slave"
               %td.item
                 = ent.object.item_name
-              %td.tdr
-                - if @sales_order
-                  = link_to ent.object.plu.code, ent.object.plu
-                - else
-                  = ent.input :plu, :as => :select, :collection => ent.object.item.plus.collect { |plu| [plu.code, plu.id] }, :label => false, :include_blank => false 
                 = ent.hidden_field :item_id
-                = ent.hidden_field :plu_id
               %td.tdr.td_15= ent.text_field :quantity, :size => 15, :class => "numbers mr_qty"
               %td.tdr
                 = link_to image_tag('icons/silk/cross.png'), '#', :class => "row_remover"

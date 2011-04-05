@@ -1,0 +1,55 @@
+- title "Surat Jalan"
+
+#customer
+  #customer-title Surat Jalan
+
+%table#metaleft
+  %tr
+    %td.metaleft-head  Kepada Yth :
+    %td= @delivery_order.customer
+  %tr
+    %td.metaleft-head  Alamat :
+    %td
+  %tr
+    %td.metaleft-head Telp :
+    %td
+
+%table#meta
+  %tr
+    %td.meta-head Proyek :
+    %td 
+  %tr
+    %td.meta-head Nomer S.O.#
+    %td= @delivery_order.sales_order.number
+  %tr
+    %td.meta-head Nomer S.J.#
+    %td= @delivery_order.number
+  %tr
+    %td.meta-head tanggal
+    %td= @delivery_order.do_date.to_s(:long)
+
+%table#items
+  %tr
+    %th.number No.
+    %th.quantity Kode Barang
+    %th.name Nama Barang
+    %th.quantity Qty
+    %th.desc Keterangan
+  - @delivery_order.entries.each_with_index do |entry, i|
+    %tr.item-row
+      %td= (i+1)
+      %td.qty= entry.item.code
+      %td.name=  entry.item.name
+      %td.qty= entry.quantity
+      %td.desc
+<hr/>
+
+%table#tandatangan
+  %tr
+    %td.table Diterima Oleh
+    %td.table 
+    %td.table Hormat Kami,  
+  %tr
+    %td.table 
+    %td.table <p align="center">PERHATIAN !!! <br/> Barang-barang yang sudah dibeli<br/>tidak dapat ditukar/dikembalikan</p>
+    %td.table 

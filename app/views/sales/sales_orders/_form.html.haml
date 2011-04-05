@@ -1,5 +1,7 @@
 - semantic_form_for [:sales, @sales_order] do |f|
   = f.error_messages
+  = f.hidden_field :currency_id
+  = f.hidden_field :currency_rate
   - f.inputs 'Sales Order', :class => "form_section" do
     %li#general_transaction_number_input.string.required
       %label{ :for => 'sales_order_number' } Number <span class="required">*</span>
@@ -8,6 +10,7 @@
                 :name => 'sales_order[number]',
                 :id => 'sales_order_number',
                 :value => f.object.attributes['number'],
+                :readonly => "readonly",
                 :class => 'default' }
         %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"
       .inline{ :style => "min-width:190px;" }
@@ -15,27 +18,16 @@
         = f.text_field :tanggal, :class => "datepicker"
 
     = f.input :order_ref, :label => "Order Ref"
-    = f.input :quotation, :collection => @quotations, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"} unless @project
-    - if @project
-      %li.string
-        = f.label :customer_id
-        = f.hidden_field :customer_id
-        = link_to @project.customer.fullname, @project.customer
-        = f.hidden_field :project_id
-      %li.string
-        = f.label :salesman_id
-        = f.hidden_field :salesman_id
-        = link_to "#{@project.salesman.fullname} (#{@project.salesman.profile.address})", @project.salesman if @project.salesman
-    - else
-      = f.input :customer_id, :as => :hidden
-      = f.input :customer_name, :label => "Customer Name", :as => :string
-      = f.input :salesman, :collection => @salesman.collect {|e| ["#{e.fullname} (#{e.profile.address})", e.id]}, :label => "Salesman", :input_html => { :class => "select filter"}
+    = f.input :customer_id, :as => :hidden
+    = f.input :customer_name, :label => "Customer Name", :as => :string
+    = f.input :quotation, :collection => @quotations, :label => "Quotation Number", :include_blank => "select Quotation", :input_html => { :class => "multiselect"}
+    = f.input :salesman, :collection => @salesman.collect {|e| ["#{e.fullname} (#{e.profile.address})", e.id]}, :label => "Salesman", :input_html => { :class => "select filter"}
     = f.input :top, :label => "Payment Terms"
-    %li.select.optional
+    %li.string.optional
       = f.label :currency_id, "Currency"
-      = f.collection_select :currency_id, @currencies, :id, :name, {}, :class => "select filter"
-      = f.label :currency_rate, "Rate", :class => 'inline-label'
-      = f.text_field :currency_rate
+      #currency-display.inline
+        %span= f.object.currency.name
+        = link_to_function "(change currency)", "$('#currency-changer').dialog('open');"
     = f.input :additional_charge
     = f.input :additional_discount
     = f.input :with_tax, :label => "with tax (#{PPN}%)"
@@ -86,6 +78,14 @@
       = image_tag 'icons/silk/disk.png'
       Save Sales Order
 
+#currency-changer{ :title => "Change Currency" }
+  %form
+    %fieldset
+      = label_tag "cur_type", "Currency"
+      = select_tag "cur_type", options_for_select(@currencies.collect {|c| [c.name, c.id]})
+      = label_tag "cur_rate", "Rate"
+      = text_field_tag "cur_rate"
+
 - content_for :javascripts do
   - javascript_tag do
     var insert_fields = true;
@@ -122,6 +122,14 @@
           }
         });
       });
+      $("#cur_type").live('change', function() {
+        $.ajax({
+          url: "/currencies/"+$(this).val()+"/latest_rate.json",
+          success: function(response, status) {
+            $("#cur_rate").val(response.exchange_rate.value);
+          }
+        });
+      });
       $('.calc').live('keyup', function() {
         var row = $(this).parents('tr');
         var price = row.find('.mr_price')[0];
@@ -140,4 +148,22 @@
       });
       $(function() {
         multiselect_response();
+        $("#currency-changer").dialog({
+          autoOpen: false,
+          modal: true,
+          width: 450,
+          height: 100,
+          resizable: false,
+          buttons: {
+            "Change": function(){
+              var cur_id = $("#cur_type").val();
+              var cur_rate = $("#cur_rate").val();
+              $("#sales_order_currency_id").val(cur_id);
+              $("#sales_order_currency_rate").val(cur_rate);
+              $("#currency-display span").html($("#cur_type option[value=" + cur_id + "]").html() + " @" + cur_rate);
+              $(this).dialog("close");
+            },
+            "Cancel": function() { $(this).dialog("close"); }
+          }
+        });
       });

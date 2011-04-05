@@ -1,7 +1,11 @@
 <% semantic_form_for @material_request, :url => [@project, @material_request] do |f| %>
   <%= f.error_messages %>
   <% f.inputs "Material Request", :class => "form_section" do %>
-    <%= f.input :number %>
+    <li class="string">
+      <label>Number</label>
+      <%= f.object.number %>
+      <%= f.hidden_field :number %>
+    </li>
     <%= f.input :description, :input_html => { :rows => 2 } %>
     <li>
       <table class="report">
@@ -20,7 +24,7 @@
           <% f.semantic_fields_for :entries do |en| %>
             <tr>
               <td>
-                <%= en.text_field :item_name, :class => "item_autocomplete" %>
+                <%= link_to en.object.item.name, en.object.item %>
                 <%= en.hidden_field :item_id %>
               </td>
               <td class="td_5"><%= en.text_field :quantity, :class => "numbers", :size => 8 %></td>

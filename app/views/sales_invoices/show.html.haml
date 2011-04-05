@@ -14,7 +14,7 @@
   %h3
     = "Sales Invoice # #{@sales_invoice.number}"
   #subheader-menu
-    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} Export PDF", sales_invoice_path(@sales_invoice, :format => "pdf", :type =>"pdf")
+    = link_to "#{image_tag('icons/silk/page_white_acrobat.png')} PDF", sales_invoice_path(@sales_invoice, :format => "pdf")
     &bull;
     = link_to "#{image_tag('icons/silk/arrow_left.png')} back", sales_invoice_path
     &bull;

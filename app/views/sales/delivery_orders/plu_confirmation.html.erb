@@ -1,0 +1,56 @@
+<% title "Delivery Order PLU Confirmation" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [link_to("Sales", sales_path), link_to("Delivery Orders", sales_delivery_orders_path), link_to(@delivery_order.number, [:sales, @delivery_order]), "PLU confirmation"] %>
+<% end %>
+
+<%= sidemenu @tab %>
+
+<div id="subheader">
+  <h3><%= "Delivery Order # #{@delivery_order.number}" %></h3>
+  <div id="subheader-menu">
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", [:sales, @delivery_order] %>
+  </div>
+</div>
+
+<div class="two_columns">
+  <p>
+    <span class="light">Date</span>
+    <%=h @delivery_order.do_date.to_s(:long) %>
+  </p>
+  <p>
+    <span class="light">Customer</span>
+    <%=h link_to @delivery_order.customer.fullname %> (<%= @delivery_order.customer.profile.address %>)
+  </p>
+  <p>
+    <span class="light">Reference</span>
+    <%=h @delivery_order.reference %>
+  </p>
+</div>
+
+<% form_for [:sales, @delivery_order] do |f| %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>PLU Code</th>
+        <th>Item</th>
+        <th>Qty.</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="tdr"><button type="submit">Confirm PLU</button></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <% f.fields_for :entries do |e| %>
+        <tr>
+          <td><%= e.collection_select :plu_id, e.object.item.plus, :id, :code, :include_blank => false %></td>
+          <td><%= link_to e.object.item.name, e.object.item %></td>
+          <td class="numbers"><%= e.object.quantity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
