@@ -1,11 +1,13 @@
 class UserSessionsController < ApplicationController
   layout 'login'
   def new
-    @user_session = UserSession.new
+    @company = Company.find_by_subdomain(current_subdomain)
+    @user_session = @company.user_sessions.new(:subdomain => current_subdomain)
   end
   
   def create
-    @user_session = UserSession.new(params[:user_session])
+    @company = Company.find_by_subdomain(current_subdomain)
+    @user_session = @company.user_sessions.new(params[:user_session])
     if @user_session.save
       company = Company.find_by_subdomain(current_subdomain)
       unless company && company.users.include?(current_user)
