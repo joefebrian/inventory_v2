@@ -42,7 +42,7 @@
 
 - content_for :javascripts do
   - javascript_tag do
-    = "var url = '#{new_sales_invoice_url}'"
+    = "var url = '#{new_project_invoice_url(@project)}'"
     :plain
       function create_invoice_from_selected() {
         var checked_do = $(".invoicing_check:checked")

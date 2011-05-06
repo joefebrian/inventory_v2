@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_work_order_id: 1
+  item_id: 1
+  quantity: 1
+  unit_price: 1
+
+two:
+  project_work_order_id: 1
+  item_id: 1
+  quantity: 1
+  unit_price: 1

@@ -161,3 +161,8 @@ form.formtastic fieldset ol li.boolean.one_checkbox label {
 
 form.formtastic fieldset ol li {
   line-height: 1.4em; }
+form.formtastic fieldset ol li.hint {
+  font-style: italic;
+  margin-bottom: 10px;
+  color: #666;
+}

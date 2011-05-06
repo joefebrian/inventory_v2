@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td class="keys">Date</td>
-    <td class="value"><%=h @project.spk.user_date.to_s(:long) %></td>
+    <td class="value"><%=h @project.spk.try(:user_date) %></td>
   </tr>
   <tr>
     <td class="keys">Validity</td>

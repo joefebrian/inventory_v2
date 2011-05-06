@@ -1,9 +1,12 @@
 class ProjectWorkOrder < ActiveRecord::Base
-  attr_accessible :project_id, :number, :user_date, :valid_since, :valid_thru, :payment_term
+  attr_accessible :project_id, :number, :user_date, :valid_since, :valid_thru, :payment_term, :items_attributes
 
   belongs_to :project
-  validates_presence_of :number, :user_date, :valid_since, :valid_thru, :payment_term
+  validates_presence_of :number, :valid_since, :valid_thru, :payment_term
   validates_uniqueness_of :number, :scope => :project_id
+  has_many :items, :class_name => "SpkItem"
+
+  accepts_nested_attributes_for :items, :allow_destroy => true, :reject_if => lambda { |att| att['item_name'].blank? || att['unit_price'].blank? }
 
   def after_initialize
     self.number = suggested_number if new_record?

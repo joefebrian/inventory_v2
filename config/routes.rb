@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     prj.resources :delivery_orders, :controller => "projects/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
       dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/delivery_orders/invoice"
     end
+    prj.resources :invoices, :class_name => "SalesInvoice", :controller => "projects/invoices"
   end
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests

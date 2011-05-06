@@ -13,6 +13,9 @@ module Projects
 
       def new
         @invoice = current_company.sales_invoices.new(:delivery_order_ids => [@delivery_order.id], :user_date => Time.now.to_date, :discount => 0)
+        if params[:do_ids]
+          @invoice.delivery_order_ids = params[:do_ids]
+        end
       end
 
       def create

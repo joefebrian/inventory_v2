@@ -11,6 +11,54 @@
     <%= f.input :customer_name, :label => "Customer name", :as => :string %>
     <%= f.input :salesman, :collection => @salesman.collect {|e| ["#{e.fullname} (#{e.profile.address})", e.id]}, :label => "Salesman", :input_html => { :class => "select filter"} %>
     <%= f.input :description, :input_html => { :rows => 3 } %>
+
+  <% end %>
+  <% f.semantic_fields_for :spk do |spk| %>
+    <% f.inputs "SPK", :class => "form_section" do %>
+      <%= spk.input :number %>
+      <li class="string required">
+        <%= spk.label :active_from, "Valid", :class => "required" %>
+        <div class="inline">
+          <%= spk.text_field :valid_since, :size => 20, :class => "datepicker" %><br/>
+          <p class="inline-hints inline-labels">From</p>
+        </div>
+        <div class="inline">
+          <%= spk.text_field :valid_thru, :size => 20, :class => "datepicker" %><br/>
+          <p class="inline-hints inline-labels">Until</p>
+        </div>
+      </li>
+      <%= spk.input :payment_term, :as => :text, :input_html => { :rows => 2 } %>
+      <%= spk.input :discount, :label => "Discount (%)" %>
+      <%= spk.input :rounding, :label => "Rounding" %>
+    <% end %>
+    <% spk.inputs "Items", :class => "form_section" do %>
+      <li class="hint">
+        Untuk memasukkan data item lot, kosongkan kotak quantity dan masukkan nilai total di kotak price
+      </li>
+      <li class="string" style="margin-left: 25%;">
+        <table class="report" id="spk-items">
+          <thead>
+            <tr>
+              <th style="width:60%">Item</th>
+              <th style="width:20%">Quantity</th>
+              <th style="width:20%">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% spk.semantic_fields_for :items do |i| %>
+              <tr>
+                <td>
+                  <%= i.text_field :item_name, :style => "width: 95%;", :class => "item_autocomplete" %>
+                </td>
+                <td class="numbers"><%= i.text_field :quantity, :style => "width: 80%;" %></td>
+                <td class="numbers"><%= i.text_field :unit_price, :style => "width: 80%;" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </li>
+    <% end %>
+
   <% end %>
   <fieldset class="buttons">
     <button type="submit" id='primary-button'>
@@ -38,6 +86,26 @@
         .append("<a>" + customers.fullname + "</a>")
         .appendTo(ul);
       };
+    });
+    var template = $('#spk-items tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    var insert_fields = true;
+    $(function() {
+      $('#add_new_material').click(function() {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $('#spk-items tbody tr:last-child').after(elem);
+        new_id++;
+        return false;
+      });
+    });
+    $('.remove_material').live('click', function() {
+      $(this).parents('tr').find('input[name*=_destroy]').val(1);
+      $(this).parents('tr').hide();
+      return false;
     });
   <% end %>
 <% end %>

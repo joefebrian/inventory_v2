@@ -15,6 +15,8 @@ class ProjectsController < ApplicationController
   def new
     @salesman = current_company.salesmen
     @project = current_company.projects.new
+    @project.build_spk
+    @project.spk.items.build
   end
 
   def create
