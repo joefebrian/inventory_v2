@@ -69,12 +69,10 @@
     <th>Delivered</th>
   </tr>
 
-  <% @project.materials.each do |e| %>
+  <% @materials.each do |e| %>
     <tr>
-      <td><%= link_to e.title, e.item %></td>
-      <td class="numbers"><%=h e.value %></td>
-      <td class="numbers"><%=h e.requested_quantity %></td>
-      <td class="numbers"><%=h e.delivered_quantity.blank? ? 0 : e.delivered_quantity %></td>
+      <td><%= link_to e.item.name, e.item %></td>
+      <td class="numbers"><%=h e.quantity %></td>
     </tr>
   <% end %>
 </table>
@@ -91,10 +89,10 @@
     <th>Value</th>
   </tr>
 
-  <% @project.lot_materials.each do |e| %>
+  <% @lot_items.each do |e| %>
     <tr>
-      <td><%=h e.title %> (1 Lot)</td>
-      <td class="numbers"><%=h local_currency(e.value) %></td>
+      <td><%=h e.custom_item_name %> (1 Lot)</td>
+      <td class="numbers"><%=h local_currency(e.unit_price) %></td>
     </tr>
   <% end %>
 </table>

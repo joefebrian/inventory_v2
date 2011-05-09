@@ -16,10 +16,6 @@ class Customer < ActiveRecord::Base
 
   accepts_nested_attributes_for :special_prices, :allow_destroy => true, :reject_if => lambda { |at| at[:price].blank? }
 
-  def after_initialize
-    build_profile if new_record?
-  end
-
   def special_prices_matrix
     matrix = {}
     for price in special_prices

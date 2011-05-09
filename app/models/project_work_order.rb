@@ -1,5 +1,5 @@
 class ProjectWorkOrder < ActiveRecord::Base
-  attr_accessible :project_id, :number, :user_date, :valid_since, :valid_thru, :payment_term, :items_attributes
+  attr_accessible :project_id, :number, :user_date, :valid_since, :valid_thru, :payment_term, :items_attributes, :discount, :rounding
 
   belongs_to :project
   validates_presence_of :number, :valid_since, :valid_thru, :payment_term

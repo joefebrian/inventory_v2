@@ -10,6 +10,8 @@ class ProjectsController < ApplicationController
 
   def show
     @project = current_company.projects.find(params[:id])
+    @lot_items = @project.spk.items.reject { |i| i.quantity && i.quantity > 0 }
+    @materials = @project.spk.items.reject { |i| i.quantity.blank? }
   end
 
   def new

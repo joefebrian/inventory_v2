@@ -41,7 +41,7 @@ class ItemsController < ApplicationController
     @item.units.build(:name => 'unit', :conversion_rate => 1)
     @item.units.build
     @item.units.build
-    @categories = current_company.leaf_categories.collect { |cat| [cat.fullname, cat.id] }.compact
+    @categories = current_company.leaf_categories.collect { |cat| [cat.fullname, cat.id] unless cat.service? }.compact
     render :layout => false if request.xhr?
   end
   

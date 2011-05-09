@@ -18,6 +18,8 @@ class Item < ActiveRecord::Base
 
   named_scope :services, :conditions => { :is_stock => false }
 
+  default_scope :conditions => { :type => nil }
+
   def validate
     #errors.add_to_base("All specified unit must have proper value") if units.detect { |u| (u.value.to_i <= 0 || u.conversion_rate.to_i <= 0) }
   end

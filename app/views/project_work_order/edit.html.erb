@@ -35,7 +35,36 @@
         </div>
       </li>
       <%= spk.input :payment_term, :as => :text, :input_html => { :rows => 2 } %>
+      <%= spk.input :discount, :label => "Discount (%)" %>
+      <%= spk.input :rounding, :label => "Rounding" %>
 
+      <% spk.inputs "Items", :class => "form_section" do %>
+        <li class="hint">
+          Untuk memasukkan data item lot, kosongkan kotak quantity dan masukkan nilai total di kotak price
+        </li>
+        <li class="string" style="margin-left: 25%;">
+          <table class="report" id="spk-items">
+            <thead>
+              <tr>
+                <th style="width:60%">Item</th>
+                <th style="width:20%">Quantity</th>
+                <th style="width:20%">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% spk.semantic_fields_for :items do |i| %>
+                <tr>
+                  <td>
+                    <%= i.text_field :item_name, :style => "width: 95%;", :class => "item_autocomplete" %>
+                  </td>
+                  <td class="numbers"><%= i.text_field :quantity, :style => "width: 80%;" %></td>
+                  <td class="numbers"><%= i.text_field :unit_price, :style => "width: 80%;" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </li>
+      <% end %>
     <% end %>
     <fieldset class="buttons">
       <button type="submit" id="primary-button">

@@ -9,15 +9,8 @@ class UserSessionsController < ApplicationController
     @company = Company.find_by_subdomain(current_subdomain)
     @user_session = @company.user_sessions.new(params[:user_session])
     if @user_session.save
-      company = Company.find_by_subdomain(current_subdomain)
-      unless company && company.users.include?(current_user)
-        @user_session.destroy
-        flash[:error] = "Invalid username or password"
-        redirect_to signin_path
-      else
-        flash[:success] = "Welcome #{current_user.username}"
-        redirect_to root_url
-      end
+      flash[:success] = "Welcome #{current_user.username}"
+      redirect_to root_url
     else
       flash[:error] = "Invalid username or password"
       render :action => 'new'
