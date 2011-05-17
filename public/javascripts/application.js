@@ -221,8 +221,9 @@ $('input.item_autocomplete').live('focus', function() {
 
 $('input.item_autocomplete_plu').live('focus', function() {
   var input = $(this);
+  var all = input.hasClass('with_plu');
   input.autocomplete({
-    source: '/items/search.js?item=all',
+    source: all ? '/items/search.js?all_item=1' : '/items/search.js?item=all',
     focus:  function(event, ui) { $(this).val(ui.item.name); return false; },
     select: function(event, ui) {
       $(this).val(ui.item.name);

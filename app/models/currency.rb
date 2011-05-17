@@ -5,14 +5,12 @@ class Currency < ActiveRecord::Base
   has_many :exchange_rates
 
   validates_presence_of :name, :code, :symbol
-  validates_uniqueness_of :name, :code, :symbol
+  validates_uniqueness_of :name, :scope => :company_id
+  validates_uniqueness_of :code, :scope => :company_id
+  validates_uniqueness_of :symbol, :scope => :company_id
 
   after_save :undefault_other_currency
   after_save :create_default_exchange_rate
-
-  def after_initialize
-    self.default = false if new_record?
-  end
 
   def undefault_other_currency
     default_currency = company.currencies.first(:conditions => ["`default` = ? AND `id` != ?", true, id])
