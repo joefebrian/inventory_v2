@@ -20,4 +20,10 @@ class SpkItem < ActiveRecord::Base
   def item_name
     item.try(:name) || custom_item_name
   end
+
+  def requested_quantity
+    if item_id
+      project_work_order.project.material_requests.collect {|mr| mr.entries.find_all_by_item_id(item_id)}.flatten.map(&:quantity).sum
+    end
+  end
 end

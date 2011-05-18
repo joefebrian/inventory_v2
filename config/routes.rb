@@ -3,7 +3,10 @@ ActionController::Routing::Routes.draw do |map|
     prj.resource :spk, :class_name => "ProjectWorkOrder", :controller => "project_work_order"
     prj.resources :materials, :class_name => "ProjectMaterial", :controller => "project_materials"
     prj.resources :lot_materials, :controller => "project_lot_items"
-    prj.resources :material_requests, :controller => "project_material_requests"
+    prj.resources :deliveries, :controller => "project_delivery_orders"
+    prj.resources :material_requests, :controller => "project_material_requests" do |mr|
+      mr.resources :delivery_orders, :controller => "projects/delivery_orders"
+    end
     prj.resources :work_orders, :controller => "production/work_orders"
     prj.resources :sales_orders, :controller => "projects/sales_orders" do |so|
       so.resources :delivery_orders, :controller => "projects/sales_orders/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|

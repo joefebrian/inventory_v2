@@ -1,0 +1,57 @@
+<% title "Project #{@project.name} deliveries" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: #{@project.name} :: Deliveries" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", @project %>
+    &bull;
+    <%= link_to("#{image_tag('icons/silk/add.png')} Create Delivery", new_project_delivery_path(@project), :class => 'main_link') %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    link_to(@project.number, @project),
+    "Deliveries" ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th class="td_5 numbers">No.</th>
+      <th>Number</th>
+      <th>Description</th>
+      <th class="actions">Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan=5 ><%= will_paginate @deliveries %></td>
+    </tr>
+  </tfoot>
+  <tbody>
+    <% @deliveries.each_with_index do |pdo, i| %>
+      <tr>
+        <td class="td_5 numbers"><%= (i+1) %></td>
+        <td>
+          <strong><%= link_to h(pdo.number), project_delivery_path(@project) %></strong>
+        </td>
+        <td>
+          <%= "" %>
+          </br>
+          <span class="inline-hints inline-labels">
+            <%= "on <strong>#{pdo.created_at.to_s(:long)}</strong>, request by <strong>#{h pdo.material_request.requester}</strong>" %>
+          </span>
+        </td>
+        <td class="actions">
+          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_project_delivery_path(@project, pdo) %>
+          <%= link_to image_tag('icons/silk/delete.png'), project_delivery_path(@project, pdo), :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

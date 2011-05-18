@@ -10,9 +10,7 @@ class ProjectMaterialRequestsController < ApplicationController
   def new
     @material_request = @project.material_requests.new(:company_id => @project.company_id)
     @material_request.description = "Material request for project # #{@project.number}"
-    @project.materials.each do |mat|
-      @material_request.entries.build(:item_id => mat.item_id, :quantity => mat.unrequested_quantity, :estimated_delivery_date => Time.now.to_date) unless mat.item.assembly?
-    end
+    @material_request.entries.build
   end
 
   def create

@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  project_id: 1
+  material_request_id: 1
+  delivery_date: 2011-05-18
+
+two:
+  project_id: 1
+  material_request_id: 1
+  delivery_date: 2011-05-18

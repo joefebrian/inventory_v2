@@ -51,6 +51,7 @@
           </span>
         </td>
         <td class="actions">
+          <%= link_to "DO", project_deliveries_path(@project) %> |
           <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_project_material_request_path(@project, material_request) %>
           <%= link_to image_tag('icons/silk/delete.png'), project_material_request_path(@project, material_request), :confirm => 'Are you sure?', :method => :delete %>
         </td>

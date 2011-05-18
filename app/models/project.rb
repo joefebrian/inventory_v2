@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   has_many :work_orders
   has_many :sales_orders
   has_many :delivery_orders
+  has_many :project_delivery_orders
 
   validates_presence_of :number, :name, :customer_name
   accepts_nested_attributes_for :lot_materials, :allow_destroy => true, :reject_if => lambda { |att| att['title'].blank? || att['value'].blank? || att['value'].to_i <= 0 }

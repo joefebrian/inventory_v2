@@ -73,6 +73,8 @@
     <tr>
       <td><%= link_to e.item.name, e.item %></td>
       <td class="numbers"><%=h e.quantity %></td>
+      <td class="numbers"><%= e.requested_quantity %></td>
+      <td class="numbers"></td>
     </tr>
   <% end %>
 </table>
