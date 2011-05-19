@@ -48,3 +48,14 @@
     <button type="submit" id="primary-button"><%= image_tag('icons/silk/disk.png') %> Save material request</button>
   </fieldset>
 <% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var insert_fields = true
+    var template = $('tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+  <% end %>
+<% end %>
+

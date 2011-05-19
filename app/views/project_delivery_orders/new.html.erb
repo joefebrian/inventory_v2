@@ -1,2 +1,51 @@
-<h1>ProjectDeliveryOrders#new</h1>
-<p>Find me in app/views/project_delivery_orders/new.html.erb</p>
+<% title "New project #{@project.name} deliveries" %>
+
+<div id='subheader'>
+  <h3><%=h "#{@project.number} :: Deliveries :: New" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", @project %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Transactions", transactions_path),
+    link_to("Projects", projects_path),
+    link_to(@project.number, @project),
+    link_to("Deliveries", project_deliveries_path(@project)), "New" ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<% semantic_form_for @delivery, :url => project_deliveries_path(@project) do |f| %>
+  <% f.inputs do %>
+    <%= f.error_messages %>
+    <%= f.input :material_request, :label => "Material request", :collection => @project.material_requests, :include_blank => false %>
+    <%= f.input :delivery_date, :as => :string, :input_html => {:class => "datepicker"} %>
+  <% end %>
+  <% f.inputs "Item", :class => "form_section" do %>
+    <table class="report">
+      <thead>
+        <tr>
+          <th style="width:80%;">Item</th>
+          <th style="width:20%;">Quantity / Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% f.semantic_fields_for :entries do |ent| %>
+          <tr>
+            <td><%= ent.text_field :item_name, :style => "width:95%", :class => "item_autocomplete" %></td>
+            <td><%= ent.text_field :amount, :class => "numbers" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  <fieldset class="buttons">
+    <button type="submit" id='primary-button'>
+      <%= image_tag 'icons/silk/disk.png' %>
+      Save Project Delivery Order
+    </button>
+  </fieldset>
+<% end %>
+

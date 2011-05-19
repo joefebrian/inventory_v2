@@ -622,3 +622,22 @@ $('#direct_sale_customer_name').live('focus', function() {
   };
  });
 
+
+$('.customer_autocomplete').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/customers/search.js',
+    focus: function(event, ui) {$(this).val(ui.item.fullname); return false;},
+    select: function(event, ui) {
+      $(this).parents('form').find('#customer_id').val(ui.item.id);
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, customers) {
+    return $("<li></li>")
+    .data("item.autocomplete", customers)
+    .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+

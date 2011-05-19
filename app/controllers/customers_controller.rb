@@ -59,7 +59,7 @@ class CustomersController < ApplicationController
 
   def search
     @keyword = params[:term]
-    @customers = @keyword.nil? ? {} : current_company.customers.profile_first_name_or_code_like(@keyword).all(:limit => 10)
+    @customers = @keyword.nil? ? {} : current_company.customers.profile_first_name_or_profile_last_name_or_code_like(@keyword).all(:limit => 10)
     respond_to do |format|
       format.html { render :layout => false }
       format.js {

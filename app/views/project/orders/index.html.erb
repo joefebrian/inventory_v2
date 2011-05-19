@@ -1,0 +1,56 @@
+<% title "Projects" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ "Projects" ] %>
+  <div id="top_right_link">
+    <% form_for @search do |f| %>
+      <%= f.text_field :number_or_name_like %>
+      <%= f.submit 'search' %>
+    <% end %>
+  </div>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Projects</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create new project", new_project_order_path, :class => "main_link new_project", :title => "Create New Project" %>
+  </div>
+</div>
+
+<%= sidemenu %>
+<%= hint "Click 'Create new project' to add new project" %>
+
+<table class="list" id="projects">
+  <thead>
+    <tr>
+      <th>Number / Progress</th>
+      <th>Customer</th>
+      <th>Name</th>
+      <th class="">Description</th>
+      <th class="actions">Actions</th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+      <td colspan="5">
+        <%= will_paginate(@orders) %>
+      </td>
+    </tr>
+  </tfoot>
+
+  <tbody>
+    <% for project in @orders %>
+      <tr>
+        <td><%= link_to project.number, project %> </td>
+        <td><%=h project.customer.fullname %></td>
+        <td><%=h project.name %></td>
+        <td><%=h project.description %></td>
+        <td class="actions">
+          <%= link_to image_tag("icons/silk/application_form_edit.png"), edit_project_order_path(project) %>
+          <%= link_to image_tag("icons/silk/delete.png"), project, :confirm => 'Are you sure?', :method => :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
