@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  spk_id: 1
+  requester: MyString
+  due_date: 2011-05-23
+
+two:
+  spk_id: 1
+  requester: MyString
+  due_date: 2011-05-23

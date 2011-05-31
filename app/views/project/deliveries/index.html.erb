@@ -1,0 +1,44 @@
+<% title "Project Material Deliveries" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Projects", project_spks_path) ] %>
+  <div id="top_right_link">
+    <% form_for @search do |f| %>
+      <%= f.text_field :number_like %>
+      <%= f.submit 'search' %>
+    <% end %>
+  </div>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Project Material Deliveries</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create new material delivery", new_project_spk_delivery_path, :class => "main_link ", :title => "Create New Delivery" %>
+  </div>
+</div>
+<%= hint "" %>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Project</th>
+      <th>Delivery Date</th>
+      <th class="actions">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @deliveries.each do |d| %>
+      <tr>
+        <td><%=link_to h(d.number), project_spk_delivery_path(@spk, d) %></td>
+        <td><%=h d.spk.number %></td>
+        <td><%=h d.delivery_date.to_s(:long) %></td>
+        <td class="actions">
+          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_project_spk_delivery_path(@spk, d), :title => 'edit this material delivery' %>
+          <%= link_to image_tag('icons/silk/cross.png'), project_spk_delivery_path(@spk, d), :confirm => 'Are you sure?', :method => :delete, :title => 'delete this material delivery' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

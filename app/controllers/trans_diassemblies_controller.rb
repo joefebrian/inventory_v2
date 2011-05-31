@@ -12,20 +12,18 @@ class TransDiassembliesController < ApplicationController
   end
   
   def new
-    @trans_diassembly = current_company.trans_diassemblies.new
-    @trans_diassembly.entries.build
+    @trans_diassembly = current_company.trans_diassemblies.new(params[:trans_diassembly])
+    @trans_diassembly.build_entries_from_trad
     @warehouses = current_company.warehouses
     @trans_assemblies = current_company.trans_assemblies
+    if request.xhr?
+      render :layout => false and return
+    end
   end
  
   def create
-    @trans_diassembly = current_company.trans_diassemblies.new(params[:trans_diassembly])
-    if params[:get_trads] && params[:get_trads].to_i == 1
-      @trans_diassembly.build_entries_from_trad
-      @trans_assemblies = current_company.trans_assemblies
-      @trans_diassembly.entries.build
-      render("new", :layout => false) and return
-    end
+    @trans_diassembly = current_company.trans_diassemblies.new
+    @trans_diassembly.attributes = params[:trans_diassembly]
     if @trans_diassembly.save
       flash[:notice] = "Successfully created trans diassembling."
       redirect_to @trans_diassembly

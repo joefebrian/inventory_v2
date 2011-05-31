@@ -94,4 +94,9 @@ class PagesController < ApplicationController
     @work_order = current_company.work_orders.last
     @material_request = current_company.material_requests.productions.last
   end
+
+  def project
+    @tab = 'transactions'
+    @current = 'proj'
+  end
 end

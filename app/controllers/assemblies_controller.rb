@@ -65,6 +65,15 @@ class AssembliesController < ApplicationController
     end
   end
   
+  def item_base_search
+    @keyword = params[:term]
+    @assemblies = @keyword.nil? ? {} : current_company.assemblies.item_name_like(@keyword)[0...10]
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.js 
+    end
+  end
+  
   private
   def assign_tab
     @tab = 'administrations'

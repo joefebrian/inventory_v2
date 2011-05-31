@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   belongs_to :customer
   belongs_to :company
   belongs_to :salesman
-  has_one :spk, :class_name => "ProjectWorkOrder"
+  has_one :spk#, :class_name => "ProjectWorkOrder"
   has_many :materials, :class_name => "ProjectMaterial"
   has_many :lot_materials
   has_many :material_requests

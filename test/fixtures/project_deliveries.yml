@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  spk_id: 1
+  number: MyString
+  delivery_date: 2011-05-24
+
+two:
+  spk_id: 1
+  number: MyString
+  delivery_date: 2011-05-24

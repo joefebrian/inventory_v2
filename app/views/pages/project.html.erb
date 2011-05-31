@@ -1,0 +1,19 @@
+<% title "Project" %>
+<% content_for :breadcrumb do %>
+  <%= breadcrumb ['Project'] %>
+<% end %>
+
+<%= sidemenu @tab %>
+
+<% content_for :hint do %>
+  <div id="hint">
+    <h2>Hint</h2>
+    <p>
+      Select one of these project menu
+    </p>
+  </div>
+<% end %>
+
+<ol id="dashboard">
+  <li><%= link_to "SPK", project_spks_path %></li>
+</ol>

@@ -622,7 +622,6 @@ $('#direct_sale_customer_name').live('focus', function() {
   };
  });
 
-
 $('.customer_autocomplete').live('focus', function() {
   var input = $(this);
   input.autocomplete({
@@ -637,6 +636,24 @@ $('.customer_autocomplete').live('focus', function() {
     return $("<li></li>")
     .data("item.autocomplete", customers)
     .append("<a>" + customers.fullname + "</a>")
+    .appendTo(ul);
+  };
+ });
+
+$('.assembly_autocomplete').live('focus', function() {
+  var input = $(this);
+  input.autocomplete({
+    source: '/assemblies/item_base_search.js',
+    focus: function(event, ui) {$(this).val(ui.item.item_name_with_assembly); return false;},
+    select: function(event, ui) {
+      $(this).parents('form').find('#assembly_id').val(ui.item.id).change();
+    }
+  })
+  .data("autocomplete")
+  ._renderItem = function(ul, assemblies) {
+    return $("<li></li>")
+    .data("item.autocomplete", assemblies)
+    .append("<a>" + assemblies.item_name_with_assembly + "</a>")
     .appendTo(ul);
   };
  });

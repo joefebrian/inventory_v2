@@ -8,6 +8,7 @@ class Item < ActiveRecord::Base
   has_many :material_request_entries
   has_many :material_requests, :through => :material_request_entries
   has_many :hpps
+  has_many :asseblies
   validates_presence_of :code, :message => "code can't be blank"
   validates_presence_of :name, :message => "name can't be blank"
   validates_presence_of :category_id, :message => "category can't be blank"

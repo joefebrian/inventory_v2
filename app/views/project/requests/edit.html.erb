@@ -1,0 +1,17 @@
+<% title "Edit Material Request" %>
+
+<div id='subheader'>
+  <h3><%=h "Edit Material Request" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", project_spk_request_path(@spk, @request) %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Project Material Request", project_spk_request_path(@spk, @request))] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "" %>
+
+<%= render :partial => 'form' %>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  company_id: 1
+  number: MyString
+  name: MyString
+  customer_id: 1
+  salesman_id: 1
+  term_of_payment: MyText
+  valid_from: 2011-05-20
+  valid_thru: 2011-05-20
+  discount: 1
+  rounding: 1
+
+two:
+  company_id: 1
+  number: MyString
+  name: MyString
+  customer_id: 1
+  salesman_id: 1
+  term_of_payment: MyText
+  valid_from: 2011-05-20
+  valid_thru: 2011-05-20
+  discount: 1
+  rounding: 1

@@ -1,0 +1,56 @@
+<% title "Material Request #{@request.number}" %>
+
+<div id='subheader'>
+  <h3><%=h "Material request # #{@request.number}" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", project_spk_requests_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_spk_request_path(@spk, @request), :title => "Edit Material Request #{@request.number}" %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Material Request", project_spk_requests_path),
+    @request.number ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "Click 'edit' to edit this material request" %>
+
+<div class="two_columns">
+  <p>
+    <span class="light ">Project</span>
+    <strong><%= link_to @request.spk.number, project_spk_path(@request.spk) %></strong>
+  </p>
+  <p>
+    <span class="light ">Number</span>
+    <strong><%= @request.number %></strong>
+  </p>
+  <p>
+    <span class="light ">Requester</span>
+    <strong><%= @request.requester %></strong>
+  </p>
+  <p>
+    <span class="light ">Due Date</span>
+    <strong><%=h @request.due_date.to_s(:long) %></strong>
+  </p>
+</div>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Item</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @request.entries.each_with_index do |e, i| %>
+      <tr>
+        <td class="numbers"><%= (i+1) %></td>
+        <td><%= e.item.name %></td>
+        <td class="numbers"><%= e.quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

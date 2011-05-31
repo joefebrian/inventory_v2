@@ -1,0 +1,70 @@
+<% semantic_form_for @request, :url => @request.new_record? ? project_spk_requests_path : project_spk_request_path(@spk, @request) do |f| %>
+  <%= f.error_messages %>
+  <% f.inputs "Material Request", :class => "form_section" do %>
+    <% unless @request.new_record? %>
+      <li class="string">
+        <label>Number</label>
+        <%= f.object.number %>
+      </li>
+    <% end %>
+    <%= f.input :requester %>
+    <%= f.input :due_date, :as => :string, :input_html => { :class => "datepicker" } %>
+  <% end %>
+  <% f.inputs "Materials", :class => "form_section" do %>
+    <table class="report" id="mr-items">
+      <thead>
+        <tr>
+          <th style="width:80%">Item</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="2"><%= link_to "+ add new item", "#", :id => "add_new_material" %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% f.semantic_fields_for :entries do |e| %>
+          <tr>
+            <td>
+              <%= e.text_field :item_name, :class => "item_autocomplete" %>
+              <%= e.hidden_field :item_id %>
+            </td>
+            <td><%= e.text_field :quantity, :class => "numbers" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  <fieldset class="buttons">
+    <button type="submit" id='primary-button'>
+      <%= image_tag 'icons/silk/disk.png' %>
+      Save Material Request
+    </button>
+  </fieldset>
+<% end %>
+
+<% content_for :javascripts do %>
+  <% javascript_tag do %>
+    var template = $('#mr-items tbody tr:last-child').html();
+    var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+    var regexp2 = new RegExp("_(\\d+)_", "g");
+    var new_id = $('tbody tr').length;
+    var insert_fields = true;
+    $(function() {
+      $('#add_new_material').click(function() {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $('#mr-items tbody tr:last-child').after(elem);
+        new_id++;
+        return false;
+      });
+    });
+    $('.remove_material').live('click', function() {
+      $(this).parents('tr').find('input[name*=_destroy]').val(1);
+      $(this).parents('tr').hide();
+      return false;
+    });
+  <% end %>
+<% end %>

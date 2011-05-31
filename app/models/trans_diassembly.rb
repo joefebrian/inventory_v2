@@ -1,10 +1,10 @@
 class TransDiassembly < ActiveRecord::Base
-  attr_accessible :company_id, :warehouse_id, :trans_assembly_id, :number, :quantity, :description, :tanggal, :entries_attributes
+  attr_accessible :company_id, :warehouse_id, :assembly_id, :number, :quantity, :description, :tanggal, :entries_attributes, :assembly_name
   belongs_to :company
   belongs_to :warehouse
-  belongs_to :trans_assembly
+  belongs_to :assembly
   has_many :entries, :class_name => "TransDiassembliesEntry"
-  validates_presence_of :number, :quantity, :warehouse_id, :trans_assembly_id, :tanggal
+  validates_presence_of :number, :quantity, :warehouse_id, :assembly_id, :tanggal
   validates_uniqueness_of :number, :scope => :company_id
   
   accepts_nested_attributes_for :entries,
@@ -12,7 +12,10 @@ class TransDiassembly < ActiveRecord::Base
     :reject_if => lambda {|at| at['quantity'].blank? || at['quantity'].to_i == 0}
 
   def after_initialize
-    self.number = suggested_number if new_record?
+    if new_record?
+      self.number = suggested_number 
+      self.quantity = 1
+    end
   end
 
   def suggested_number
@@ -27,20 +30,28 @@ class TransDiassembly < ActiveRecord::Base
 
   def build_entries_from_trad
     entries.clear
-    unless trans_assembly.blank?
-      items = TransAssembliesEntry.calculate(:sum,
-                                             :quantity,
-                                             :conditions => { :trans_assembly_id => trans_assembly_id },
-                                             :group => :item_id)
+    unless assembly_id.blank?
+      items = AssemblyEntry.calculate(:sum,
+                                     :quantity,
+                                     :conditions => { :assembly_id => assembly_id },
+                                     :group => :item_id)
       items.each do |item_id, qty|
         self.entries.build(:item_id => item_id,
-                           :quantity => qty)
+                           :quantity => qty * quantity,
+                           :formula_quantity => qty)
       end
     end
   end
 
   def to_s
     number
+  end
+
+  def assembly_name
+    assembly.try(:item_name_with_assembly)
+  end
+
+  def assembly_name=(name)
   end
 
 end

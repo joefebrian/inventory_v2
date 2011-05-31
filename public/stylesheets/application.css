@@ -1,6 +1,6 @@
 body {
   background: #cfffd1;
-  font-family: "Trebuchet MS", Tahoma, Verdana, Helvetica, Arial;
+  font-family: Ubuntu, "Trebuchet MS", Tahoma, Verdana, Helvetica, Arial;
   font-size: 12px; }
 
 a img, button img {
@@ -202,7 +202,8 @@ h6 {
   background: #c8c8c8;
   margin: -20px -20px 20px;
   padding: 10px 20px;
-  overflow: hidden; }
+  overflow: hidden;
+  line-height: 22px; }
   #breadcrumb a {
     color: #235f26;
     text-decoration: none;

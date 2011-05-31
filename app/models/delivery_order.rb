@@ -8,6 +8,8 @@ class DeliveryOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :warehouse
   belongs_to :project
+  belongs_to :spk, :foreign_key => "project_id"
+  has_and_belongs_to_many :spk_requests, :class_name => "Project::MaterialRequest"
   validates_presence_of :number, :do_date, :warehouse_id
   validates_uniqueness_of :number, :scope => :company_id
 

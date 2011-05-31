@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  spk_id: 1
+  item_id: 1
+  custom_item_name: MyString
+  price: 1
+  quantity: 1
+  type: MyString
+
+two:
+  spk_id: 1
+  item_id: 1
+  custom_item_name: MyString
+  price: 1
+  quantity: 1
+  type: MyString

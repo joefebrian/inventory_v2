@@ -22,10 +22,9 @@
       %span.light.transaction_label Warehouse
       %strong= @trans_diassembly.warehouse.name
     %p
-      %span.light.transaction_label Code Assemblies
+      %span.light.transaction_label Dis-assembled Item
       %strong
-        = @trans_diassembly.trans_assembly.number 
-        = link_to ("(#{@trans_diassembly.trans_assembly.number})"), @trans_diassembly.trans_assembly 
+        = link_to @trans_diassembly.assembly.item_name_with_assembly, @trans_diassembly.assembly.item 
     %p
       %span.light.transaction_label Quantity
       %strong= @trans_diassembly.quantity

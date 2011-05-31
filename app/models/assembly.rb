@@ -33,4 +33,8 @@ class Assembly < ActiveRecord::Base
  def item_name=(item_name)
  end
 
+ def item_name_with_assembly
+   "#{item.name} (#{number} - #{name})"
+ end
+
 end

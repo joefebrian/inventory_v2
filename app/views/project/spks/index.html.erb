@@ -1,0 +1,46 @@
+<% title "SPK" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ "Projects" ] %>
+  <div id="top_right_link">
+    <% form_for @search do |f| %>
+      <%= f.text_field :name_or_number_like %>
+      <%= f.submit 'search' %>
+    <% end %>
+  </div>
+<% end -%>
+
+<div id='subheader'>
+  <h3>SPK</h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/add.png')} Create new SPK", new_project_spk_path, :class => "main_link ", :title => "Create New SPK" %>
+  </div>
+</div>
+<%= hint "" %>
+
+<table class="list">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Name</th>
+      <th>Customer</th>
+      <th>Validity</th>
+      <th class="actions">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @spks.each do |spk| %>
+      <tr>
+        <td><%=link_to h(spk.number), spk %></td>
+        <td><%=h spk.name %></td>
+        <td><%= link_to h(spk.customer.fullname), spk.customer %></td>
+        <td><%=h spk.valid_from.to_s(:long) %> - <%= spk.valid_thru.to_s(:long) %></td>
+        <td class="actions">
+          <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_project_spk_path(spk), :title => 'edit this spk' %>
+          <%= link_to image_tag('icons/silk/cross.png'), spk, :confirm => 'Are you sure?', :method => :delete, :title => 'delete this spk' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

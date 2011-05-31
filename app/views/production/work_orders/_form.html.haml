@@ -32,7 +32,7 @@
                   - else
                     = ent.text_field :assembly_name, :class => "assembled_item_autocomplete", :style => "width:100%;"
                     = ent.hidden_field :assembly_id
-                %td.assembly_end_product= ent.object.item.name
+                %td.assembly_end_product= ent.object.item.try(:name)
                 %td.tdr
                   = ent.text_field :quantity, :class => "numbers", :size => 5
   %fieldset.buttons

@@ -1,0 +1,22 @@
+<% semantic_form_for @material, :url => project_spk_material_path(@spk, @material) do |f| %>
+  <%= f.error_messages %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>Item name</th>
+        <th style="width:10%">Price</th>
+        <th style="width:10%">Quantity</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><%= f.text_field :item_name, :class => "item_autocomplete" %></td>
+        <td><%= f.text_field :price, :class => "numbers", :size => 10 %></td>
+        <td><%= f.text_field :quantity, :class => "numbers", :size => 10 %></td>
+        <td class="actions"><%= f.submit "Save" %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

@@ -1,0 +1,57 @@
+<% title "SPK #{@spk.number}" %>
+
+<div id='subheader'>
+  <h3><%=h "SPK # #{@spk.number}" %></h3>
+  <div id='subheader-menu'>
+    <%= link_to "#{image_tag('icons/silk/arrow_left.png')} back", project_spks_path %> &bull;
+    <%= link_to "#{image_tag('icons/silk/application_form_edit.png')} edit", edit_project_spk_path(@spk), :title => "Edit SPK #{@spk.number}" %> &bull;
+    <%= link_to "deliveries", project_spk_deliveries_path(@spk) %>
+  </div>
+</div>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Projects", project_spks_path),
+    @spk.number ] %>
+<% end -%>
+
+<%= sidemenu %>
+<%= hint "Click 'edit' to edit this spk" %>
+
+<div class="two_columns">
+  <p>
+    <span class="light ">Number</span>
+    <strong><%= @spk.number %></strong>
+  </p>
+  <p>
+    <span class="light ">Name</span>
+    <strong><%= @spk.name %></strong>
+  </p>
+  <p>
+    <span class="light ">Customer</span>
+    <strong><%= link_to @spk.customer.fullname, @spk.customer %></strong>
+  </p>
+  <p>
+    <span class="light ">Salesman</span>
+    <strong><%= link_to @spk.salesman.fullname, @spk.salesman %></strong>
+  </p>
+  <p>
+    <span class="light ">Term of Payment</span>
+    <strong><%=h @spk.term_of_payment %></strong>
+  </p>
+  <p>
+    <span class="light ">Validity</span>
+    <strong>From <%=h @spk.valid_from.to_s(:long) %> Until <%= @spk.valid_thru.to_s(:long) %></strong>
+  </p>
+  <p>
+    <span class="light">Discount</span>
+    <strong><%=h @spk.discount %> %</strong>
+  </p>
+  <p>
+    <span class="light">Rounding</span>
+    <strong><%=h number_to_currency @spk.rounding, :unit => "", :precision => 0, :delimiter => '.' %></strong>
+  </p>
+  <p>
+    <span class="light"></span>
+    <strong style="display:inline-block;"><%= link_to "Materials", project_spk_materials_path(@spk) %><br/><%= link_to "Request", project_spk_requests_path(@spk) %></strong>
+  </p>
+</div>

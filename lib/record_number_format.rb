@@ -12,6 +12,10 @@ module RecordNumberFormat
     @@number_format = fmt
   end
 
+  def generate_next_number
+    self.number = self.class.to_s.constantize.next_number_for_company(self.company)
+  end
+
   def self.included(base)
     base.extend         ClassMethods
   end

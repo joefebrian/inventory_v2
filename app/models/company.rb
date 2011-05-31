@@ -51,6 +51,7 @@ class Company < ActiveRecord::Base
   has_many :sales_prices, :dependent => :destroy
   has_many :work_orders, :dependent => :destroy
   has_many :services, :dependent => :destroy
+  has_many :spks, :class_name => 'Project::Spk'
 
   after_create :create_defaults
 

@@ -1,23 +1,31 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :projects do |prj|
-    prj.resource :spk, :class_name => "ProjectWorkOrder", :controller => "project_work_order"
-    prj.resources :materials, :class_name => "ProjectMaterial", :controller => "project_materials"
-    prj.resources :lot_materials, :controller => "project_lot_items"
-    prj.resources :deliveries, :controller => "project_delivery_orders"
-    prj.resources :material_requests, :controller => "project_material_requests" do |mr|
-      mr.resources :delivery_orders, :controller => "projects/delivery_orders"
+  map.namespace :project do |prj|
+    prj.resources :spks do |spk|
+      spk.resources :materials
+      spk.resources :requests, :class_name => "Project::MaterialRequest"
+      spk.resources :deliveries, :class_name => "DeliveryOrder"
     end
-    prj.resources :work_orders, :controller => "production/work_orders"
-    prj.resources :sales_orders, :controller => "projects/sales_orders" do |so|
-      so.resources :delivery_orders, :controller => "projects/sales_orders/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
-        dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/sales_orders/delivery_orders/invoice"
-      end
-    end
-    prj.resources :delivery_orders, :controller => "projects/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
-      dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/delivery_orders/invoice"
-    end
-    prj.resources :invoices, :class_name => "SalesInvoice", :controller => "projects/invoices"
   end
+
+  #map.resources :projects do |prj|
+    #prj.resource :spk, :class_name => "ProjectWorkOrder", :controller => "project_work_order"
+    #prj.resources :materials, :class_name => "ProjectMaterial", :controller => "project_materials"
+    #prj.resources :lot_materials, :controller => "project_lot_items"
+    #prj.resources :deliveries, :controller => "project_delivery_orders"
+    #prj.resources :material_requests, :controller => "project_material_requests" do |mr|
+      #mr.resources :delivery_orders, :controller => "projects/delivery_orders"
+    #end
+    #prj.resources :work_orders, :controller => "production/work_orders"
+    #prj.resources :sales_orders, :controller => "projects/sales_orders" do |so|
+      #so.resources :delivery_orders, :controller => "projects/sales_orders/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
+        #dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/sales_orders/delivery_orders/invoice"
+      #end
+    #end
+    #prj.resources :delivery_orders, :controller => "projects/delivery_orders", :member => { :plu_confirmation => :get } do |dlv|
+      #dlv.resource :invoice, :class_name => "SalesInvoice", :controller => "projects/delivery_orders/invoice"
+    #end
+    #prj.resources :invoices, :class_name => "SalesInvoice", :controller => "projects/invoices"
+  #end
   map.namespace(:purchasing) do |purchase|
     purchase.resources :material_requests
     purchase.resources :quotation_requests, :member => { :send_request => :get }
@@ -81,7 +89,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :trans_diassemblies
   map.resources :roles
   map.resources :salesmen
-  map.resources :assemblies, :collection => { :search => :get }
+  map.resources :assemblies, :collection => { :search => :get, :item_base_search => :get }
   map.resources :services
   map.resources :price_lists
   map.resources :general_transactions, :member => { :detail => :get }
@@ -110,6 +118,7 @@ ActionController::Routing::Routes.draw do |map|
   map.purchasing 'purchasing', :controller => :pages, :action => 'purchasing'
   map.assy 'assy', :controller => :pages, :action => 'assembling_disassembling'
   map.production 'production', :controller => :pages, :action => 'production'
+  map.project 'project', :controller => :pages, :action => 'project'
   map.dashboard 'dashboard', :controller => :pages
   map.signin "signin", :controller => :user_sessions, :action => :new
   map.signout "signout", :controller => :user_sessions, :action => :destroy
