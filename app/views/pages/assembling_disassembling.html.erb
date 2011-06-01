@@ -16,7 +16,7 @@
   <li>
     <h2>Disassembling</h2>
     <p>
-      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", trans_diassemblies_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Disassembling", new_trans_diassembly_path %> &bull; Latest transaction: <%= @diassembling.nil? ? "No record" : link_to(@diassembling.number, @diassembling) %>
+      <%= link_to "#{image_tag('icons/silk/application_view_list.png')} List", trans_diassemblies_path %> &bull; <%= link_to "#{image_tag('icons/silk/add.png')} New Disassembling", new_trans_diassembly_path %> &bull; Latest transaction: <%= @disassembling.nil? ? "No record" : link_to(@disassembling.number, @disassembling) %>
     </p>
   </li>
   <li>

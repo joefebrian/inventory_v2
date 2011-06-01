@@ -1,18 +1,19 @@
 - semantic_form_for @trans_diassembly do |f|
   = f.error_messages
-  - f.inputs do
-    %li#general_transaction_number_input.string.required
-      %label{ :for => 'trans_diassembly_number' } Number <span class="required">*</span>
-      %input{ :type => :text, :size => 50,
-              :name => 'trans_diassembly[number]',
-              :id => 'trans diassembly_number',
-              :value => f.object.attributes['number'],
-              :class => 'default' }
-      %p.inline-errors= f.error_message_on :number, :append_text => ", but <strong><a href='#' rel='#{@number_suggested}' class='number_suggestion'>#{@number_suggestion}</a></strong> is available"  
+  - f.inputs "Disassembling", :class => "form_section" do
+    %li.string.required
+      = f.label :number, :class => 'required'
+      .inline
+        = f.text_field :number
+        %br
+        %p.inline-hints.inline-labels Number
+      .inline
+        = f.text_field :tanggal, :class => "datepicker"
+        %br
+        %p.inline-hints.inline-labels Date
  
-    = f.input :tanggal, :as => :string, :input_html => { :class => "datepicker" }, :label => "Date"
-    = f.input :warehouse, :collection => @warehouses, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"} 
-    = f.input :assembly_name, :as => :string, :label => "Item to disassembled", :input_html => {:class => "assembly_autocomplete"} 
+    = f.input :warehouse, :collection => @warehouses, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"}, :required => true
+    = f.input :assembly_name, :as => :string, :label => "Item to disassembled", :input_html => {:class => "assembly_autocomplete"}, :required => true 
     = f.input :assembly_id, :as => :hidden, :input_html => {:id => 'assembly_id'}
     = f.input :quantity, :input_html => { :id => 'disassembled_item_quantity' }  
     = f.input :description, :input_html => { :rows => 3 }
