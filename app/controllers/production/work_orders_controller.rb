@@ -46,6 +46,13 @@ module Production
     def show
       @work_order = current_company.work_orders.find(params[:id])
     end
+
+    def destroy
+      @work_order = current_company.work_orders.find(params[:id])
+      @work_order.destroy
+      flash[:notice] = "Work Order successfully deleted"
+      redirect_to production_work_orders_path
+    end
     
     private
     def assign_tab
