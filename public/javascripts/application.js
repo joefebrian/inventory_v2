@@ -229,6 +229,15 @@ $('input.item_autocomplete_plu').live('focus', function() {
       $(this).val(ui.item.name);
       $(this).next().val(ui.item.id);
       var form = $(this).parents('form');
+      if(window.insert_fields) {
+        var elem = template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        input.parents('tr').after(elem);
+        $('.should_hidden').hide();
+        attach_datepicker();
+        new_id++;
+      }
       return false;
     }
   })

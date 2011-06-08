@@ -15,12 +15,12 @@
     = f.input :warehouse, :collection => @warehouses, :as => :select, :label => "Warehouse", :include_blank => "select Warehouse", :input_html => {:class => "select"}
     = f.input :description, :input_html => { :rows => 3 }
 
-  - f.inputs 'Items From Formula Assembling', :class => "form_section" do
+  - f.inputs 'Items to be assembled', :class => "form_section" do
     %li
       %table.report
         %thead
           %tr
-            %th.tdl.td_20 Assembled Item Name
+            %th.tdl.td_20 Assembly Formula
             %th End Product
             %th Quantity
         %tfoot

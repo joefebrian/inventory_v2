@@ -4,77 +4,53 @@
 %ul#sidemenu
   %li.submenu_handler
     =link_to "Inventory", '#', :class => current['inv']
-    %div
     %ul.submenu
       %li
         = link_to "Begining Balances", beginning_balances_path, :class => current['bb']
-        %div
       %li
         = link_to "General Transaction", general_transactions_path, :class => current['gt']
-        %div
   - unless current_company.inventory_only?
     %li.submenu_handler
       = link_to "Purchasing", purchasing_path, :class => current['purchasing']
-      %div
       %ul.submenu
         %li
           = link_to "Material Request", purchasing_material_requests_path, :class => current['mr']
-          %div
         %li
           = link_to "Quotation Request", purchasing_quotation_requests_path, :class => current['qr']
-          %div
         %li
           = link_to "Purchase Order", purchasing_purchase_orders_path, :class => current['po']
-          %div
         %li
           = link_to "Item Receive", purchasing_item_receives_path, :class => current['ir']
-          %div
         %li
           = link_to "Purchase Retur", purchasing_purchase_returns_path, :class => current['ptr']
-          %div
         %li
           = link_to "Invoices", purchasing_invoices_path, :class => current['pinv']
-          %div
     %li.submenu_handler
       =link_to "Sales", sales_path, :class => current['sales']
-      %div
       %ul.submenu
         %li
           =link_to "Quotations", sales_quotations_path, :class => current['quo']
-          %div
         %li
           =link_to "Sales Orders", sales_sales_orders_path, :class => current['so']
-          %div
         %li
           =link_to "Delivery Orders", sales_delivery_orders_path, :class => current['do']
-          %div
         %li
           =link_to "Sales Invoices", sales_invoices_path, :class => current['invoices']
-          %div
         %li
           =link_to "Sales Retur", sales_returns_path, :class => current['sr']
-          %div
         %li
           =link_to "Direct Sales", direct_sales_path, :class => current['ds']
-          %div
-
 
     %li
       =link_to "Credit / Debit Note", credit_debit_notes_path, :class => current['cndn']
-      %div
     %li
       =link_to "Assembling / Disassembling", assy_path, :class => current['assy']
-      %div
     %li.submenu_handler
       =link_to "Production", production_path, :class => current['prod']
-      %div
       %ul.submenu
         %li
           =link_to "Work Order", production_work_orders_path, :class => current['wo']
-          %div
         %li
           =link_to "Permintaan Bahan Produksi", production_material_requests_path, :class => current['prod_mr']
-          %div
     %li
       =link_to "Projects", project_path, :class => current['prj']
-      %div

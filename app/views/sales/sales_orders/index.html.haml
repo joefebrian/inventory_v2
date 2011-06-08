@@ -38,7 +38,7 @@
     %tr
       %td= link_to h(sales_order.number), [:sales, sales_order]
       %td= h sales_order.customer.profile.full_name
-      %td.tdc= h sales_order.tanggal
+      %td.tdc= h sales_order.tanggal.to_s(:long)
       %td.tdr= local_currency(sales_order.grand_total)
       %td.actions
         = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_sales_order_path(sales_order)

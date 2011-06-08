@@ -62,7 +62,6 @@ h6
 #user_nav
   background: rgb(207, 255, 209)
   float: right
-  margin-right: -20px
   padding: 7px 20px 10px
   border-radius: 0 0 0 15px
   -moz-border-radius: 0 0 0 15px
@@ -148,7 +147,6 @@ h6
       &.current
         background: rgb(35, 95, 38)
         color: #fff
-        margin-right: -20px
         text-shadow: 0 -1px rgba(0, 0, 0, 1)
         + div
           border-width: 13px 0 13px 7px
@@ -174,7 +172,6 @@ h6
           border-color: transparent transparent transparent #9bfb9d
         background: #9bfb9d
         color: rgb(0, 0, 0)
-        margin-right: -20px
       &.current:hover
         background: rgb(35, 95, 38)
         color: #fff
@@ -575,8 +572,6 @@ fieldset.plain
     padding: 2px 5px
     font-weight: bold
 
-.ui-widget-header
-  font-size: 1em
 
 .ui-widget-content
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.8)
@@ -732,8 +727,18 @@ input.subtle
   background: #FFCFD5
 
 .ui-widget-header
+  font-size: 1em
   padding: 5px
+  overflow: hidden
 
+  #enhanced_length, #enhanced_info
+    float: left
+
+  #enhanced_filter, #enhanced_paginate
+    float: right
+
+span.css_right
+  float: left
 a
   &#enhanced_previous, &#enhanced_next
     float: left

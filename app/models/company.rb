@@ -29,7 +29,7 @@ class Company < ActiveRecord::Base
   has_many :entries, :dependent => :destroy
   has_many :assemblies, :dependent => :destroy
   has_many :customers, :dependent => :destroy, :include => :profile
-  has_many :price_lists, :dependent => :destroy
+  has_many :price_lists, :dependent => :destroy, :conditions => "active_from <= DATE('#{Time.now.to_s(:db)}') AND active_until >= DATE('#{Time.now.to_s(:db)}')"
   has_many :material_requests, :dependent => :destroy
   has_many :quotation_requests, :dependent => :destroy
   has_many :purchase_orders, :dependent => :destroy

@@ -62,7 +62,6 @@ h6 {
 #user_nav {
   background: #cfffd1;
   float: right;
-  margin-right: -20px;
   padding: 7px 20px 10px;
   border-radius: 0 0 0 15px;
   -moz-border-radius: 0 0 0 15px;
@@ -145,7 +144,6 @@ h6 {
     #sidemenu li a.current {
       background: #235f26;
       color: white;
-      margin-right: -20px;
       text-shadow: 0 -1px black; }
       #sidemenu li a.current + div {
         border-width: 13px 0 13px 7px;
@@ -167,8 +165,7 @@ h6 {
       border-color: transparent transparent transparent #235f26; }
     #sidemenu li a:hover {
       background: #9bfb9d;
-      color: black;
-      margin-right: -20px; }
+      color: black; }
       #sidemenu li a:hover + div {
         border-color: transparent transparent transparent #9bfb9d; }
     #sidemenu li a.current:hover {
@@ -564,9 +561,6 @@ fieldset.plain {
     padding: 2px 5px;
     font-weight: bold; }
 
-.ui-widget-header {
-  font-size: 1em; }
-
 .ui-widget-content {
   box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.8);
@@ -721,7 +715,16 @@ input.subtle {
   background: #ffcfd5; }
 
 .ui-widget-header {
-  padding: 5px; }
+  font-size: 1em;
+  padding: 5px;
+  overflow: hidden; }
+  .ui-widget-header #enhanced_length, .ui-widget-header #enhanced_info {
+    float: left; }
+  .ui-widget-header #enhanced_filter, .ui-widget-header #enhanced_paginate {
+    float: right; }
+
+span.css_right {
+  float: left; }
 
 a#enhanced_previous, a#enhanced_next {
   float: left; }

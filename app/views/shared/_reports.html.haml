@@ -4,19 +4,12 @@
 %ul#sidemenu
   %li
     = link_to "On Hands", reports_on_hands_path, :class => current['oh']
-    %div
   %li
     = link_to "Items Movement", reports_item_movements_path, :class => current['im']
-    %div
   %li
     = link_to "Stock Card", reports_stock_cards_path, :class => current['sc']
-    %div
   %li
     =link_to "Sales Order", reports_sales_orders_path, :class => current['so'];
-    %div
-  %li
     =link_to "Quotations(Sales)", reports_quotations_path, :class => current['quot'];
-    %div
   %li
     =link_to "Delivery Order", reports_delivery_orders_path, :class => current['do'];
-    %div

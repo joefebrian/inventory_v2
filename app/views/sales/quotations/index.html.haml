@@ -28,7 +28,7 @@
     - for quotation in @quotations
       %tr
         %td= link_to h(quotation.number), [:sales, quotation]
-        %td= h quotation.tanggal_berlaku
+        %td= h quotation.tanggal_berlaku.to_s(:long)
         %td= h quotation.customer
         %td.actions
           = link_to image_tag('icons/silk/application_form_edit.png'), edit_sales_quotation_path(quotation)

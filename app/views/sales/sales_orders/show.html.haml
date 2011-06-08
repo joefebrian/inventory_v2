@@ -25,7 +25,7 @@
     =h @sales_order.quotation.nil? ? '-' : link_to(@sales_order.quotation.number, sales_quotation_path(@sales_order.quotation))
   %p
     %span.light Date
-    =h @sales_order.tanggal
+    =h @sales_order.tanggal.to_s(:long)
   %p
     %span.light Customer Name
     =h @sales_order.customer

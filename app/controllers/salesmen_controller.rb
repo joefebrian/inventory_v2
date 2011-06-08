@@ -43,7 +43,7 @@ class SalesmenController < ApplicationController
   end
   
   def destroy
-    @salesman = current_company.Salesman.find(params[:id])
+    @salesman = current_company.salesmen.find(params[:id])
     @salesman.destroy
     flash[:notice] = "Successfully destroyed salesman."
     redirect_to salesmen_url

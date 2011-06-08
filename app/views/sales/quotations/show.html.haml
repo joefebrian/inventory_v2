@@ -25,7 +25,7 @@
       %strong= @quotation.number
     %p
       %span.light.transaction_label Due Date
-      %strong= @quotation.tanggal_berlaku
+      %strong= @quotation.tanggal_berlaku.to_s(:long)
     %p
       %span.light.transaction_label Customer Name
       %strong= @quotation.customer

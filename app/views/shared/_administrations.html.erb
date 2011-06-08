@@ -4,30 +4,29 @@
 <ul id="sidemenu">
   <li class="submenu_handler">
     <%= link_to "Masters", '#' %>
-    <div></div>
     <ul class="submenu">
-      <li><%= link_to "Categories", categories_path, :class => current['cat'] %><div></div></li>
-      <li><%= link_to "Items", items_path, :class => current['it'] %><div></div></li>
-      <li><%= link_to "Services", services_path, :class => current['svc'] %><div></div></li>
-      <li><%= link_to "Warehouses", warehouses_path, :class => current['wrh'] %><div></div></li>
-      <li><%= link_to "Suppliers", suppliers_path, :class => current['sup'] %><div></div></li>
-      <li><%= link_to "PLU", plus_path, :class => current['plu'] %><div></div></li>
-      <li><%= link_to "Assembled Item Formula", assemblies_path, :class => current['ass'] %><div></div></li>
-      <li><%= link_to "Salesmen", salesmen_path, :class => current['slm'] %><div></div></li>
-      <li><%= link_to "Customers", customers_path, :class => current['customer'] %><div></div></li>
-      <li><%= link_to "Currencies", currencies_path, :class => current['curr'] %><div></div></li>
-      <li><%= link_to "Transaction Types", transaction_types_path, :class => current['tt'] %><div></div></li>
-      <li><%= link_to "Price List", price_lists_path, :class => current['price_list'] %><div></div></li>
+      <li><%= link_to "Categories", categories_path, :class => current['cat'] %></li>
+      <li><%= link_to "Items", items_path, :class => current['it'] %></li>
+      <li><%= link_to "Services", services_path, :class => current['svc'] %></li>
+      <li><%= link_to "Warehouses", warehouses_path, :class => current['wrh'] %></li>
+      <li><%= link_to "Suppliers", suppliers_path, :class => current['sup'] %></li>
+      <li><%= link_to "PLU", plus_path, :class => current['plu'] %></li>
+      <li><%= link_to "Assembled Item Formula", assemblies_path, :class => current['ass'] %></li>
+      <li><%= link_to "Salesmen", salesmen_path, :class => current['slm'] %></li>
+      <li><%= link_to "Customers", customers_path, :class => current['customer'] %></li>
+      <li><%= link_to "Currencies", currencies_path, :class => current['curr'] %></li>
+      <li><%= link_to "Transaction Types", transaction_types_path, :class => current['tt'] %></li>
+      <li><%= link_to "Price List", price_lists_path, :class => current['price_list'] %></li>
     </ul>
   </li>
   <li class="submenu_handler">
     <%= link_to "Account", '#' %>
-    <div></div>
+    
     <ul class="submenu">
-      <li><%= link_to "Users", users_path, :class => current['users'] %><div></div></li>
-      <li><%= link_to "Roles", roles_path, :class => current['roles'] %><div></div></li>
-      <li><%= link_to "Company", current_company, :class => current['company'] %><div></div></li>
+      <li><%= link_to "Users", users_path, :class => current['users'] %></li>
+      <li><%= link_to "Roles", roles_path, :class => current['roles'] %></li>
+      <li><%= link_to "Company", current_company, :class => current['company'] %></li>
     </ul>
   </li>
-  <li><%= link_to "HPP", sales_prices_path, :class => current['hpp'] %><div></div></li>
+  <li><%= link_to "HPP", sales_prices_path, :class => current['hpp'] %></li>
 </ul>
