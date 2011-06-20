@@ -30,6 +30,12 @@ class Project
         end
       end
     end
+
+    def destroy
+      @delivery.destroy
+      flash[:notice] = "Delivery destroyed"
+      redirect_to project_spk_deliveries_path(@spk)
+    end
     
     private
     def set_tab

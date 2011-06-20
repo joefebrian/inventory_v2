@@ -52,6 +52,9 @@
   </p>
   <p>
     <span class="light"></span>
-    <strong style="display:inline-block;"><%= link_to "Materials", project_spk_materials_path(@spk) %><br/><%= link_to "Request", project_spk_requests_path(@spk) %></strong>
+    <strong style="display:inline-block;">
+      <%= link_to "Materials for this projects", project_spk_materials_path(@spk) %><br/>
+      <%= link_to "Requested material from project site", project_spk_requests_path(@spk) %>
+    </strong>
   </p>
 </div>

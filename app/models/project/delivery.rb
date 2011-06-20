@@ -17,5 +17,10 @@ class Project
       entries.clear
       tmp.each {|i, q| entries.build(:item_id => i, :quantity => q) }
     end
+
+    private
+    def generate_number
+      spk.company
+    end
   end
 end
