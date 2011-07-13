@@ -9,6 +9,7 @@
     <% end %>
     <%= f.input :requester %>
     <%= f.input :due_date, :as => :string, :input_html => { :class => "datepicker" } %>
+    <%= f.input :auto_allocation, :as => :boolean, :label => 'Create item allocation' %>
   <% end %>
   <% f.inputs "Materials", :class => "form_section" do %>
     <table class="report" id="mr-items">

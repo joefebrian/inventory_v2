@@ -25,9 +25,28 @@ module Purchasing
 
     def new
       @purchase_order = current_company.purchase_orders.new
-      @purchase_order.entries.build
       @suppliers = current_company.suppliers.all(:include => :profile)
       @material_requests = current_company.material_requests.not_closed
+      if params[:create_from] && params[:allocs]
+        alloc_ids = []
+        params[:allocs].each do |i|
+          alloc = MaterialAllocation.find(i)
+          alloc_ids << MaterialAllocation.all(:conditions => { :allocatable_type => alloc.allocatable_type, :allocatable_id => alloc.allocatable_id }).map(&:id)
+        end
+        allocs = MaterialAllocation.all(alloc_ids)
+        ids = {}
+        allocs.each {|a| ids[a.item_id] = 0 if ids[a.item_id].nil?; ids[a.item_id] += a.quantity}
+        ids.each do |item_id, quantity|
+          item = Item.find(item_id)
+          if item.stock < item.allocated_quantity
+            ordered_quantity = quantity - item.stock
+            @purchase_order.entries.build(:item_id => item_id, :quantity => ordered_quantity, :purchase_price => item.latest_hpp)
+          end
+        end
+        @purchase_order.notes = allocs.collect {|a| a.allocatable.number}.uniq.join(', ')
+      else
+        @purchase_order.entries.build
+      end
     end
 
     def create

@@ -17,11 +17,13 @@ class Project
 
     def create
       @delivery.attributes = params[:project_delivery]
+      @delivery.company = current_company
       if params[:get_entries]
         @delivery.build_entries
         @requests = @spk.requests
         render :action => 'new', :layout => false and return
       else
+        @delivery.generate_next_number
         if @delivery.save
           flash[:notice] = "Delivery saved"
           redirect_to project_spk_deliveries_path(@spk)
@@ -29,6 +31,9 @@ class Project
           render :action => 'new'
         end
       end
+    end
+
+    def show
     end
 
     def destroy

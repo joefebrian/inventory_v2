@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  item_id: 1
+  transaction_ref: MyString
+  quantity: 1
+
+two:
+  item_id: 1
+  transaction_ref: MyString
+  quantity: 1

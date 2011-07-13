@@ -3,54 +3,90 @@
 <% content_for :breadcrumb do %>
   <%= breadcrumb [ link_to("Projects", project_spks_path), link_to(@spk.number, project_spk_path(@spk)) ] %>
   <div id="top_right_link">
-    <% form_for @search do |f| %>
-      <%= f.text_field :item_name_like %>
-      <%= f.submit 'search' %>
-    <% end %>
   </div>
 <% end -%>
 
 <div id='subheader'>
   <h3>Materials</h3>
   <div id='subheader-menu'>
-    <%= link_to "#{image_tag('icons/silk/add.png')} Create new material", new_project_spk_material_path(@spk), :class => "main_link ", :title => "Create New Material" %>
   </div>
 </div>
 <%= hint "" %>
 
-<table class="list">
-  <thead>
-    <tr>
-      <th>Item name</th>
-      <th style="width:10%">Price</th>
-      <th style="width:10%">Quantity</th>
-      <th class="actions">Actions</th>
-    </tr>
-  </thead>
-
-  <tfoot>
-    <% semantic_form_for @spk.materials.build, :url => project_spk_materials_path(@spk) do |f| %>
+<% semantic_form_for @spk, :url => project_spk_materials_path(@spk), :html => { :method => :post } do |f| %>
+  <%= f.error_messages %>
+    
+  <table class="list">
+    <thead>
       <tr>
-        <td><%= f.text_field :item_name, :class => "item_autocomplete" %></td>
-        <td><%= f.text_field :price, :class => "numbers", :size => 10 %></td>
-        <td><%= f.text_field :quantity, :class => "numbers", :size => 10 %></td>
-        <td class="actions"><%= f.submit "Save" %></td>
+        <th>Item name</th>
+        <th style="width:10%">Price</th>
+        <th style="width:10%">Quantity</th>
+        <th class="actions">Actions</th>
       </tr>
-    <% end %>
-  </tfoot>
+    </thead>
 
-  <tbody>
-    <% @materials.each do |m| %>
+    <tfoot>
       <tr>
-        <td><%= m.item_name %></td>
-        <td class="numbers"><%= number_to_currency m.price, :unit => "", :precision => 0, :delimiter => '.' %></td>
-        <td class="numbers"><%= m.quantity %></td>
-        <td class="actions">
-          <%= link_to image_tag("icons/silk/application_form_edit.png"), edit_project_spk_material_path(@spk, m), :title => "edit this material" %>
-          <%= link_to image_tag("icons/silk/cross.png"), project_spk_material_path(@spk, m), :method => :delete, :confirn => "Are you sure?", :title => "delete this material" %>
+        <td colspan="4">
+          <%= f.submit "Save project materials" %>
         </td>
       </tr>
-    <% end %>
-  </tbody>
+    </tfoot>
 
-</table>
+    <tbody>
+      <tr>
+        <td colspan="4"><h6>Main Material</h6></td>
+      </tr>
+      <% f.semantic_fields_for :main_materials do |mm| %>
+        <tr id="main_material_form">
+          <td>
+            <%= mm.text_field :item_name, :class => "item_autocomplete" %>
+            <%= mm.hidden_field :item_id %>
+          </td>
+          <td><%= mm.text_field :price, :class => "numbers", :size => 10 %></td>
+          <td><%= mm.text_field :quantity, :class => "numbers", :size => 10 %></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <tr><td colspan="4"><%= link_to "+ add main material", "#", :id => "add_main_material" %></td></tr>
+      <tr>
+        <td colspan="4"><h6>Secondary Material</h6></td>
+      </tr>
+
+      <% f.semantic_fields_for :secondary_materials do |cm| %>
+        <tr id="secondary_material_form">
+          <td><%= cm.text_field :custom_item_name %></td>
+          <td colspan="2"><%= cm.text_field :price, :class => "numbers", :size => 10 %></td>
+          <td></td>
+        </tr>
+      <% end %>
+      <tr><td colspan="4"><%= link_to "+ add secondary material", "#", :id => "add_secondary_material" %></td></tr>
+    </tbody>
+
+  <% end %>
+  </table>
+  <% content_for :javascripts do %>
+    <% javascript_tag do %>
+      var new_id = $('tbody tr').length;
+      var main_template = $('#main_material_form').html();
+      var secondary_template = $('#secondary_material_form').html();
+      var regexp1 = new RegExp("\\[(\\d+)\\]", "g");
+      var regexp2 = new RegExp("_(\\d+)_", "g");
+      $('#add_main_material').live('click', function() {
+        var elem = main_template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $(this).parents('tr').before(elem);
+        return false;
+      });
+      $('#add_secondary_material').live('click', function() {
+        var elem = secondary_template.replace(regexp1, "[" + new_id + "]");
+        elem = elem.replace(regexp2, "_" + new_id + "_");
+        elem = "<tr>" + elem + "</tr>";
+        $(this).parents('tr').before(elem);
+        return false;
+      });
+    <% end %>
+  <% end %>
+

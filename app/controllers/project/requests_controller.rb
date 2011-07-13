@@ -14,6 +14,9 @@ class Project
     end
 
     def new
+      if request.xhr?
+        @items = @spk.materials.name_like(params[:term])
+      end
       @request.entries.build
     end
 
@@ -45,6 +48,10 @@ class Project
       @request.destroy
       flash[:notice] = "Material request deleted"
       redirect_to project_spk_requests_path(@spk)
+    end
+
+    def allocations
+      @allocations = @request.material_allocations
     end
     private
     def set_tab

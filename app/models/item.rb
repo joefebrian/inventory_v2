@@ -183,4 +183,15 @@ class Item < ActiveRecord::Base
       company.assemblies.item_id_is(id)
     end
   end
+
+  def stock_after_allocation
+     stock 
+  end
+
+  def allocated_quantity
+    MaterialAllocation.calculate(:sum, :quantity, :conditions => { :company_id => company.id, :item_id => id })
+  end
+
+  def total_ordered_quantity
+  end
 end

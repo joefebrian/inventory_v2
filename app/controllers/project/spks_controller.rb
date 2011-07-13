@@ -61,7 +61,7 @@ class Project::SpksController < ApplicationController
     @spk = Project::Spk.find(params[:id])
 
     respond_to do |format|
-      if @spk.update_attributes(params[:spk])
+      if @spk.update_attributes(params[:project_spk])
         format.html { redirect_to(@spk, :notice => 'Project::Spk was successfully updated.') }
         format.xml  { head :ok }
       else

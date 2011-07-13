@@ -1,0 +1,37 @@
+<% title "Project Material Allocations" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ link_to("Projects", project_spks_path) ] %>
+  <div id="top_right_link">
+  </div>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Project Material Allocations</h3>
+  <div id='subheader-menu'>
+  </div>
+</div>
+<%= hint "" %>
+
+<ul id="trans-detail">
+  <li><span>Project:</span> <%= link_to @spk.number, project_spk_path(@spk) %></li>
+  <li><span>Material request:</span> <%= link_to @request.number, project_spk_request_path(@spk, @request) %></li>
+</ul>
+<table class="list">
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Actions</th>
+  </tr>
+
+<% @allocations.each do |material_allocation| %>
+  <tr>
+    <td><%=h link_to material_allocation.item.name, material_allocation.item %></td>
+    <td class="numbers"><%=h material_allocation.quantity %></td>
+    <td class="actions">
+      <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_material_allocation_path(material_allocation), :title => 'edit' %>
+      <%= link_to image_tag('icons/silk/cross.png'), material_allocation, :confirm => 'Are you sure?', :method => :delete, :title => 'delete' %>
+    </td>
+  </tr>
+<% end %>
+</table>

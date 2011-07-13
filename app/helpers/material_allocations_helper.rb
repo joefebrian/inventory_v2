@@ -1,0 +1,2 @@
+module MaterialAllocationsHelper
+end

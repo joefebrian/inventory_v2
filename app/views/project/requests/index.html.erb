@@ -24,6 +24,7 @@
       <th>Number</th>
       <th>Requester</th>
       <th>Due Date</th>
+      <th>Allocation</th>
       <th class="actions">Action</th>
     </tr>
   </thead>
@@ -34,6 +35,7 @@
         <td><%=link_to h(req.number), project_spk_request_path(@spk, req) %></td>
         <td><%=h req.requester %></td>
         <td><%=h req.due_date.to_s(:long) %></td>
+        <td><%= link_to "Material Allocation", allocations_project_spk_request_path(@spk, req) %>
         <td class="actions">
           <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_project_spk_request_path(@spk, req), :title => 'edit this material request' %>
           <%= link_to image_tag('icons/silk/cross.png'), project_spk_request_path(@spk, req), :confirm => 'Are you sure?', :method => :delete, :title => 'delete this material request' %>

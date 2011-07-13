@@ -1,0 +1,24 @@
+<h1>Editing material_allocation</h1>
+
+<% form_for(@material_allocation) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :item_id %><br />
+    <%= f.text_field :item_id %>
+  </p>
+  <p>
+    <%= f.label :transaction_ref %><br />
+    <%= f.text_field :transaction_ref %>
+  </p>
+  <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @material_allocation %> |
+<%= link_to 'Back', material_allocations_path %>

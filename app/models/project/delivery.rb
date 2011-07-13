@@ -1,6 +1,10 @@
 class Project
   class Delivery < ActiveRecord::Base
+    include RecordNumberFormat
+
+    record_number_format "SPK-DO.#.#"
     belongs_to :spk, :class_name => "Project::Spk"
+    belongs_to :company
     has_and_belongs_to_many :spk_requests, :class_name => "Project::MaterialRequest"
     has_many :entries, :class_name => "Project::Material::DeliveryEntry"
 

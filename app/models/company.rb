@@ -7,6 +7,7 @@ class Company < ActiveRecord::Base
   validates_uniqueness_of :subdomain
   validates_format_of :subdomain, :with => /^[a-zA-Z0-9\-]*?$/, :message => 'only accepts letters, numbers, and hypens'
 
+  has_many :material_allocations, :dependent => :destroy
   has_many :projects, :dependent => :destroy
   has_many :project_work_orders, :dependent => :destroy
   has_many :direct_sales, :dependent => :destroy
@@ -52,6 +53,7 @@ class Company < ActiveRecord::Base
   has_many :work_orders, :dependent => :destroy
   has_many :services, :dependent => :destroy
   has_many :spks, :class_name => 'Project::Spk'
+  has_many :project_deliveries, :class_name => 'Project::Delivery'
 
   after_create :create_defaults
 

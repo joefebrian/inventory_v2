@@ -1,8 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :material_allocations
+
   map.namespace :project do |prj|
     prj.resources :spks do |spk|
       spk.resources :materials
-      spk.resources :requests, :class_name => "Project::MaterialRequest"
+      spk.resources :requests, :class_name => "Project::MaterialRequest", :member => { 'allocations' => :get }
       spk.resources :deliveries, :class_name => "DeliveryOrder"
     end
   end

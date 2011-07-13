@@ -1,0 +1,59 @@
+<% title "Material Allocations" %>
+
+<% content_for :breadcrumb do %>
+  <%= breadcrumb [ "Material Allocations" ] %>
+  <div id="top_right_link">
+  </div>
+<% end -%>
+
+<div id='subheader'>
+  <h3>Material Allocations</h3>
+  <div id='subheader-menu'>
+  </div>
+</div>
+<%= hint "" %>
+
+<% form_tag new_purchasing_purchase_order_path, :method => :get do %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th><%= check_box_tag 'check_all' %></th>
+        <th>No.</th>
+        <th>Transaction reference</th>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <td colspan="7">
+          <%= hidden_field_tag 'create_from', 'allocation' %>
+          <button type="submit">Create PO from selected allocation</button>
+        </td>
+      </tr>
+    </tfoot>
+
+    <tbody>
+      <% @material_allocations.group_by(&:transaction_reference).each_with_index do |ref, i| %>
+        <% header = true %>
+        <% ref[1].each do |alloc| %>
+          <tr>
+            <% if header %>
+              <td rowspan="<%= ref[1].size %>"><%= check_box_tag 'allocs[]', alloc.id %></td>
+              <td rowspan="<%= ref[1].size %>" class="index"><%= i+1 %></td>
+              <td rowspan="<%= ref[1].size %>"><%=h ref[0] %></td>
+              <% header = false %>
+            <% end %>
+            <td class=""><%=h alloc.item.name %></td>
+            <td class="numbers"><%=h alloc.quantity %></td>
+            <td class="actions">
+              <%= link_to image_tag('icons/silk/application_form_edit.png'), edit_material_allocation_path(alloc), :title => 'edit' %>
+              <%= link_to image_tag('icons/silk/cross.png'), alloc, :confirm => 'Are you sure?', :method => :delete, :title => 'delete' %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

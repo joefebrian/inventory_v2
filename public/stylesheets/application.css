@@ -1002,3 +1002,9 @@ label.required:after {
   content: " *";
   color: #c80000;
   font-weight: bold; }
+
+#trans-detail li {
+  margin-bottom: 1em; }
+  #trans-detail li > span {
+    width: 15em;
+    display: inline-block; }
